@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+.DS_Store?
+*Thumbs.db
+ehthumbs.db
+
+# Large presentation files and deliverables (to avoid exceeding GitHub's 100MB file limit)
+Avaliação de Riscos e Investimentos com ROI Slides Alunos.pptx
+*.zip
+*.pdf
+*.docx
+
+# Environment variables
+.env

@@ -1,0 +1,1508 @@
+const fs = require('fs');
+const path = require('path');
+
+const DB_FILE = path.join(__dirname, 'db.json');
+
+// Pre-populated students list distributed into 5 groups
+const students = [
+  // Group 1
+  { name: "Aline Brenner", email: "aline.brenner@hmv.org.br", group: 1 },
+  { name: "Aline Medeiros dos Santos", email: "aline.medeiros@hmv.org.br", group: 1 },
+  { name: "Ana Cristina Oliveira da Rocha", email: "anarocha.med@gmail.com", group: 1 },
+  { name: "Ana Paula Boscato", email: "apboscato@hotmail.com", group: 1 },
+  { name: "Ana Paula Machado", email: "apsm.fisio@gmail.com", group: 1 },
+  { name: "Analida Patrícia Pinto Buelvas", email: "analida41@hotmail.com", group: 1 },
+  { name: "André Luiz Marques Annes", email: "andre.annes@hmv.org.br", group: 1 },
+  { name: "Andrea Bonato de Araujo", email: "andrea.araujo@hmv.org.br", group: 1 },
+  { name: "Aluno Visitante 1", email: "visitante1@hmv.org.br", group: 1 },
+  
+  // Group 2
+  { name: "Bibiana Dutra Antunes da Cunha", email: "bibiana.cunha@hmv.org.br", group: 2 },
+  { name: "David da Silva Pache", email: "david.pache@hmv.org.br", group: 2 },
+  { name: "David Pereira Garcia Junior", email: "david.junior@hmv.org.br", group: 2 },
+  { name: "Débora Marina Vian", email: "vian.debora@gmail.com", group: 2 },
+  { name: "Enrique Pokulat", email: "drenriquepokulat@gmail.com", group: 2 },
+  { name: "Eric Homero Albuquerque Paschoal", email: "ericpaschoal@yahoo.com.br", group: 2 },
+  { name: "Ernesto Bettio Soares", email: "ernestobettio@gmail.com", group: 2 },
+  { name: "Francine Hehn de Oliveira", email: "francine.oliveira@hmv.org.br", group: 2 },
+  { name: "Aluno Visitante 2", email: "visitante2@hmv.org.br", group: 2 },
+  
+  // Group 3
+  { name: "Josiane Berbigier Weber", email: "josiane.weber@hmv.org.br", group: 3 },
+  { name: "Joao Batista Seixas Paixão", email: "joao.paixao@hmv.org.br", group: 3 },
+  { name: "Katherine Saibel", email: "katherine.saibel@hmv.org.br", group: 3 },
+  { name: "Lindayane Debom Motta", email: "lindayane.motta@hmv.org.br", group: 3 },
+  { name: "Luciane Donin", email: "donin.luciane@gmail.com", group: 3 },
+  { name: "Luise Pereira Senna", email: "lpsenna@yahoo.com.br", group: 3 },
+  { name: "Luiza Abdala", email: "luiza.abdala@hmv.org.br", group: 3 },
+  { name: "Malgarino Roncato", email: "roncatocoluna@gmail.com", group: 3 },
+  { name: "Aluno Visitante 3", email: "visitante3@hmv.org.br", group: 3 },
+  
+  // Group 4
+  { name: "Marcelo Genro Schutz", email: "marcelo.schutz@hmv.org.br", group: 4 },
+  { name: "Otávio Cunha", email: "dr.otaviocunha@gmail.com", group: 4 },
+  { name: "Patricia Nocchi", email: "patricia.nocchi@hmv.org.br", group: 4 },
+  { name: "Rafael Andrade de Azeredo Bastos", email: "rafaelazeredobastos@gmail.com", group: 4 },
+  { name: "Rafael Martins Lopes", email: "rafael.lopes@hmv.org.br", group: 4 },
+  { name: "Reginaldo Oliveira Rosa", email: "reginaldo@unimedvaledasantas.coop.br", group: 4 },
+  { name: "Rodrigo Argenta", email: "argenta1976@gmail.com", group: 4 },
+  { name: "Aluno Visitante 4", email: "visitante4@hmv.org.br", group: 4 },
+  
+  // Group 5
+  { name: "Rodrigo Aristides da Silva Correa", email: "rodrigo.correa@hmv.org.br", group: 5 },
+  { name: "Rodrigo da Silva Martins", email: "rodrigo.martins@hmv.org.br", group: 5 },
+  { name: "Rogério Heggendorn Sayão Filho", email: "rhsayao@hotmail.com", group: 5 },
+  { name: "Sandro Roberto Batista Carmo", email: "sandro.carmo@hmv.org.br", group: 5 },
+  { name: "Tiago Abreu", email: "Tiago.abreu@hmv.org.br", group: 5 },
+  { name: "Vanderleia da Rocha Scharb Cereser", email: "vanderleia.cereser@hmv.org.br", group: 5 },
+  { name: "Yael Garcia Pinho", email: "yael.pinho@hmv.org.br", group: 5 },
+  { name: "Aluno Visitante 5", email: "visitante5@hmv.org.br", group: 5 }
+];
+
+const scenarios = {
+  1: {
+    title: "Grupo 1: IA de Triagem de Urgência",
+    description: "Implementação de sistema de IA para triagem automática de pacientes em pronto-socorro (120k atendimentos/ano).",
+    investment: 1500000,
+    annualBenefit: 300000,
+    annualCost: 50000,
+    adoptionRate: 80,
+    riskCost: 350000,
+    caseStudy: "<strong>Contexto Hospitalar:</strong> O Hospital de Pronto-Socorro Santa Teresa atende 120.000 pacientes anuais. Atualmente, a classificação de risco Manchester é realizada de forma manual por enfermeiros triadores, levando em média 24 minutos para ser concluída (em contraste com a meta ideal de menos de 10 minutos). Esse atraso crônico gera superlotação constante na recepção, evasão de pacientes com quadros potencialmente graves e recorrentes ameaças de processos judiciais.<br><br><strong>A Solução Proposta:</strong> Implementar uma ferramenta de IA integrada ao fluxo de recepção. O algoritmo processará em tempo real a queixa principal (gravada por áudio ou digitada) e as primeiras medições de sinais vitais do paciente, sugerindo de imediato a cor de prioridade Manchester para validação e aprovação do enfermeiro triador.<br><br><strong>Estudo de Caso para Análise:</strong> Para justificar a implantação, a diretoria exige uma análise aprofundada de custos e viabilidade. O investimento inicial projetado é de R$ 1.500.000, com uma estimativa de capturar cerca de R$ 300.000 em retornos anuais gerados por eficiência operacional e redução de evasões. No entanto, o comitê de governança levantou preocupações cruciais. A equipe médica alerta para o perigo clínico crítico de falsos negativos (como triar erroneamente uma dor no peito por infarto agudo como prioridade verde de baixa gravidade). Estudos da literatura indicam que sistemas semelhantes têm uma taxa média de erro de classificação clínica de 0,5%, o que, no volume do hospital, expõe a instituição a processos civis cujos custos de risco foram estimados em R$ 350.000 de impacto. Além disso, os enfermeiros seniores expressam preocupação com o fluxo operacional, temendo que o excesso de alertas irrelevantes na tela provoque 'fadiga de alarmes' e burocratize a triagem com cliques redundantes. Por fim, há incertezas sobre o comportamento dos pacientes, que podem se sentir desconfortáveis ou inseguros ao perceber que o acolhimento inicial e a definição de prioridade estão sendo sugeridos por um algoritmo."
+  },
+  2: {
+    title: "Grupo 2: Automação de Farmácia Robótica",
+    description: "Automação com dispensadores robóticos para farmácia central hospitalar (10k dispensações/mês, redução de 6 FTE).",
+    investment: 1800000,
+    annualBenefit: 320000,
+    annualCost: 60000,
+    adoptionRate: 90,
+    riskCost: 400000,
+    caseStudy: "<strong>Contexto Hospitalar:</strong> A farmácia central de um hospital de alta complexidade realiza 10.000 dispensações de doses de medicamentos por mês. O índice de erros de dispensação (dose errada, medicamento errado) está em 1,8%, o que resulta em prolongamento de internação e custos extras.<br><br><strong>A Solução Proposta:</strong> Instalação de dispensadores mecânicos robóticos inteligentes integrados diretamente ao sistema de prescrição médica do prontuário do paciente. Os robôs preparam as doses unitarizadas de forma automatizada por paciente.<br><br><strong>Estudo de Caso para Análise:</strong> A proposta exige um aporte inicial significativo de R$ 1.800.000. O benefício financeiro anual estimado de R$ 320.000 decorre da realocação de 6 equivalentes de tempo integral (FTEs) da equipe assistencial. Contudo, a equipe de tecnologia aponta uma barreira técnica importante: a integração de dados com o sistema de prescrição legado é altamente complexa, e qualquer falha na sincronização das informações pode propagar erros mecânicos de dispensação em larga escala. No âmbito operacional, o maior medo é uma pane total do equipamento (falha mecânica ou elétrica no robô), o que paralisaria completamente a distribuição de medicamentos no hospital e obrigaria a contratação imediata de uma equipe manual de contingência emergencial, cujo impacto financeiro é estimado em R$ 400.000. Adicionalmente, há uma clara barreira cultural com a resistência técnica e operacional demonstrada pelos farmacêuticos seniores, que se sentem ameaçados ou desconfortáveis com o novo fluxo de trabalho robótico."
+  },
+  3: {
+    title: "Grupo 3: Telemetria Cardíaca Wireless",
+    description: "Monitoramento de telemetria sem fio contínuo para leitos de retaguarda (80 leitos, 3k pacientes/ano).",
+    investment: 2200000,
+    annualBenefit: 1500000,
+    annualCost: 180000,
+    adoptionRate: 85,
+    riskCost: 800000,
+    caseStudy: "<strong>Contexto Hospitalar:</strong> O Hospital do Coração possui 80 leitos de enfermaria geral para pacientes pós-infarto estáveis (3.000 pacientes/ano). Hoje, a checagem manual de sinais vitais e ECG é feita de 4 em 4 horas pela equipe de enfermagem, o que atrasa a detecção de arritmias súbitas graves.<br><br><strong>A Solução Proposta:</strong> Adquirir patches adesivos wireless vestíveis que monitoram o ECG continuamente, com IA central na nuvem que dispara alertas de arritmias ou desaturações diretamente no smartphone da enfermagem do andar.<br><br><strong>Estudo de Caso para Análise:</strong> O projeto exige um investimento inicial elevado de R$ 2.200.000, acompanhado por um custo recorrente anual de R$ 180.000 para reposição dos adesivos descartáveis. Em contrapartida, projeta-se um benefício anual de R$ 1.500.000, sustentado pela redução drástica na taxa de paradas cardiorrespiratórias na enfermaria e na diminuição do tempo médio de internação. Entretanto, o departamento de infraestrutura de TI adverte sobre oscilações crônicas na cobertura de sinal Wi-Fi hospitalar, o que pode interromper a transmissão contínua de telemetria em áreas de sombra. Operacionalmente, a movimentação rotineira dos pacientes nos leitos tende a gerar falsos positivos de alteração cardíaca, o que pode sobrecarregar a enfermagem com notificações desnecessárias (fadiga de alarmes) e induzir o corpo assistencial a desativar os alertas ou negligenciar o uso correto dos patches cardíacos. Historicamente, casos de falha de leitura ou atraso na resposta de parada cardíaca expõem a instituição a custos de risco por processos judiciais estimados em R$ 800.000."
+  },
+  4: {
+    title: "Grupo 4: IA em Radiologia",
+    description: "Algoritmo de auxílio diagnóstico como segundo leitor para exames de imagem de urgência (80k exames/ano, miss rate baseline 2-3%).",
+    investment: 800000,
+    annualBenefit: 80000000,
+    annualCost: 150000,
+    adoptionRate: 75,
+    riskCost: 50000000,
+    caseStudy: "<strong>Contexto Hospitalar:</strong> Um centro de imagem atende 80.000 exames de urgência (raio-X de tórax e TC de crânio) por ano. O tempo médio para liberar o laudo é de 4 horas devido ao grande volume de exames na fila. O índice de achados críticos não identificados na primeira leitura pelo plantonista é de 2,5% (miss rate).<br><br><strong>A Solução Proposta:</strong> Licenciamento de IA de apoio diagnóstico (segundo leitor). O algoritmo analisa o exame imediatamente após sua realização e gera um alerta visual no painel do radiologista se detectar achados críticos (hemorragias, pneumotórax).<br><br><strong>Estudo de Caso para Análise:</strong> O investimento inicial do projeto é de R$ 800.000, com projeção de capturar um retorno macro de R$ 80.000.000 em valor presente líquido decorrente do aumento de fluxo operacional e novos contratos comerciais cirúrgicos. Do ponto de vista técnico, a acurácia diagnóstica do sistema pode cair sensivelmente em subgrupos específicos de idade (como pediatria) ou devido a artefatos causados por máquinas de imagem mais antigas. Operacionalmente, um volume excessivo de falsos alertas gerados pela IA pode consumir tempo produtivo dos médicos na revisão de falso-positivos, atrasando a fila principal. A maior preocupação da direção clínica é a dependência excessiva (over-reliance), onde o radiologista pode confiar cegamente em um diagnóstico limpo sugerido pela IA e deixar de analisar detalhadamente a imagem de forma manual. Processos civis decorrentes de diagnósticos errados motivados por essa confiança cega de negligência médica são estimados com um custo de risco na ordem de R$ 50.000.000."
+  },
+  5: {
+    title: "Grupo 5: Prontuário Eletrônico Integrado",
+    description: "Substituição e integração de múltiplos prontuários eletrônicos legados em hospital de alta complexidade (500 leitos).",
+    investment: 5000000,
+    annualBenefit: 1050000,
+    annualCost: 450000,
+    adoptionRate: 85,
+    caseStudy: "<strong>Contexto Hospitalar:</strong> Um hospital filantrópico de 500 leitos opera hoje com 4 sistemas de prontuários eletrônicos legados separados (um na UTI, um na internação, um no ambulatório e outro no faturamento), o que gera atrito de informação e 12% de glosas no faturamento por falta de registro integrado.<br><br><strong>A Solução Proposta:</strong> Migração e substituição por uma plataforma única de Prontuário Eletrônico (EHR) moderno integrado com um copiloto de IA para sumarização clínica e preenchimento de faturamento.<br><br><strong>Estudo de Caso para Análise:</strong> A unificação dos sistemas demandará um investimento expressivo de R$ 5.000.000 e um custo operacional anual de suporte de R$ 450.000, prometendo um retorno anual de R$ 1.050.000 diretamente associado à drástica redução das glosas do hospital. No entanto, o plano de transição aponta desafios complexos. Do ponto de vista técnico, existe o risco iminente de corrupção ou perda de dados históricos médicos legados durante a migração para a nova base. Durante a virada de chave do sistema (o dia do go-live), falhas ou lentidões sistêmicas críticas podem paralisar o atendimento do hospital, gerando um custo operacional de contingência estimado em R$ 2.000.000. Adicionalmente, há o desafio cultural e de confiança dos profissionais de saúde, dada a forte resistência histórica do corpo clínico em utilizar novas plataformas de registro eletrônico, queixando-se do tempo adicional gasto para digitação e adaptação ao novo fluxo."
+  }
+};
+
+
+const syllabusBibliography = {
+  basica: [
+    { citation: "ARBACHE, F. Inovação e Inteligência Artificial Aplicada à Gestão de Riscos. KnowRISK Press, 2024." },
+    { citation: "DAMODARAN, A. Investment Valuation: Tools and Techniques for Determining the Value of Any Asset. 4th ed. Hoboken: Wiley, 2024." },
+    { citation: "KAPLAN, R. S.; NORTON, D. P. The Balanced Scorecard: Translating Strategy into Action. Boston: Harvard Business School Press, 1996." },
+    { citation: "HUBBARD, D. W. How to Measure Anything: Finding the Value of Intangibles in Business. 4th ed. Hoboken: Wiley, 2024." },
+    { citation: "CLEVERLEY, W. O.; CLEVERLEY, J. O.; SONG, P. H. Essentials of Health Care Finance. 9th ed. Burlington: Jones & Bartlett Learning, 2023." },
+    { citation: "TOPOL, E. Deep Medicine: How Artificial Intelligence Can Make Healthcare Human Again. New York: Basic Books, 2019." },
+    { citation: "TALEB, N. N. Skin in the Game: Hidden Asymmetries in Daily Life. New York: Random House, 2018." },
+    { citation: "RASMUSSEN, N.; BANSAL, M.; CHEN, Y. Business Dashboards: A Visual Catalog for Design and Deployment. Hoboken: Wiley, 2023." }
+  ],
+  complementar: [
+    { citation: "HOPKIN, P. Fundamentals of Risk Management: Understanding, Evaluating and Implementing Effective Risk Management. 6th ed. London: Kogan Page, 2024." },
+    { citation: "FRASER, J. R. S.; SIMKINS, B. J.; NARVAEZ, K. Implementing Enterprise Risk Management: Case Studies and Best Practices. 2nd ed. Hoboken: Wiley, 2024." },
+    { citation: "HUBBARD, D. W. The Failure of Risk Management: Why It's Broken and How to Fix It. 2nd ed. Hoboken: Wiley, 2020." },
+    { citation: "CROUHY, M.; GALAI, D.; MARK, R. The Essentials of Risk Management. 3rd ed. New York: McGraw-Hill, 2024." },
+    { citation: "TALEB, N. N. Antifrágil: Coisas que se Beneficiam com o Caos. Rio de Janeiro: Objetiva, 2013." },
+    { citation: "GAPENSKI, L. C.; REITER, K. L. Healthcare Finance: An Introduction to Accounting and Financial Management. 7th ed. Chicago: Health Administration Press, 2022." },
+    { citation: "NOWICKI, M. Introduction to the Financial Management of Healthcare Organizations. 8th ed. Chicago: Health Administration Press, 2022." },
+    { citation: "ZELMAN, W. N.; McCUE, M. J.; GLICK, N. D. Financial Management of Health Care Organizations. 5th ed. Hoboken: Wiley, 2020." },
+    { citation: "PORTER, M. E.; LEE, T. H. The Strategy That Will Fix Health Care. Harvard Business Review, v. 91, n. 10, p. 50-70, 2013." },
+    { citation: "DAVENPORT, T. H.; KALAKOTA, R. The Potential for Artificial Intelligence in Healthcare. Future Healthcare Journal, v. 6, n. 2, p. 94-98, 2019." },
+    { citation: "OBERMEYER, Z.; EMANUEL, E. J. Predicting the Future — Big Data, Machine Learning, and Clinical Medicine. New England Journal of Medicine, v. 375, n. 13, p. 1216-1219, 2016." },
+    { citation: "JIANG, F. et al. Artificial Intelligence in Healthcare: Past, Present and Future. Stroke and Vascular Neurology, v. 2, n. 4, p. 230-243, 2017." },
+    { citation: "REDDY, S. et al. A Governance Model for the Application of AI in Health Care. Journal of the American Medical Informatics Association, v. 27, n. 3, p. 491-497, 2020." },
+    { citation: "CHAR, D. S.; SHAH, N. H.; MAGNUS, D. Implementing Machine Learning in Health Care. New England Journal of Medicine, v. 378, n. 11, p. 981-983, 2018." },
+    { citation: "BANKS, J. et al. Discrete-Event System Simulation. 5th ed. Upper Saddle River: Pearson, 2020." },
+    { citation: "KELTON, W. D.; SADOWSKI, R. P.; ZUPICK, N. B. Simulation with Arena. 7th ed. New York: McGraw-Hill, 2024." },
+    { citation: "GÜNAL, M. M.; PIDD, M. Discrete Event Simulation for Performance Modelling in Health Care: A Review of the Literature. Journal of Simulation, v. 4, n. 1, p. 42-51, 2010." },
+    { citation: "BRAILSFORD, S. C.; VISSERS, J. OR in Healthcare: A European Perspective. European Journal of Operational Research, v. 212, n. 2, p. 223-234, 2011." },
+    { citation: "KAHNEMAN, D. Rápido e Devagar: Duas Formas de Pensar. Rio de Janeiro: Objetiva, 2012." },
+    { citation: "KAHNEMAN, D.; SIBONY, O.; SUNSTEIN, C. R. Noise: A Flaw in Human Judgment. New York: Little, Brown Spark, 2021." },
+    { citation: "THALER, R. H.; SUNSTEIN, C. R. Nudge: Improving Decisions About Health, Wealth, and Happiness. Rev. ed. London: Penguin Books, 2021." },
+    { citation: "SNOWDEN, D. J.; BOONE, M. E. A Leader's Framework for Decision Making. Harvard Business Review, v. 85, n. 11, p. 68-76, 2007." },
+    { citation: "CHRISTENSEN, C. M.; GROSSMAN, J. H.; HWANG, J. The Innovator's Prescription: A Disruptive Solution for Health Care. New York: McGraw-Hill, 2009." },
+    { citation: "INSTITUTE OF MEDICINE. To Err Is Human: Building a Safer Health System. Washington: National Academies Press, 2000." },
+    { citation: "JAMES, J. T. A New, Evidence-Based Estimate of Patient Harms Associated with Hospital Care. Journal of Patient Safety, v. 9, n. 3, p. 122-128, 2013." },
+    { citation: "DONABEDIAN, A. The Definition of Quality and Approaches to Its Assessment. Ann Arbor: Health Administration Press, 1980." },
+    { citation: "ISO 31000:2018. Risk Management — Guidelines. Geneva: ISO, 2018." },
+    { citation: "ISO/IEC 27005:2022. Information Security, Cybersecurity and Privacy Protection — Guidance on Managing Information Security Risks. Geneva: ISO, 2022." },
+    { citation: "COSO. Enterprise Risk Management — Integrating with Strategy and Performance. Committee of Sponsoring Organizations of the Treadway Commission, 2017." },
+    { citation: "WORLD HEALTH ORGANIZATION. Ethics and Governance of Artificial Intelligence for Health. Geneva: WHO, 2021." },
+    { citation: "FDA. Artificial Intelligence and Machine Learning in Software as a Medical Device. U.S. Food and Drug Administration, 2024." }
+  ]
+};
+
+
+const classesContent = [
+  {
+    "id": "aula1",
+    "title": "Aula 1: Fundamentos, Simulação e o Efeito Dominó",
+    "date": "07 de Julho de 2025",
+    "description": "Compreender a invisibilidade do risco em projetos de inovação tecnológica na saúde, identificar a diferença entre risco aparente e oculto, e mapear os impactos em cadeia usando a dinâmica do Efeito Dominó.",
+    "checkin": {
+      "type": "wordcloud",
+      "question": "Em uma palavra: Pense em uma tecnologia que prometeu muito e entregou problema."
+    },
+    "conceptCheck": [
+      {
+        "question": "Quais são as 4 categorias de risco do framework de categorização apresentado?",
+        "options": [
+          "Técnico, Operacional, Financeiro, Regulatório",
+          "Clínico, Hospitalar, Financeiro, Jurídico",
+          "Tecnológico, Administrativo, Reputacional, Econômico"
+        ],
+        "correctAnswerIndex": 0
+      },
+      {
+        "question": "O que define o 'risco oculto' em inovação em saúde?",
+        "options": [
+          "Riscos de segurança da informação ou vazamento de dados",
+          "Riscos regulatórios, técnicos e operacionais que a proposta comercial não menciona",
+          "Glosas que o hospital não consegue identificar"
+        ],
+        "correctAnswerIndex": 1
+      },
+      {
+        "question": "No caso apresentado da IA de Laudos de Ressonância, por que o ROI esperado foi anulado?",
+        "options": [
+          "Porque a acurácia diagnóstica da IA foi inferior a 50%",
+          "Devido a impactos secundários não mapeados, como saturação da recepção e estacionamento e pressão sobre a equipe assistencial",
+          "Porque o preço de licença da IA dobrou no segundo ano"
+        ],
+        "correctAnswerIndex": 1
+      }
+    ],
+    "reflection": {
+      "type": "open",
+      "question": "Primeira pergunta a fazer: Como a mudança de papel para 'Guardião da Viabilidade' altera sua perspectiva sobre novos softwares médicos?"
+    },
+    "references": [
+      {
+        "citation": "IBM Watson · IEEE Spectrum (2019)",
+        "link": "https://spectrum.ieee.org/how-ibm-watson-overpromised-and-underdelivered-on-ai-health-care"
+      },
+      {
+        "citation": "IBM Watson · STAT, recomendações inseguras (2018)",
+        "link": "https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-incorrect-treatments/"
+      },
+      {
+        "citation": "IBM Watson · MD Anderson, JNCI (2017)",
+        "link": "https://academic.oup.com/jnci/article/109/5/djx113/3847623"
+      },
+      {
+        "citation": "IA de laudos · InRad/HC-FMUSP, Jornal da USP (2024)",
+        "link": "https://jornal.usp.br/radio-usp/uso-da-ia-no-instituto-de-radiologia-da-usp-permitira-laudos-mais-ageis/"
+      },
+      {
+        "citation": "IA em ressonância · HCI Ijuí (2026)",
+        "link": "https://hci.org.br/pioneiro-no-interior-do-rs-hci-implanta-inteligencia-artificial-na-ressonancia-magnetica-e-agiliza-exames-em-ate-50/"
+      }
+    ],
+    "slides": [
+      {
+        "id": "slide_1_1",
+        "title": "Capa da aula",
+        "image": "/slides/aula1/slide_1.png",
+        "block": "Introdução",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Boas-vindas a todos ao MBA em IA na Saúde. Hoje iniciamos a nossa disciplina de Avaliação de Riscos e Investimentos com ROI. Nosso foco é a governança real e a matemática financeira, deslocando o olhar do marketing para a matemática financeira.",
+        "content": "<h3>Fundamentos de Risco em Inovação</h3><p>MBA em Inteligência Artificial aplicada à Saúde</p><p>Faculdade de Ciências da Saúde Moinhos de Vento</p><p>Avaliação de Riscos e Investimentos com ROI · Aulas 1, 2 e 3</p><p>FUNDAMENTOS · MITIGAÇÃO · GOVERNANÇA</p>"
+      },
+      {
+        "id": "slide_1_2",
+        "title": "Aula 1: Fundamentos, Simulação e o Efeito Dominó",
+        "image": "/slides/aula1/slide_2.png",
+        "block": "Introdução",
+        "estimatedTime": "3 min",
+        "notes": "<strong>Fala sugerida:</strong> Iniciamos a nossa primeira aula. O objetivo central é discutir o equilíbrio entre a velocidade de adoção tecnológica e o teste de estresse operacional, que é o que previne o maior risco clínico.",
+        "content": "<h3>Aula 1: Fundamentos, Simulação e o Efeito Dominó</h3><p>Módulos 1 e 2 · 3 horas</p><p>\"Errar no virtual para acertar no real.\"</p><p>Objetivo central: mostrar que velocidade tecnológica sem teste de estresse operacional pode ser o maior risco clínico de uma instituição de excelência.</p>"
+      },
+      {
+        "id": "slide_1_3",
+        "title": "Icebreaker · O tiro no pé tecnológico",
+        "image": "/slides/aula1/slide_3.png",
+        "block": "Abertura",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "wordcloud",
+        "question": "Em uma palavra: pense em uma tecnologia que prometeu muito e entregou problema.",
+        "notes": "<strong>Fala sugerida:</strong> Vamos iniciar com nosso Icebreaker. Respondam no portal: em uma palavra, pense em uma tecnologia que prometeu muito e entregou problema. Comentaremos as palavras mais frequentes. O risco quase nunca está na tecnologia em si, mas em como ela encontra o sistema.",
+        "content": "<h3>Icebreaker — O Tiro no Pé Tecnológico</h3><p>Pergunta provocativa para aquecer a turma e revelar o repositório de experiências do grupo.</p><p>Comando: \"Em uma palavra: qual foi a tecnologia que prometeu muito e entregou problema.\"</p>"
+      },
+      {
+        "id": "slide_1_4",
+        "title": "Objetivos e agenda",
+        "image": "/slides/aula1/slide_4.png",
+        "block": "Introdução",
+        "estimatedTime": "3 min",
+        "notes": "<strong>Fala sugerida:</strong> Nosso contrato de hoje: distinguir risco aparente de oculto, ler a matriz de probabilidade x impacto, e desenhar um efeito dominó. A participação nos debates conta 15% da nota final.",
+        "content": "<h3>Objetivos e Agenda</h3><p>O que você vai sair sabendo: distinguir risco aparente de oculto, ler a matriz probabilidade × impacto e mapear um efeito dominó.</p><p>Agenda em 2 blocos + caso real + dinâmica em grupo.</p><p>Como avaliamos: participação nos debates conta 15% da nota.</p>"
+      },
+      {
+        "id": "slide_1_5",
+        "title": "O guardião da viabilidade",
+        "image": "/slides/aula1/slide_5.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "4 min",
+        "notes": "<strong>Fala sugerida:</strong> Como analistas e líderes, nosso papel é proteger a instituição de decisões ruins. Não se trata de frear a inovação, mas garantir que ela sobreviva ao contato com a realidade. Escolha o que os dados aprovam, não o que o marketing vende.",
+        "content": "<h3>O Guardião da Viabilidade</h3><p>\"Escolha a solução que os dados aprovam, e não a que o marketing vende.\"</p><p>Da planilha à governança: o papel de quem analisa dados é proteger a instituição de decisões ruins. Não é sobre frear a inovação, é sobre garantir que ela sobreviva ao contato com a realidade.</p>"
+      },
+      {
+        "id": "slide_1_6",
+        "title": "Risco aparente vs. risco oculto",
+        "image": "/slides/aula1/slide_6.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Lembrem-se da metáfora do iceberg. O risco aparente é o preço e prazo na planilha comercial. O risco oculto envolve o operacional, técnico e regulatório que só aparece depois.",
+        "content": "<h3>Risco Aparente vs. Risco Oculto</h3><p>Risco aparente: o que todos veem e já está na planilha (preço, prazo de implantação).</p><p>Risco oculto: o que só aparece depois, nas dimensões regulatória, técnica e operacional.</p><p>Metáfora do iceberg: o custo do projeto raramente está onde a proposta aponta.</p>"
+      },
+      {
+        "id": "slide_1_7",
+        "title": "Leitura Recomendada: George (2025)",
+        "image": "/slides/aula1/slide_7.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "5 a 7 min",
+        "notes": "<strong>Fala sugerida:</strong> Recomendo a leitura de George (2025). O estudo mostra a complexidade de gerenciar a transformação organizacional e custos indiretos de suporte ao integrar sensores conectados e IA.",
+        "content": "<h3>Leitura Recomendada: George (2025)</h3><p><strong>AIoT and Organizational Transformation:</strong> A Comprehensive Framework for Strategic Implementation and Performance Enhancement.</p><p>Debate como a combinação de IA e dispositivos conectados exige olhar para custos indiretos e longos períodos de retorno.</p>"
+      },
+      {
+        "id": "slide_1_8",
+        "title": "Framework de categorização de riscos",
+        "image": "/slides/aula1/slide_8.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> O framework divide os riscos em Técnico, Operacional, Financeiro e Regulatório. Percorrer sistematicamente essas 4 categorias vale mais do que a sofisticação da análise.",
+        "content": "<h3>Framework de Categorização de Riscos</h3><p>Quatro categorias: técnico, operacional, financeiro, regulatório.</p><p>Para cada projeto de IA, listar pelo menos um risco de cada categoria.</p><p>Por que separar importa: evita o ponto cego de só olhar o financeiro óbvio.</p>"
+      },
+      {
+        "id": "slide_1_9",
+        "title": "Matriz Probabilidade x Impacto na saúde",
+        "image": "/slides/aula1/slide_9.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Em saúde, a baixa probabilidade nunca neutraliza o impacto sobre a segurança do paciente. Se a consequência clínica é grave, o risco pertence ao quadrante vermelho, mesmo sendo raro.",
+        "content": "<h3>Matriz Probabilidade x Impacto na Saúde</h3><p>Eixos: probabilidade de ocorrer x gravidade do impacto (clínico e financeiro).</p><p>Quadrantes: aceitar, monitorar, mitigar, evitar.</p><p>Na saúde, impacto clínico pode reposicionar um risco 'raro' para o quadrante vermelho.</p>"
+      },
+      {
+        "id": "slide_1_10",
+        "title": "Lousa Interativa",
+        "image": "/slides/aula1/slide_10.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "whiteboard",
+        "notes": "<strong>Fala sugerida:</strong> Agora vou usar a nossa lousa interativa para desenhar e explicar em tempo real como preencher a Matriz de Probabilidade vs Impacto no contexto da saúde. Vocês verão meus traços na tela de vocês.",
+        "content": "<h3>Lousa Interativa</h3><p>Desenho livre e anotações síncronas sobre a matriz de risco.</p>"
+      },
+      {
+        "id": "slide_1_11",
+        "title": "Leitura Recomendada: Huwyler (2025)",
+        "image": "/slides/aula1/slide_11.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "5 a 7 min",
+        "notes": "<strong>Fala sugerida:</strong> A leitura de Huwyler (2025) mostra como estimativas probabilísticas de perda e simulações integram riscos ao cálculo de ROI real.",
+        "content": "<h3>Leitura Recomendada: Huwyler (2025)</h3><p><strong>The Risk-Adjusted Intelligence Dividend:</strong> A Quantitative Framework for Measuring AI Return on Investment Integrating ISO 42001 and Regulatory Exposure.</p><p>Demonstra como estimativas probabilísticas de perda e simulações integram riscos ao cálculo de ROI real.</p>"
+      },
+      {
+        "id": "slide_1_12_a",
+        "title": "Classifique o Risco 1: Técnico",
+        "image": "/slides/aula1/slide_12.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "2 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "correctAnswerIndex": 3,
+        "question": "Risco Técnico: Taxa de falsos negativos de 1% em pacientes com sintomas atípicos de infarto. Em qual quadrante ele cai?",
+        "options": [
+          "Aceitar (Baixa Probabilidade e Baixo Impacto)",
+          "Monitorar (Média Probabilidade e Baixo Impacto)",
+          "Mitigar (Alta Probabilidade ou Médio Impacto)",
+          "Evitar (Alta Probabilidade e Alto Impacto / Crítico)"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Vamos classificar o primeiro risco (Técnico): Uma taxa de falsos negativos de 1% em pacientes com sintomas atípicos de infarto. Votem em qual quadrante ele cai.",
+        "content": "<h3>Classifique o Risco Técnico</h3><p><strong>Cenário:</strong> Algoritmo de IA de triagem apresenta taxa de falsos negativos de 1% em pacientes com sintomas atípicos de infarto.</p><p>Comando: \"Vote em qual quadrante da matriz este risco cai.\"</p>"
+      },
+      {
+        "id": "slide_1_12_b",
+        "title": "Classifique o Risco 2: Operacional",
+        "image": "/slides/aula1/slide_12.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "2 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "correctAnswerIndex": 2,
+        "question": "Risco Operacional: Aceleração do tempo de exames de RM satura a recepção e o estacionamento do hospital. Em qual quadrante ele cai?",
+        "options": [
+          "Aceitar (Baixa Probabilidade e Baixo Impacto)",
+          "Monitorar (Média Probabilidade e Baixo Impacto)",
+          "Mitigar (Alta Probabilidade ou Médio Impacto)",
+          "Evitar (Alta Probabilidade e Alto Impacto / Crítico)"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Segundo risco (Operacional): Acelerar exames satura a recepção e o estacionamento, gerando insatisfação e gargalos secundários. Classifiquem na matriz.",
+        "content": "<h3>Classifique o Risco Operacional</h3><p><strong>Cenário:</strong> Aceleração do tempo de emissão de laudos de ressonância gera superlotação secundária na recepção e no estacionamento do hospital.</p><p>Comando: \"Vote em qual quadrante da matriz este risco cai.\"</p>"
+      },
+      {
+        "id": "slide_1_12_c",
+        "title": "Classifique o Risco 3: Clínico-Cultural",
+        "image": "/slides/aula1/slide_12.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "2 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "correctAnswerIndex": 2,
+        "question": "Risco Clínico-Cultural: Equipe médica ignora os alertas da IA devido a fadiga de alarmes (alarm fatigue). Em qual quadrante ele cai?",
+        "options": [
+          "Aceitar (Baixa Probabilidade e Baixo Impacto)",
+          "Monitorar (Média Probabilidade e Baixo Impacto)",
+          "Mitigar (Alta Probabilidade ou Médio Impacto)",
+          "Evitar (Alta Probabilidade e Alto Impacto / Crítico)"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Terceiro risco (Clínico-Cultural): A equipe médica ignora alertas de arritmia ou sepse por fadiga de alarmes (alarm fatigue) ou desconfiança. Qual o quadrante?",
+        "content": "<h3>Classifique o Risco Clínico-Cultural</h3><p><strong>Cenário:</strong> Equipe médica e de enfermagem ignora os alertas da IA devido à fadiga de alarmes ou desconfiança do algoritmo.</p><p>Comando: \"Vote em qual quadrante da matriz este risco cai.\"</p>"
+      },
+      {
+        "id": "slide_1_12_d",
+        "title": "Classifique o Risco 4: Financeiro",
+        "image": "/slides/aula1/slide_12.png",
+        "block": "Bloco 1: Identidade do Risco",
+        "estimatedTime": "2 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "correctAnswerIndex": 2,
+        "question": "Risco Financeiro: Projeto de telemetria contínua exige upgrade milionário de infraestrutura de rede Wi-Fi não orçado. Em qual quadrante ele cai?",
+        "options": [
+          "Aceitar (Baixa Probabilidade e Baixo Impacto)",
+          "Monitorar (Média Probabilidade e Baixo Impacto)",
+          "Mitigar (Alta Probabilidade ou Médio Impacto)",
+          "Evitar (Alta Probabilidade e Alto Impacto / Crítico)"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Quarto risco (Financeiro/Infraestrutura): Upgrade milionário não planejado na infraestrutura de rede Wi-Fi para suportar novos patches cardíacos. Como classificar?",
+        "content": "<h3>Classifique o Risco Financeiro</h3><p><strong>Cenário:</strong> Necessidade de upgrade milionário na infraestrutura de rede Wi-Fi do hospital para suportar os patches de telemetria contínua.</p><p>Comando: \"Vote em qual quadrante da matriz este risco cai.\"</p>"
+      },
+      {
+        "id": "slide_1_13",
+        "title": "A velocidade que prejudica",
+        "image": "/slides/aula1/slide_13.png",
+        "block": "Bloco 2: Dinâmica de Fluxo",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Entramos no Bloco 2. Um conceito contraintuitivo: nem toda melhoria de eficiência local é um ganho líquido para o sistema. Acelerar uma etapa sem preparar o resto pode induzir riscos clínicos secundários.",
+        "content": "<h3>A Velocidade que Prejudica</h3><p>Eficiência excessiva em uma etapa pode gerar risco clínico em outra.</p><p>Acelerar uma parte do fluxo sem preparar o resto desestabiliza o sistema.</p><p>Conceito de risco clínico induzido por eficiência.</p>"
+      },
+      {
+        "id": "slide_1_14",
+        "title": "Gargalos secundários",
+        "image": "/slides/aula1/slide_14.png",
+        "block": "Bloco 2: Dinâmica de Fluxo",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Guardem esta pergunta prática para o dia a dia de vocês: se esta etapa ficar 3 vezes mais rápida, quem no hospital não dará conta? O gargalo apenas migra, não desaparece.",
+        "content": "<h3>Gargalos Secundários</h3><p>Quando uma etapa acelera, o gargalo migra, não desaparece.</p><p>Pontos de colapso típicos: recepção, infraestrutura física, recursos humanos.</p><p>Pergunta-chave: 'se isto ficar 3x mais rápido, quem não dá conta?'</p>"
+      },
+      {
+        "id": "slide_1_15",
+        "title": "Onde seu fluxo trava?",
+        "image": "/slides/aula1/slide_15.png",
+        "block": "Bloco 2: Dinâmica de Fluxo",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "open_ended",
+        "question": "Descreva um gargalo secundário que você já viu surgir depois de uma melhoria.",
+        "notes": "<strong>Fala sugerida:</strong> Compartilhem no mural: descrevam um gargalo secundário que vocês já viram surgir depois de uma melhoria técnica ou operacional. Curtam as respostas dos colegas.",
+        "content": "<h3>Onde seu fluxo trava?</h3><p>Trazer a teoria para a realidade de cada participante.</p><p>Comando: \"Descreva um gargalo secundário que você já viu surgir depois de uma melhoria. As melhores respostas recebem like.\"</p>"
+      },
+      {
+        "id": "slide_1_16",
+        "title": "Caso real internacional · IBM Watson for Oncology",
+        "image": "/slides/aula1/slide_16.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "8 min",
+        "notes": "<strong>Fala sugerida:</strong> Vamos ver o caso real do Watson for Oncology. US$ 62 milhões investidos e ativos vendidos por uma fração anos depois. O fracasso ocorreu porque compraram a promessa do marketing sem validação clínica local e integração.",
+        "content": "<h3>Caso Real Internacional · IBM Watson for Oncology</h3><p>O que foi: parceria IBM + MD Anderson para apoio à decisão clínica em oncologia (2013-2018).</p><p>Repercussão: projeto interrompido após cerca de US$ 62 milhões; falhas de integração e rejeição clínica.</p><p>Na ótica da disciplina: comprou-se a promessa do marketing sem validação clínica local, integração ao fluxo e governança.</p>"
+      },
+      {
+        "id": "slide_1_17",
+        "title": "Caso integrado · IA de laudos de ressonância",
+        "image": "/slides/aula1/slide_17.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> E no Brasil? IA reduzindo tempo de exames em até 50% em Ijuí, e triando laudos no HC-FMUSP. Aceleramos a emissão do laudo, mas o que acontece com a recepção, estacionamento e pós-laudo?",
+        "content": "<h3>Caso Integrado · IA de Laudos de Ressonância</h3><p>Cenário: IA reduz drasticamente o tempo de emissão de laudos de ressonância.</p><p>Promessa: mais exames por dia, mais receita, menos fila de laudo.</p><p>Lastro real (Brasil): InRad/HC-FMUSP usa IA para laudos mais ágeis; e HCI em Ijuí reduz o tempo de exame de ressonância em até 50%.</p>"
+      },
+      {
+        "id": "slide_1_17_read",
+        "title": "Leitura Rápida: IA de Laudos no Brasil",
+        "image": "/slides/aula1/slide_17.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Dediquem 5 minutos para ler esses dois breves relatos sobre a implantação de IA de laudos no InRad USP e no HCI de Ijuí. Foquem em como a velocidade de diagnóstico afeta as operações downstream.",
+        "content": "<h3>Leitura Rápida (5 min): IA de Laudos no Brasil</h3><p><strong>Fontes:</strong> InRad HC-FMUSP (Jornal USP, 2024) e HCI Ijuí (Rádio Progresso, 2026).</p><p>Explore como hospitais brasileiros estão reduzindo em até 50% o tempo de exames de RM e automatizando a triagem de laudos.</p><div class=\"read-buttons-container\"><a href=\"https://jornal.usp.br/radio-usp/uso-da-ia-no-instituto-de-radiologia-da-usp-permitira-laudos-mais-ageis/\" target=\"_blank\" class=\"read-link\"><i class=\"fa-solid fa-book-open\"></i> Artigo Jornal da USP (InRad)</a><a href=\"https://hci.org.br/pioneiro-no-interior-do-rs-hci-implanta-inteligencia-artificial-na-ressonancia-magnetica-e-agiliza-exames-em-ate-50/\" target=\"_blank\" class=\"read-link\"><i class=\"fa-solid fa-book-open\"></i> Notícia HCI Ijuí</a></div>"
+      },
+      {
+        "id": "slide_1_17_dyn",
+        "title": "Dinâmica: Gargalos da Alta Vazão",
+        "image": "/slides/aula1/slide_17.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "5 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "correctAnswerIndex": 0,
+        "question": "Após ler os cases do Brasil, qual o principal risco operacional downstream da alta vazão na ressonância?",
+        "options": [
+          "Saturação operacional da recepção/triagem e fadiga da equipe assistencial devido ao aumento repentino na vazão de pacientes",
+          "Aumento nos custos de manutenção direta e desgaste preventivo dos aparelhos de RM"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Agora, votem na enquete: diante do ganho de velocidade no HCI de Ijuí, qual seria o gargalo ou risco operacional downstream de maior relevância imediata?",
+        "content": "<h3>Dinâmica de Leitura: Gargalos da Alta Vazão</h3><p>Comando: \"Após ler os cases do Brasil, qual o principal risco operacional downstream da alta vazão na ressonância? Votem na opção de maior impacto operacional.\"</p>"
+      },
+      {
+        "id": "slide_1_18",
+        "title": "O efeito dominó desenhado",
+        "image": "/slides/aula1/slide_18.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Vejam o desenho do efeito dominó. Cada seta é um custo ou gargalo gerado em outro setor (recepção, enfermagem, imagem). O ROI inicial pode ser anulado por esses custos secundários.",
+        "content": "<h3>O Efeito Dominó Desenhado</h3><p>Laudo mais rápido aumenta a vazão de pacientes agendados.</p><p>Recepção e estacionamento saturam; a experiência do paciente piora.</p><p>Pressão sobre a equipe assistencial eleva o risco clínico.</p><p>ROI prometido pode ser anulado por custos e riscos não mapeados.</p>"
+      },
+      {
+        "id": "slide_1_19",
+        "title": "Dinâmica · Mapeamento de Efeito Dominó",
+        "image": "/slides/aula1/slide_19.png",
+        "block": "Trabalho em Grupo",
+        "estimatedTime": "30 min",
+        "notes": "<strong>Fala sugerida:</strong> Agora é com vocês. Nos grupos de trabalho, acessem a aba correspondente. Mapeiem a cadeia de efeitos secundários para a inovação recebida e enviem o mapa pelo portal.",
+        "content": "<h3>Dinâmica · Mapeamento de Efeito Dominó</h3><p>Grupos recebem uma inovação disruptiva diferente.</p><p>Tarefa: mapear a cadeia de impactos secundários em 3 níveis.</p><p>Antecipar pelo menos uma falha operacional e uma mitigação.</p>"
+      },
+      {
+        "id": "slide_1_20",
+        "title": "Debrief do caso",
+        "image": "/slides/aula1/slide_20.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "10 min",
+        "notes": "<strong>Fala sugerida:</strong> Excelente trabalho nos mapas. Vejamos os padrões comuns de onde a maioria dos grupos esqueceu de olhar — a recepção ou o pós-laudo. A simulação nos ajuda a errar no virtual antes de errar no real.",
+        "content": "<h3>Debrief do Caso</h3><p>Padrões comuns entre os mapas dos grupos.</p><p>Onde quase todo grupo esqueceu de olhar.</p><p>A simulação como forma de errar no virtual antes do real.</p>"
+      },
+      {
+        "id": "slide_1_21",
+        "title": "Reflexão final",
+        "image": "/slides/aula1/slide_21.png",
+        "block": "Fechamento",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "open_ended",
+        "question": "Complete: 'Antes de aprovar uma inovação, a primeira pergunta que vou fazer agora é...'",
+        "notes": "<strong>Fala sugerida:</strong> Para fecharmos o ciclo de hoje, respondam à reflexão final: 'Antes de aprovar uma inovação, a primeira pergunta que vou fazer agora é...'. Suas respostas ficam salvas para a Aula 2.",
+        "content": "<h3>Reflexão Final</h3><p>Consolidar o aprendizado em uma frase pessoal.</p><p>Comando: Complete: 'Antes de aprovar uma inovação, a primeira pergunta que vou fazer agora é...'</p>"
+      },
+      {
+        "id": "slide_1_22",
+        "title": "Síntese e ponte para a Aula 2",
+        "image": "/slides/aula1/slide_22.png",
+        "block": "Encerramento",
+        "estimatedTime": "3 min",
+        "notes": "<strong>Fala sugerida:</strong> Nossas três ideias-chave de hoje: risco oculto pesa mais que o aparente, gargalos migram, e devemos simular antes de investir. Ouçam o podcast E1 para nos prepararmos para a Aula 2.",
+        "content": "<h3>Síntese e Ponte para a Aula 2</h3><p>3 ideias para levar: risco oculto pesa mais que o aparente, gargalo migra, simular antes de investir.</p><p>Preparação: ouvir o podcast E1 · A Matemática da Escolha.</p>"
+      },
+      {
+        "id": "slide_1_23_ref",
+        "title": "Referências e fontes da aula",
+        "image": "/slides/aula1/slide_23.png",
+        "block": "Encerramento",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Aqui estão as referências bibliográficas reais que dão lastro aos nossos casos de hoje. Vocês podem acessá-las diretamente pela aba de Referências do portal.",
+        "content": "<div class=\"references-list-page\">\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">IBM Watson · IEEE Spectrum (2019)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://spectrum.ieee.org/how-ibm-watson-overpromised-and-underdelivered-on-ai-health-care\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">IBM Watson · STAT, recomendações inseguras (2018)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-incorrect-treatments/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">IBM Watson · MD Anderson, JNCI (2017)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://academic.oup.com/jnci/article/109/5/djx113/3847623\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">IA de laudos · InRad/HC-FMUSP, Jornal da USP (2024)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://jornal.usp.br/radio-usp/uso-da-ia-no-instituto-de-radiologia-da-usp-permitira-laudos-mais-ageis/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">IA em ressonância · HCI Ijuí (2026)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://hci.org.br/pioneiro-no-interior-do-rs-hci-implanta-inteligencia-artificial-na-ressonancia-magnetica-e-agiliza-exames-em-ate-50/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n</div>"
+      }
+    ]
+  },
+  {
+    "id": "aula2",
+    "title": "Aula 2: Mitigação de Risco e a Anatomia do ROI Inteligente",
+    "date": "14 de Julho de 2025",
+    "description": "Identificar custos ocultos de infraestrutura através de testes de estresse financeiro, e quantificar riscos invisíveis como glosas e eventos adversos para calcular o ROI abrangente.",
+    "checkin": {
+      "type": "poll",
+      "question": "O custo que ninguém somou: Qual destes custos você acha que mais 'some' das planilhas de projeto?",
+      "options": [
+        "Rede/Obras Civis",
+        "Treinamento e Adoção",
+        "Retrabalho/Ineficiência",
+        "Glosas de Convênios",
+        "Custos Jurídicos"
+      ]
+    },
+    "conceptCheck": [
+      {
+        "question": "No caso do Google Dermatology (DermAssist) apresentado, qual foi o principal fator que determinou a alta taxa de adoção (92%) em comparação com o IBM Watson?",
+        "options": [
+          "O fato de a IA do Google ter 100% de acurácia clínica diagnóstica",
+          "O posicionamento da ferramenta como 'assistente' (mantendo o controle com o médico) em vez de 'substituto autônomo'",
+          "A aprovação prévia obrigatória e exclusiva pela FDA"
+        ],
+        "correctAnswerIndex": 1
+      },
+      {
+        "question": "No caso de Telemetria em Leitos apresentado, qual fator de infraestrutura inviabilizou o ROI esperado?",
+        "options": [
+          "O preço de aquisição dos sensores",
+          "A necessidade de contratação de mais enfermeiros",
+          "A necessidade de um upgrade milionário na rede de dados sem suporte prévio"
+        ],
+        "correctAnswerIndex": 2
+      },
+      {
+        "question": "O que caracteriza o teste de estresse em análise de ROI?",
+        "options": [
+          "Medir a pressão arterial da equipe sob estresse de trabalho",
+          "Avaliar a viabilidade e achar o ponto de quebra do projeto sob cenários adversos de adoção e custos",
+          "Forçar o sistema de TI a travar para ver a segurança"
+        ],
+        "correctAnswerIndex": 1
+      }
+    ],
+    "reflection": {
+      "type": "wordcloud",
+      "question": "O que passo a enxergar: Em uma palavra, o que você passa a enxergar após os testes de estresse operacional de hoje?"
+    },
+    "references": [
+      {
+        "citation": "Google DermAssist · blog oficial Google (2021)",
+        "link": "https://blog.google/innovation-and-ai/technology/health/ai-dermatology-preview-io-2021/"
+      },
+      {
+        "citation": "Google DermAssist · WIRED, cautelas regulatórias (2021)",
+        "link": "https://www.wired.com/story/google-launches-medical-app-outside-us/"
+      },
+      {
+        "citation": "IA em dermatologia · disparidades por tom de pele, arXiv (2021)",
+        "link": "https://arxiv.org/abs/2111.08006"
+      },
+      {
+        "citation": "Telemetria · UTI Hospital Regional de Sobradinho, Correio Braziliense (2026)",
+        "link": "https://www.correiobraziliense.com.br/cidades-df/2026/06/7441941-uti-do-hospital-regional-de-sobradinho-e-reinaugurada-apos-reforma.html"
+      },
+      {
+        "citation": "Farmácia · redução de custos com informatização, JBES (2022)",
+        "link": "https://doi.org/10.21115/jbes.v14.n3.p210-216"
+      },
+      {
+        "citation": "Farmácia · custo de devolução de medicamentos, RSD (2021)",
+        "link": "https://rsdjournal.org/index.php/rsd/article/download/21645/19289"
+      }
+    ],
+    "slides": [
+      {
+        "id": "slide_2_1",
+        "title": "Capa da aula",
+        "image": "/slides/aula2/slide_1.png",
+        "block": "Introdução",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Bem-vindos à Aula 2. Hoje nosso objetivo é tornar visível o invisível: os custos ocultos de infraestrutura e a matemática de riscos que definem o ROI real dos projetos.",
+        "content": "<h3>Mitigação de Risco e a Anatomia do ROI Inteligente</h3><p>MBA em Inteligência Artificial aplicada à Saúde</p><p>Faculdade de Ciências da Saúde Moinhos de Vento</p><p>Tornando o invisível quantificável</p>"
+      },
+      {
+        "id": "slide_2_2",
+        "title": "Icebreaker · O custo que ninguém somou",
+        "image": "/slides/aula2/slide_2.png",
+        "block": "Abertura",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "question": "Qual destes custos você acha que mais 'some' das planilhas de projeto?",
+        "options": [
+          "Rede / Obras civis",
+          "Treinamento / Curva de adoção",
+          "Retrabalho / Ineficiência operacional",
+          "Glosas de convênio",
+          "Custos jurídicos / Processos"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Iniciamos com a pergunta: qual custo mais some das planilhas de projetos no seu dia a dia? Votem e comente os resultados.",
+        "content": "<h3>Icebreaker · O Custo que Ninguém Somou</h3><p>Qual destes custos você acha que mais 'some' das planilhas de projeto?</p>"
+      },
+      {
+        "id": "slide_2_3",
+        "title": "Objetivos e agenda",
+        "image": "/slides/aula2/slide_3.png",
+        "block": "Introdução",
+        "estimatedTime": "3 min",
+        "notes": "<strong>Fala sugerida:</strong> Hoje aprenderemos a rodar testes de estresse financeiro e a calcular um ROI abrangente. Faremos uma entrega prática calculando esse ROI em planilha.",
+        "content": "<h3>Objetivos e Agenda</h3><p>Você vai sair sabendo: rodar um teste de estresse e calcular ROI abrangente.</p><p>Agenda: testes de estresse + matemática do ROI invisível + casos reais.</p>"
+      },
+      {
+        "id": "slide_2_4",
+        "title": "Avaliação de risco como defesa institucional",
+        "image": "/slides/aula2/slide_4.png",
+        "block": "Bloco 1: Testes de Estresse",
+        "estimatedTime": "4 min",
+        "notes": "<strong>Fala sugerida:</strong> O veto fundamentado dos dados é um ato de liderança e governança. Dizer 'não' para proteger a instituição de um investimento insustentável é entregar valor.",
+        "content": "<h3>Avaliação de Risco como Defesa Institucional</h3><p>\"Tomar decisões baseadas em dados é ter a coragem de escolher o que funciona, e não apenas o que é moda.\"</p><p>O veto dos dados: dizer 'não' fundamentado também é entregar valor.</p>"
+      },
+      {
+        "id": "slide_2_5",
+        "title": "O que é um teste de estresse financeiro",
+        "image": "/slides/aula2/slide_5.png",
+        "block": "Bloco 1: Testes de Estresse",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> O teste de estresse consiste em fazer perguntas desconfortáveis antes de investir: E se a adoção for metade? E se a rede cair? E se houver obra civis?",
+        "content": "<h3>O que é um Teste de Estresse Financeiro</h3><p>Submeter a solução a cenários adversos antes de aprovar.</p><p>Perguntas: e se a adoção for metade? e se a rede precisar de upgrade? e se houver obra?</p>"
+      },
+      {
+        "id": "slide_2_6",
+        "title": "Leitura Recomendada: Lee et al. (2025)",
+        "image": "/slides/aula2/slide_6.png",
+        "block": "Bloco 1: Testes de Estresse",
+        "estimatedTime": "5 a 7 min",
+        "notes": "<strong>Fala sugerida:</strong> A leitura de Lee et al. (2025) detalha metodologias práticas de auditoria operacional para validar a aderência da infraestrutura a novas ferramentas de IA antes da decisão.",
+        "content": "<h3>Leitura Recomendada: Lee et al. (2025)</h3><p><strong>Costing Methods for Artificial Intelligence:</strong> Systematic Review and Recommended Cost Inventory for in Health Technology Assessment.</p>"
+      },
+      {
+        "id": "slide_2_7",
+        "title": "Caso integrado · telemetria em leitos",
+        "image": "/slides/aula2/slide_7.png",
+        "block": "Bloco 1: Testes de Estresse",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Analisemos a telemetria em leitos. Comprar patches é fácil; o custo real de R$ 1,5 milhão em Sobradinho envolveu readequação de leitos e monitoramento central. Sem isso, o patch não funciona.",
+        "content": "<h3>Caso Integrado · Telemetria em Leitos</h3><p>Solução de telemetria promissora e bem avaliada clinicamente.</p><p>Custo oculto: a infraestrutura de rede e monitoramento central, não só os sensores.</p><p>Lastro real (Brasil): reinauguração da UTI do Hospital Regional de Sobradinho (DF) com telemetria somou R$ 1,5 milhão.</p>"
+      },
+      {
+        "id": "slide_2_8",
+        "title": "Coragem analítica vs. moda tecnológica",
+        "image": "/slides/aula2/slide_8.png",
+        "block": "Bloco 1: Testes de Estresse",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "open_ended",
+        "question": "Qual custo oculto você mais subestima nos seus projetos e por quê?",
+        "notes": "<strong>Fala sugerida:</strong> Qual custo oculto de infraestrutura ou adoção vocês mais subestimam no trabalho? Respondam no mural.",
+        "content": "<h3>Coragem Analítica vs. Moda Tecnológica</h3><p>Preterir a solução moderna em favor da que funciona na infraestrutura instalada.</p><p>Comando: \"Qual custo oculto você mais subestima nos seus projetos e por quê?\"</p>"
+      },
+      {
+        "id": "slide_2_9",
+        "title": "Caso real internacional · Google DermAssist",
+        "image": "/slides/aula2/slide_9.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "8 min",
+        "notes": "<strong>Fala sugerida:</strong> O Google DermAssist ilustra o risco clínico e regulatório de viés em tons de pele e autodiagnóstico. O risco invisível nem sempre é financeiro direto, mas custa muito se ignorado.",
+        "content": "<h3>Caso Real Internacional · Google DermAssist</h3><p>O que foi: ferramenta de IA dermatológica como 'assistente' que sugere condições.</p><p>Repercussão: riscos de viés (baixa representação de pele escura), regulação e autodiagnóstico.</p><p>Retorno Abrangente: retorno anual de USD 32.25M/ano (USD 2.25M redução de referências + USD 30M diagnóstico precoce).</p>"
+      },
+      {
+        "id": "slide_2_10",
+        "title": "O erro do ROI de curto prazo",
+        "image": "/slides/aula2/slide_10.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Olhar apenas para o ganho imediato distorce a tomada de decisão. O ROI inteligente de médio/longo prazo engloba os riscos clínicos e operacionais mitigados e prejuízos evitados.",
+        "content": "<h3>O Erro do ROI de Curto Prazo</h3><p>\"Não é mágica, é matemática financeira aplicada à realidade complexa da saúde.\"</p><p>Olhar só a planilha do mês seguinte distorce a decisão. Benefícios de prevenção aparecem no médio e longo prazo.</p>"
+      },
+      {
+        "id": "slide_2_11",
+        "title": "Riscos invisíveis (parte 1)",
+        "image": "/slides/aula2/slide_11.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Riscos invisíveis como erros de medicação evitados e glosas de faturamento. Como atribuir um valor médio defensável a esses eventos para integrá-los à matemática do ROI.",
+        "content": "<h3>Riscos Invisíveis — Parte 1</h3><p>Erros de medicação e eventos adversos: custo clínico e financeiro.</p><p>Glosas de convênios por falha de registro.</p><p>Como atribuir um valor médio defensável a cada evento evitado.</p>"
+      },
+      {
+        "id": "slide_2_12",
+        "title": "Riscos invisíveis (parte 2)",
+        "image": "/slides/aula2/slide_12.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Processos judiciais, custos reputacionais e retrabalho silencioso. Aqui mora o valor intangível que o estrategista traduz em viabilidade financeira.",
+        "content": "<h3>Riscos Invisíveis — Parte 2</h3><p>Custos jurídicos e processos indenizatórios.</p><p>Custos de imagem e reputação institucional.</p><p>Custos de retrabalho e ineficiência operacional.</p>"
+      },
+      {
+        "id": "slide_2_13",
+        "title": "Transformar prevenção em valor",
+        "image": "/slides/aula2/slide_13.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> A fórmula mental simples: Frequência x Custo do evento x Redução esperada. Isso permite documentar premissas auditáveis do valor preventivo.",
+        "content": "<h3>Transformar Prevenção em Valor</h3><p>Fórmula mental: (frequência do evento) x (custo por evento) x (redução esperada).</p><p>Somar os riscos evitados ao retorno direto da solução.</p><p>Documentar premissas: ROI defensável é ROI auditável.</p>"
+      },
+      {
+        "id": "slide_2_14",
+        "title": "Caso integrado · automação de farmácia",
+        "image": "/slides/aula2/slide_14.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> No Brasil, a automação reduziu perdas em validade em 47,9% e devoluções custaram R$ 2,87 milhões em um único hospital. Prevenção gera economia direta na última linha.",
+        "content": "<h3>Caso Integrado · Automação de Farmácia</h3><p>Automação reduces erros de dispensação e perdas de medicação.</p><p>Lastro real (Brasil): informatização da farmácia reduziu perdas por validade em 47,9% e compras emergenciais em 70% (JBES, 2022); devoluções custaram R$ 2,87 milhões (RSD, 2021).</p>"
+      },
+      {
+        "id": "slide_2_14_read",
+        "title": "Leitura Rápida: Logística de Farmácia no Brasil",
+        "image": "/slides/aula2/slide_14.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Façam a leitura rápida dos estudos brasileiros de Rodrigues (2022) e Sena (2021) sobre o impacto financeiro direto da rastreabilidade e dose unitária na farmácia hospitalar.",
+        "content": "<h3>Leitura Rápida (5 min): Logística de Farmácia no Brasil</h3><p><strong>Fontes:</strong> Rodrigues & Paiva (JBES, 2022) e Sena et al. (RSD, 2021).</p><p>Veja como a informatização logística e a dose unitária reduziram em 47,9% as perdas por validade e evitaram R$ 2,87M em devoluções.</p><div class=\"read-buttons-container\"><a href=\"https://doi.org/10.21115/jbes.v14.n3.p210-216\" target=\"_blank\" class=\"read-link\"><i class=\"fa-solid fa-book-open\"></i> Estudo JBES (Rodrigues, 2022)</a><a href=\"https://rsdjournal.org/index.php/rsd/article/download/21645/19289\" target=\"_blank\" class=\"read-link\"><i class=\"fa-solid fa-book-open\"></i> Estudo RSD (Sena, 2021)</a></div>"
+      },
+      {
+        "id": "slide_2_14_dyn",
+        "title": "Dinâmica: Gargalos de Estoque na Lousa",
+        "image": "/slides/aula2/slide_14.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "5 min",
+        "isInteractive": true,
+        "interactionType": "whiteboard",
+        "allowStudentDraw": true,
+        "notes": "<strong>Fala sugerida:</strong> Acessem a lousa interativa da aula. Gostaria que vocês desenhassem ou fizessem uma marcação indicando em qual etapa da logística de farmácia do seu hospital (Recebimento, Fracionamento ou Dispensação) vocês enxergam a maior ocorrência de custos ou perdas ocultas.",
+        "content": "<h3>Dinâmica: Mapeando Perdas na Lousa</h3><p><strong>Comando:</strong> Desenhem ou marquem na lousa indicando em qual etapa (Recebimento, Fracionamento ou Dispensação) ocorrem as maiores perdas de estoque na sua instituição.</p>"
+      },
+      {
+        "id": "slide_2_15",
+        "title": "Leitura Recomendada: Nassou & Moukadem (2025)",
+        "image": "/slides/aula2/slide_15.png",
+        "block": "Bloco 2: ROI Invisível",
+        "estimatedTime": "5 a 7 min",
+        "notes": "<strong>Fala sugerida:</strong> A leitura de Nassou (2025) apresenta modelos matemáticos de simulação que quantificam a mitigação de erros operacionais no faturamento hospitalar.",
+        "content": "<h3>Leitura Recomendada: Nassou & Moukadem (2025)</h3><p><strong>Artificial Intelligence and Management Control in Hospitals:</strong> A Critical Review and Conceptual Integration.</p>"
+      },
+      {
+        "id": "slide_2_16",
+        "title": "Dinâmica · Cálculo de ROI Abrangente",
+        "image": "/slides/aula2/slide_16.png",
+        "block": "Trabalho em Grupo",
+        "estimatedTime": "25 min",
+        "notes": "<strong>Fala sugerida:</strong> Nos grupos de trabalho, utilizem a planilha para calcular o ROI abrangente, incluindo os riscos invisíveis e explicitando suas premissas.",
+        "content": "<h3>Dinâmica · Cálculo de ROI Abrangente</h3><p>Tarefa: montar uma mini planilha de ROI incluindo ao menos 2 riscos invisíveis.</p><p>Explicitar as premissas de cada número.</p>"
+      },
+      {
+        "id": "slide_2_17",
+        "title": "Debrief · o que mudou o resultado",
+        "image": "/slides/aula2/slide_17.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Vejamos a diferença: o mesmo investimento que parecia inviável passa a ser aprovado quando integramos o valor financeiro do risco clínico evitado.",
+        "content": "<h3>Debrief · O que Mudou o Resultado</h3><p>Comparação entre ROI só visível e ROI abrangente.</p><p>Quais riscos invisíveis mais mudaram a decisão.</p>"
+      },
+      {
+        "id": "slide_2_18",
+        "title": "Reflexão final",
+        "image": "/slides/aula2/slide_18.png",
+        "block": "Fechamento",
+        "estimatedTime": "8 min",
+        "isInteractive": true,
+        "interactionType": "wordcloud",
+        "question": "Em uma palavra: o que você passa a enxergar agora que antes era invisível?",
+        "notes": "<strong>Fala sugerida:</strong> Respondamos no portal: em uma palavra, o que vocês passam a enxergar agora que antes era invisível? Compararemos com o icebreaker.",
+        "content": "<h3>Reflexão Final — Aula 2</h3><p>Comando: \"Em uma palavra: o que você passa a enxergar agora que antes era invisível?\"</p>"
+      },
+      {
+        "id": "slide_2_19",
+        "title": "Síntese e ponte para a Aula 3",
+        "image": "/slides/aula2/slide_19.png",
+        "block": "Encerramento",
+        "estimatedTime": "3 min",
+        "notes": "<strong>Fala sugerida:</strong> Nossos pilares de hoje: ROI mora no invisível, premissa documentada é defensável, e custos ocultos determinam o veredito. Na próxima aula, defenderemos isso no conselho.",
+        "content": "<h3>Síntese e Ponte para a Aula 3</h3><p>3 ideias: ROI mora no invisível, premissa documentada é defensável, custo oculto define o veredito.</p><p>Preparação: ouvir o podcast E2 · O Veto dos Dados.</p>"
+      },
+      {
+        "id": "slide_2_20_ref",
+        "title": "Referências e fontes da aula",
+        "image": "/slides/aula2/slide_20.png",
+        "block": "Encerramento",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Aqui estão as referências reais sobre farmácia clínica e telemetria que dão lastro técnico e financeiro ao nosso material.",
+        "content": "<div class=\"references-list-page\">\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Google DermAssist · blog oficial Google (2021)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://blog.google/innovation-and-ai/technology/health/ai-dermatology-preview-io-2021/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Google DermAssist · WIRED, cautelas regulatórias (2021)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://www.wired.com/story/google-launches-medical-app-outside-us/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">IA em dermatologia · disparidades por tom de pele, arXiv (2021)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://arxiv.org/abs/2111.08006\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Telemetria · UTI Hospital Regional de Sobradinho, Correio Braziliense (2026)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://www.correiobraziliense.com.br/cidades-df/2026/06/7441941-uti-do-hospital-regional-de-sobradinho-e-reinaugurada-apos-reforma.html\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Farmácia · redução de custos com informatização, JBES (2022)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://doi.org/10.21115/jbes.v14.n3.p210-216\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Farmácia · custo de devolução de medicamentos, RSD (2021)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://rsdjournal.org/index.php/rsd/article/download/21645/19289\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n</div>"
+      }
+    ]
+  },
+  {
+    "id": "aula3",
+    "title": "Aula 3: Governança, Tomada de Decisão e Business Case",
+    "date": "21 de Julho de 2025",
+    "description": "Estruturar business cases executivos em linguagem financeira para o C-level, e utilizar matrizes de decisão ponderadas multifatoriais para governança na inovação.",
+    "checkin": {
+      "type": "wordcloud",
+      "question": "O que trava a diretoria: Em uma palavra, o que mais trava a aprovação de um bom projeto na diretoria?"
+    },
+    "conceptCheck": [
+      {
+        "question": "No caso da Mayo Clinic (ensaio pragmático EAGLE) apresentado, qual a principal lição sobre a simulação operacional de ROI?",
+        "options": [
+          "Provar que a IA sempre entrega o retorno financeiro prometido pelo marketing",
+          "Descobrir que o tempo real de validação médica e os custos de integração com prontuários podem reduzir drasticamente o ROI estimado antes do investimento real",
+          "Demonstrar que o treinamento de dados com grupos homogêneos é suficiente para o sucesso clínico"
+        ],
+        "correctAnswerIndex": 1
+      },
+      {
+        "question": "Qual o principal objetivo de construir uma simulação operacional antes de investir?",
+        "options": [
+          "Automatizar todas as etapas do atendimento",
+          "Descobrir gargalos ocultos e impactos colaterais com baixo custo",
+          "Substituir a necessidade de testes clínicos"
+        ],
+        "correctAnswerIndex": 1
+      },
+      {
+        "question": "Qual a estrutura de 5 partes recomendada para construir um argumento que convença o conselho ou CFO?",
+        "options": [
+          "Preço, Licença, Hospedagem, Integração, Suporte",
+          "Acurácia, Inovação, Liderança de mercado, Velocidade, IA Moderna",
+          "Problema, Custo do problema, Solução proposta, ROI abrangente, Risco mitigado"
+        ],
+        "correctAnswerIndex": 2
+      },
+      {
+        "question": "Ao construir uma Matriz de Decisão Multifatorial para seleção de soluções de IA, o que se deve fazer para evitar viés de confirmação?",
+        "options": [
+          "Escolher a solução preferida da diretoria antes de pontuar",
+          "Definir os pesos dos critérios antes de pontuar as soluções",
+          "Atribuir peso máximo apenas ao critério de menor preço"
+        ],
+        "correctAnswerIndex": 1
+      },
+      {
+        "question": "O que diferencia uma recomendação de decisão robusta em um Business Case executivo?",
+        "options": [
+          "Prometer retorno garantido e 100% de acurácia no primeiro ano",
+          "Ser baseada em opiniões fortes de especialistas renomados da diretoria",
+          "Ser embasada em dados estressados e condicionada a revisões ou marcos de adoção"
+        ],
+        "correctAnswerIndex": 2
+      }
+    ],
+    "reflection": {
+      "type": "open",
+      "question": "Compromisso do guardião: Qual o seu principal compromisso ético e prático como guardião da viabilidade a partir de agora?"
+    },
+    "references": [
+      {
+        "citation": "Mayo Clinic · ensaio EAGLE, detecção por ECG (2021)",
+        "link": "https://newsnetwork.mayoclinic.org/discussion/trial-demonstrates-early-ai-guided-detection-of-heart-disease-in-routine-practice/"
+      },
+      {
+        "citation": "Mayo Clinic · custo-efetividade do AI-ECG (2024)",
+        "link": "https://newsnetwork.mayoclinic.org/discussion/research-study-shows-the-cost-effectiveness-of-ai-enhanced-heart-failure-screening/"
+      },
+      {
+        "citation": "Mayo Clinic · estudo, Nature Medicine (2021)",
+        "link": "https://www.nature.com/articles/s41591-021-01335-4"
+      },
+      {
+        "citation": "Robô Laura · implantação para sepse, REBEn/SciELO (2020)",
+        "link": "https://www.scielo.br/j/reben/a/DB8459YKwtVth4YX8vqxTJp/?lang=pt"
+      },
+      {
+        "citation": "Neonpass Room · IA em enfermagem, Einstein/HOOBOX, AJN (2025)",
+        "link": "https://journals.lww.com/ajnonline/fulltext/2025/05000/using_an_ai_powered_solution_to_transform_nursing.20.aspx"
+      }
+    ],
+    "slides": [
+      {
+        "id": "slide_3_1",
+        "title": "Capa da aula",
+        "image": "/slides/aula3/slide_1.png",
+        "block": "Introdução",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Boas-vindas à nossa Aula 3, a convergência da disciplina. Hoje aprenderemos a estruturar um Business Case e usar uma Matriz de Decisão Multifatorial para convencer o C-level.",
+        "content": "<h3>Governança, Tomada de Decisão e Business Case</h3><p>MBA em Inteligência Artificial aplicada à Saúde</p><p>a segurança do paciente como ativo financeiro mais valioso</p>"
+      },
+      {
+        "id": "slide_3_2",
+        "title": "Icebreaker · O que trava a diretoria",
+        "image": "/slides/aula3/slide_2.png",
+        "block": "Abertura",
+        "estimatedTime": "10 min",
+        "isInteractive": true,
+        "interactionType": "wordcloud",
+        "question": "Em uma palavra: o que mais trava a aprovação de um bom projeto na diretoria?",
+        "notes": "<strong>Fala sugerida:</strong> Em uma palavra: o que mais trava a aprovação de um bom projeto para a alta gestão? Digitem suas percepções no portal.",
+        "content": "<h3>Icebreaker · O que Trava a Diretoria</h3><p>Comando: \"Em uma palavra: o que mais trava a aprovação de um bom projeto na diretoria?\"</p>"
+      },
+      {
+        "id": "slide_3_3",
+        "title": "Objetivos e agenda",
+        "image": "/slides/aula3/slide_3.png",
+        "block": "Introdução",
+        "estimatedTime": "3 min",
+        "notes": "<strong>Fala sugerida:</strong> Hoje aprenderemos a estruturar um business case e construir uma matriz de decisão. O workshop preparará diretamente a entrega do projeto em grupo (35% da nota).",
+        "content": "<h3>Objetivos e Agenda</h3><p>Você vai sair sabendo: estruturar um business case e uma matriz de decisão multifatorial.</p><p>Esta aula prepara diretamente o Projeto Prático em Grupo (35% da nota).</p>"
+      },
+      {
+        "id": "slide_3_4",
+        "title": "Falar a língua dos stakeholders financeiros",
+        "image": "/slides/aula3/slide_4.png",
+        "block": "Bloco 1: Comunicação Executiva",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Para convencer o CFO: objetividade, evidências quantitativas de perdas evitadas e mitigação. Fale menos de tecnologia e comece pelo valor financeiro do risco mitigado.",
+        "content": "<h3>Falar a Língua dos Stakeholders Financeiros</h3><p>Objetividade, evidência e mitigação de perdas, nessa ordem.</p><p>Traduzir risco clínico em impacto financeiro auditável.</p><p>Menos adjetivos, mais números com premissa clara.</p>"
+      },
+      {
+        "id": "slide_3_5",
+        "title": "Do marketing à prova matemática",
+        "image": "/slides/aula3/slide_5.png",
+        "block": "Bloco 1: Comunicação Executiva",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Substitua termos vagos como 'inovador' por números defensáveis. O argumento executivo de 5 etapas: Problema, custo do problema, solução, ROI abrangente e risco mitigado.",
+        "content": "<h3>Do Marketing à Prova Matemática</h3><p>\"Justificar investimento complexo é ir do marketing à prova matemática.\"</p><p>Substituir 'inovador' por números defensáveis.</p><p>Estrutura de argumento: problema, custo do problema, solução, ROI, risco mitigado.</p>"
+      },
+      {
+        "id": "slide_3_6",
+        "title": "Leitura Recomendada: Miri & Mayo (2025)",
+        "image": "/slides/aula3/slide_6.png",
+        "block": "Bloco 1: Comunicação Executiva",
+        "estimatedTime": "5 a 7 min",
+        "notes": "<strong>Fala sugerida:</strong> A leitura de Miri (2025) detalha o uso de métricas financeiras adaptadas à saúde, demonstrando que a segurança do paciente e a saúde financeira são indissociáveis.",
+        "content": "<h3>Leitura Recomendada: Miri & Mayo (2025)</h3><p><strong>'Patients Aren't Datasets':</strong> Generating Return on Investment via Automation, Responsibly. Frontiers of Health Services Management.</p>"
+      },
+      {
+        "id": "slide_3_7",
+        "title": "Qual argumento convence seu CFO?",
+        "image": "/slides/aula3/slide_7.png",
+        "block": "Bloco 1: Comunicação Executiva",
+        "estimatedTime": "12 min",
+        "isInteractive": true,
+        "interactionType": "open_ended",
+        "question": "Escreva o argumento de uma frase que mais convenceria o seu CFO.",
+        "notes": "<strong>Fala sugerida:</strong> Escrevam no mural o argumento de uma única frase que consideram mais convincente para o seu CFO. Curtam os melhores argumentos.",
+        "content": "<h3>Qual Argumento Convence seu CFO?</h3><p>Comando: \"Escreva o argumento de uma frase que mais convenceria o seu CFO. A turma curte os mais fortes.\"</p>"
+      },
+      {
+        "id": "slide_3_8",
+        "title": "Caso real internacional · Mayo Clinic AI-ECG (EAGLE)",
+        "image": "/slides/aula3/slide_8.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "8 min",
+        "notes": "<strong>Fala sugerida:</strong> O ensaio EAGLE da Mayo Clinic avaliou uma IA que detecta disfunção ventricular pelo ECG. A governança sólida, a integração de fluxo e a avaliação econômica tornam este caso o modelo perfeito de sucesso.",
+        "content": "<h3>Caso Real Internacional · Mayo Clinic AI-ECG (EAGLE)</h3><p>O que foi: algoritmo de IA no ECG para detectar fração de ejeção, testado em mundo real.</p><p>Resultado Simulado vs Real: ROI esperado de 250% caiu para 41% e payback subiu para 2,8 anos após constatar tempo extra de revisão (20 min em vez de 5) e custos adicionais de integração (USD 200k por site).</p><p>Lição: problema bem definido + desfecho mensurável + governança = business case robusto.</p>"
+      },
+      {
+        "id": "slide_3_9",
+        "title": "Lastro Real Brasil · IA Clínica em Ação",
+        "image": "/slides/aula3/slide_9.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> No Brasil, o Robô Laura reduziu o tempo de antibiótico em sepse de 13h para 2h58. E o Neonpass Room (Einstein/Hoobox) otimizou o acionamento de enfermagem. Isso é governança em ação.",
+        "content": "<h3>Lastro Real Brasil · IA Clínica em Ação</h3><p>Robô Laura reduziu o tempo entre suspeita e antibiótico de 13h para 2h58 em sepse.</p><p>Neonpass Room (Einstein) mostrou que apenas 35,4% das chamadas exigiam enfermagem, economizando tempo precioso de assistência.</p>"
+      },
+      {
+        "id": "slide_3_9_read",
+        "title": "Leitura Rápida: Laura (Sepse) & Neonpass (Einstein)",
+        "image": "/slides/aula3/slide_9.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Leiam em 5 minutos os artigos sobre o Robô Laura e a solução Neonpass Room instalada no Einstein. Vejam os desfechos operacionais e assistenciais obtidos.",
+        "content": "<h3>Leitura Rápida (5 min): Robô Laura & Neonpass (Einstein)</h3><p><strong>Fontes:</strong> Algoritmo Laura (REBEn, 2020) e Neonpass Room Einstein (AJN, 2025).</p><p>Mapeie como o Robô Laura otimizou a sepse (tempo de antibiótico de 13h para 2h58) e como o Einstein filtrou 64,6% de chamadas desnecessárias de enfermagem.</p><div class=\"read-buttons-container\"><a href=\"https://www.scielo.br/j/reben/a/DB8459YKwtVth4YX8vqxTJp/?lang=pt\" target=\"_blank\" class=\"read-link\"><i class=\"fa-solid fa-book-open\"></i> Estudo REBEn (Laura, 2020)</a><a href=\"https://journals.lww.com/ajnonline/fulltext/2025/05000/using_an_ai_powered_solution_to_transform_nursing.20.aspx\" target=\"_blank\" class=\"read-link\"><i class=\"fa-solid fa-book-open\"></i> Estudo AJN (Neonpass, 2025)</a></div>"
+      },
+      {
+        "id": "slide_3_9_dyn",
+        "title": "Dinâmica: Traduzindo Desfechos Clínicos",
+        "image": "/slides/aula3/slide_9.png",
+        "block": "Estudo de Caso",
+        "estimatedTime": "5 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "question": "Como guardião da viabilidade, qual premissa tem maior peso ao propor um projeto ao CFO?",
+        "options": [
+          "Desfecho clínico e economia de horas da equipe assistencial traduzidos em valor monetário direto de perdas e glosas evitadas",
+          "Demonstração de pioneirismo e ganho reputacional na adoção de inteligência artificial de última geração"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Agora, façam o papel de guardiões da viabilidade: respondam na enquete de duas opções qual argumento vocês consideram mais robusto e defensável perante o CFO.",
+        "content": "<h3>Dinâmica de Leitura: Traduzindo Desfechos Clínicos</h3><p>Comando: \"Como guardião da viabilidade, qual premissa tem maior peso ao propor um projeto de IA em saúde ao CFO? Votem na opção mais sólida.\"</p>"
+      },
+      {
+        "id": "slide_3_10",
+        "title": "Além do preço",
+        "image": "/slides/aula3/slide_10.png",
+        "block": "Bloco 2: Matriz de Decisão Multifatorial",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Iniciamos o Bloco 2. Preço inicial baixo com alto risco operacional é uma armadilha. Devemos analisar o Custo Total de Propriedade (TCO) em um horizonte de pelo menos 3 anos.",
+        "content": "<h3>Além do Preço</h3><p>Preço é um critério, não o critério.</p><p>Integrar segurança assistencial e viabilidade de longo prazo.</p><p>A solução mais barata pode ser a mais cara no horizonte de 3 anos.</p>"
+      },
+      {
+        "id": "slide_3_11",
+        "title": "Construindo a matriz de decisão",
+        "image": "/slides/aula3/slide_11.png",
+        "block": "Bloco 2: Matriz de Decisão Multifatorial",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> A matriz ponderada integra critérios como segurança do paciente, custos de integração e ROI. Lembrem-se de definir os pesos dos critérios antes de dar as notas.",
+        "content": "<h3>Construindo a Matriz de Decisão</h3><p>Critérios em linhas (custo, ROI, risco, segurança, integração, escalabilidade).</p><p>Soluções em colunas; pesos por critério definidos antes da pontuação.</p>"
+      },
+      {
+        "id": "slide_3_12",
+        "title": "Como calcular a pontuação ponderada",
+        "image": "/slides/aula3/slide_12.png",
+        "block": "Bloco 2: Matriz de Decisão Multifatorial",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Vejamos a fórmula de cálculo da pontuação ponderada. Isso confere total transparência e auditabilidade à escolha, blindando quem decide.",
+        "content": "<h3>Como Calcular a Pontuação Ponderada</h3><p>Fórmula matemática para pontuação ponderada dos critérios pré-estabelecidos.</p><p>Pontuação ponderada torna a escolha transparente e auditável.</p>"
+      },
+      {
+        "id": "slide_3_13",
+        "title": "Governança da inovação",
+        "image": "/slides/aula3/slide_13.png",
+        "block": "Bloco 2: Matriz de Decisão Multifatorial",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> A governança de inovação garante a rastreabilidade da decisão: quem decidiu, quando e com base em quê. Isso protege a instituição e também protege quem assinou a recomendação.",
+        "content": "<h3>Governança da Inovação</h3><p>Critérios rigorosos e explícitos para a seleção da solução vencedora.</p><p>Rastreabilidade da decisão: quem decidiu, com base em quê.</p><p>Governança protege a instituição e também quem decide.</p>"
+      },
+      {
+        "id": "slide_3_14",
+        "title": "Escolha a solução vencedora",
+        "image": "/slides/aula3/slide_14.png",
+        "block": "Bloco 2: Matriz de Decisão Multifatorial",
+        "estimatedTime": "12 min",
+        "isInteractive": true,
+        "interactionType": "poll",
+        "correctAnswerIndex": 1,
+        "question": "Com base na matriz de decisão ponderada, escolha a solução vencedora:",
+        "options": [
+          "Opção A: Menor preço inicial, alto risco de integração",
+          "Opção B: Maior preço, ROI abrangente defensável e baixo risco",
+          "Opção C: Solução intermediária com alto esforço de treinamento"
+        ],
+        "notes": "<strong>Fala sugerida:</strong> Vamos simular uma decisão de conselho. Com base na matriz pontuada, votem na solução que deve ser selecionada. Analisaremos se o voto divergiu da matemática.",
+        "content": "<h3>Escolha a Solução Vencedora</h3><p>Comando: \"Com base na matriz, vote na solução vencedora entre as 3 opções apresentadas.\"</p>"
+      },
+      {
+        "id": "slide_3_15",
+        "title": "Rubrica e Critérios de Avaliação",
+        "image": "/slides/aula3/slide_15.png",
+        "block": "Trabalho em Grupo",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> O projeto final vale 35% da nota e exige nota mínima de 70%. Para obter nota máxima, foquem em premissas defensáveis e em uma narrativa executiva objetiva.",
+        "content": "<h3>Rubrica e Critérios de Avaliação</h3><p>Projeto em grupo vale 35%; nota mínima de aprovação é 70% na média ponderada.</p><p>O que diferencia um business case nota máxima: premissas defensáveis e narrativa executiva.</p>"
+      },
+      {
+        "id": "slide_3_16",
+        "title": "Workshop do Projeto Final · Business Case",
+        "image": "/slides/aula3/slide_16.png",
+        "block": "Trabalho em Grupo",
+        "estimatedTime": "8 min",
+        "notes": "<strong>Fala sugerida:</strong> Estrutura esperada do business case: simulação de fluxo, teste de estresse, ROI abrangente e justificativa para o conselho. Vamos preparar o plano de ação.",
+        "content": "<h3>Workshop do Projeto Final · Business Case</h3><p>Checklist: simulação de fluxo, teste de estresse, ROI abrangente, justificativa para o conselho.</p><p>Definição de papéis e próximos passos por grupo.</p>"
+      },
+      {
+        "id": "slide_3_17",
+        "title": "Consultoria em grupo no portal",
+        "image": "/slides/aula3/slide_17.png",
+        "block": "Trabalho em Grupo",
+        "estimatedTime": "25 min",
+        "notes": "<strong>Fala sugerida:</strong> Entrem nas salas de trabalho. Avançaremos na redação do caso e no preenchimento da matriz. Eu visitarei cada sala para mentoria estratégica.",
+        "content": "<h3>Consultoria em Grupo no Portal</h3><p>Grupos avançam no business case com orientação ao vivo.</p><p>Comando: \"Avance a tese de investimento do seu grupo e registre dúvidas no portal para consultoria.\"</p>"
+      },
+      {
+        "id": "slide_3_18",
+        "title": "Reflexão final · encerramento da disciplina",
+        "image": "/slides/aula3/slide_18.png",
+        "block": "Fechamento",
+        "estimatedTime": "12 min",
+        "isInteractive": true,
+        "interactionType": "open_ended",
+        "question": "Complete: 'Como guardião da viabilidade, meu compromisso a partir de agora é...'",
+        "notes": "<strong>Fala sugerida:</strong> Para finalizarmos nossa jornada, respondam no portal: como guardião da viabilidade, qual é o compromisso profissional que você assume?",
+        "content": "<h3>Reflexão Final · Encerramento da Disciplina</h3><p>Comando: \"Complete: 'Como guardião da viabilidade, meu compromisso a partir de agora é...'\"</p>"
+      },
+      {
+        "id": "slide_3_19",
+        "title": "Síntese da disciplina e próximos passos",
+        "image": "/slides/aula3/slide_19.png",
+        "block": "Encerramento",
+        "estimatedTime": "5 min",
+        "notes": "<strong>Fala sugerida:</strong> Consolidação da disciplina: enxergar o oculto, quantificar o invisível, defender com matemática. Ouçam o podcast E3 como apoio ao projeto final.",
+        "content": "<h3>Síntese da Disciplina e Próximos Passos</h3><p>Os 3 pilares: enxergar o oculto, quantificar o invisível, defender com matemática.</p><p>Apoio ao projeto final: podcast E3 · ROI Inteligente na Prática.</p>"
+      },
+      {
+        "id": "slide_3_20",
+        "title": "Tomar decisões baseadas em dados é ter a coragem de escolher o que funciona, e não apenas o que é moda.",
+        "image": "/slides/aula3/slide_20.png",
+        "block": "Encerramento",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Encerramos com o nosso mantra: tomar decisões baseadas em dados é ter a coragem de escolher o que realmente funciona, e não o que é moda.",
+        "content": "<h3>Mantra Final</h3><p>\"Tomar decisões baseadas em dados é ter a coragem de escolher o que funciona, e não apenas o que é moda.\"</p>"
+      },
+      {
+        "id": "slide_3_21_ref",
+        "title": "Referências e fontes da aula",
+        "image": "/slides/aula3/slide_21.png",
+        "block": "Encerramento",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Aqui estão as referências reais sobre a Mayo Clinic e a implantação do Robô Laura.",
+        "content": "<div class=\"references-list-page\">\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Mayo Clinic · ensaio EAGLE, detecção por ECG (2021)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://newsnetwork.mayoclinic.org/discussion/trial-demonstrates-early-ai-guided-detection-of-heart-disease-in-routine-practice/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Mayo Clinic · custo-efetividade do AI-ECG (2024)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://newsnetwork.mayoclinic.org/discussion/research-study-shows-the-cost-effectiveness-of-ai-enhanced-heart-failure-screening/\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Mayo Clinic · estudo, Nature Medicine (2021)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://www.nature.com/articles/s41591-021-01335-4\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Robô Laura · implantação para sepse, REBEn/SciELO (2020)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://www.scielo.br/j/reben/a/DB8459YKwtVth4YX8vqxTJp/?lang=pt\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n    <div class=\"reference-card\">\n        <span class=\"reference-citation\">Neonpass Room · IA em enfermagem, Einstein/HOOBOX, AJN (2025)</span>\n        \n        \n        <div class=\"reference-meta\">\n            \n            <a href=\"https://journals.lww.com/ajnonline/fulltext/2025/05000/using_an_ai_powered_solution_to_transform_nursing.20.aspx\" target=\"_blank\" class=\"reference-link\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> Acessar Link</a>\n        </div>\n    </div>\n</div>"
+      },
+      {
+        "id": "slide_3_22",
+        "title": "Guardioes da Viabilidade",
+        "image": "/slides/aula3/slide_22.png",
+        "block": "Encerramento",
+        "estimatedTime": "2 min",
+        "notes": "<strong>Fala sugerida:</strong> Parabéns pela dedicação ao longo do curso. Vocês saem daqui como guardiões da viabilidade das suas instituições. Muito obrigada.",
+        "content": "<h3>Guardiões da Viabilidade</h3><p>Parabéns a todos os novos guardiões da viabilidade na saúde.</p>"
+      }
+    ]
+  }
+];
+
+function readData() {
+  if (!fs.existsSync(DB_FILE)) {
+    const initialData = {
+      activeState: {
+        classId: "aula1",
+        slideId: "slide_1_1",
+        syncEnabled: true,
+        activeTab: "checkin"
+      },
+      submissions: { aula1: {}, aula2: {}, aula3: {} },
+      comments: { aula1: {}, aula2: {}, aula3: {} },
+      checkinResponses: { aula1: {}, aula2: {}, aula3: {} },
+      slideInteractions: { aula1: {}, aula2: {}, aula3: {} },
+      conceptCheckResponses: { aula1: {}, aula2: {}, aula3: {} },
+      reflections: { aula1: {}, aula2: {}, aula3: {} }
+    };
+    fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), 'utf-8');
+    return initialData;
+  }
+  try {
+    const raw = fs.readFileSync(DB_FILE, 'utf-8');
+    const parsed = JSON.parse(raw);
+    
+    // Ensure all required fields exist
+    let updated = false;
+    if (!parsed.activeState) {
+      parsed.activeState = { classId: "aula1", slideId: "slide_1_1", syncEnabled: true, activeTab: "checkin" };
+      updated = true;
+    }
+    if (!parsed.activeState.activeTab) {
+      parsed.activeState.activeTab = "checkin";
+      updated = true;
+    }
+    if (!parsed.submissions) { parsed.submissions = { aula1: {}, aula2: {}, aula3: {} }; updated = true; }
+    if (!parsed.comments) { parsed.comments = { aula1: {}, aula2: {}, aula3: {} }; updated = true; }
+    if (!parsed.checkinResponses) { parsed.checkinResponses = { aula1: {}, aula2: {}, aula3: {} }; updated = true; }
+    if (!parsed.slideInteractions) { parsed.slideInteractions = { aula1: {}, aula2: {}, aula3: {} }; updated = true; }
+    if (!parsed.conceptCheckResponses) { parsed.conceptCheckResponses = { aula1: {}, aula2: {}, aula3: {} }; updated = true; }
+    if (!parsed.reflections) { parsed.reflections = { aula1: {}, aula2: {}, aula3: {} }; updated = true; }
+    if (!parsed.whiteboardHistory) { parsed.whiteboardHistory = { aula1: [], aula2: [], aula3: [] }; updated = true; }
+    
+    if (updated) {
+      fs.writeFileSync(DB_FILE, JSON.stringify(parsed, null, 2), 'utf-8');
+    }
+    return parsed;
+  } catch (e) {
+    console.error("Error reading db.json, returning empty database structure", e);
+    return {
+      activeState: { classId: "aula1", slideId: "slide_1_1", syncEnabled: true, activeTab: "checkin" },
+      submissions: { aula1: {}, aula2: {}, aula3: {} },
+      comments: { aula1: {}, aula2: {}, aula3: {} },
+      checkinResponses: { aula1: {}, aula2: {}, aula3: {} },
+      slideInteractions: { aula1: {}, aula2: {}, aula3: {} },
+      conceptCheckResponses: { aula1: {}, aula2: {}, aula3: {} },
+      reflections: { aula1: {}, aula2: {}, aula3: {} }
+    };
+  }
+}
+
+function writeData(data) {
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
+  } catch (e) {
+    console.error("Error writing to db.json", e);
+    return false;
+  }
+}
+
+module.exports = {
+  students,
+  scenarios,
+  classesContent,
+  syllabusBibliography,
+  getState: () => {
+    const data = readData();
+    return data.activeState;
+  },
+  updateState: (newState) => {
+    const data = readData();
+    data.activeState = { ...data.activeState, ...newState };
+    writeData(data);
+    return data.activeState;
+  },
+  
+  // Group submissions management
+  getSubmissions: (classId) => {
+    const data = readData();
+    return data.submissions[classId] || {};
+  },
+  getSubmission: (classId, groupId) => {
+    const data = readData();
+    return (data.submissions[classId] || {})[groupId] || null;
+  },
+  saveSubmission: (classId, groupId, submissionData, submittedBy) => {
+    const data = readData();
+    if (!data.submissions[classId]) {
+      data.submissions[classId] = {};
+    }
+    // Only accept the first group submission, block edits
+    if (data.submissions[classId][groupId]) {
+      return data.submissions[classId][groupId];
+    }
+    data.submissions[classId][groupId] = {
+      ...submissionData,
+      submittedBy: submittedBy || "Aluno da Equipe",
+      submittedAt: new Date().toISOString()
+    };
+    writeData(data);
+    return data.submissions[classId][groupId];
+  },
+  
+  // Comments & Feedback
+  getComments: (classId, groupId) => {
+    const data = readData();
+    return (data.comments[classId] || {})[groupId] || [];
+  },
+  saveComment: (classId, groupId, commentText, grade) => {
+    const data = readData();
+    if (!data.comments[classId]) {
+      data.comments[classId] = {};
+    }
+    if (!data.comments[classId][groupId]) {
+      data.comments[classId][groupId] = [];
+    }
+    const newComment = {
+      text: commentText,
+      grade: grade || null,
+      timestamp: new Date().toISOString()
+    };
+    data.comments[classId][groupId].push(newComment);
+    writeData(data);
+    return data.comments[classId][groupId];
+  },
+  
+  // Check-in response management
+  getCheckins: (classId) => {
+    const data = readData();
+    return data.checkinResponses[classId] || {};
+  },
+  saveCheckinResponse: (classId, userEmail, responseText) => {
+    const data = readData();
+    if (!data.checkinResponses[classId]) {
+      data.checkinResponses[classId] = {};
+    }
+    data.checkinResponses[classId][userEmail] = {
+      text: responseText,
+      submittedAt: new Date().toISOString()
+    };
+    writeData(data);
+    return data.checkinResponses[classId];
+  },
+
+  // Interactive Slide responses
+  getSlideInteractions: (classId, slideId) => {
+    const data = readData();
+    const classInteractions = data.slideInteractions[classId] || {};
+    return classInteractions[slideId] || [];
+  },
+  saveSlideInteraction: (classId, slideId, userEmail, value) => {
+    const data = readData();
+    if (!data.slideInteractions[classId]) {
+      data.slideInteractions[classId] = {};
+    }
+    if (!data.slideInteractions[classId][slideId]) {
+      data.slideInteractions[classId][slideId] = [];
+    }
+    
+    const student = students.find(s => s.email === userEmail);
+    const studentName = student ? student.name : userEmail;
+    const groupId = student ? student.group : 1;
+    
+    // Check if the slide is a Q&A activity
+    const activeClass = classesContent.find(c => c.id === classId);
+    const slide = activeClass ? activeClass.slides.find(s => s.id === slideId) : null;
+    const isQA = slide && slide.interactionType === "qa";
+    
+    if (isQA) {
+      // Q&A allows multiple questions. Append a new one with a unique ID
+      const questionId = `${userEmail}_${Date.now()}`;
+      const responseItem = {
+        id: questionId,
+        userEmail: userEmail,
+        studentName: studentName,
+        groupId: groupId,
+        value: value,
+        likes: [],
+        hidden: false,
+        highlighted: false,
+        answered: false,
+        pinned: false,
+        submittedAt: new Date().toISOString()
+      };
+      data.slideInteractions[classId][slideId].push(responseItem);
+    } else {
+      // Regular single response per student (quiz, poll_ab, open_ended)
+      const index = data.slideInteractions[classId][slideId].findIndex(x => x.userEmail === userEmail);
+      const responseItem = {
+        id: userEmail,
+        userEmail: userEmail,
+        studentName: studentName,
+        groupId: groupId,
+        value: value,
+        likes: (index !== -1) ? (data.slideInteractions[classId][slideId][index].likes || []) : [],
+        hidden: (index !== -1) ? (data.slideInteractions[classId][slideId][index].hidden || false) : false,
+        highlighted: (index !== -1) ? (data.slideInteractions[classId][slideId][index].highlighted || false) : false,
+        answered: (index !== -1) ? (data.slideInteractions[classId][slideId][index].answered || false) : false,
+        pinned: (index !== -1) ? (data.slideInteractions[classId][slideId][index].pinned || false) : false,
+        submittedAt: new Date().toISOString()
+      };
+      
+      if (index !== -1) {
+        data.slideInteractions[classId][slideId][index] = responseItem;
+      } else {
+        data.slideInteractions[classId][slideId].push(responseItem);
+      }
+    }
+    
+    writeData(data);
+    return data.slideInteractions[classId][slideId];
+  },
+  likeSlideInteraction: (classId, slideId, responseId, likerUserEmail) => {
+    const data = readData();
+    if (data.slideInteractions[classId] && data.slideInteractions[classId][slideId]) {
+      const item = data.slideInteractions[classId][slideId].find(x => x.id === responseId);
+      if (item) {
+        if (!item.likes) item.likes = [];
+        const likeIdx = item.likes.indexOf(likerUserEmail);
+        if (likeIdx === -1) {
+          item.likes.push(likerUserEmail);
+        } else {
+          item.likes.splice(likeIdx, 1);
+        }
+        writeData(data);
+      }
+    }
+    return (data.slideInteractions[classId] || {})[slideId] || [];
+  },
+  toggleHideSlideInteraction: (classId, slideId, responseId) => {
+    const data = readData();
+    if (data.slideInteractions[classId] && data.slideInteractions[classId][slideId]) {
+      const item = data.slideInteractions[classId][slideId].find(x => x.id === responseId);
+      if (item) {
+        item.hidden = !item.hidden;
+        writeData(data);
+      }
+    }
+    return (data.slideInteractions[classId] || {})[slideId] || [];
+  },
+  toggleHighlightSlideInteraction: (classId, slideId, responseId) => {
+    const data = readData();
+    if (data.slideInteractions[classId] && data.slideInteractions[classId][slideId]) {
+      const item = data.slideInteractions[classId][slideId].find(x => x.id === responseId);
+      if (item) {
+        item.highlighted = !item.highlighted;
+        writeData(data);
+      }
+    }
+    return (data.slideInteractions[classId] || {})[slideId] || [];
+  },
+  toggleAnswerSlideInteraction: (classId, slideId, responseId) => {
+    const data = readData();
+    if (data.slideInteractions[classId] && data.slideInteractions[classId][slideId]) {
+      const item = data.slideInteractions[classId][slideId].find(x => x.id === responseId);
+      if (item) {
+        item.answered = !item.answered;
+        writeData(data);
+      }
+    }
+    return (data.slideInteractions[classId] || {})[slideId] || [];
+  },
+  togglePinSlideInteraction: (classId, slideId, responseId) => {
+    const data = readData();
+    if (data.slideInteractions[classId] && data.slideInteractions[classId][slideId]) {
+      const list = data.slideInteractions[classId][slideId];
+      const item = list.find(x => x.id === responseId);
+      if (item) {
+        const targetVal = !item.pinned;
+        // Unpin all other items on this slide
+        list.forEach(x => { x.pinned = false; });
+        item.pinned = targetVal;
+        writeData(data);
+      }
+    }
+    return (data.slideInteractions[classId] || {})[slideId] || [];
+  },
+
+  // Concept Check responses
+  getConceptChecks: (classId) => {
+    const data = readData();
+    return data.conceptCheckResponses[classId] || {};
+  },
+  saveConceptCheckResponse: (classId, userEmail, score, answers) => {
+    const data = readData();
+    if (!data.conceptCheckResponses[classId]) {
+      data.conceptCheckResponses[classId] = {};
+    }
+    data.conceptCheckResponses[classId][userEmail] = {
+      score: score,
+      answers: answers,
+      submittedAt: new Date().toISOString()
+    };
+    writeData(data);
+    return data.conceptCheckResponses[classId][userEmail];
+  },
+
+  // Reflection responses
+  getReflections: (classId) => {
+    const data = readData();
+    return data.reflections[classId] || {};
+  },
+  saveReflection: (classId, userEmail, reflectionText) => {
+    const data = readData();
+    if (!data.reflections[classId]) {
+      data.reflections[classId] = {};
+    }
+    data.reflections[classId][userEmail] = {
+      text: reflectionText,
+      submittedAt: new Date().toISOString()
+    };
+    writeData(data);
+    return data.reflections[classId][userEmail];
+  },
+
+  // Whiteboard history
+  getWhiteboardHistory: (classId) => {
+    const data = readData();
+    return data.whiteboardHistory[classId] || [];
+  },
+  addWhiteboardAction: (classId, action) => {
+    const data = readData();
+    if (!data.whiteboardHistory[classId]) {
+      data.whiteboardHistory[classId] = [];
+    }
+    data.whiteboardHistory[classId].push(action);
+    writeData(data);
+    return action;
+  },
+  clearWhiteboardHistory: (classId) => {
+    const data = readData();
+    data.whiteboardHistory[classId] = [];
+    writeData(data);
+    return [];
+  }
+};

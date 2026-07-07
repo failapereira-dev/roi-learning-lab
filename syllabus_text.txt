@@ -1,0 +1,389 @@
+FACULDADE DE CIÊNCIAS DA SAÚDE
+
+MOINHOS DE VENTO
+
+Mantida pela ASSOCIAÇÃO HOSPITALAR MOINHOS DE VENTO
+
+Credenciada pela Portaria Ministerial nº216, de 03/02/2017 (D.O.U. 06/02/2017).
+
+Credenciada para a modalidade EAD pela Portaria Ministerial nº574, de 02/08/2022 (D.O.U. 05/08/2022).
+
+PLANO DE ENSINO
+
+MBA em Inteligência Artificial
+
+Disciplina: Avaliação de Riscos e Investimentos com ROI
+
+Carga Horária: 24 horas
+
+Professor: MS Fernando Arbache
+
+Ementa
+
+(De acordo com o Projeto Pedagógico do Curso)
+
+A disciplina aborda a avaliação sistemática de riscos financeiros e o cálculo de Retorno sobre Investimento (ROI) em projetos de inovação tecnológica na área da saúde. Após a identificação de soluções promissoras, é necessário avaliar os riscos financeiros envolvidos em cada uma delas e estimar o ROI real, permitindo a escolha da solução mais vantajosa por meio de um processo rigoroso de tomada de decisão baseada em dados.
+
+O conteúdo contempla a simulação de fluxo operacional como ferramenta para justificar investimentos em tecnologias de alto custo e prever riscos antes da implementação. Os participantes aprenderão a identificar o "efeito dominó" que soluções inovadoras podem causar em ecossistemas hospitalares, evitando situações onde a ferramenta certa é implementada no momento errado ou sem a infraestrutura adequada.
+
+A disciplina enfatiza o papel do cientista de dados como "guardião da viabilidade", desenvolvendo competências para submeter soluções promissoras a testes de estresse financeiro, identificar custos ocultos de infraestrutura, e descobrir riscos financeiros não planejados que poderiam comprometer projetos no meio do caminho.
+
+Especial atenção é dada à estimativa de ROI de forma inteligente e abrangente, indo além da análise de curto prazo e da planilha do mês seguinte. Os participantes aprenderão a quantificar riscos invisíveis — como custos de erros de medicação, glosas de convênios, custos jurídicos, custos de imagem e custos de retrabalho — transformando a prevenção de problemas em valor financeiro mensurável.
+
+A metodologia permite selecionar a solução vencedora não porque é a mais barata ou mais moderna, mas porque é a mais eficiente a longo prazo, provando que a segurança do paciente e a saúde financeira da instituição andam juntas. A disciplina desenvolve a capacidade de justificar investimentos complexos para conselhos financeiros usando matemática financeira aplicada à realidade complexa da saúde.
+
+O curso prepara o profissional para ter a coragem de escolher o que funciona — e não apenas o que é moda — aplicando o princípio fundamental: "Escolha a solução que os dados aprovam, e não a que o marketing vende."
+
+Módulos da Disciplina
+
+Módulo 1: Fundamentos da Avaliação de Riscos em Inovação
+
+Conceitos fundamentais de risco financeiro em projetos de inovação tecnológica.
+
+O papel do cientista de dados como guardião da viabilidade.
+
+Diferença entre risco aparente e risco oculto em projetos de saúde.
+
+Framework de categorização de riscos: técnicos, operacionais, financeiros, regulatórios.
+
+Metodologias de identificação e mapeamento de riscos.
+
+Matriz de probabilidade vs. impacto aplicada à saúde.
+
+Módulo 2: A Matemática da Escolha — Simulação de Fluxo Operacional
+
+O risco de investir na ferramenta certa no momento errado.
+
+Construção de simulações de fluxo operacional em ambientes de saúde.
+
+Identificação do efeito dominó: impactos em cadeia de novas tecnologias.
+
+Estudo de caso: IA de laudos de ressonância e o colapso operacional.
+
+Gargalos secundários: recepção, infraestrutura física, recursos humanos.
+
+Risco clínico induzido por eficiência excessiva: quando a velocidade prejudica.
+
+Recálculo de estratégia e ajuste de ROI baseado em simulação.
+
+Princípio: "Errar no virtual para acertar no real."
+
+Módulo 3: O Veto dos Dados — Mitigação de Risco e Defesa Financeira
+
+Avaliação de riscos financeiros como ferramenta de defesa institucional.
+
+Teste de estresse financeiro em soluções promissoras.
+
+Identificação de custos ocultos de infraestrutura.
+
+Estudo de caso: telemetria em leitos e o upgrade milionário de rede.
+
+Antecipação de gargalos que paralisam projetos no meio do caminho.
+
+Cálculo de ROI real considerando obras, treinamentos e adaptações.
+
+Seleção da solução mais vantajosa vs. mais tecnológica.
+
+Princípio: "Escolher o que funciona, não o que é moda."
+
+Módulo 4: ROI Inteligente — Quantificação de Riscos Invisíveis
+
+O erro da análise de ROI de curto prazo.
+
+Metodologia de estimativa de ROI inteligente e abrangente.
+
+Estudo de caso: automação de farmácia hospitalar.
+
+Quantificação de riscos invisíveis:
+
+Custo de erros de medicação e eventos adversos
+
+Custo de glosas de convênios por falhas de registro
+
+Custos jurídicos e processos indenizatórios
+
+Custos de imagem e reputação institucional
+
+Custos de retrabalho e ineficiência operacional
+
+Transformação de prevenção de problemas em valor financeiro.
+
+Princípio: "Não é mágica, é matemática financeira aplicada."
+
+Módulo 5: Tomada de Decisão e Justificativa para Stakeholders
+
+Construção de business case baseado em análise de risco e ROI.
+
+Técnicas de comunicação de riscos para conselhos financeiros.
+
+Justificativa de investimentos complexos com evidências matemáticas.
+
+Comparativo de soluções: matriz de decisão multifatorial.
+
+Integração de segurança do paciente e saúde financeira institucional.
+
+Governança de decisões de inovação: do marketing à matemática.
+
+Projeto final: análise completa de risco e ROI de solução inovadora.
+
+Objetivo Geral
+
+Capacitar os participantes a avaliar sistematicamente os riscos financeiros de projetos de inovação tecnológica em saúde, calcular o Retorno sobre Investimento (ROI) de forma inteligente e abrangente — considerando custos visíveis e invisíveis —, e tomar decisões estratégicas baseadas em evidências matemáticas, selecionando soluções que funcionam na realidade operacional da instituição, não apenas as que brilham no marketing.
+
+Objetivos Específicos
+
+Compreender os fundamentos de avaliação de riscos financeiros em projetos de inovação tecnológica.
+
+Construir simulações de fluxo operacional para prever impactos de novas tecnologias.
+
+Identificar o efeito dominó que soluções inovadoras podem causar em ecossistemas hospitalares.
+
+Aplicar testes de estresse financeiro em soluções promissoras antes da implementação.
+
+Descobrir custos ocultos de infraestrutura que comprometem projetos.
+
+Quantificar riscos invisíveis: erros de medicação, glosas, custos jurídicos, retrabalho.
+
+Calcular ROI abrangente que vai além da planilha de curto prazo.
+
+Transformar prevenção de problemas em valor financeiro mensurável.
+
+Construir business cases com justificativa matemática para conselhos financeiros.
+
+Desenvolver coragem analítica para escolher o que funciona, não o que é moda.
+
+Integrar segurança do paciente e saúde financeira na tomada de decisão.
+
+Comunicar riscos e oportunidades de forma eficaz para stakeholders diversos.
+
+Bibliografia
+
+Básica
+
+ARBACHE, F. Inovação e Inteligência Artificial Aplicada à Gestão de Riscos. KnowRISK Press, 2024.
+
+DAMODARAN, A. Investment Valuation: Tools and Techniques for Determining the Value of Any Asset. 4th ed. Hoboken: Wiley, 2024.
+
+KAPLAN, R. S.; NORTON, D. P. The Balanced Scorecard: Translating Strategy into Action. Boston: Harvard Business School Press, 1996.
+
+HUBBARD, D. W. How to Measure Anything: Finding the Value of Intangibles in Business. 4th ed. Hoboken: Wiley, 2024.
+
+CLEVERLEY, W. O.; CLEVERLEY, J. O.; SONG, P. H. Essentials of Health Care Finance. 9th ed. Burlington: Jones & Bartlett Learning, 2023.
+
+TOPOL, E. Deep Medicine: How Artificial Intelligence Can Make Healthcare Human Again. New York: Basic Books, 2019.
+
+TALEB, N. N. Skin in the Game: Hidden Asymmetries in Daily Life. New York: Random House, 2018.
+
+RASMUSSEN, N.; BANSAL, M.; CHEN, Y. Business Dashboards: A Visual Catalog for Design and Deployment. Hoboken: Wiley, 2023.
+
+Complementar
+
+Gestão de Riscos e Análise Financeira:
+
+HOPKIN, P. Fundamentals of Risk Management: Understanding, Evaluating and Implementing Effective Risk Management. 6th ed. London: Kogan Page, 2024.
+
+FRASER, J. R. S.; SIMKINS, B. J.; NARVAEZ, K. Implementing Enterprise Risk Management: Case Studies and Best Practices. 2nd ed. Hoboken: Wiley, 2024.
+
+HUBBARD, D. W. The Failure of Risk Management: Why It's Broken and How to Fix It. 2nd ed. Hoboken: Wiley, 2020.
+
+CROUHY, M.; GALAI, D.; MARK, R. The Essentials of Risk Management. 3rd ed. New York: McGraw-Hill, 2024.
+
+TALEB, N. N. Antifrágil: Coisas que se Beneficiam com o Caos. Rio de Janeiro: Objetiva, 2013.
+
+Finanças e Economia da Saúde:
+
+GAPENSKI, L. C.; REITER, K. L. Healthcare Finance: An Introduction to Accounting and Financial Management. 7th ed. Chicago: Health Administration Press, 2022.
+
+NOWICKI, M. Introduction to the Financial Management of Healthcare Organizations. 8th ed. Chicago: Health Administration Press, 2022.
+
+ZELMAN, W. N.; McCUE, M. J.; GLICK, N. D. Financial Management of Health Care Organizations. 5th ed. Hoboken: Wiley, 2020.
+
+PORTER, M. E.; LEE, T. H. The Strategy That Will Fix Health Care. Harvard Business Review, v. 91, n. 10, p. 50-70, 2013.
+
+Healthcare Analytics e Inteligência Artificial:
+
+DAVENPORT, T. H.; KALAKOTA, R. The Potential for Artificial Intelligence in Healthcare. Future Healthcare Journal, v. 6, n. 2, p. 94-98, 2019.
+
+OBERMEYER, Z.; EMANUEL, E. J. Predicting the Future — Big Data, Machine Learning, and Clinical Medicine. New England Journal of Medicine, v. 375, n. 13, p. 1216-1219, 2016.
+
+JIANG, F. et al. Artificial Intelligence in Healthcare: Past, Present and Future. Stroke and Vascular Neurology, v. 2, n. 4, p. 230-243, 2017.
+
+REDDY, S. et al. A Governance Model for the Application of AI in Health Care. Journal of the American Medical Informatics Association, v. 27, n. 3, p. 491-497, 2020.
+
+CHAR, D. S.; SHAH, N. H.; MAGNUS, D. Implementing Machine Learning in Health Care. New England Journal of Medicine, v. 378, n. 11, p. 981-983, 2018.
+
+Simulação e Modelagem Operacional:
+
+BANKS, J. et al. Discrete-Event System Simulation. 5th ed. Upper Saddle River: Pearson, 2020.
+
+KELTON, W. D.; SADOWSKI, R. P.; ZUPICK, N. B. Simulation with Arena. 7th ed. New York: McGraw-Hill, 2024.
+
+GÜNAL, M. M.; PIDD, M. Discrete Event Simulation for Performance Modelling in Health Care: A Review of the Literature. Journal of Simulation, v. 4, n. 1, p. 42-51, 2010.
+
+BRAILSFORD, S. C.; VISSERS, J. OR in Healthcare: A European Perspective. European Journal of Operational Research, v. 212, n. 2, p. 223-234, 2011.
+
+Tomada de Decisão e Behavioral Economics:
+
+KAHNEMAN, D. Rápido e Devagar: Duas Formas de Pensar. Rio de Janeiro: Objetiva, 2012.
+
+KAHNEMAN, D.; SIBONY, O.; SUNSTEIN, C. R. Noise: A Flaw in Human Judgment. New York: Little, Brown Spark, 2021.
+
+THALER, R. H.; SUNSTEIN, C. R. Nudge: Improving Decisions About Health, Wealth, and Happiness. Rev. ed. London: Penguin Books, 2021.
+
+SNOWDEN, D. J.; BOONE, M. E. A Leader's Framework for Decision Making. Harvard Business Review, v. 85, n. 11, p. 68-76, 2007.
+
+Qualidade, Segurança do Paciente e Value-Based Healthcare:
+
+CHRISTENSEN, C. M.; GROSSMAN, J. H.; HWANG, J. The Innovator's Prescription: A Disruptive Solution for Health Care. New York: McGraw-Hill, 2009.
+
+INSTITUTE OF MEDICINE. To Err Is Human: Building a Safer Health System. Washington: National Academies Press, 2000.
+
+JAMES, J. T. A New, Evidence-Based Estimate of Patient Harms Associated with Hospital Care. Journal of Patient Safety, v. 9, n. 3, p. 122-128, 2013.
+
+DONABEDIAN, A. The Definition of Quality and Approaches to Its Assessment. Ann Arbor: Health Administration Press, 1980.
+
+Normas, Frameworks e Regulamentações:
+
+ISO 31000:2018. Risk Management — Guidelines. Geneva: ISO, 2018.
+
+ISO/IEC 27005:2022. Information Security, Cybersecurity and Privacy Protection — Guidance on Managing Information Security Risks. Geneva: ISO, 2022.
+
+COSO. Enterprise Risk Management — Integrating with Strategy and Performance. Committee of Sponsoring Organizations of the Treadway Commission, 2017.
+
+WORLD HEALTH ORGANIZATION. Ethics and Governance of Artificial Intelligence for Health. Geneva: WHO, 2021.
+
+FDA. Artificial Intelligence and Machine Learning in Software as a Medical Device. U.S. Food and Drug Administration, 2024.
+
+Currículo do Professor
+
+MS Fernando Arbache
+
+Mestre em Engenharia Industrial (PUC/Rio) e Graduado em Engenharia Civil (UFJF). Possui formação em Data Science, Innovation e Digital Transformation pelo MIT. É fundador da KnowRISK e da Arbache Innovations, com mais de 20 anos de experiência em análise de riscos, modelagem financeira e simulação de cenários. Especialista em ROI de projetos de inovação tecnológica, com atuação destacada no setor de saúde. Atua como consultor educacional do MIT e instrutor em cursos executivos de Gestão de Riscos, Finanças em Saúde e Liderança em Inovação. Pesquisador nas áreas de inteligência artificial aplicada à gestão financeira e tomada de decisão baseada em dados.
+
+LinkedIn: linkedin.com/in/arbache
+
+E-mail: fernando@knowrisk.io
+
+Tópicos da Disciplina
+
+Nº
+
+Título / Tema
+
+Objetivos Específicos
+
+Bibliografia
+
+1
+
+Fundamentos de Avaliação de Riscos
+
+Compreender conceitos de risco financeiro e o papel do cientista de dados como guardião da viabilidade.
+
+Hopkin (2024); COSO (2017); ISO 31000
+
+2
+
+A Matemática da Escolha
+
+Construir simulações de fluxo operacional e identificar efeitos dominó de novas tecnologias.
+
+Banks et al. (2020); Kelton (2024); Brailsford (2011)
+
+3
+
+O Veto dos Dados
+
+Aplicar testes de estresse financeiro e descobrir custos ocultos de infraestrutura.
+
+Hubbard (2020, 2024); Crouhy (2024); Taleb (2018)
+
+4
+
+ROI Inteligente
+
+Quantificar riscos invisíveis e transformar prevenção em valor financeiro.
+
+Damodaran (2024); Gapenski (2022); James (2013)
+
+5
+
+Tomada de Decisão
+
+Construir business cases e justificar investimentos para stakeholders.
+
+Kahneman (2021); Porter (2013); Arbache (2024)
+
+Processo Avaliativo (Definição da Atividade)
+
+A avaliação será composta por atividades teórico-práticas que demonstrem domínio das competências de análise de risco e cálculo de ROI:
+
+Prova Estruturada (25%) – Avaliação teórica sobre fundamentos de gestão de riscos, metodologias de cálculo de ROI, simulação operacional e quantificação de riscos invisíveis.
+
+Análise de Caso Individual (25%) – Avaliação de risco e cálculo de ROI de uma solução tecnológica apresentada, incluindo identificação de custos ocultos e riscos invisíveis.
+
+Projeto Prático em Grupo (35%) – Desenvolvimento completo de business case: simulação de fluxo operacional, teste de estresse financeiro, cálculo de ROI abrangente e justificativa para conselho financeiro.
+
+Participação e Debates (15%) – Engajamento em discussões sobre estudos de caso (IA de laudos, telemetria, automação de farmácia) e aplicação dos princípios da disciplina.
+
+Para aprovação, o aluno deverá obter nota mínima de 70% na média ponderada.
+
+Resultado Esperado
+
+Ao final da disciplina, o estudante será capaz de:
+
+Avaliar sistematicamente riscos financeiros em projetos de inovação tecnológica;
+
+Construir simulações de fluxo operacional para prever impactos de novas tecnologias;
+
+Identificar o efeito dominó antes da implementação de soluções;
+
+Aplicar testes de estresse financeiro em soluções promissoras;
+
+Descobrir custos ocultos de infraestrutura que comprometem projetos;
+
+Quantificar riscos invisíveis (erros, glosas, custos jurídicos, retrabalho);
+
+Calcular ROI abrangente que considera fatores de curto e longo prazo;
+
+Transformar prevenção de problemas em valor financeiro mensurável;
+
+Construir business cases com justificativa matemática irrefutável;
+
+Comunicar riscos e oportunidades de forma eficaz para stakeholders diversos;
+
+Integrar segurança do paciente e saúde financeira na tomada de decisão;
+
+Demonstrar pensamento crítico: "Escolher a solução que os dados aprovam, não a que o marketing vende."
+
+Recursos Multimídia da Disciplina
+
+🎙 Podcasts — Avaliação de Riscos e ROI
+
+E1 - A Matemática da Escolha: Ouvir no Spotify
+
+E2 - O Veto dos Dados (Foco em Mitigação de Risco): Ouvir no Spotify
+
+E3 - ROI Inteligente na Prática: Ouvir no Spotify
+
+📚 Estudos de Caso Abordados
+
+IA de Laudos de Ressonância: O efeito dominó — laudos rápidos causando colapso de recepção, estacionamento e aumento de risco clínico.
+
+Telemetria em Leitos de Enfermaria: Custo oculto de infraestrutura de rede — upgrade milionário não planejado.
+
+Automação de Farmácia Hospitalar: Quantificação de riscos invisíveis — erros de medicação, glosas, custos jurídicos e de retrabalho.
+
+📌 Frases-Chave da Disciplina
+
+"Escolha a solução que os dados aprovam, e não a que o marketing vende."
+
+"Uma solução inovadora pode se tornar um problema se não entendermos como ela afeta o todo."
+
+"A simulação nos permite errar no virtual para acertar no real."
+
+"Tomar decisões baseadas em dados é ter a coragem de escolher o que funciona, e não apenas o que é moda."
+
+"Nós transformamos prevenção de problemas em valor financeiro."
+
+"Não é mágica, é matemática financeira aplicada à realidade complexa da saúde."

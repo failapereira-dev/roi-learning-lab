@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVP — Ambiente Virtual do Projeto | Avaliação de Riscos e Investimentos</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <img src="assets/logo.svg" alt="AVP" class="logo">
+  <div class="topbar-text">
+    <strong>AVP</strong> — Ambiente Virtual do Projeto
+    <span class="topbar-sub">Avaliação de Riscos e Investimentos (ROI) · MBA em IA</span>
+  </div>
+  <div class="topbar-group" id="topbarGroup"></div>
+</header>
+
+<main id="app">
+
+  <!-- TELA 1: ACESSO DO GRUPO -->
+  <section id="screen-login" class="screen active">
+    <div class="card card-narrow">
+      <h1>Acesso do Grupo</h1>
+      <p class="muted">Digite o código de grupo fornecido pelo professor para entrar no projeto.</p>
+      <label for="groupCode">Código do grupo</label>
+      <input type="text" id="groupCode" placeholder="Ex: GRUPO-03" autocomplete="off">
+      <p class="error-msg" id="loginError"></p>
+      <button class="btn-primary" id="btnEntrar">Entrar</button>
+      <p class="hint">Protótipo de demonstração: qualquer código com pelo menos 3 caracteres é aceito. Os dados são salvos apenas neste navegador.</p>
+    </div>
+  </section>
+
+  <!-- TELA 2: PAINEL DO GRUPO -->
+  <section id="screen-dashboard" class="screen">
+    <div class="card card-wide">
+      <h1>Painel do Grupo <span id="dashGroupName" class="group-badge"></span></h1>
+      <p class="muted">Acompanhe o progresso das três etapas do Projeto Prático. Clique em "Continuar" para acessar o módulo ativo.</p>
+
+      <div class="trilha">
+        <div class="etapa-item" id="trilha-1">
+          <img src="assets/icon-risk.svg" alt="">
+          <div class="etapa-info">
+            <strong>Etapa 1 — Mapeamento de Riscos</strong>
+            <span class="status-tag" id="status-1">Não iniciada</span>
+          </div>
+          <button class="btn-secondary" data-goto="etapa1">Continuar</button>
+        </div>
+        <div class="etapa-item" id="trilha-2">
+          <img src="assets/icon-roi.svg" alt="">
+          <div class="etapa-info">
+            <strong>Etapa 2 — Calculadora de ROI</strong>
+            <span class="status-tag" id="status-2">Não iniciada</span>
+          </div>
+          <button class="btn-secondary" data-goto="etapa2">Continuar</button>
+        </div>
+        <div class="etapa-item" id="trilha-3">
+          <img src="assets/icon-case.svg" alt="">
+          <div class="etapa-info">
+            <strong>Etapa 3 — Business Case</strong>
+            <span class="status-tag" id="status-3">Não iniciada</span>
+          </div>
+          <button class="btn-secondary" data-goto="etapa3">Continuar</button>
+        </div>
+      </div>
+
+      <div class="dashboard-footer">
+        <button class="btn-link" id="btnSairGrupo">Sair / trocar de grupo</button>
+        <button class="btn-link" id="btnIrProfessor">Acessar Painel do Professor</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 3: ETAPA 1 - MAPEAMENTO DE RISCOS -->
+  <section id="screen-etapa1" class="screen">
+    <div class="card card-wide">
+      <button class="btn-back" data-goto="dashboard">&larr; Voltar ao painel</button>
+      <div class="modulo-header">
+        <img src="assets/icon-risk.svg" alt="">
+        <div>
+          <h1>Etapa 1 — Mapeamento de Riscos</h1>
+          <p class="muted">Preencham colaborativamente os quatro quadrantes de risco do projeto escolhido pelo grupo.</p>
+        </div>
+      </div>
+
+      <div class="quadrantes">
+        <div class="quadrante">
+          <label>Riscos Técnicos</label>
+          <textarea id="risco-tecnico" rows="4" placeholder="Ex: limitações de dados, integração de sistemas, maturidade da tecnologia..."></textarea>
+        </div>
+        <div class="quadrante">
+          <label>Riscos Operacionais</label>
+          <textarea id="risco-operacional" rows="4" placeholder="Ex: capacidade da equipe, processos, dependências internas..."></textarea>
+        </div>
+        <div class="quadrante">
+          <label>Riscos de Confiança</label>
+          <textarea id="risco-confianca" rows="4" placeholder="Ex: aceitação dos usuários, transparência, viés algorítmico..."></textarea>
+        </div>
+        <div class="quadrante">
+          <label>Riscos Financeiros</label>
+          <textarea id="risco-financeiro" rows="4" placeholder="Ex: custo de implementação, retorno incerto, custo de manutenção..."></textarea>
+        </div>
+      </div>
+
+      <label>Showstoppers (riscos que podem inviabilizar o projeto)</label>
+      <textarea id="showstoppers" rows="3" placeholder="Descreva os riscos críticos que, se não mitigados, encerram o projeto..."></textarea>
+
+      <div class="form-actions">
+        <span class="autosave-msg" id="autosave1"></span>
+        <button class="btn-primary" id="btnEnviarEtapa1">Enviar Etapa 1</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 4: ETAPA 2 - CALCULADORA DE ROI -->
+  <section id="screen-etapa2" class="screen">
+    <div class="card card-wide">
+      <button class="btn-back" data-goto="dashboard">&larr; Voltar ao painel</button>
+      <div class="modulo-header">
+        <img src="assets/icon-roi.svg" alt="">
+        <div>
+          <h1>Etapa 2 — Calculadora de ROI</h1>
+          <p class="muted">Insiram os valores de investimento e retorno para os três cenários. O ROI é calculado automaticamente.</p>
+        </div>
+      </div>
+
+      <div class="ref-anterior" id="refEtapa1">
+        <strong>Referência — Showstoppers definidos na Etapa 1:</strong>
+        <p id="refShowstoppers" class="muted">Etapa 1 ainda não enviada.</p>
+      </div>
+
+      <div class="cenarios-roi">
+        <div class="cenario">
+          <h3>Esperado</h3>
+          <label>Investimento inicial (R$)</label>
+          <input type="number" id="inv-esperado" min="0" step="0.01">
+          <label>Ganho/economia projetada (R$)</label>
+          <input type="number" id="ganho-esperado" min="0" step="0.01">
+          <div class="roi-result">ROI: <span id="roi-esperado">—</span></div>
+        </div>
+        <div class="cenario">
+          <h3>Realista</h3>
+          <label>Investimento inicial (R$)</label>
+          <input type="number" id="inv-realista" min="0" step="0.01">
+          <label>Ganho/economia projetada (R$)</label>
+          <input type="number" id="ganho-realista" min="0" step="0.01">
+          <div class="roi-result">ROI: <span id="roi-realista">—</span></div>
+        </div>
+        <div class="cenario">
+          <h3>Pessimista / Catastrófico</h3>
+          <label>Investimento inicial (R$)</label>
+          <input type="number" id="inv-pessimista" min="0" step="0.01">
+          <label>Ganho/economia projetada (R$)</label>
+          <input type="number" id="ganho-pessimista" min="0" step="0.01">
+          <div class="roi-result">ROI: <span id="roi-pessimista">—</span></div>
+        </div>
+      </div>
+
+      <label>Justificativa do "ponto de quebra" (break-even)</label>
+      <textarea id="ponto-quebra" rows="3" placeholder="Expliquem em que condições o projeto deixa de valer a pena..."></textarea>
+
+      <div class="form-actions">
+        <span class="autosave-msg" id="autosave2"></span>
+        <button class="btn-primary" id="btnEnviarEtapa2">Enviar Etapa 2</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 5: ETAPA 3 - BUSINESS CASE -->
+  <section id="screen-etapa3" class="screen">
+    <div class="card card-wide">
+      <button class="btn-back" data-goto="dashboard">&larr; Voltar ao painel</button>
+      <div class="modulo-header">
+        <img src="assets/icon-case.svg" alt="">
+        <div>
+          <h1>Etapa 3 — Business Case</h1>
+          <p class="muted">Preencham o formulário estruturado do Business Case. Extensão equivalente a, no máximo, duas páginas.</p>
+        </div>
+      </div>
+
+      <div class="ref-anterior" id="refEtapa2">
+        <strong>Referência — ROI calculado na Etapa 2:</strong>
+        <p id="refRoi" class="muted">Etapa 2 ainda não enviada.</p>
+      </div>
+
+      <label>Sumário Executivo</label>
+      <textarea class="bc-field" data-section="sumario" rows="3" placeholder="Síntese do projeto e da recomendação..."></textarea>
+
+      <label>Problema e Contexto</label>
+      <textarea class="bc-field" data-section="problema" rows="3" placeholder="Qual problema o projeto resolve e por quê agora..."></textarea>
+
+      <label>Solução Proposta</label>
+      <textarea class="bc-field" data-section="solucao" rows="3" placeholder="Descrição da solução de IA proposta..."></textarea>
+
+      <label>Análise Financeira</label>
+      <textarea class="bc-field" data-section="financeira" rows="3" placeholder="Resumo do investimento, retorno e cenários de ROI..."></textarea>
+
+      <label>Riscos e Mitigações</label>
+      <textarea class="bc-field" data-section="riscos" rows="3" placeholder="Principais riscos mapeados e como mitigá-los..."></textarea>
+
+      <label>Recomendação Final</label>
+      <textarea class="bc-field" data-section="recomendacao" rows="3" placeholder="Recomendação do grupo, com justificativa..."></textarea>
+
+      <div class="char-counter">
+        <span id="charCount">0</span> caracteres (referência: ~6.000 caracteres ≈ duas páginas)
+      </div>
+
+      <label>Decisão Final do Grupo</label>
+      <div class="decisao-options">
+        <label class="radio-opt"><input type="radio" name="decisao" value="GO"> GO (Aprovado)</label>
+        <label class="radio-opt"><input type="radio" name="decisao" value="NO-GO"> NO-GO (Rejeitado)</label>
+        <label class="radio-opt"><input type="radio" name="decisao" value="CONDICIONAL"> CONDICIONAL</label>
+      </div>
+
+      <div class="form-actions">
+        <span class="autosave-msg" id="autosave3"></span>
+        <button class="btn-primary" id="btnEnviarEtapa3">Enviar Etapa 3</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 6: PAINEL DO PROFESSOR -->
+  <section id="screen-professor" class="screen">
+    <div class="card card-wide">
+      <button class="btn-back" data-goto="dashboard">&larr; Voltar</button>
+      <div class="modulo-header">
+        <img src="assets/icon-professor.svg" alt="">
+        <div>
+          <h1>Painel do Professor</h1>
+          <p class="muted">Visão consolidada de todos os grupos que utilizaram este navegador (demonstração local).</p>
+        </div>
+      </div>
+
+      <table class="tabela-professor">
+        <thead>
+          <tr>
+            <th>Grupo</th>
+            <th>Etapa 1</th>
+            <th>Etapa 2</th>
+            <th>Etapa 3</th>
+            <th>Decisão Final</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaProfessorBody"></tbody>
+      </table>
+
+      <div class="form-actions">
+        <button class="btn-secondary" id="btnExportarCsv">Exportar CSV</button>
+      </div>
+      <p class="hint">Em produção, este painel seria alimentado em tempo real por todos os grupos da turma, via planilha conectada (ver "Arquitetura do AVP").</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Protótipo — Faculdade Moinhos de Vento · MBA em IA · Disciplina Avaliação de Riscos e Investimentos (ROI)
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

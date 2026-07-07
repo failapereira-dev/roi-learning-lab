@@ -1,0 +1,45 @@
+{
+  "activeState": {
+    "classId": "aula1",
+    "slideId": "slide_1_1",
+    "syncEnabled": true,
+    "activeTab": "slides",
+    "revealAnswers": false,
+    "timerEnd": null
+  },
+  "submissions": {
+    "aula1": {},
+    "aula2": {},
+    "aula3": {}
+  },
+  "comments": {
+    "aula1": {},
+    "aula2": {},
+    "aula3": {}
+  },
+  "checkinResponses": {
+    "aula1": {},
+    "aula2": {},
+    "aula3": {}
+  },
+  "slideInteractions": {
+    "aula1": {},
+    "aula2": {},
+    "aula3": {}
+  },
+  "conceptCheckResponses": {
+    "aula1": {},
+    "aula2": {},
+    "aula3": {}
+  },
+  "reflections": {
+    "aula1": {},
+    "aula2": {},
+    "aula3": {}
+  },
+  "whiteboardHistory": {
+    "aula1": [],
+    "aula2": [],
+    "aula3": []
+  }
+}

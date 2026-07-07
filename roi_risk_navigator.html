@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Risk & ROI Navigator | MBA em IA - Saúde</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a3a52;
+            --gold: #d4af37;
+            --light-bg: #f5f5f5;
+            --border-color: #ddd;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --success: #27ae60;
+            --warning: #e74c3c;
+            --info: #3498db;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-primary);
+            background: var(--light-bg);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2438 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .accent {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tab-navigation {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab-btn:hover {
+            color: var(--navy);
+        }
+
+        .tab-btn.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pillar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .pillar-number {
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-title {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .concept-box {
+            background: #f0f4f8;
+            border-left: 4px solid var(--info);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .concept-label {
+            font-size: 0.8rem;
+            color: var(--info);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-title {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .case-study {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-title {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-desc {
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .insight-box {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-left: 3px solid var(--info);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: var(--info);
+        }
+
+        .reflection {
+            background: #f9f9f9;
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .reflection-q {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .reflection-hint {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .risk-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .risk-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .risk-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .risk-type {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .risk-example {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .glossary-item {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+
+        .glossary-term {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .glossary-def {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ROI SIMULATOR STYLES */
+        .simulator-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .input-hint {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .scenario {
+            background: #f9f9f9;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .scenario-title {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .metric {
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .positive {
+            color: var(--success);
+        }
+
+        .negative {
+            color: var(--warning);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--navy), #0f2438);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 58, 82, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--navy);
+        }
+
+        .btn-secondary:hover {
+            background: #ccc;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-title {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .bar-chart {
+            width: 100%;
+            height: 250px;
+        }
+
+        .stress-test {
+            background: #fff3cd;
+            border-left: 4px solid #e74c3c;
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stress-test h4 {
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .stress-test p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .summary-box {
+            background: #e8f5e9;
+            border-left: 4px solid var(--success);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+        }
+
+        .summary-title {
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .summary-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--navy);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            color: var(--navy);
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .warning-box {
+            background: #ffe5e5;
+            border-left: 4px solid var(--warning);
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .warning-box h4 {
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .tab-navigation {
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>AI Risk & <span class="accent">ROI</span> Navigator</h1>
+        <p>Avaliação de Riscos e Investimentos com ROI | MBA em Inteligência Artificial</p>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">Aquecimento para MBA em IA • Faculdade de Ciências da Saúde Moinhos de Vento</div>
+
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab('overview')">Panorama</button>
+            <button class="tab-btn" onclick="switchTab('aula1')">Módulo 1: Fundamentos</button>
+            <button class="tab-btn" onclick="switchTab('aula2')">Módulo 2: Simulação</button>
+            <button class="tab-btn" onclick="switchTab('aula3')">Módulo 3: Mitigação</button>
+            <button class="tab-btn" onclick="switchTab('aula4')">Módulo 4: ROI Inteligente</button>
+            <button class="tab-btn" onclick="switchTab('aula5')">Módulo 5: Decisão</button>
+            <button class="tab-btn" onclick="switchTab('simulador')">Simulador ROI</button>
+            <button class="tab-btn" onclick="switchTab('glossary')">Glossário</button>
+        </div>
+
+        <!-- TAB: OVERVIEW -->
+        <div id="overview" class="tab-content active">
+            <h2>Disciplina: Avaliação de Riscos e Investimentos com ROI</h2>
+            
+            <div class="card">
+                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Aprenda a avaliar sistematicamente os riscos financeiros de projetos de inovação tecnológica em saúde, 
+                    calcular o Retorno sobre Investimento (ROI) de forma inteligente e abrangente, e tomar decisões estratégicas 
+                    baseadas em evidências matemáticas. Você escolherá soluções que funcionam na realidade operacional, não apenas 
+                    as que brilham no marketing.
+                </p>
+            </div>
+
+            <h3>5 Módulos de Aprendizagem</h3>
+            <div class="grid-2">
+                <div class="pillar">
+                    <div class="pillar-number">1</div>
+                    <div class="pillar-title">Fundamentos da Avaliação de Riscos</div>
+                    <div class="pillar-desc">Conceitos de risco financeiro, o papel do guardião da viabilidade, categorização de riscos técnicos, operacionais, financeiros e regulatórios.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-number">2</div>
+                    <div class="pillar-title">Simulação de Fluxo Operacional</div>
+                    <div class="pillar-desc">Construção de simulações, identificação do efeito dominó, gargalos secundários, e recálculo de estratégia baseado em simulação.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-number">3</div>
+                    <div class="pillar-title">Mitigação de Risco</div>
+                    <div class="pillar-desc">Testes de estresse financeiro, identificação de custos ocultos de infraestrutura, antecipação de gargalos, cálculo de ROI real.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-number">4</div>
+                    <div class="pillar-title">ROI Inteligente</div>
+                    <div class="pillar-desc">Quantificação de riscos invisíveis: custos de erros, glosas, processos jurídicos, reputação, retrabalho e transformação em valor financeiro.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-number">5</div>
+                    <div class="pillar-title">Tomada de Decisão</div>
+                    <div class="pillar-desc">Construção de business case, comunicação de riscos para conselhos, integração de segurança do paciente e saúde financeira.</div>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-number">+</div>
+                    <div class="pillar-title">Simulador Prático</div>
+                    <div class="pillar-desc">Ferramenta interativa para testar cenários de ROI em tempo real e descobrir pontos de quebra de projetos.</div>
+                </div>
+            </div>
+
+            <h3>O que você aprenderá</h3>
+            <div class="concept-box">
+                <div class="concept-label">Método</div>
+                <div class="concept-title">Role do Guardião da Viabilidade</div>
+                <div class="concept-text">Aprender a pensar como quem questiona decisões apressadas, mapeia falhas silenciosas e defende pacientes e sistemas contra confiança clínica excessiva em IA.</div>
+            </div>
+
+            <div class="concept-box">
+                <div class="concept-label">Ferramentas</div>
+                <div class="concept-title">Excel, Word, PowerPoint + Simulador Interativo</div>
+                <div class="concept-text">100% online. Sem barreiras tecnológicas. Tudo que você precisa está em domínio público, acessível mesmo em conexões lentas, além de um simulador prático integrado.</div>
+            </div>
+
+            <div class="concept-box">
+                <div class="concept-label">Fundação</div>
+                <div class="concept-title">Pesquisa Recente + Clássicos Reconhecidos</div>
+                <div class="concept-text">Integração de literatura oficial (Damodaran, Kaplan & Norton, Hubbard, Cleverley) com estudos de caso reais em saúde digital e IA.</div>
+            </div>
+
+            <h3>Avaliação</h3>
+            <div class="grid-3">
+                <div class="scenario">
+                    <div class="scenario-title">Prova Estruturada</div>
+                    <div class="metric">
+                        <div class="metric-label">Peso</div>
+                        <div class="metric-value">25%</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Fundamentos de gestão de riscos, metodologias de cálculo de ROI, simulação operacional.</p>
+                </div>
+                <div class="scenario">
+                    <div class="scenario-title">Análise de Caso Individual</div>
+                    <div class="metric">
+                        <div class="metric-label">Peso</div>
+                        <div class="metric-value">25%</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Avaliação de risco e ROI de uma solução tecnológica com identificação de custos ocultos.</p>
+                </div>
+                <div class="scenario">
+                    <div class="scenario-title">Projeto Prático em Grupo</div>
+                    <div class="metric">
+                        <div class="metric-label">Peso</div>
+                        <div class="metric-value">35%</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Business case completo com simulação, teste de estresse e justificativa executiva.</p>
+                </div>
+                <div class="scenario">
+                    <div class="scenario-title">Participação e Debates</div>
+                    <div class="metric">
+                        <div class="metric-label">Peso</div>
+                        <div class="metric-value">15%</div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Engajamento em discussões e aplicação dos princípios da disciplina.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>Requisito de Aprovação</h4>
+                <p>Nota mínima de 70% na média ponderada. A disciplina desenvolve competências exigidas para comunicar risco e ROI de forma assertiva em conselhos executivos.</p>
+            </div>
+        </div>
+
+        <!-- TAB: MODULO 1 -->
+        <div id="aula1" class="tab-content">
+            <h2>Módulo 1: Fundamentos da Avaliação de Riscos em Inovação</h2>
+            
+            <div class="concept-box">
+                <div class="concept-label">Foco</div>
+                <div class="concept-title">O Papel do Guardião da Viabilidade</div>
+                <div class="concept-text">O cientista de dados (ou gestor de projetos de IA) não é apenas um facilitador. É o guardião que questiona, mapeia falhas silenciosas e protege a instituição contra decisões impulsivas baseadas em marketing.</div>
+            </div>
+
+            <h3>Caso Histórico: IBM Watson for Oncology</h3>
+            <div class="case-study">
+                <div class="case-title">O Fracasso Mais Caro da História de IA em Saúde</div>
+                <div class="case-desc">
+                    Milhões de dólares investidos em um sistema que prometia revolucionar o diagnóstico oncológico. Resultado: abandono silencioso em menos de 5 anos. Por quê? Não mapeou o risco clínico-cultural: oncologistas brasileiros, indianos e franceses não usavam a mesma linguagem clínica dos EUA. Marketing vendeu uma "máquina inteligente". Realidade entregou um sistema que não entendia contextos locais.
+                </div>
+                <div class="insight-box">
+                    <strong>Lição:</strong> A tecnologia certa no contexto errado é tecnologia errada. O guardião da viabilidade seria aquele que pararia e perguntaria: "Vocês validaram isso com oncologistas fora dos EUA antes de investir US$62 milhões?"
+                </div>
+            </div>
+
+            <h3>Os 4 Tipos de Risco que Você Vai Mapear</h3>
+            <div class="risk-grid">
+                <div class="risk-item">
+                    <div class="risk-icon">⚙️</div>
+                    <div class="risk-type">Técnico</div>
+                    <div class="risk-example">Algoritmos falham com dados escassos. Modelos não validados em populações diversas. Precisão cai fora do ambiente de desenvolvimento.</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-icon">🏥</div>
+                    <div class="risk-type">Operacional</div>
+                    <div class="risk-example">Fluxo de trabalho quebrado. Staff não treinado. Infraestrutura sem backup. Integração com sistemas legados falha.</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-icon">👨‍⚕️</div>
+                    <div class="risk-type">Clínico-Cultural</div>
+                    <div class="risk-example">Desconfiança do profissional. "IA não entende meus pacientes." Resistência invisível. Over-reliance e complacência perigosa.</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-icon">💰</div>
+                    <div class="risk-type">Financeiro</div>
+                    <div class="risk-example">Custos ocultos: infraestrutura, validação, conformidade. Litígios por viés. Perda de reputação. Custos jurídicos não previstos.</div>
+                </div>
+            </div>
+
+            <h3>Framework de Categorização de Riscos</h3>
+            <div class="card">
+                <p><strong>Matriz de Probabilidade vs. Impacto:</strong></p>
+                <p style="color: var(--text-secondary); margin: 1rem 0;">
+                    Cada risco mapeado recebe dois scores: probabilidade de ocorrer (1-5) e impacto financeiro se ocorrer (1-5). 
+                    O resultado é uma matriz 5x5 que mostra onde estão seus maiores perigos. Riscos no canto superior direito 
+                    (probabilidade alta, impacto alto) são sua prioridade máxima.
+                </p>
+            </div>
+
+            <h3>Leitura Obrigatória Antes da Aula</h3>
+            <div class="case-study">
+                <div class="case-title">Nassim Taleb: Skin in the Game</div>
+                <div class="case-desc">Por que você deve desconfiar de quem vende inovação sem risco próprio. Se o vendedor não perde dinheiro se falhar, ele não está pensando em risco de verdade.</div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Eric Topol: Deep Medicine</div>
+                <div class="case-desc">Separa o marketing da medicina real. Mostra por que muitas IA promissoras fracassam: porque resolvem problemas que médicos já resolvem bem, não os que realmente matam.</div>
+            </div>
+
+            <h3>Reflexão Preparatória</h3>
+            <div class="reflection">
+                <div class="reflection-q">Qual inovação em IA de saúde você conhece que fracassou?</div>
+                <div class="reflection-hint">Pense em projetos internos seu hospital, ou notícias que leu. Por que falhou? Qual dos 4 riscos acima foi negligenciado?</div>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Se você estivesse vendendo uma IA diagnóstica, em qual risco você teria medo de perder dinheiro?</div>
+                <div class="reflection-hint">Seja honesto. Técnico? Operacional? Clínico? Financeiro? Quais você ignoraria se pudesse?</div>
+            </div>
+        </div>
+
+        <!-- TAB: MODULO 2 -->
+        <div id="aula2" class="tab-content">
+            <h2>Módulo 2: Simulação de Fluxo Operacional</h2>
+            
+            <div class="concept-box">
+                <div class="concept-label">Foco</div>
+                <div class="concept-title">O Efeito Dominó</div>
+                <div class="concept-text">Um erro técnico causa retrabalho operacional que custa 3x o previsto. Um custo operacional ignorado quebra o business case. Você vai aprender a "apensar" custos invisíveis e testar o limite do projeto antes de implementar.</div>
+            </div>
+
+            <h3>Método: TDABC + Simulação Digital</h3>
+            <div class="case-study">
+                <div class="case-title">Time-Driven Activity-Based Costing (TDABC)</div>
+                <div class="case-desc">
+                    Não é simplesmente "quanto custa um servidor cloud". É quanto TEMPO cada pessoa gasta validando, mantendo, respondendo a erros? Multiplica tempo × salário, soma com infraestrutura.
+                </div>
+                <div class="insight-box">
+                    <strong>Resultado prático:</strong> Você descobre que a IA diagnóstica realmente custa 40% mais que prometido porque ninguém contabilizou o radiologista revisando todos os casos por 2 anos.
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Digital Twins & Testes de Estresse</div>
+                <div class="case-desc">
+                    Antes de gastar dinheiro de verdade, simule: "E se 30% dos pacientes continuarem entrando dados manualmente?" "E se o servidor cair por 10 horas?" "E se o treinamento durar 3 meses, não 1 mês?" Qual é o ponto de quebra do seu projeto?
+                </div>
+                <div class="insight-box">
+                    <strong>Descoberta:</strong> ROI muda drasticamente em cenários realistas vs. esperados. Você aprende a comunicar o intervalo de resultados possíveis, não apenas o melhor caso.
+                </div>
+            </div>
+
+            <h3>Checklist: 20 Custos que Desaparecem</h3>
+            <div class="concept-box">
+                <div class="concept-label">Lee et al. (2025)</div>
+                <div class="concept-title">AI Costing Inventory</div>
+                <div class="concept-text">
+                    Cloud, validação, energia, treinamento de staff, conformidade regulatória, ISO 42001, seguro, auditoria, apoio técnico 24/7... 
+                    Você vai preencher um checklist que pensa por você e descobre quanto você realmente vai gastar nos próximos 3 anos.
+                </div>
+            </div>
+
+            <h3>Estudo de Caso: IA de Laudos de Ressonância</h3>
+            <div class="warning-box">
+                <h4>O Colapso Operacional</h4>
+                <p>
+                    Um hospital implementou IA para gerar laudos 20% mais rápido. Sucesso técnico. Fracasso operacional: 
+                    a ressonância magnética virou gargalo porque o departamento de digitação (que só escrevia 10 laudos/dia) 
+                    agora recebia 15. Fila triplicou. ROI negativo. A solução certa no momento errado.
+                </p>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Em seu setor de saúde, qual custo operacional é mais invisível?</div>
+                <div class="reflection-hint">Infraestrutura? Retrabalho? Conformidade? Tempo clínico perdido? Apoio técnico 24/7?</div>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Que pergunta você faria para descobrir o "ponto de quebra" de um projeto de IA antes de implementar?</div>
+                <div class="reflection-hint">Se X falhar, quanto vamos perder? Se Y atrasar, qual é o dano?</div>
+            </div>
+        </div>
+
+        <!-- TAB: MODULO 3 -->
+        <div id="aula3" class="tab-content">
+            <h2>Módulo 3: Mitigação de Risco e Defesa Financeira</h2>
+            
+            <div class="concept-box">
+                <div class="concept-label">Estratégia</div>
+                <div class="concept-title">O Veto dos Dados</div>
+                <div class="concept-text">Avaliação de riscos financeiros como ferramenta de defesa institucional. Você aprende a dizer "não" aos projetos que brilham, mas têm risco de implosão.</div>
+            </div>
+
+            <h3>Teste de Estresse Financeiro</h3>
+            <div class="card">
+                <p style="margin-bottom: 1rem;">
+                    Submeta cada solução promissora a 3 cenários:
+                </p>
+                <ul style="list-style: none; color: var(--text-secondary);">
+                    <li style="margin-bottom: 0.75rem;"><strong style="color: var(--navy);">Esperado:</strong> Tudo funciona como prometido. Adoção rápida. Sem surpresas.</li>
+                    <li style="margin-bottom: 0.75rem;"><strong style="color: var(--navy);">Realista:</strong> 70% da adoção esperada. 1-2 meses de atraso. Alguns custos subestimados.</li>
+                    <li><strong style="color: var(--navy);">Pessimista:</strong> 50% de adoção. 3+ meses de atraso. Custos ocultos aparecem. Uma crise técnica inesperada.</li>
+                </ul>
+            </div>
+
+            <h3>Estudo de Caso: Telemetria em Leitos</h3>
+            <div class="warning-box">
+                <h4>O Upgrade Milionário de Rede</h4>
+                <p>
+                    Hospital decide implementar telemetria contínua para 200 leitos. Custo da IA: R$ 2M. 
+                    Custo da infraestrutura de rede (não previsto): R$ 5M. Custo do backup (não previsto): R$ 1M. 
+                    ROI calculado: positivo. ROI real: negativo por 3 anos. Guardião da viabilidade teria perguntado: 
+                    "A gente tem rede para isso?" antes de gastar com a IA.
+                </p>
+            </div>
+
+            <h3>Antecipação de Gargalos</h3>
+            <div class="concept-box">
+                <div class="concept-label">Princípio</div>
+                <div class="concept-title">Errar no Virtual para Acertar no Real</div>
+                <div class="concept-text">Use simulação para testar cenários de falha antes de implementar. Descubra onde o projeto paralisaria e mitigue antes de começar.</div>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Se você tivesse que recomendar "não" a um projeto promissor, qual seria seu argumento financeiro?</div>
+                <div class="reflection-hint">Qual risco você priorizaria comunicar? Por quê?</div>
+            </div>
+        </div>
+
+        <!-- TAB: MODULO 4 -->
+        <div id="aula4" class="tab-content">
+            <h2>Módulo 4: ROI Inteligente e Quantificação de Riscos Invisíveis</h2>
+            
+            <div class="concept-box">
+                <div class="concept-label">Transformação</div>
+                <div class="concept-title">De Prevenção a Valor Financeiro</div>
+                <div class="concept-text">
+                    Você aprende a quantificar o que parece intangível: custo de um erro de medicação, custo de uma glosa de convênio, 
+                    custo jurídico de um processo por viés algorítmico. Cada um desses itens é um número. E números são argumentos.
+                </div>
+            </div>
+
+            <h3>Os Riscos Invisíveis</h3>
+            <div class="grid-2">
+                <div class="case-study">
+                    <div class="case-title">Erros de Medicação</div>
+                    <div class="case-desc">
+                        IA dispensa medicamentos. Erro de 1% em 100.000 doses = 1.000 erros/ano. 
+                        Cada erro: custo médico (reversa, internação extra) + custo jurídico + custo de imagem. 
+                        Total: R$ 5M-10M/ano em uma instituição média.
+                    </div>
+                </div>
+                <div class="case-study">
+                    <div class="case-title">Glosas de Convênio</div>
+                    <div class="case-desc">
+                        IA preenche formulários. Erro de formatação causa 2% de glosas. 
+                        Se o hospital fatura R$ 100M/ano em convênios, perda é R$ 2M/ano. 
+                        IA com 99% de acurácia: continua custando R$ 1M/ano em glosas.
+                    </div>
+                </div>
+                <div class="case-study">
+                    <div class="case-title">Custos Jurídicos</div>
+                    <div class="case-desc">
+                        Se a IA causa 1 morte por viés, custo jurídico pode ser R$ 500K-2M. 
+                        Se o algoritmo discrimina pacientes negros (validado em 85% população branca), 
+                        custo de litigação coletiva: R$ 10M+.
+                    </div>
+                </div>
+                <div class="case-study">
+                    <div class="case-title">Custo de Imagem</div>
+                    <div class="case-desc">
+                        "Hospital Mata Paciente com IA" é manchete. Pacientes buscam outro hospital. 
+                        Perda de mercado em 6 meses: 5-10% do faturamento. Recuperação de imagem: 2+ anos. 
+                        Custo estimado: R$ 20M-50M.
+                    </div>
+                </div>
+                <div class="case-study">
+                    <div class="case-title">Retrabalho e Ineficiência</div>
+                    <div class="case-desc">
+                        Staff não confia na IA. Revisa 80% das decisões. 
+                        Economia prometida de 50% torna-se economia de 10% real. 
+                        Diferença não contabilizada: R$ 500K-2M/ano.
+                    </div>
+                </div>
+                <div class="case-study">
+                    <div class="case-title">Conformidade Regulatória</div>
+                    <div class="case-desc">
+                        IA em saúde exige ISO 42001 (nova, 2023). Auditoria anual: R$ 50K-200K. 
+                        Multa por não-conformidade: R$ 100K-500K. 
+                        Custo de adaptação antes de implementar: R$ 100K+.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Metodologia: De Intangível a Mensurável</h3>
+            <div class="card">
+                <p style="margin-bottom: 1rem;"><strong>Passo 1: Identificar o Risco Invisível</strong></p>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    "Over-reliance do clínico" é invisível. Mas tem manifestação: "revisão de 80% das decisões".
+                </p>
+
+                <p style="margin-bottom: 1rem;"><strong>Passo 2: Quantificar a Manifestação</strong></p>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Se 10 radiologistas trabalham 8h/dia, 220 dias/ano = 17.600 horas/ano. 
+                    80% de revisão = 14.080 horas/ano em retrabalho. 
+                    A R$ 300/hora = R$ 4,2M/ano em custo invisível.
+                </p>
+
+                <p style="margin-bottom: 1rem;"><strong>Passo 3: Incluir no ROI</strong></p>
+                <p style="color: var(--text-secondary);">
+                    Economia prometida: R$ 8M. Custo invisível descoberto: R$ 4,2M. 
+                    ROI real: não 8M, mas 3,8M. Diferença: 52% menos retorno que prometido.
+                </p>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Na sua instituição, qual risco invisível ninguém calcula?</div>
+                <div class="reflection-hint">Retrabalho? Insegurança do staff? Conformidade regulatória? Custo de litigação?</div>
+            </div>
+        </div>
+
+        <!-- TAB: MODULO 5 -->
+        <div id="aula5" class="tab-content">
+            <h2>Módulo 5: Tomada de Decisão e Justificativa para Stakeholders</h2>
+            
+            <div class="concept-box">
+                <div class="concept-label">Objetivo Final</div>
+                <div class="concept-title">Business Case Irrefutável</div>
+                <div class="concept-text">
+                    Construir um documento que não deixa espaço para discordância. Números falam. Matemática vence marketing.
+                </div>
+            </div>
+
+            <h3>Caso: Google Dermatology</h3>
+            <div class="case-study">
+                <div class="case-title">Por Que Funcionou?</div>
+                <div class="case-desc">
+                    Google posicionou a IA como segundo parecer, nunca como substituta. Dermatologistas continuam vendo o paciente. 
+                    Máquina ajuda a não perder lesões raras. Resultado: menos erros, mais confiança.
+                </div>
+                <div class="insight-box">
+                    <strong>Lição:</strong> Um business case que diz "IA vai substituir 20% dos radiologistas" fracassa. 
+                    Um que diz "IA ajuda radiologistas a revisar casos de alto risco 30% mais rápido" é real.
+                </div>
+            </div>
+
+            <h3>Governança Ética e Múltiplos Stakeholders</h3>
+            <div class="case-study">
+                <div class="case-title">Miri & Mayo (2025): "Patients Aren't Datasets"</div>
+                <div class="case-desc">
+                    Conselhos que aprovam IA olhando só para produtividade criam consequências invisíveis: 
+                    pacientes negros excluídos porque foram subestudados. Profissionais perdem autonomia. 
+                    Custos em cascata multiplicam.
+                </div>
+                <div class="insight-box">
+                    <strong>Princípio:</strong> Um business case "inteligente" inclui: impacto em pacientes, 
+                    impacto em staff, equidade, conformidade, cenários pessimistas. Não é apenas dinheiro. É responsabilidade.
+                </div>
+            </div>
+
+            <h3>Estrutura do Business Case Executivo (2 páginas)</h3>
+            <div class="card">
+                <ol style="color: var(--text-secondary); line-height: 2;">
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: var(--navy);">Sumário Executivo (3 linhas)</strong> 
+                        - Qual é a decisão pedida ao conselho? (Investir R$ X para ganhar R$ Y em Z anos?)
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: var(--navy);">Problema</strong> 
+                        - Qual lacuna de saúde/operacional a IA resolve? Por que ninguém resolveu antes?
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: var(--navy);">Solução</strong> 
+                        - Como a IA funciona? Por que é diferente de competidores? Qual é a evidência de eficácia?
+                    </li>
+                    <li style="margin-bottom: 1rem;">
+                        <strong style="color: var(--navy);">Finanças sob Estresse</strong> 
+                        - ROI em 3 cenários: esperado, realista, pessimista. Qual é o ponto de quebra?
+                    </li>
+                    <li>
+                        <strong style="color: var(--navy);">Risco e Recomendação</strong> 
+                        - Quais são os riscos reais? Você recomenda Go, No-Go ou Condicional (com que condições)?
+                    </li>
+                </ol>
+            </div>
+
+            <h3>Matriz de Decisão Multifatorial</h3>
+            <div class="card">
+                <p style="margin-bottom: 1rem;">
+                    Não compare soluções apenas por preço ou por "quem é mais moderno". 
+                    Compare por múltiplos fatores com pesos:
+                </p>
+                <ul style="list-style: none; color: var(--text-secondary);">
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong style="color: var(--navy);">Eficácia Clínica (30%):</strong> Dados publicados, validação em população local
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong style="color: var(--navy);">ROI Ajustado a Risco (30%):</strong> Cenário realista, não melhor caso
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong style="color: var(--navy);">Maturidade Operacional (20%):</strong> Suporte técnico, infraestrutura existente
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <strong style="color: var(--navy);">Conformidade e Governança (15%):</strong> ISO 42001, documentação de viés, plano de auditoria
+                    </li>
+                    <li>
+                        <strong style="color: var(--navy);">Aceitação Clínica (5%):</strong> Over-reliance risk, necessidade de treinamento, mudança cultural
+                    </li>
+                </ul>
+            </div>
+
+            <h3>Integração de Segurança do Paciente e Saúde Financeira</h3>
+            <div class="concept-box">
+                <div class="concept-label">Verdade Fundamental</div>
+                <div class="concept-title">Eles Andam Juntos</div>
+                <div class="concept-text">
+                    Uma instituição que investe em IA sem segurança do paciente fracassa financeiramente (litígios, imagem, conformidade). 
+                    Uma instituição que descuida da saúde financeira não consegue investir em segurança. 
+                    Um business case "inteligente" mostra que as duas andam de mãos dadas.
+                </div>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Se você estivesse em um conselho de saúde, qual pergunta você faria antes de aprovar uma IA?</div>
+                <div class="reflection-hint">Não é "vai dar retorno?". É "para quem?", "a que custo humano?", "e se falhar?"</div>
+            </div>
+
+            <div class="reflection">
+                <div class="reflection-q">Qual é a diferença entre um business case que vende esperança e um que defende responsabilidade?</div>
+                <div class="reflection-hint">Dica: um desconforta. O outro conforta demais.</div>
+            </div>
+        </div>
+
+        <!-- TAB: SIMULADOR -->
+        <div id="simulador" class="tab-content">
+            <h2>Simulador Interativo de ROI</h2>
+            
+            <div class="warning-box">
+                <h4>Ferramenta Prática</h4>
+                <p>Use este simulador para testar diferentes cenários de custo e retorno. Experimente variações e descubra o "ponto de quebra" do seu projeto.</p>
+            </div>
+
+            <div class="simulator-container">
+                <div class="grid-2">
+                    <div>
+                        <h3 style="margin-top: 0;">Parâmetros do Projeto</h3>
+                        
+                        <div class="input-group">
+                            <label for="projectName">Nome do Projeto</label>
+                            <input type="text" id="projectName" placeholder="ex: IA Diagnóstica em Radiologia" value="IA em Saúde">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="investmentCost">Investimento Inicial (R$)</label>
+                            <input type="number" id="investmentCost" placeholder="1000000" value="2000000">
+                            <div class="input-hint">Incluir: software, hardware, infraestrutura, treinamento inicial</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="annualBenefit">Benefício Anual Esperado (R$)</label>
+                            <input type="number" id="annualBenefit" placeholder="500000" value="800000">
+                            <div class="input-hint">Redução de custos + aumento de eficiência + menos erros</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="annualCost">Custo Anual de Manutenção (R$)</label>
+                            <input type="number" id="annualCost" placeholder="200000" value="300000">
+                            <div class="input-hint">Cloud, suporte técnico, conformidade, updates</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="adoptionRate">Taxa de Adoção Esperada (%)</label>
+                            <input type="number" id="adoptionRate" min="0" max="100" placeholder="80" value="85">
+                            <div class="input-hint">Quanto da instituição usará de fato o sistema?</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="riskCost">Custo Potencial de Risco (R$)</label>
+                            <input type="number" id="riskCost" placeholder="500000" value="500000">
+                            <div class="input-hint">Erros, glosas, processos, reputação (use o Módulo 4 para calcular)</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="projectYears">Período de Análise (anos)</label>
+                            <input type="number" id="projectYears" min="1" max="10" placeholder="5" value="5">
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="margin-top: 0;">Cenários de Variação</h3>
+                        
+                        <div class="input-group">
+                            <label for="delayMonths">Atraso na Implementação (meses)</label>
+                            <input type="number" id="delayMonths" min="0" max="24" placeholder="0" value="0">
+                            <div class="input-hint">Cada mês de atraso = 1 mês perdido de benefícios</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="adoptionRisk">Redução de Adoção por Risco (%)</label>
+                            <input type="number" id="adoptionRisk" min="0" max="100" placeholder="10" value="15">
+                            <div class="input-hint">Se há incidente, qual % de usuários abandona o sistema?</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="inflationRate">Taxa de Inflação Anual (%)</label>
+                            <input type="number" id="inflationRate" step="0.1" placeholder="4" value="4">
+                            <div class="input-hint">Custos crescem com inflação</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="discountRate">Taxa de Desconto (Hurdle Rate, %)</label>
+                            <input type="number" id="discountRate" step="0.1" placeholder="8" value="10">
+                            <div class="input-hint">Retorno mínimo esperado pela instituição</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button onclick="simulateROI()">Calcular Cenários</button>
+                    <button class="btn-secondary" onclick="resetSimulator()">Limpar Tudo</button>
+                </div>
+
+                <div id="resultsContainer" style="display:none;">
+                    <h3>Resultados da Simulação</h3>
+                    
+                    <div class="grid-3">
+                        <div class="scenario">
+                            <div class="scenario-title">Cenário Esperado</div>
+                            <div class="metric">
+                                <div class="metric-label">ROI Acumulado</div>
+                                <div class="metric-value" id="expectedROI">-</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Payback Period</div>
+                                <div class="metric-value" id="expectedPayback">-</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">VPL (10% taxa)</div>
+                                <div class="metric-value" id="expectedNPV">-</div>
+                            </div>
+                        </div>
+
+                        <div class="scenario">
+                            <div class="scenario-title">Cenário Realista</div>
+                            <div class="metric">
+                                <div class="metric-label">ROI Acumulado</div>
+                                <div class="metric-value" id="realisticROI">-</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Payback Period</div>
+                                <div class="metric-value" id="realisticPayback">-</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">VPL (10% taxa)</div>
+                                <div class="metric-value" id="realisticNPV">-</div>
+                            </div>
+                        </div>
+
+                        <div class="scenario">
+                            <div class="scenario-title">Cenário Pessimista</div>
+                            <div class="metric">
+                                <div class="metric-label">ROI Acumulado</div>
+                                <div class="metric-value" id="pessimisticROI">-</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Payback Period</div>
+                                <div class="metric-value" id="pessimisticPayback">-</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">VPL (10% taxa)</div>
+                                <div class="metric-value" id="pessimisticNPV">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stress-test">
+                        <h4>Teste de Estresse: Ponto de Quebra</h4>
+                        <p id="breakEvenAnalysis">-</p>
+                    </div>
+
+                    <div class="summary-box">
+                        <div class="summary-title">Análise & Recomendação</div>
+                        <div class="summary-text" id="recommendation">-</div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">Fluxo de Caixa Acumulado (Cenário Realista)</div>
+                        <canvas id="roiChart" class="bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: GLOSSARIO -->
+        <div id="glossary" class="tab-content">
+            <h2>Glossário: Termos Essenciais da Disciplina</h2>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Over-reliance</div>
+                <div class="glossary-def">
+                    Confiança excessiva de clínicos em IA. Resultado: menos pensamento crítico, mais erros. 
+                    Tipo "a máquina disse, então eu confio" sem validação adicional.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">TDABC (Time-Driven Activity-Based Costing)</div>
+                <div class="glossary-def">
+                    Método para custar cada atividade em um hospital. Não é "quanto custa X", é "quanto TEMPO gasta X e qual é o custo de tempo?". 
+                    Expõe custos invisíveis.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Digital Twins</div>
+                <div class="glossary-def">
+                    Simulação digital do seu sistema real. Você testa "e se falhar?" sem gastar dinheiro de verdade. 
+                    Tipo um teste de estresse financeiro em ambiente virtual.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Efeito Dominó</div>
+                <div class="glossary-def">
+                    Impacto em cascata de uma inovação em um ecossistema hospitalar. 
+                    IA rápida causa gargalo em outro setor que não estava pronto.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Ponto de Quebra (Break-Even Point)</div>
+                <div class="glossary-def">
+                    Número mágico em que o projeto deixa de ser rentável. Se X% de erro ocorrer, você não faz lucro. 
+                    Se Y% ocorrer, você perde dinheiro.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Skin in the Game (Taleb)</div>
+                <div class="glossary-def">
+                    Princípio: quem vende risco deve perder dinheiro se falhar. Se não perde, não está pensando em risco de verdade.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">ISO 42001</div>
+                <div class="glossary-def">
+                    Norma internacional para governança de IA. Você deve estar em conformidade para vender/usar IA em saúde. Tem custo.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Business Case</div>
+                <div class="glossary-def">
+                    Documento que você escreve para convencer um conselho a investir em IA. 
+                    Inclui: problema, solução, financeiro, risco. Go/No-Go decision.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">ROI (Return on Investment)</div>
+                <div class="glossary-def">
+                    Retorno sobre investimento. Calcula-se: (Lucro - Investimento) / Investimento × 100%. 
+                    Um ROI de 50% significa que para cada R$ 1 investido, você ganha R$ 0,50.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">VPL (Valor Presente Líquido)</div>
+                <div class="glossary-def">
+                    Disconta fluxos de caixa futuros para o presente, reconhecendo que R$ 1 hoje vale mais que R$ 1 amanhã. 
+                    VPL > 0 significa projeto viável.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Payback Period</div>
+                <div class="glossary-def">
+                    Quanto tempo leva para recuperar o investimento inicial. 
+                    Payback de 3 anos significa que em 3 anos o projeto se paga.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Guardião da Viabilidade</div>
+                <div class="glossary-def">
+                    Profissional (cientista de dados, gestor de projetos) que questiona decisões impulsivas, 
+                    mapeia riscos ocultos e protege a instituição.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Custos Invisíveis</div>
+                <div class="glossary-def">
+                    Custos não óbvios: retrabalho, conformidade, treinamento prolongado, custos jurídicos, custo de imagem. 
+                    Podem ser 30-50% do investimento total.
+                </div>
+            </div>
+
+            <div class="glossary-item">
+                <div class="glossary-term">Teste de Estresse Financeiro</div>
+                <div class="glossary-def">
+                    Submeter um projeto a cenários adversos (atraso, custo maior, menor adoção) e ver se ainda é viável. 
+                    Descobre riscos antes da implementação.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>AI Risk & ROI Navigator | Disciplina: Avaliação de Riscos e Investimentos com ROI</p>
+        <p>MBA em Inteligência Artificial | Faculdade de Ciências da Saúde Moinhos de Vento</p>
+        <p>Desenvolvido com base na ementa oficial e pesquisa recente em IA e Saúde (2025)</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        let roiChart = null;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function resetSimulator() {
+            document.getElementById('projectName').value = 'IA em Saúde';
+            document.getElementById('investmentCost').value = '2000000';
+            document.getElementById('annualBenefit').value = '800000';
+            document.getElementById('annualCost').value = '300000';
+            document.getElementById('adoptionRate').value = '85';
+            document.getElementById('riskCost').value = '500000';
+            document.getElementById('projectYears').value = '5';
+            document.getElementById('delayMonths').value = '0';
+            document.getElementById('adoptionRisk').value = '15';
+            document.getElementById('inflationRate').value = '4';
+            document.getElementById('discountRate').value = '10';
+            document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        function simulateROI() {
+            const projectName = document.getElementById('projectName').value;
+            const investmentCost = parseFloat(document.getElementById('investmentCost').value);
+            const annualBenefit = parseFloat(document.getElementById('annualBenefit').value);
+            const annualCost = parseFloat(document.getElementById('annualCost').value);
+            const adoptionRate = parseFloat(document.getElementById('adoptionRate').value) / 100;
+            const riskCost = parseFloat(document.getElementById('riskCost').value);
+            const projectYears = parseInt(document.getElementById('projectYears').value);
+            const delayMonths = parseInt(document.getElementById('delayMonths').value);
+            const adoptionRisk = parseFloat(document.getElementById('adoptionRisk').value) / 100;
+            const inflationRate = parseFloat(document.getElementById('inflationRate').value) / 100;
+            const discountRate = parseFloat(document.getElementById('discountRate').value) / 100;
+
+            // Calculate scenarios
+            const scenarios = {
+                expected: calculateScenario(investmentCost, annualBenefit * adoptionRate, annualCost, 0, 0, 0, projectYears, inflationRate, discountRate),
+                realistic: calculateScenario(investmentCost, annualBenefit * adoptionRate * 0.85, annualCost * 1.1, delayMonths / 12, adoptionRisk * 0.5, riskCost * 0.5, projectYears, inflationRate, discountRate),
+                pessimistic: calculateScenario(investmentCost, annualBenefit * adoptionRate * 0.6, annualCost * 1.3, delayMonths / 12, adoptionRisk, riskCost, projectYears, inflationRate, discountRate)
+            };
+
+            // Display results
+            document.getElementById('expectedROI').innerHTML = `<span class="${scenarios.expected.roi >= 0 ? 'positive' : 'negative'}">${(scenarios.expected.roi * 100).toFixed(1)}%</span>`;
+            document.getElementById('expectedPayback').innerHTML = scenarios.expected.payback >= 0 ? `${scenarios.expected.payback.toFixed(1)} anos` : 'Não retorna';
+            document.getElementById('expectedNPV').innerHTML = `<span class="${scenarios.expected.npv >= 0 ? 'positive' : 'negative'}">R$ ${formatCurrency(scenarios.expected.npv)}</span>`;
+
+            document.getElementById('realisticROI').innerHTML = `<span class="${scenarios.realistic.roi >= 0 ? 'positive' : 'negative'}">${(scenarios.realistic.roi * 100).toFixed(1)}%</span>`;
+            document.getElementById('realisticPayback').innerHTML = scenarios.realistic.payback >= 0 ? `${scenarios.realistic.payback.toFixed(1)} anos` : 'Não retorna';
+            document.getElementById('realisticNPV').innerHTML = `<span class="${scenarios.realistic.npv >= 0 ? 'positive' : 'negative'}">R$ ${formatCurrency(scenarios.realistic.npv)}</span>`;
+
+            document.getElementById('pessimisticROI').innerHTML = `<span class="${scenarios.pessimistic.roi >= 0 ? 'positive' : 'negative'}">${(scenarios.pessimistic.roi * 100).toFixed(1)}%</span>`;
+            document.getElementById('pessimisticPayback').innerHTML = scenarios.pessimistic.payback >= 0 ? `${scenarios.pessimistic.payback.toFixed(1)} anos` : 'Não retorna';
+            document.getElementById('pessimisticNPV').innerHTML = `<span class="${scenarios.pessimistic.npv >= 0 ? 'positive' : 'negative'}">R$ ${formatCurrency(scenarios.pessimistic.npv)}</span>`;
+
+            // Break-even analysis
+            const breakEven = findBreakEvenAdoption(investmentCost, annualBenefit, annualCost, projectYears, adoptionRate);
+            document.getElementById('breakEvenAnalysis').innerHTML = 
+                `Este projeto quebra (ROI = 0%) se a taxa de adoção cair para <strong>${(breakEven * 100).toFixed(0)}%</strong>. ` +
+                `Sua adoção esperada é ${(adoptionRate * 100).toFixed(0)}%, então você tem <strong>${((adoptionRate - breakEven) * 100).toFixed(0)}% de margem</strong> antes do projeto virar prejuízo. ` +
+                (breakEven < 0 ? '⚠️ Este projeto é negativo mesmo com 0% de adoção. Risco muito alto.' : '');
+
+            // Recommendation
+            let recommendation = '';
+            if (scenarios.realistic.roi > 0.2 && scenarios.pessimistic.roi > 0) {
+                recommendation = `<strong style="color: var(--success);">✓ RECOMENDAÇÃO: GO</strong><br>O projeto é viável em cenários realista e pessimista. ROI realista de ${(scenarios.realistic.roi * 100).toFixed(1)}% é aceitável. Prossiga com implementação.`;
+            } else if (scenarios.realistic.roi > 0.05 && scenarios.pessimistic.roi < 0) {
+                recommendation = `<strong style="color: #ff9800;">⚠ RECOMENDAÇÃO: CONDICIONAL</strong><br>O projeto retorna no cenário realista, mas é negativo no pessimista. Implementar apenas se conseguir mitigar riscos principais (custos ocultos, atraso, baixa adoção). Recomenda-se pilot antes de roll-out completo.`;
+            } else {
+                recommendation = `<strong style="color: var(--warning);">✗ RECOMENDAÇÃO: NO-GO</strong><br>O projeto não se justifica mesmo em cenários otimistas. ROI esperado de ${(scenarios.expected.roi * 100).toFixed(1)}% é abaixo da taxa de hurdle (${(discountRate * 100).toFixed(1)}%). Rejeitar e buscar alternativas.`;
+            }
+            document.getElementById('recommendation').innerHTML = recommendation;
+
+            // Chart
+            drawROIChart(scenarios.realistic, projectYears);
+
+            document.getElementById('resultsContainer').style.display = 'block';
+            document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function calculateScenario(investment, benefit, cost, delayYear, adoptionLoss, riskLoss, years, inflationRate, discountRate) {
+            let cumulativeCashFlow = -investment;
+            let paybackYear = -1;
+            let totalBenefit = 0;
+            let totalCost = 0;
+            let npv = -investment;
+
+            for (let year = 1; year <= years; year++) {
+                const actualYear = year + delayYear;
+                if (actualYear <= 0) continue;
+
+                const adjBenefit = benefit * Math.pow(1 + inflationRate, year - 1) * (1 - adoptionLoss * year / 10);
+                const adjCost = cost * Math.pow(1 + inflationRate, year - 1);
+                const netBenefit = adjBenefit - adjCost - (year === 1 ? riskLoss : 0);
+
+                cumulativeCashFlow += netBenefit;
+                totalBenefit += adjBenefit;
+                totalCost += adjCost;
+
+                const discountedValue = netBenefit / Math.pow(1 + discountRate, year);
+                npv += discountedValue;
+
+                if (paybackYear === -1 && cumulativeCashFlow >= 0) {
+                    paybackYear = year;
+                }
+            }
+
+            const roi = (cumulativeCashFlow - (-investment)) / investment;
+
+            return {
+                roi: roi,
+                payback: paybackYear >= 0 ? paybackYear : -1,
+                npv: npv,
+                cumulativeCashFlow: cumulativeCashFlow,
+                yearly: Array.from({length: years}, (_, i) => {
+                    const year = i + 1;
+                    const adjBenefit = benefit * Math.pow(1 + inflationRate, year - 1);
+                    const adjCost = cost * Math.pow(1 + inflationRate, year - 1);
+                    return -investment + (adjBenefit - adjCost) * year;
+                })
+            };
+        }
+
+        function findBreakEvenAdoption(investment, annualBenefit, annualCost, years, currentAdoption) {
+            let breakEven = 0;
+            for (let adoption = currentAdoption; adoption >= 0; adoption -= 0.01) {
+                const benefit = annualBenefit * adoption;
+                const netAnnual = benefit - annualCost;
+                if (netAnnual * years <= investment) {
+                    breakEven = adoption;
+                    break;
+                }
+            }
+            return Math.max(0, breakEven);
+        }
+
+        function formatCurrency(value) {
+            return Math.abs(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+        }
+
+        function drawROIChart(scenario, years) {
+            const ctx = document.getElementById('roiChart').getContext('2d');
+            const labels = Array.from({length: years}, (_, i) => `Ano ${i + 1}`);
+            
+            if (roiChart) {
+                roiChart.destroy();
+            }
+
+            roiChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Fluxo de Caixa Acumulado',
+                        data: scenario.yearly,
+                        backgroundColor: function(context) {
+                            return context.raw >= 0 ? '#27ae60' : '#e74c3c';
+                        },
+                        borderColor: '#2c3e50',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value) {
+                                    return 'R$ ' + (value / 1000000).toFixed(1) + 'M';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
