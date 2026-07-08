@@ -1,0 +1,14 @@
+{
+  "name": "roi-learning-lab-us",
+  "version": "1.0.0",
+  "description": "US Healthcare ROI Learning Lab - Active Learning Portal",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
