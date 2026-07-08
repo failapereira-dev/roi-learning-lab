@@ -206,23 +206,23 @@ const classesContent = [
     "references": [
   {
     "citation": "IBM Watson · IEEE Spectrum (2019)",
-    "url": "https://spectrum.ieee.org/how-ibm-watson-overpromised-on-ai-health-care"
+    "url": "https://spectrum.ieee.org/how-ibm-watson-overpromised-and-underdelivered-on-ai-health-care"
   },
   {
-    "citation": "IBM Watson · STAT News, recomendações inseguras (2018)",
-    "url": "https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-cancer-treatments/"
+    "citation": "IBM Watson · STAT News, recomendações inseguras (2017)",
+    "url": "https://www.statnews.com/2017/09/05/watson-ibm-cancer/"
   },
   {
     "citation": "IBM Watson · MD Anderson, JNCI (2017)",
-    "url": "https://academic.oup.com/jnci/article/109/9/djx113/3896011"
+    "url": "https://academic.oup.com/jnci/article/109/5/djx113/3847623"
   },
   {
     "citation": "IA de laudos · InRad/HC-FMUSP, Jornal da USP (2024)",
-    "url": "https://jornal.usp.br/ciencias/inteligencia-artificial-no-inrad/"
+    "url": "https://jornal.usp.br/radio-usp/uso-da-ia-no-instituto-de-radiologia-da-usp-permitira-laudos-mais-ageis/"
   },
   {
     "citation": "IA em ressonância · HCI Ijuí (2026)",
-    "url": "https://www.hci.org.br/hci-implanta-ia-na-ressonancia"
+    "url": "https://hci.org.br/pioneiro-no-interior-do-rs-hci-implanta-inteligencia-artificial-na-ressonancia-magnetica-e-agiliza-exames-em-ate-50/"
   }
 ],
     "slides": [
