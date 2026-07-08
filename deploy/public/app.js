@@ -3528,22 +3528,25 @@ function drawWordCloud(elementId, submissions) {
     wrapper.className = "wordcloud-wrapper";
     wrapper.style.display = "block";
     wrapper.style.textAlign = "center";
-    wrapper.style.padding = "2.5rem";
+    wrapper.style.padding = "1rem";
     wrapper.style.width = "100%";
-    wrapper.style.lineHeight = "2.6";
+    wrapper.style.lineHeight = "1.8";
     
     const maxFreq = Math.max(...Object.values(freq));
     const uniqueWordCount = Object.keys(freq).length;
     
     // Adaptive font sizing configurations
-    let baseFontSize = 1.1;
-    let scalingFactor = 1.4;
+    let baseFontSize = 1.05;
+    let scalingFactor = 1.1;
     if (uniqueWordCount > 35) {
-        baseFontSize = 0.8;
-        scalingFactor = 0.8;
+        baseFontSize = 0.75;
+        scalingFactor = 0.5;
     } else if (uniqueWordCount > 20) {
+        baseFontSize = 0.85;
+        scalingFactor = 0.8;
+    } else if (uniqueWordCount > 12) {
         baseFontSize = 0.95;
-        scalingFactor = 1.1;
+        scalingFactor = 1.0;
     }
     
     Object.entries(freq).forEach(([word, count]) => {
