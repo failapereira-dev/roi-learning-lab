@@ -97,7 +97,8 @@ app.get('/api/submissions/:classId', (req, res) => {
 
 app.get('/api/submissions/:classId/:groupId', (req, res) => {
   const { classId, groupId } = req.params;
-  const submission = db.getSubmission(classId, groupId);
+  const { studentEmail } = req.query;
+  const submission = db.getSubmission(classId, groupId, studentEmail);
   if (!submission) {
     return res.json({ submitted: false });
   }
@@ -106,13 +107,13 @@ app.get('/api/submissions/:classId/:groupId', (req, res) => {
 
 app.post('/api/submissions/:classId/:groupId', (req, res) => {
   const { classId, groupId } = req.params;
-  const { submissionData, submittedBy } = req.body;
+  const { submissionData, submittedBy, studentEmail } = req.body;
   
   if (!submissionData) {
     return res.status(400).json({ error: "Submission data is required" });
   }
   
-  const saved = db.saveSubmission(classId, groupId, submissionData, submittedBy);
+  const saved = db.saveSubmission(classId, groupId, studentEmail, submissionData, submittedBy);
   broadcastUpdate();
   res.json({ success: true, data: saved });
 });
@@ -120,18 +121,19 @@ app.post('/api/submissions/:classId/:groupId', (req, res) => {
 // Comments & Feedback APIs
 app.get('/api/comments/:classId/:groupId', (req, res) => {
   const { classId, groupId } = req.params;
-  res.json(db.getComments(classId, groupId));
+  const { studentEmail } = req.query;
+  res.json(db.getComments(classId, groupId, studentEmail));
 });
 
 app.post('/api/comments/:classId/:groupId', (req, res) => {
   const { classId, groupId } = req.params;
-  const { text, grade } = req.body;
+  const { text, grade, studentEmail } = req.body;
   
   if (!text) {
     return res.status(400).json({ error: "Comment text is required" });
   }
   
-  const saved = db.saveComment(classId, groupId, text, grade);
+  const saved = db.saveComment(classId, groupId, studentEmail, text, grade);
   broadcastUpdate();
   res.json({ success: true, comments: saved });
 });

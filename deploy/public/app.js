@@ -2646,7 +2646,7 @@ function renderReferencesPhase() {
             card.innerHTML = `
                 <div class="reference-citation" style="font-weight: 500;">${ref.citation}</div>
                 ${extraHTML}
-                <a href="${ref.link}" target="_blank" class="reference-link" style="margin-top: 0.75rem; display: inline-block;">
+                <a href="${ref.url || ref.link}" target="_blank" class="reference-link" style="margin-top: 0.75rem; display: inline-block;">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> Acessar publicação oficial
                 </a>
             `;
@@ -2870,7 +2870,8 @@ async function submitAssignment(classId, groupId, data) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 submissionData: data,
-                submittedBy: studentName
+                submittedBy: studentName,
+                studentEmail: appState.currentUser
             })
         });
         
@@ -2889,7 +2890,7 @@ async function submitAssignment(classId, groupId, data) {
 // Load previous submissions to restore state for students
 async function loadSavedSubmission(classId, groupId) {
     try {
-        const res = await fetch(`/api/submissions/${classId}/${groupId}`);
+        const res = await fetch(`/api/submissions/${classId}/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
         const result = await res.json();
         
         resetForms();
@@ -2897,7 +2898,7 @@ async function loadSavedSubmission(classId, groupId) {
         // Carry-over logic from previous dynamics
         if (classId === "aula2") {
             try {
-                const prevRes = await fetch(`/api/submissions/aula1/${groupId}`);
+                const prevRes = await fetch(`/api/submissions/aula1/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
                 const prevResult = await prevRes.json();
                 const prevContainer = document.getElementById("prevSubmissionAula1");
                 const prevContent = document.getElementById("prevSubmissionAula1Content");
@@ -2934,7 +2935,7 @@ async function loadSavedSubmission(classId, groupId) {
             }
         } else if (classId === "aula3") {
             try {
-                const prevRes = await fetch(`/api/submissions/aula2/${groupId}`);
+                const prevRes = await fetch(`/api/submissions/aula2/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
                 const prevResult = await prevRes.json();
                 const prevContainer = document.getElementById("prevSubmissionAula2");
                 const prevContent = document.getElementById("prevSubmissionAula2Content");
@@ -3087,7 +3088,7 @@ function resetForms() {
 // Fetch comments and grades for student display
 async function loadProfessorFeedback(classId, groupId) {
     try {
-        const res = await fetch(`/api/comments/${classId}/${groupId}`);
+        const res = await fetch(`/api/comments/${classId}/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
         const comments = await res.json();
         
         if (comments.length > 0) {
@@ -3191,7 +3192,7 @@ async function renderSubmissionsInspector() {
     inspectorGroupsNav.innerHTML = "";
     for (let i = 1; i <= 5; i++) {
         const btn = document.createElement("button");
-        const isSubmitted = !!submissions[i];
+        const isSubmitted = !!submissions[i] && Object.keys(submissions[i]).length > 0;
         btn.className = `inspect-group-btn ${isSubmitted ? 'submitted' : ''} ${selectedInspectGroup === i ? 'active' : ''}`;
         btn.innerHTML = `
             <span>Equipe ${i}</span>
@@ -3205,12 +3206,12 @@ async function renderSubmissionsInspector() {
         inspectorGroupsNav.appendChild(btn);
     }
     
-    const submission = submissions[selectedInspectGroup];
-    renderSubmissionDetails(submission, selectedInspectClass, selectedInspectGroup);
+    const submissionsForGroup = submissions[selectedInspectGroup] || {};
+    renderSubmissionDetails(submissionsForGroup, selectedInspectClass, selectedInspectGroup);
 }
 
-function renderSubmissionDetails(submission, classId, groupId) {
-    if (!submission) {
+function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
+    if (!submissionsForGroup || Object.keys(submissionsForGroup).length === 0) {
         submissionDetailViewer.innerHTML = `
             <div class="inspect-submission-card">
                 <h4>Equipe ${groupId} - Submissão Pendente</h4>
@@ -3220,69 +3221,66 @@ function renderSubmissionDetails(submission, classId, groupId) {
         return;
     }
     
-    const submittedTime = new Date(submission.submittedAt).toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
-    
     let detailsHTML = "";
     
-    if (classId === "aula1") {
-        detailsHTML = `
-            <div class="inspect-submission-card">
-                <h4>Equipe ${groupId} - Matriz de Riscos (Enviado às ${submittedTime})</h4>
-                
+    Object.entries(submissionsForGroup).forEach(([studentEmail, submission]) => {
+        const submittedTime = new Date(submission.submittedAt).toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
+        const studentName = submission.submittedBy || "Aluno";
+        
+        let subContentHTML = "";
+        
+        if (classId === "aula1") {
+            subContentHTML = `
                 <div class="inspect-item-value ${submission.showstopper === 'technical' ? 'inspect-showstopper' : ''}">
                     <h6>Risco Técnico ${submission.showstopper === 'technical' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_tech}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_tech}</p>
+                    <p><strong>Risco:</strong> ${submission.risk_tech || 'Não informado'}</p>
+                    <p><strong>Mitigação:</strong> ${submission.mit_tech || 'Não informada'}</p>
                 </div>
                 
                 <div class="inspect-item-value ${submission.showstopper === 'operational' ? 'inspect-showstopper' : ''}">
                     <h6>Risco Operacional ${submission.showstopper === 'operational' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_oper}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_oper}</p>
+                    <p><strong>Risco:</strong> ${submission.risk_oper || 'Não informado'}</p>
+                    <p><strong>Mitigação:</strong> ${submission.mit_oper || 'Não informada'}</p>
                 </div>
                 
                 <div class="inspect-item-value ${submission.showstopper === 'clinical' ? 'inspect-showstopper' : ''}">
                     <h6>Risco Clínico-Cultural ${submission.showstopper === 'clinical' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_clinical}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_clinical}</p>
+                    <p><strong>Risco:</strong> ${submission.risk_clinical || 'Não informado'}</p>
+                    <p><strong>Mitigação:</strong> ${submission.mit_clinical || 'Não informada'}</p>
                 </div>
                 
                 <div class="inspect-item-value ${submission.showstopper === 'financial' ? 'inspect-showstopper' : ''}">
                     <h6>Risco Financeiro ${submission.showstopper === 'financial' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_financial}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_financial}</p>
+                    <p><strong>Risco:</strong> ${submission.risk_financial || 'Não informado'}</p>
+                    <p><strong>Mitigação:</strong> ${submission.mit_financial || 'Não informada'}</p>
                 </div>
-            </div>
-        `;
-    } else if (classId === "aula2") {
-        detailsHTML = `
-            <div class="inspect-submission-card">
-                <h4>Equipe ${groupId} - Teste de Estresse ROI (Enviado às ${submittedTime})</h4>
-                
+            `;
+        } else if (classId === "aula2") {
+            subContentHTML = `
                 <div class="inspect-item-value">
                     <h6>Parâmetros de Simulação Submetidos</h6>
-                    <p><strong>Investimento:</strong> USD ${submission.investment.toLocaleString()}</p>
-                    <p><strong>Benefício Anual:</strong> USD ${submission.benefit.toLocaleString()}</p>
-                    <p><strong>Manutenção Anual:</strong> USD ${submission.maintenance.toLocaleString()}</p>
-                    <p><strong>Custos de Risco:</strong> USD ${submission.risk.toLocaleString()}</p>
-                    <p><strong>Anos de Análise:</strong> ${submission.years} anos</p>
+                    <p><strong>Investimento:</strong> R$ ${(submission.investment || 0).toLocaleString('pt-BR')}</p>
+                    <p><strong>Benefício Anual:</strong> R$ ${(submission.benefit || 0).toLocaleString('pt-BR')}</p>
+                    <p><strong>Manutenção Anual:</strong> R$ ${(submission.maintenance || 0).toLocaleString('pt-BR')}</p>
+                    <p><strong>Custos de Risco:</strong> R$ ${(submission.risk || 0).toLocaleString('pt-BR')}</p>
+                    <p><strong>Anos de Análise:</strong> ${submission.years || 5} anos</p>
                 </div>
 
                 <div class="inspect-roi-grid">
                     <div class="inspect-roi-card expected">
                         <h6>ROI Esperado</h6>
-                        <span>${submission.metrics.expected.roi}</span><br>
-                        <small>${submission.metrics.expected.vpl}</small>
+                        <span>${submission.metrics && submission.metrics.expected ? submission.metrics.expected.roi : '0%'}</span><br>
+                        <small>${submission.metrics && submission.metrics.expected ? submission.metrics.expected.vpl : 'R$ 0'}</small>
                     </div>
                     <div class="inspect-roi-card realistic">
                         <h6>ROI Realista</h6>
-                        <span>${submission.metrics.realistic.roi}</span><br>
-                        <small>${submission.metrics.realistic.vpl}</small>
+                        <span>${submission.metrics && submission.metrics.realistic ? submission.metrics.realistic.roi : '0%'}</span><br>
+                        <small>${submission.metrics && submission.metrics.realistic ? submission.metrics.realistic.vpl : 'R$ 0'}</small>
                     </div>
                     <div class="inspect-roi-card pessimistic">
                         <h6>ROI Pessimista</h6>
-                        <span>${submission.metrics.pessimistic.roi}</span><br>
-                        <small>${submission.metrics.pessimistic.vpl}</small>
+                        <span>${submission.metrics && submission.metrics.pessimistic ? submission.metrics.pessimistic.roi : '0%'}</span><br>
+                        <small>${submission.metrics && submission.metrics.pessimistic ? submission.metrics.pessimistic.vpl : 'R$ 0'}</small>
                     </div>
                 </div>
 
@@ -3293,40 +3291,37 @@ function renderSubmissionDetails(submission, classId, groupId) {
 
                 <div class="inspect-item-value">
                     <h6>Justificativa de Estresse</h6>
-                    <p>${submission.justification}</p>
+                    <p>${submission.justification || 'Não informada'}</p>
                 </div>
-            </div>
-        `;
-    } else if (classId === "aula3") {
-        const recClass = submission.recommendation === 'GO' ? 'color-clinical' : submission.recommendation === 'NO-GO' ? 'color-financial' : 'color-tech';
-        detailsHTML = `
-            <div class="inspect-submission-card">
-                <h4>Equipe ${groupId} - Business Case Final (Enviado às ${submittedTime})</h4>
-                
+            `;
+        } else if (classId === "aula3") {
+            const recClass = submission.recommendation === 'GO' ? 'color-clinical' : submission.recommendation === 'NO-GO' ? 'color-financial' : 'color-tech';
+            subContentHTML = `
                 <div class="inspect-item-value">
                     <h6>1. Sumário Executivo</h6>
-                    <p>${submission.summary}</p>
+                    <p>${submission.summary || 'Não preenchido'}</p>
                 </div>
 
                 <div class="inspect-item-value">
                     <h6>2. Problema & Contexto</h6>
-                    <p>${submission.problem}</p>
+                    <p>${submission.problem || 'Não preenchido'}</p>
                 </div>
 
                 <div class="inspect-item-value">
                     <h6>3. Solução Proposta</h6>
-                    <p>${submission.solution}</p>
+                    <p>${submission.solution || 'Não preenchido'}</p>
                 </div>
 
                 <div class="inspect-item-value">
                     <h6>4. Análise Financeira sob Estresse</h6>
-                    <p>${submission.finance}</p>
+                    <p>${submission.finance || 'Não preenchido'}</p>
                 </div>
 
                 <div class="inspect-item-value">
                     <h6>5. Riscos e Mitigações</h6>
-                    <p>${submission.risks}</p>
+                    <p>${submission.risks || 'Não preenchido'}</p>
                 </div>
+                
                 <div class="inspect-item-value">
                     <h6>Painel de Apoio: Premissas Utilizadas</h6>
                     <p><strong>Volume:</strong> ${submission.prem_volume || 'Não preenchido'}</p>
@@ -3335,6 +3330,7 @@ function renderSubmissionDetails(submission, classId, groupId) {
                     <p><strong>Custo/Hora Equipe:</strong> ${submission.prem_cost || 'Não preenchido'}</p>
                     <p><strong>Fonte de cada dado:</strong> ${submission.prem_source || 'Não preenchido'}</p>
                 </div>
+                
                 <div class="inspect-item-value">
                     <h6>Painel de Apoio: Limitações do Projeto</h6>
                     <p>${submission.lim_text || 'Não preenchido'}</p>
@@ -3342,58 +3338,102 @@ function renderSubmissionDetails(submission, classId, groupId) {
 
                 <div class="inspect-item-value">
                     <h6>6. Recomendação Final de Investimento</h6>
-                    <p class="${recClass}"><strong>${submission.recommendation}</strong></p>
-                    <p class="mt-2"><strong>Condições/Justificativa:</strong><br>${submission.rec_justification}</p>
+                    <p class="${recClass}"><strong>${submission.recommendation || 'Não informada'}</strong></p>
+                    <p class="mt-2"><strong>Condições/Justificativa:</strong><br>${submission.rec_justification || 'Não informada'}</p>
+                </div>
+            `;
+        }
+        
+        detailsHTML += `
+            <div class="inspect-submission-card" style="margin-bottom: 2rem; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; background: var(--bg-card);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                    <h4 style="margin: 0; border: none; font-size: 1.1rem; color: var(--gold);"><i class="fa-solid fa-user"></i> ${studentName} (${studentEmail})</h4>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Enviado às ${submittedTime}</span>
+                </div>
+                
+                ${subContentHTML}
+                
+                <!-- Feedback Editor per Student -->
+                <form class="formProfFeedbackSingle feedback-editor-form" data-student-email="${studentEmail}" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
+                    <h5 style="font-size: 0.95rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-pen-nib"></i> Fornecer Feedback Individual</h5>
+                    
+                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                        <label style="font-size: 0.8rem;">Comentários e Orientações:</label>
+                        <textarea class="profCommentSingle" required rows="2" placeholder="Parabéns pelo trabalho individual, ${studentName}..." style="font-size: 0.85rem; width: 100%; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--bg-body); color: var(--text-primary);"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-sm" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;"><i class="fa-solid fa-paper-plane"></i> Salvar Feedback Individual</button>
+                </form>
+                
+                <!-- Display existing feedback for this student if any -->
+                <div class="student-existing-feedback-container" data-student-email="${studentEmail}" style="margin-top: 1rem; display: none;">
+                    <strong style="font-size: 0.8rem; color: var(--gold);"><i class="fa-solid fa-comments"></i> Feedbacks Enviados:</strong>
+                    <div class="student-existing-feedback-list" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
                 </div>
             </div>
         `;
-    }
-    
-    detailsHTML += `
-        <form id="formProfFeedback" class="feedback-editor-form">
-            <h5><i class="fa-solid fa-pen-nib"></i> Fornecer Feedback Docente</h5>
-            
-            <div class="grade-input-container" style="display: none;">
-                <label for="profGrade">Nota da Atividade (0-10):</label>
-                <input type="number" id="profGrade" class="grade-input" min="0" max="10" step="0.1" placeholder="9.5">
-            </div>
-            
-            <div class="form-group">
-                <label for="profComment">Comentários e Orientações:</label>
-                <textarea id="profComment" required rows="3" placeholder="Parabéns pelo mapeamento. A mitigação foi muito bem estruturada..."></textarea>
-            </div>
-            
-            <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-paper-plane"></i> Salvar Feedback</button>
-        </form>
-    `;
+    });
     
     submissionDetailViewer.innerHTML = detailsHTML;
     
-    document.getElementById("formProfFeedback").addEventListener("submit", async (e) => {
-        e.preventDefault();
+    // Attach form submission listeners and fetch existing comments for each student
+    document.querySelectorAll(".formProfFeedbackSingle").forEach(form => {
+        const studentEmail = form.getAttribute("data-student-email");
         
-        const commentText = document.getElementById("profComment").value;
-        const grade = parseFloat(document.getElementById("profGrade").value) || null;
-        
-        try {
-            showToast("Salvando feedback...", "info");
-            const res = await fetch(`/api/comments/${classId}/${groupId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: commentText, grade: grade })
+        // Fetch and display existing comments
+        fetch(`/api/comments/${classId}/${groupId}?studentEmail=${encodeURIComponent(studentEmail)}`)
+            .then(r => r.json())
+            .then(comments => {
+                const feedbackContainer = document.querySelector(`.student-existing-feedback-container[data-student-email="${studentEmail}"]`);
+                const feedbackList = document.querySelector(`.student-existing-feedback-list[data-student-email="${studentEmail}"]`);
+                if (comments && comments.length > 0) {
+                    feedbackContainer.style.display = "block";
+                    feedbackList.innerHTML = "";
+                    comments.forEach(c => {
+                        const div = document.createElement("div");
+                        div.style.fontSize = "0.8rem";
+                        div.style.padding = "0.5rem";
+                        div.style.background = "rgba(218, 165, 32, 0.05)";
+                        div.style.borderLeft = "3px solid var(--gold)";
+                        div.style.borderRadius = "4px";
+                        div.innerHTML = `
+                            <p style="margin: 0; color: var(--text-primary);">${c.text}</p>
+                            <span style="font-size: 0.7rem; color: var(--text-secondary);">${new Date(c.timestamp).toLocaleString("pt-BR")}</span>
+                        `;
+                        feedbackList.appendChild(div);
+                    });
+                }
             });
+
+        // Form submit handler
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const commentText = form.querySelector(".profCommentSingle").value;
             
-            if (res.ok) {
-                showToast("Feedback salvo com sucesso!", "success");
-                document.getElementById("profComment").value = "";
-                document.getElementById("profGrade").value = "";
-            } else {
-                showToast("Erro ao salvar feedback.", "error");
+            try {
+                showToast("Salvando feedback...", "info");
+                const res = await fetch(`/api/comments/${classId}/${groupId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: commentText,
+                        studentEmail: studentEmail
+                    })
+                });
+                
+                if (res.ok) {
+                    showToast("Feedback salvo com sucesso!", "success");
+                    form.querySelector(".profCommentSingle").value = "";
+                    // Refresh inspector
+                    renderSubmissionsInspector();
+                } else {
+                    showToast("Erro ao salvar feedback.", "error");
+                }
+            } catch (err) {
+                console.error(err);
+                showToast("Erro de conexão.", "error");
             }
-        } catch (err) {
-            console.error(err);
-            showToast("Erro de conexão ao enviar feedback.", "error");
-        }
+        });
     });
 }
 

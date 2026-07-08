@@ -1288,49 +1288,63 @@ module.exports = {
     const data = readData();
     return data.submissions[classId] || {};
   },
-  getSubmission: (classId, groupId) => {
+  getSubmission: (classId, groupId, studentEmail) => {
     const data = readData();
-    return (data.submissions[classId] || {})[groupId] || null;
+    const groupSubmissions = (data.submissions[classId] || {})[groupId] || {};
+    if (studentEmail) {
+      return groupSubmissions[studentEmail] || null;
+    }
+    const keys = Object.keys(groupSubmissions);
+    return keys.length > 0 ? groupSubmissions[keys[0]] : null;
   },
-  saveSubmission: (classId, groupId, submissionData, submittedBy) => {
+  saveSubmission: (classId, groupId, studentEmail, submissionData, submittedBy) => {
     const data = readData();
     if (!data.submissions[classId]) {
       data.submissions[classId] = {};
     }
-    // Only accept the first group submission, block edits
-    if (data.submissions[classId][groupId]) {
-      return data.submissions[classId][groupId];
+    if (!data.submissions[classId][groupId]) {
+      data.submissions[classId][groupId] = {};
     }
-    data.submissions[classId][groupId] = {
+    const emailKey = studentEmail || "anonymous";
+    data.submissions[classId][groupId][emailKey] = {
       ...submissionData,
       submittedBy: submittedBy || "Aluno da Equipe",
       submittedAt: new Date().toISOString()
     };
     writeData(data);
-    return data.submissions[classId][groupId];
+    return data.submissions[classId][groupId][emailKey];
   },
   
   // Comments & Feedback
-  getComments: (classId, groupId) => {
+  getComments: (classId, groupId, studentEmail) => {
     const data = readData();
-    return (data.comments[classId] || {})[groupId] || [];
+    const groupComments = (data.comments[classId] || {})[groupId] || {};
+    if (studentEmail) {
+      return groupComments[studentEmail] || [];
+    }
+    const keys = Object.keys(groupComments);
+    return keys.length > 0 ? groupComments[keys[0]] : [];
   },
-  saveComment: (classId, groupId, commentText, grade) => {
+  saveComment: (classId, groupId, studentEmail, commentText, grade) => {
     const data = readData();
     if (!data.comments[classId]) {
       data.comments[classId] = {};
     }
     if (!data.comments[classId][groupId]) {
-      data.comments[classId][groupId] = [];
+      data.comments[classId][groupId] = {};
+    }
+    const emailKey = studentEmail || "anonymous";
+    if (!data.comments[classId][groupId][emailKey]) {
+      data.comments[classId][groupId][emailKey] = [];
     }
     const newComment = {
       text: commentText,
       grade: grade || null,
       timestamp: new Date().toISOString()
     };
-    data.comments[classId][groupId].push(newComment);
+    data.comments[classId][groupId][emailKey].push(newComment);
     writeData(data);
-    return data.comments[classId][groupId];
+    return data.comments[classId][groupId][emailKey];
   },
   
   // Check-in response management
