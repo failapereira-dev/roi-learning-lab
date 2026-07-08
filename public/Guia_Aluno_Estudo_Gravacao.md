@@ -1,49 +1,36 @@
-# Guia do Aluno: Acompanhamento de Aula Gravada & Acesso ao Portal
-
-Se você não pôde comparecer à aula síncrona ao vivo, este guia rápido orienta como acessar o portal, realizar o login e fazer as dinâmicas acompanhando a gravação no seu próprio ritmo.
-
----
-
-### 🔑 1. Como Acessar o Portal e Fazer Login
-1. Acesse o link oficial do portal (fornecido pela professora).
-2. Na tela de login:
-   * **Selecione seu Nome:** Clique no menu e localize o seu nome (os nomes estão organizados por equipes, ex: *Equipe 1*, *Equipe 2*...).
-   * **Senha:** No campo de senha, digite o seu **e-mail acadêmico cadastrado** (ex: `nome.sobrenome@hmv.org.br`).
-3. Clique no botão **Entrar**.
+# MANUAL DE ACESSO AO AMBIENTE VIRTUAL
+### Diretrizes de Acompanhamento de Gravações de Aulas e Interações Individuais
+**Disciplina: Avaliação de Riscos e Investimentos com ROI**  
+**Profa. Dra. Faila Santos**  
 
 ---
 
-### 🌐 2. Desativar a Sincronização Síncrona (Passo Crítico)
-Como você está estudando de forma assíncrona (fora do horário de aula), os slides do portal não serão controlados ao vivo pela professora.
-* No menu superior do portal, localize o botão **"Sincronização"** (com o ícone de nuvem ☁️).
-* Clique nele para **desativá-lo** (o botão ficará cinza e indicará "Sincronização Desativada").
-* Agora você tem controle total para passar os slides e abas no seu próprio ritmo clicando nas setas e abas de navegação.
+Este manual destina-se aos discentes que necessitem realizar o acompanhamento acadêmico de forma assíncrona. A metodologia baseia-se em aprendizagem ativa síncrona. Portanto, a visualização da gravação deve ser rigorosamente integrada ao uso do portal virtual de simulação de ROI para que o aluno execute e valide os conceitos práticos apresentados.
 
 ---
 
-### 🎥 3. Acompanhando com a Gravação da Aula
-Para a melhor experiência de aprendizagem, posicione a janela da gravação da aula ao lado do portal virtual:
-1. **Conteúdo Teórico:** Avance os slides no portal à medida que o professor explica o assunto na gravação.
-2. **Leitura Recomendada / Cards de Apoio:** Nos slides marcados com link de leitura ou referências, clique para ler os textos de apoio integrados.
+### 1. Acesso e Autenticação no Portal
+Para acessar a interface do portal de aprendizagem e registrar suas interações individuais, execute o seguinte protocolo de autenticação:
+
+* **Navegação Inicial:** Abra o navegador e acesse o endereço eletrônico do portal virtual:  
+  [https://roi-learning-lab.onrender.com/](https://roi-learning-lab.onrender.com/)
+* **Seleção de Identidade:** Na tela de autenticação, clique no menu suspenso ('Selecione seu Nome') e selecione o seu nome correspondente.
+* **Credencial de Acesso:** No campo 'Senha', insira o seu endereço de e-mail acadêmico cadastrado no MBA (ex: `nome.sobrenome@hmv.org.br`).
+* **Autenticação:** Clique em 'Entrar' para liberar o acesso ao painel de navegação síncrona.
 
 ---
 
-### 📝 4. Realizando as Atividades Práticas Síncronas
-Você pode e deve participar de todas as interações dinâmicas da aula para pontuação:
-* **Check-in & Reflexão Final:** Quando a gravação alcançar o check-in ou a reflexão final, selecione a aba correspondente no menu superior, digite sua palavra ou responda à enquete e envie.
-* **Quiz (Teste de Conceito):** Acesse a aba **"Teste de Conceito"** na barra de navegação para responder aos testes rápidos de fixação baseados nos slides teóricos.
-* **Word Clouds (Nuvem de Palavras):** Você pode curtir com **clique duplo** (ou toque duplo na tela do celular) as palavras enviadas pelos seus colegas na nuvem de palavras para votar nos conceitos mais relevantes.
+### 2. Estudo Integrado com a Gravação
+Recomenda-se posicionar a janela da gravação da videoaula e a janela do portal virtual lado a lado no seu monitor. Siga as orientações a seguir:
+
+* **Navegação Concomitante:** Avance os slides teóricos no portal acompanhando a explanação da docente no vídeo.
+* **Leituras Científicas e Referências:** Nos slides que contêm cards de artigos ou leituras recomendadas, utilize os links de apoio para consultar a literatura científica citada diretamente no portal.
 
 ---
 
-### 👥 5. Atividades em Grupo (Submissão e Feedback Individual)
-Mesmo de forma assíncrona, você conseguirá realizar a atividade de modelagem prática da sua equipe:
-1. No menu superior, clique na aba **"Trabalho em Grupo"**.
-2. O portal exibirá o **caso clínico-operacional e as tabelas de simulação** específicos da sua equipe correspondente.
-3. Preencha os campos da atividade da aula correspondente:
-   * **Aula 1:** Modelagem da Matriz de Riscos (riscos e mitigações).
-   * **Aula 2:** Teste de Estresse e Simulação de ROI.
-   * **Aula 3:** Concepção e Defesa do Business Case Final.
-4. Ao concluir, clique em **Submeter** no rodapé do formulário. 
-5. **Correção:** Sua entrega será gravada de forma individual no portal. A professora Faila visualizará o seu trabalho individual na área docente e fornecerá feedbacks e comentários de nota diretamente para você.
-6. **Visualizando o Feedback:** Para ler as orientações da professora, basta reentrar na aba **"Trabalho em Grupo"** e rolar até o rodapé do seu formulário.
+### 3. Realização e Entrega de Atividades Práticas (Trabalho de Equipe)
+A avaliação das atividades de simulação ocorre de forma individual no portal. Mesmo estudando assincronamente, você deverá preencher o simulador referente à sua equipe:
+
+* **Acesso ao Cenário:** Acesse a aba 'Trabalho em Grupo' para visualizar o estudo de caso clínico-operacional atribuído à sua equipe de estudos.
+* **Modelagem Financeira e Riscos:** Preencha os campos da matriz de mitigação de riscos (Aula 1), os parâmetros de estresse do simulador de ROI (Aula 2) ou o parecer executivo do Business Case final (Aula 3).
+* **Submissão:** Após completar o preenchimento, clique no botão 'Submeter' no rodapé do formulário.
