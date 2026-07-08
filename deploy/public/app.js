@@ -2654,6 +2654,61 @@ function renderReferencesPhase() {
         });
     }
 
+    // 1.5. Recommended Podcasts
+    const podcastsHeader = document.createElement("h3");
+    podcastsHeader.innerHTML = `<i class="fa-solid fa-podcast" style="color: var(--clinical-color);"></i> Podcasts Recomendados da Disciplina`;
+    podcastsHeader.style.fontSize = "1.1rem";
+    podcastsHeader.style.marginBottom = "1rem";
+    podcastsHeader.style.marginTop = "2rem";
+    podcastsHeader.style.borderBottom = "2px solid var(--border-color)";
+    podcastsHeader.style.paddingBottom = "0.4rem";
+    container.appendChild(podcastsHeader);
+
+    const podcastsGrid = document.createElement("div");
+    podcastsGrid.style.display = "grid";
+    podcastsGrid.style.gridTemplateColumns = "repeat(auto-fill, minmax(280px, 1fr))";
+    podcastsGrid.style.gap = "1rem";
+    podcastsGrid.style.marginBottom = "1.5rem";
+
+    const podcasts = [
+        {
+            title: "Episódio 1: Avaliação de Risco e Inovação na Saúde",
+            url: "https://open.spotify.com/episode/3dkauHxBAacmOiq6jst0J3?si=2B4SxMQ4T1Kv_9GSWGiB0A&nd=1&dlsi=eddb65a356d84fa6",
+            desc: "Discussão aprofundada sobre como equilibrar a velocidade da inovação tecnológica com a segurança assistencial e a viabilidade financeira."
+        },
+        {
+            title: "Episódio 2: A Anatomia do ROI em Projetos de IA",
+            url: "https://open.spotify.com/episode/5AZ0yIG6RHDRGkUUb2hMsz?si=-OoswYu3S9K5AGA8HrNCNA&nd=1&dlsi=2e2af190943c43c5",
+            desc: "Análise prática de modelagem de business cases em saúde, desmistificando os custos de riscos ocultos e as taxas de adoção clínica."
+        },
+        {
+            title: "Episódio 3: Governança, Barreiras Regulatórias e o Efeito Dominó",
+            url: "https://open.spotify.com/episode/5kyif0Ynqil7LQ8SNx886g?si=mRlXHHgaSVSIf4dgqy2E1A",
+            desc: "Como estruturar comitês de governança de IA e mitigar os efeitos em cascata (downstream bottlenecks) no fluxo hospitalar."
+        }
+    ];
+
+    podcasts.forEach(pod => {
+        const card = document.createElement("div");
+        card.className = "reference-card";
+        card.style.display = "flex";
+        card.style.flexDirection = "column";
+        card.style.justifyContent = "space-between";
+        card.innerHTML = `
+            <div>
+                <strong style="color: var(--gold); display: block; font-size: 0.9rem; margin-bottom: 0.3rem;">
+                    <i class="fa-brands fa-spotify" style="color: #1DB954;"></i> ${pod.title}
+                </strong>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 0.8rem;">${pod.desc}</p>
+            </div>
+            <a href="${pod.url}" target="_blank" class="reference-link" style="margin-top: auto; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; text-decoration: none;">
+                <i class="fa-solid fa-circle-play" style="color: var(--clinical-color);"></i> Ouvir no Spotify
+            </a>
+        `;
+        podcastsGrid.appendChild(card);
+    });
+    container.appendChild(podcastsGrid);
+
     // 2. Fetch and render syllabus bibliography
     fetch('/api/bibliography')
         .then(res => res.json())
