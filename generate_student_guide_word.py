@@ -9,8 +9,6 @@ from docx.oxml.ns import nsdecls
 BRAND_BLUE_RGB = RGBColor(2, 132, 199)
 SECONDARY_GRAY_RGB = RGBColor(59, 81, 102)
 MUTED_SLATE_RGB = RGBColor(107, 124, 147)
-HEADER_BLUE_HEX = "0284C7"
-BORDER_GRAY_HEX = "CBD5E1"
 
 def set_cell_background(cell, color_hex):
     shd_xml = f'<w:shd {nsdecls("w")} w:fill="{color_hex}"/>'
@@ -35,9 +33,7 @@ def add_heading_academic(doc, text, level):
     
     run = p.add_run(text)
     if level == 1:
-        apply_text_styling(run, font_name="Arial", size_pt=13, bold=True, color_rgb=BRAND_BLUE_RGB)
-    elif level == 2:
-        apply_text_styling(run, font_name="Arial", size_pt=11.5, bold=True, color_rgb=SECONDARY_GRAY_RGB)
+        apply_text_styling(run, font_name="Arial", size_pt=12.5, bold=True, color_rgb=BRAND_BLUE_RGB)
     return p
 
 def add_body_paragraph(doc, text="", bold=False, italic=False):
@@ -52,7 +48,7 @@ def add_body_paragraph(doc, text="", bold=False, italic=False):
         apply_text_styling(run, font_name="Arial", size_pt=11, bold=bold, italic=italic)
     return p
 
-def add_list_item(doc, bold_prefix, text):
+def add_bullet_item(doc, bold_prefix, text, is_link=False):
     p = doc.add_paragraph(style='List Bullet')
     p.paragraph_format.line_spacing = 1.15
     p.paragraph_format.space_after = Pt(4)
@@ -62,88 +58,97 @@ def add_list_item(doc, bold_prefix, text):
     run_prefix = p.add_run(bold_prefix)
     apply_text_styling(run_prefix, font_name="Arial", size_pt=11, bold=True)
     
-    run_text = p.add_run(text)
-    apply_text_styling(run_text, font_name="Arial", size_pt=11)
+    if is_link:
+        run_text = p.add_run(text)
+        apply_text_styling(run_text, font_name="Arial", size_pt=11, color_rgb=BRAND_BLUE_RGB, bold=True)
+    else:
+        run_text = p.add_run(text)
+        apply_text_styling(run_text, font_name="Arial", size_pt=11)
     return p
 
 def main():
     doc = docx.Document()
     
-    # Page setup - ABNT standard
+    # Page setup - ABNT standard margins
     for section in doc.sections:
         section.top_margin = Cm(3.0)
         section.left_margin = Cm(3.0)
         section.bottom_margin = Cm(2.0)
         section.right_margin = Cm(2.0)
         
-    # Header Logo / Institution block
+    # Header Logo / Institution block matching the screenshot
     logo_p = doc.add_paragraph()
     logo_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    logo_p.paragraph_format.space_before = Pt(0)
+    logo_p.paragraph_format.space_after = Pt(12)
     if os.path.exists("Logo Moinhos.png"):
         logo_p.add_run().add_picture("Logo Moinhos.png", width=Inches(1.8))
-        logo_p.paragraph_format.space_after = Pt(12)
-    else:
-        # Fallback text header
-        run_inst = logo_p.add_run("FACULDADE DE CIÊNCIAS DA SAÚDE MOINHOS DE VENTO\n")
-        apply_text_styling(run_inst, font_name="Arial", size_pt=11, bold=True, color_rgb=SECONDARY_GRAY_RGB)
-        logo_p.paragraph_format.space_after = Pt(18)
-        logo_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-    # Title Box
+        
+    # Title
     title_p = doc.add_paragraph()
     title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    title_p.paragraph_format.space_after = Pt(6)
-    run_title = title_p.add_run("MANUAL DE ESTUDO ASSÍNCRONO E ACESSO AO AMBIENTE VIRTUAL")
-    apply_text_styling(run_title, font_name="Arial", size_pt=15, bold=True, color_rgb=BRAND_BLUE_RGB)
+    title_p.paragraph_format.space_after = Pt(4)
+    run_title = title_p.add_run("MANUAL DE ACESSO AO AMBIENTE VIRTUAL")
+    apply_text_styling(run_title, font_name="Arial", size_pt=14, bold=True, color_rgb=BRAND_BLUE_RGB)
     
+    # Subtitle
     sub_p = doc.add_paragraph()
     sub_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    sub_p.paragraph_format.space_after = Pt(24)
-    run_sub = sub_p.add_run("Diretrizes de Acompanhamento de Gravações de Aulas e Interações Individuais\nMBA em Inteligência Artificial Aplicada à Saúde")
+    sub_p.paragraph_format.space_after = Pt(4)
+    run_sub = sub_p.add_run("Diretrizes de Acompanhamento de Gravações de Aulas e Interações Individuais")
     apply_text_styling(run_sub, font_name="Arial", size_pt=11, italic=True, color_rgb=SECONDARY_GRAY_RGB)
     
-    # Content Divider
+    # Discipline
+    disc_p = doc.add_paragraph()
+    disc_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    disc_p.paragraph_format.space_after = Pt(4)
+    run_disc = disc_p.add_run("Disciplina: Avaliação de Riscos e Investimentos com ROI")
+    apply_text_styling(run_disc, font_name="Arial", size_pt=11, bold=True)
+    
+    # Teacher
+    teach_p = doc.add_paragraph()
+    teach_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    teach_p.paragraph_format.space_after = Pt(18)
+    run_teach = teach_p.add_run("Profa. Dra. Faila Santos")
+    apply_text_styling(run_teach, font_name="Arial", size_pt=11, bold=True)
+    
+    # Divider line
     div_p = doc.add_paragraph()
-    div_p.paragraph_format.space_after = Pt(12)
-    div_run = div_p.add_run("―" * 40)
-    div_run.font.color.rgb = SECONDARY_GRAY_RGB
+    div_p.paragraph_format.space_after = Pt(18)
     div_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-    # Introduction
-    add_body_paragraph(doc, "Este manual destina-se aos discentes que necessitem realizar o acompanhamento acadêmico de forma assíncrona. A metodologia do MBA em IA na Saúde baseia-se em aprendizagem ativa síncrona. Portanto, a visualização da gravação deve ser rigorosamente integrada ao uso do portal virtual de simulação de ROI para que o aluno execute e valide os conceitos práticos apresentados pela docente.")
+    div_run = div_p.add_run("―" * 45)
+    div_run.font.color.rgb = SECONDARY_GRAY_RGB
+    
+    # Intro
+    add_body_paragraph(doc, "Este manual destina-se aos discentes que necessitem realizar o acompanhamento acadêmico de forma assíncrona. A metodologia baseia-se em aprendizagem ativa síncrona. Portanto, a visualização da gravação deve ser rigorosamente integrada ao uso do portal virtual de simulação de ROI para que o aluno execute e valide os conceitos práticos apresentados.")
     
     # Section 1
-    add_heading_academic(doc, "1. Procedimento de Acesso e Autenticação no Portal", 1)
+    add_heading_academic(doc, "1. Acesso e Autenticação no Portal", 1)
     add_body_paragraph(doc, "Para acessar a interface do portal de aprendizagem e registrar suas interações individuais, execute o seguinte protocolo de autenticação:")
-    add_list_item(doc, "Navegação Inicial: ", "Abra o navegador e acesse o endereço eletrônico do portal virtual fornecido pela docente.")
-    add_list_item(doc, "Seleção de Identidade: ", "Na tela de autenticação, clique no menu suspenso ('Selecione seu Nome') e selecione o seu nome correspondente. Note que os discentes estão agrupados por suas respectivas equipes de estudo (ex: Equipe 1, Equipe 2).")
-    add_list_item(doc, "Credencial de Acesso: ", "No campo 'Senha', insira o seu endereço de e-mail acadêmico cadastrado (ex: nome.sobrenome@hmv.org.br).")
-    add_list_item(doc, "Autenticação: ", "Clique em 'Entrar' para liberar o acesso ao painel de navegação síncrona.")
+    add_bullet_item(doc, "Navegação Inicial: ", "Abra o navegador e acesse o endereço eletrônico do portal virtual ")
+    # Add link paragraph style
+    p_link = doc.paragraphs[-1]
+    run_link = p_link.add_run("\nhttps://roi-learning-lab.onrender.com/")
+    apply_text_styling(run_link, font_name="Arial", size_pt=11, bold=True, color_rgb=BRAND_BLUE_RGB)
+    
+    add_bullet_item(doc, "Seleção de Identidade: ", "Na tela de autenticação, clique no menu suspenso ('Selecione seu Nome') e selecione o seu nome correspondente.")
+    add_bullet_item(doc, "Credencial de Acesso: ", "No campo 'Senha', insira o seu endereço de e-mail acadêmico cadastrado no MBA (ex: nome.sobrenome@hmv.org.br).")
+    add_bullet_item(doc, "Autenticação: ", "Clique em 'Entrar' para liberar o acesso ao painel de navegação síncrona.")
     
     # Section 2
-    add_heading_academic(doc, "2. Configuração de Sincronização Síncrona", 1)
-    add_body_paragraph(doc, "Como o acompanhamento ocorre fora do horário síncrono, a condução automatizada da tela pela docente estará desativada. Para navegar de forma autônoma pelas abas e conteúdos:")
-    add_list_item(doc, "Desativação da Sincronização (Live Sync): ", "No cabeçalho superior do portal, localize o botão contendo o ícone de nuvem (Sincronização).")
-    add_list_item(doc, "Controle Local: ", "Clique no botão para desativar a sincronização (o ícone ficará em cinza e a mensagem indicará 'Sincronização Desativada'). Com este procedimento, você assume o controle manual de avanço dos slides e transição de abas.")
-
-    # Section 3
-    add_heading_academic(doc, "3. Protocolo de Estudo Integrado com a Gravação", 1)
+    add_heading_academic(doc, "2. Estudo Integrado com a Gravação", 1)
     add_body_paragraph(doc, "Recomenda-se posicionar a janela da gravação da videoaula e a janela do portal virtual lado a lado no seu monitor. Siga as orientações a seguir:")
-    add_list_item(doc, "Navegação Concomitante: ", "Avance os slides teóricos no portal acompanhando a explanação da docente no vídeo.")
-    add_list_item(doc, "Leituras Científicas e Referências: ", "Nos slides que contêm cards de artigos ou leituras recomendadas, utilize os links de apoio para consultar a literatura científica citada diretamente no portal.")
-    add_list_item(doc, "Participação em Enquetes de Fixação: ", "Quando a docente solicitar o preenchimento de enquetes rápidas (Check-in, Quizzes de fixação ou Reflexão Final), acesse a aba correspondente no cabeçalho do portal, responda às perguntas e clique em enviar.")
-    add_list_item(doc, "Interação na Nuvem de Palavras: ", "Você pode interagir com as respostas dos seus pares. Dê um toque duplo (em telas touch) ou clique duplo nas palavras chaves da nuvem para curtir e registrar sua concordância conceitual.")
-
-    # Section 4
-    add_heading_academic(doc, "4. Realização e Entrega de Atividades Práticas (Trabalho de Equipe)", 1)
+    add_bullet_item(doc, "Navegação Concomitante: ", "Avance os slides teóricos no portal acompanhando a explanação da docente no vídeo.")
+    add_bullet_item(doc, "Leituras Científicas e Referências: ", "Nos slides que contêm cards de artigos ou leituras recomendadas, utilize os links de apoio para consultar a literatura científica citada diretamente no portal.")
+    
+    # Section 3
+    add_heading_academic(doc, "3. Realização e Entrega de Atividades Práticas (Trabalho de Equipe)", 1)
     add_body_paragraph(doc, "A avaliação das atividades de simulação ocorre de forma individual no portal. Mesmo estudando assincronamente, você deverá preencher o simulador referente à sua equipe:")
-    add_list_item(doc, "Acesso ao Cenário: ", "Acesse a aba 'Trabalho em Grupo' para visualizar o estudo de caso clínico-operacional atribuído à sua equipe de estudos.")
-    add_list_item(doc, "Modelagem Financeira e Riscos: ", "Preencha os campos da matriz de mitigação de riscos (Aula 1), os parâmetros de estresse do simulador de ROI (Aula 2) ou o parecer executivo do Business Case final (Aula 3).")
-    add_list_item(doc, "Submissão: ", "Após completar o preenchimento, clique no botão 'Submeter' no rodapé do formulário.")
-    add_list_item(doc, "Avaliação Docente: ", "Sua submissão será armazenada em banco de dados sob o seu e-mail de discente. A docente Faila Santos revisará suas respostas e publicará feedbacks individuais de orientação diretamente no seu portal.")
-    add_list_item(doc, "Visualização de Feedbacks: ", "Os comentários e retornos pedagógicos da docente estarão disponíveis para consulta no rodapé da própria aba 'Trabalho em Grupo'.")
+    add_bullet_item(doc, "Acesso ao Cenário: ", "Acesse a aba 'Trabalho em Grupo' para visualizar o estudo de caso clínico-operacional atribuído à sua equipe de estudos.")
+    add_bullet_item(doc, "Modelagem Financeira e Riscos: ", "Preencha os campos da matriz de mitigação de riscos (Aula 1), os parâmetros de estresse do simulador de ROI (Aula 2) ou o parecer executivo do Business Case final (Aula 3).")
+    add_bullet_item(doc, "Submissão: ", "Após completar o preenchimento, clique no botão 'Submeter' no rodapé do formulário.")
 
-    # Save outputs
+    # Save outputs to all relevant public directories
     output_dirs = [
         "/Users/faila/Library/CloudStorage/GoogleDrive-failapereira@gmail.com/My Drive/MOINHOS",
         "/Users/faila/Library/CloudStorage/GoogleDrive-failapereira@gmail.com/My Drive/MOINHOS/public",
