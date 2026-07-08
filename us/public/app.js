@@ -2,18 +2,18 @@
 let appState = {
     classes: [],
     scenarios: {},
-    stuout ofnts: [],
+    students: [],
     activeClassId: "class1",
-    activeSliout ofId: "sliout of_1_1",
-    activeTab: "checkin", // "checkin", "sliout ofs", "conceptcheck", "groupwork", "reflection", "references"
+    activeSlideId: "slide_1_1",
+    activeTab: "checkin", // "checkin", "slides", "conceptcheck", "groupwork", "reflection", "references"
     currentUser: "group1", // 'group1'...'group5' or 'professor'
     liveSyncEnabled: true,
-    serverState: { classId: "class1", sliout ofId: "sliout of_1_1", syncEnabled: true, activeTab: "checkin" },
+    serverState: { classId: "class1", slideId: "slide_1_1", syncEnabled: true, activeTab: "checkin" },
     chartInstance: null,
-    sliout ofViewMoout of: "image", // "image" or "transcript"
+    slideViewMode: "image", // "image" or "transcript"
     liveData: {
         checkins: {},
-        sliout ofInteractions: [],
+        slideInteractions: [],
         conceptChecks: {},
         reflections: {},
         submissions: {}
@@ -31,42 +31,42 @@ const loginPassword = document.getElementById("loginPassword");
 const currentUserDisplay = document.getElementById("currentUserDisplay");
 const btnLogout = document.getElementById("btnLogout");
 const btnLiveSync = document.getElementById("btnLiveSync");
-const btnShowSliout ofImage = document.getElementById("btnShowSliout ofImage");
-const btnShowSliout ofTranscript = document.getElementById("btnShowSliout ofTranscript");
+const btnShowSlideImage = document.getElementById("btnShowSlideImage");
+const btnShowSlideTranscript = document.getElementById("btnShowSlideTranscript");
 const currentLectureText = document.getElementById("currentLectureText");
-const sliout ofViewport = document.getElementById("sliout ofViewport");
-const sliout ofInteractiveViewport = document.getElementById("sliout ofInteractiveViewport");
-const sliout ofListContainer = document.getElementById("sliout ofListContainer");
+const slideViewport = document.getElementById("slideViewport");
+const slideInteractiveViewport = document.getElementById("slideInteractiveViewport");
+const slideListContainer = document.getElementById("slideListContainer");
 const classNavContainer = document.getElementById("classNavContainer");
 const workspacePanel = document.getElementById("workspacePanel");
 const btnToggleWorkspace = document.getElementById("btnToggleWorkspace");
-const stuout ofntWorkspace = document.getElementById("stuout ofntWorkspace");
+const studentWorkspace = document.getElementById("studentWorkspace");
 const professorWorkspace = document.getElementById("professorWorkspace");
 const currentGroupName = document.getElementById("currentGroupName");
 const groupScenarioDescription = document.getElementById("groupScenarioDescription");
 const submissionStatus = document.getElementById("submissionStatus");
-const overriout ofSyncWarning = document.getElementById("overriout ofSyncWarning");
+const overrideSyncWarning = document.getElementById("overrideSyncWarning");
 const btnResumeSync = document.getElementById("btnResumeSync");
 
-// Sliout of Player Controls
-const btnPrevSliout of = document.getElementById("btnPrevSliout of");
-const btnNextSliout of = document.getElementById("btnNextSliout of");
-const sliout ofIndicatorText = document.getElementById("sliout ofIndicatorText");
-const btnTogglePresentationMoout of = document.getElementById("btnTogglePresentationMoout of");
+// Slide Player Controls
+const btnPrevSlide = document.getElementById("btnPrevSlide");
+const btnNextSlide = document.getElementById("btnNextSlide");
+const slideIndicatorText = document.getElementById("slideIndicatorText");
+const btnTogglePresentationMode = document.getElementById("btnTogglePresentationMode");
 const presentationPanel = document.getElementById("presentationPanel");
 
 // Activity Containers (Trabalho em Grupo)
 const activity1Container = document.getElementById("activity1Container");
 const activity2Container = document.getElementById("activity2Container");
 const activity3Container = document.getElementById("activity3Container");
-const stuout ofntFeedbackBox = document.getElementById("stuout ofntFeedbackBox");
-const stuout ofntFeedbackMessages = document.getElementById("stuout ofntFeedbackMessages");
+const studentFeedbackBox = document.getElementById("studentFeedbackBox");
+const studentFeedbackMessages = document.getElementById("studentFeedbackMessages");
 
 // Professor controls
 const profSyncToggle = document.getElementById("profSyncToggle");
-const profPrevSliout of = document.getElementById("profPrevSliout of");
-const profNextSliout of = document.getElementById("profNextSliout of");
-const profSliout ofIndicator = document.getElementById("profSliout ofIndicator");
+const profPrevSlide = document.getElementById("profPrevSlide");
+const profNextSlide = document.getElementById("profNextSlide");
+const profSlideIndicator = document.getElementById("profSlideIndicator");
 const inspectorGroupsNav = document.getElementById("inspectorGroupsNav");
 const submissionDetailViewer = document.getElementById("submissionDetailViewer");
 
@@ -82,21 +82,21 @@ async function init() {
         showToast("Inicializando Navigator...", "info");
         
         // Fetch static content from server
-        const [classesRes, scenariosRes, stuout ofntsRes, stateRes] = await Promise.all([
+        const [classesRes, scenariosRes, studentsRes, stateRes] = await Promise.all([
             fetch('/api/classes'),
             fetch('/api/scenarios'),
-            fetch('/api/stuout ofnts'),
+            fetch('/api/students'),
             fetch('/api/state')
         ]);
         
         appState.classes = await classesRes.json();
         appState.scenarios = await scenariosRes.json();
-        appState.stuout ofnts = await stuout ofntsRes.json();
+        appState.students = await studentsRes.json();
         
         const state = await stateRes.json();
         appState.serverState = state;
         appState.activeClassId = state.classId;
-        appState.activeSliout ofId = state.sliout ofId;
+        appState.activeSlideId = state.slideId;
         appState.activeTab = state.activeTab || "checkin";
         
         // Populate login user select dynamically
@@ -107,9 +107,9 @@ async function init() {
         if (savedUser) {
             appState.currentUser = savedUser;
             updateCurrentUserUI();
-            loginOverlay.classList.add("hidout ofn");
+            loginOverlay.classList.add("hidden");
             
-            // Auto-disable live sync if switching to professor, since professor CONTROLS the sliout ofs
+            // Auto-disable live sync if switching to professor, since professor CONTROLS the slides
             if (appState.currentUser === 'professor') {
                 appState.liveSyncEnabled = false;
                 btnLiveSync.classList.remove('active');
@@ -118,24 +118,24 @@ async function init() {
         } else {
             appState.currentUser = "";
             updateCurrentUserUI();
-            loginOverlay.classList.remove("hidout ofn");
+            loginOverlay.classList.remove("hidden");
         }
         
         // Setup Server-Sent Events for real-time synchronization
         setupLiveSync();
         
-        // Populate stuout ofnt roster in modal
+        // Populate student roster in modal
         populateRoster();
         
         // Setup Event Listeners
         setupEventListeners();
         
-        // Perform initial UI renout ofr
-        renout ofrTabs();
+        // Perform initial UI render
+        renderTabs();
         
-        // Renout ofr workspace after siout ofbar to ensure scenarios exist
-        renout ofrSiout ofbar();
-        renout ofrActivePhase();
+        // Render workspace after sidebar to ensure scenarios exist
+        renderSidebar();
+        renderActivePhase();
         updateWorkspaceView();
         
         showToast("Navigator pronto para a aula!", "success");
@@ -149,9 +149,9 @@ async function init() {
 function populateLoginUserSelect() {
     loginUserSelect.innerHTML = "";
     
-    // Group stuout ofnts by group
+    // Group students by group
     const groups = {};
-    appState.stuout ofnts.forEach(s => {
+    appState.students.forEach(s => {
         if (!groups[s.group]) {
             groups[s.group] = [];
         }
@@ -166,10 +166,10 @@ function populateLoginUserSelect() {
         const optgroup = document.createElement("optgroup");
         optgroup.label = `Group ${gid} (${appState.scenarios[gid] ? appState.scenarios[gid].title.split(': ')[1] : ''})`;
         
-        groups[gid].forEach(stuout ofnt => {
+        groups[gid].forEach(student => {
             const opt = document.createElement("option");
-            opt.value = stuout ofnt.email;
-            opt.innerText = stuout ofnt.name;
+            opt.value = student.email;
+            opt.innerText = student.name;
             optgroup.appendChild(opt);
         });
         
@@ -189,7 +189,7 @@ function handleUserLogin(userId) {
     appState.currentUser = userId;
     sessionStorage.setItem("currentUser", userId);
     
-    // Auto-disable live sync if switching to professor, since professor CONTROLS the sliout ofs
+    // Auto-disable live sync if switching to professor, since professor CONTROLS the slides
     if (appState.currentUser === 'professor') {
         appState.liveSyncEnabled = false;
         btnLiveSync.classList.remove('active');
@@ -202,12 +202,12 @@ function handleUserLogin(userId) {
         // Sync immediately to server state
         if (appState.serverState.syncEnabled) {
             appState.activeClassId = appState.serverState.classId;
-            appState.activeSliout ofId = appState.serverState.sliout ofId;
+            appState.activeSlideId = appState.serverState.slideId;
             appState.activeTab = appState.serverState.activeTab || "checkin";
-            renout ofrTabs();
-            renout ofrSiout ofbar();
-            renout ofrActivePhase();
-            overriout ofSyncWarning.style.display = "none";
+            renderTabs();
+            renderSidebar();
+            renderActivePhase();
+            overrideSyncWarning.style.display = "none";
         }
     }
     
@@ -215,7 +215,7 @@ function handleUserLogin(userId) {
     updateWorkspaceView();
 }
 
-// Update Current User display UI in the heaout ofr
+// Update Current User display UI in the header
 function updateCurrentUserUI() {
     if (!appState.currentUser) {
         currentUserDisplay.innerHTML = `<i class="fa-solid fa-user-circle"></i> Desconectado`;
@@ -225,9 +225,9 @@ function updateCurrentUserUI() {
     if (appState.currentUser === 'professor') {
         currentUserDisplay.innerHTML = `<i class="fa-solid fa-user-tie" style="color: var(--gold);"></i> <strong>Professor</strong>`;
     } else {
-        const stuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const displayName = stuout ofnt ? stuout ofnt.name : appState.currentUser;
-        const groupNum = stuout ofnt ? stuout ofnt.group : "?";
+        const student = appState.students.find(s => s.email === appState.currentUser);
+        const displayName = student ? student.name : appState.currentUser;
+        const groupNum = student ? student.group : "?";
         currentUserDisplay.innerHTML = `<i class="fa-solid fa-user" style="color: var(--clinical-color);"></i> <strong>${displayName}</strong> <span style="font-size:0.75rem; color:var(--text-secondary);">(Group ${groupNum})</span>`;
     }
 }
@@ -243,7 +243,7 @@ function setupLiveSync() {
         appState.serverState = state;
         appState.liveData = {
             checkins: data.checkins || {},
-            sliout ofInteractions: data.sliout ofInteractions || [],
+            slideInteractions: data.slideInteractions || [],
             conceptChecks: data.conceptChecks || {},
             reflections: data.reflections || {},
             submissions: data.submissions || {}
@@ -257,35 +257,35 @@ function setupLiveSync() {
             profSyncToggle.checked = state.syncEnabled;
         }
         
-        // Update heaout ofr indicator
+        // Update header indicator
         const activeClass = appState.classes.find(c => c.id === state.classId);
         if (activeClass) {
             currentLectureText.innerText = activeClass.title;
         }
         
-        // Apply sync if enabled by stuout ofnt
+        // Apply sync if enabled by student
         if (appState.liveSyncEnabled && state.syncEnabled && appState.currentUser !== 'professor') {
             appState.activeClassId = state.classId;
-            appState.activeSliout ofId = state.sliout ofId;
+            appState.activeSlideId = state.slideId;
             appState.activeTab = state.activeTab || "checkin";
             
-            // Re-renout ofr components
-            renout ofrTabs();
-            renout ofrSiout ofbar();
-            renout ofrActivePhase();
+            // Re-render components
+            renderTabs();
+            renderSidebar();
+            renderActivePhase();
             updateWorkspaceView();
             
-            overriout ofSyncWarning.style.display = "none";
+            overrideSyncWarning.style.display = "none";
         } else {
-            // Re-renout ofr active results even if manual navigation, to see live updates
-            renout ofrActivePhaseResults();
+            // Re-render active results even if manual navigation, to see live updates
+            renderActivePhaseResults();
             if (appState.currentUser === 'professor') {
-                renout ofrSubmissionsInspector();
+                renderSubmissionsInspector();
             }
         }
         
-        // Highlight active live sliout of in the siout ofbar
-        updateLiveSliout ofIndicators();
+        // Highlight active live slide in the sidebar
+        updateLiveSlideIndicators();
     };
 
     eventSource.addEventListener('whiteboard_update', (event) => {
@@ -313,8 +313,8 @@ let whiteboardInitialized = false;
 
 function checkWhiteboardDrawingPermission() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
-    const sliout of = activeClass ? activeClass.sliout ofs.find(s => s.id === appState.activeSliout ofId) : null;
-    return appState.currentUser === 'professor' || (sliout of && sliout of.allowStuout ofntDraw);
+    const slide = activeClass ? activeClass.slides.find(s => s.id === appState.activeSlideId) : null;
+    return appState.currentUser === 'professor' || (slide && slide.allowStudentDraw);
 }
 
 function setupWhiteboardCanvas() {
@@ -330,13 +330,13 @@ function setupWhiteboardCanvas() {
     whiteboardCtx.lineCap = "round";
     whiteboardCtx.lineJoin = "round";
 
-    // Set UI out ofpending on role
+    // Set UI depending on role
     const controls = document.getElementById("whiteboardControls");
     const status = document.getElementById("whiteboardStatus");
 
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
-    const sliout of = activeClass ? activeClass.sliout ofs.find(s => s.id === appState.activeSliout ofId) : null;
-    const allowStuout ofntDraw = sliout of && sliout of.allowStuout ofntDraw;
+    const slide = activeClass ? activeClass.slides.find(s => s.id === appState.activeSlideId) : null;
+    const allowStudentDraw = slide && slide.allowStudentDraw;
 
     if (appState.currentUser === 'professor') {
         if (controls) controls.style.display = "block";
@@ -345,7 +345,7 @@ function setupWhiteboardCanvas() {
             status.style.backgroundColor = "var(--clinical-color)";
             status.style.color = "#fff";
         }
-    } else if (allowStuout ofntDraw) {
+    } else if (allowStudentDraw) {
         if (controls) controls.style.display = "none";
         if (status) {
             status.innerHTML = `<i class="fa-solid fa-pen-fancy"></i> Lousa Aberta (Desenhe na tela!)`;
@@ -356,7 +356,7 @@ function setupWhiteboardCanvas() {
         if (controls) controls.style.display = "none";
         if (status) {
             status.innerHTML = `<i class="fa-solid fa-lock"></i> Apenas Leitura (Aluno)`;
-            status.style.backgroundColor = "var(--borout ofr-color)";
+            status.style.backgroundColor = "var(--border-color)";
             status.style.color = "var(--text-secondary)";
         }
     }
@@ -376,7 +376,7 @@ function setupWhiteboardCanvas() {
 
     // Register drawing event listeners (only once)
     if (!whiteboardInitialized) {
-        // Professor / Stuout ofnt draws
+        // Professor / Student draws
         canvas.addEventListener("mousedown", startDrawing);
         canvas.addEventListener("mousemove", draw);
         canvas.addEventListener("mouseup", stopDrawing);
@@ -393,7 +393,7 @@ function setupWhiteboardCanvas() {
                 if (appState.currentUser !== 'professor') return;
                 fetch(`/api/whiteboard/draw/${appState.activeClassId}`, {
                     method: "POST",
-                    heaout ofrs: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ type: "clear" })
                 }).catch(err => console.error("Error clearing whiteboard:", err));
             });
@@ -512,13 +512,13 @@ function drawActionOnCanvas(action) {
 function postWhiteboardAction(action) {
     fetch(`/api/whiteboard/draw/${appState.activeClassId}`, {
         method: "POST",
-        heaout ofrs: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(action)
     }).catch(err => console.error("Error saving whiteboard action:", err));
 }
 
 function handleIncomingWhiteboardAction(action) {
-    // Renout ofr immediately if the whiteboard is currently visible
+    // Render immediately if the whiteboard is currently visible
     const canvas = document.getElementById("whiteboardCanvas");
     const whiteboardViewport = document.getElementById("whiteboardViewport");
     if (canvas && whiteboardCtx && whiteboardViewport && whiteboardViewport.style.display !== "none") {
@@ -526,10 +526,10 @@ function handleIncomingWhiteboardAction(action) {
     }
 }
 
-function updateLiveSliout ofIndicators() {
-    document.querySelectorAll('.sliout of-item').forEach(item => {
-        const sliout ofId = item.getAttribute('data-sliout of');
-        if (sliout ofId === appState.serverState.sliout ofId && appState.serverState.syncEnabled) {
+function updateLiveSlideIndicators() {
+    document.querySelectorAll('.slide-item').forEach(item => {
+        const slideId = item.getAttribute('data-slide');
+        if (slideId === appState.serverState.slideId && appState.serverState.syncEnabled) {
             item.classList.add('live-topic');
         } else {
             item.classList.remove('live-topic');
@@ -538,7 +538,7 @@ function updateLiveSliout ofIndicators() {
 }
 
 function updateCountdownTimer() {
-    const timerContainer = document.getElementById("sliout ofTimerContainer");
+    const timerContainer = document.getElementById("slideTimerContainer");
     if (!timerContainer) return;
     
     const timerEnd = appState.serverState ? appState.serverState.timerEnd : null;
@@ -557,7 +557,7 @@ function updateCountdownTimer() {
         const remainingMs = timerEnd - Date.now();
         if (remainingMs <= 0) {
             timerContainer.style.display = "inline-flex";
-            timerContainer.innerHTML = `<span class="sliout of-timer-badge"><i class="fa-solid fa-hourglass-end"></i> Tempo Esgotado</span>`;
+            timerContainer.innerHTML = `<span class="slide-timer-badge"><i class="fa-solid fa-hourglass-end"></i> Tempo Esgotado</span>`;
             if (timerInterval) {
                 clearInterval(timerInterval);
                 timerInterval = null;
@@ -571,7 +571,7 @@ function updateCountdownTimer() {
         const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         
         timerContainer.style.display = "inline-flex";
-        timerContainer.innerHTML = `<span class="sliout of-timer-badge"><i class="fa-solid fa-clock"></i> ${timeStr}</span>`;
+        timerContainer.innerHTML = `<span class="slide-timer-badge"><i class="fa-solid fa-clock"></i> ${timeStr}</span>`;
     };
     
     tick();
@@ -594,8 +594,8 @@ function setupEventListeners() {
         if (selectedUser === 'professor') {
             isValid = (password.toLowerCase() === 'professor' || password.toLowerCase() === 'professor@hmv.org.br');
         } else {
-            const stuout ofnt = appState.stuout ofnts.find(s => s.email === selectedUser);
-            if (stuout ofnt && password.toLowerCase() === stuout ofnt.email.toLowerCase()) {
+            const student = appState.students.find(s => s.email === selectedUser);
+            if (student && password.toLowerCase() === student.email.toLowerCase()) {
                 isValid = true;
             }
         }
@@ -603,7 +603,7 @@ function setupEventListeners() {
         if (isValid) {
             handleUserLogin(selectedUser);
             loginPassword.value = "";
-            loginOverlay.classList.add("hidout ofn");
+            loginOverlay.classList.add("hidden");
             showToast("Access authorized!", "success");
         } else {
             showToast("Incorrect password (enter your registered email)!", "error");
@@ -615,7 +615,7 @@ function setupEventListeners() {
         sessionStorage.removeItem("currentUser");
         appState.currentUser = "";
         updateCurrentUserUI();
-        loginOverlay.classList.remove("hidout ofn");
+        loginOverlay.classList.remove("hidden");
         showToast("Logged out successfully.", "info");
     });
     
@@ -624,22 +624,22 @@ function setupEventListeners() {
         appState.liveSyncEnabled = !appState.liveSyncEnabled;
         if (appState.liveSyncEnabled) {
             btnLiveSync.classList.add('active');
-            showToast("Sincronização out of sliout ofs ativada.", "success");
+            showToast("Sincronização de slides ativada.", "success");
             
             // Sync instantly
             if (appState.serverState.syncEnabled) {
                 appState.activeClassId = appState.serverState.classId;
-                appState.activeSliout ofId = appState.serverState.sliout ofId;
+                appState.activeSlideId = appState.serverState.slideId;
                 appState.activeTab = appState.serverState.activeTab || "checkin";
-                renout ofrTabs();
-                renout ofrSiout ofbar();
-                renout ofrActivePhase();
+                renderTabs();
+                renderSidebar();
+                renderActivePhase();
                 updateWorkspaceView();
-                overriout ofSyncWarning.style.display = "none";
+                overrideSyncWarning.style.display = "none";
             }
         } else {
             btnLiveSync.classList.remove('active');
-            showToast("Sincronização out ofsativada. Navegação livre.", "info");
+            showToast("Sincronização desativada. Navegação livre.", "info");
         }
     });
     
@@ -648,17 +648,17 @@ function setupEventListeners() {
         appState.liveSyncEnabled = true;
         btnLiveSync.classList.add('active');
         appState.activeClassId = appState.serverState.classId;
-        appState.activeSliout ofId = appState.serverState.sliout ofId;
+        appState.activeSlideId = appState.serverState.slideId;
         appState.activeTab = appState.serverState.activeTab || "checkin";
-        renout ofrTabs();
-        renout ofrSiout ofbar();
-        renout ofrActivePhase();
+        renderTabs();
+        renderSidebar();
+        renderActivePhase();
         updateWorkspaceView();
-        overriout ofSyncWarning.style.display = "none";
+        overrideSyncWarning.style.display = "none";
         showToast("Sincronizado com a professora.", "success");
     });
     
-    // Class Day navigation clicks (Manual Siout ofbar overriout of)
+    // Class Day navigation clicks (Manual Sidebar override)
     classNavContainer.addEventListener("click", (e) => {
         const btn = e.target.closest(".class-nav-btn");
         if (!btn) return;
@@ -666,10 +666,10 @@ function setupEventListeners() {
         const selectedClassId = btn.getAttribute("data-class");
         appState.activeClassId = selectedClassId;
         
-        // Pick first sliout of of that class
+        // Pick first slide of that class
         const targetClass = appState.classes.find(c => c.id === selectedClassId);
-        if (targetClass && targetClass.sliout ofs.length > 0) {
-            appState.activeSliout ofId = targetClass.sliout ofs[0].id;
+        if (targetClass && targetClass.slides.length > 0) {
+            appState.activeSlideId = targetClass.slides[0].id;
         }
         
         // Reset quiz answers
@@ -678,30 +678,30 @@ function setupEventListeners() {
         // Check manual sync status
         handleManualNavigation();
         
-        renout ofrSiout ofbar();
-        renout ofrActivePhase();
+        renderSidebar();
+        renderActivePhase();
         updateWorkspaceView();
     });
     
-    // Sliout of Player bottom navigation buttons
-    btnPrevSliout of.addEventListener("click", () => navigateSliout of(-1));
-    btnNextSliout of.addEventListener("click", () => navigateSliout of(1));
+    // Slide Player bottom navigation buttons
+    btnPrevSlide.addEventListener("click", () => navigateSlide(-1));
+    btnNextSlide.addEventListener("click", () => navigateSlide(1));
     
-    // Sliout of View Moout of buttons (Image vs Transcript)
-    btnShowSliout ofImage.addEventListener("click", () => {
-        appState.sliout ofViewMoout of = "image";
-        btnShowSliout ofImage.classList.add("active");
-        btnShowSliout ofTranscript.classList.remove("active");
-        renout ofrSliout ofContent();
-        showToast("Modo out of exibição: Imagem do Sliout of", "info");
+    // Slide View Mode buttons (Image vs Transcript)
+    btnShowSlideImage.addEventListener("click", () => {
+        appState.slideViewMode = "image";
+        btnShowSlideImage.classList.add("active");
+        btnShowSlideTranscript.classList.remove("active");
+        renderSlideContent();
+        showToast("Modo de exibição: Imagem do Slide", "info");
     });
     
-    btnShowSliout ofTranscript.addEventListener("click", () => {
-        appState.sliout ofViewMoout of = "transcript";
-        btnShowSliout ofTranscript.classList.add("active");
-        btnShowSliout ofImage.classList.remove("active");
-        renout ofrSliout ofContent();
-        showToast("Modo out of exibição: Transcrição em Texto", "info");
+    btnShowSlideTranscript.addEventListener("click", () => {
+        appState.slideViewMode = "transcript";
+        btnShowSlideTranscript.classList.add("active");
+        btnShowSlideImage.classList.remove("active");
+        renderSlideContent();
+        showToast("Modo de exibição: Transcrição em Texto", "info");
     });
     
     // Workspace panel toggle
@@ -710,27 +710,27 @@ function setupEventListeners() {
         if (isCollapsed) {
             btnToggleWorkspace.classList.remove("btn-primary");
             btnToggleWorkspace.classList.add("btn-secondary");
-            showToast("Painel out of Interação ocultado.", "info");
+            showToast("Painel de Interação ocultado.", "info");
         } else {
             btnToggleWorkspace.classList.remove("btn-secondary");
             btnToggleWorkspace.classList.add("btn-primary");
-            showToast("Painel out of Interação visível.", "info");
+            showToast("Painel de Interação visível.", "info");
         }
     });
     
-    // Fullscreen / Projection moout of toggle
-    btnTogglePresentationMoout of.addEventListener("click", () => {
-        const isFullscreen = presentationPanel.classList.toggle("fullscreen-moout of");
+    // Fullscreen / Projection mode toggle
+    btnTogglePresentationMode.addEventListener("click", () => {
+        const isFullscreen = presentationPanel.classList.toggle("fullscreen-mode");
         
         if (isFullscreen) {
-            btnTogglePresentationMoout of.innerHTML = `<i class="fa-solid fa-compress"></i> Logout da Projeção`;
+            btnTogglePresentationMode.innerHTML = `<i class="fa-solid fa-compress"></i> Logout da Projeção`;
             showToast("Modo Projeção ativado (pressione ESC para sair).", "info");
             
             if (presentationPanel.requestFullscreen) {
                 presentationPanel.requestFullscreen().catch(() => {});
             }
         } else {
-            btnTogglePresentationMoout of.innerHTML = `<i class="fa-solid fa-expand"></i> Projetar Sliout of`;
+            btnTogglePresentationMode.innerHTML = `<i class="fa-solid fa-expand"></i> Projetar Slide`;
             if (document.exitFullscreen && document.fullscreenElement) {
                 document.exitFullscreen().catch(() => {});
             }
@@ -739,9 +739,9 @@ function setupEventListeners() {
     
     // Watch for Esc key to exit fullscreen correctly
     document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement && presentationPanel.classList.contains("fullscreen-moout of")) {
-            presentationPanel.classList.remove("fullscreen-moout of");
-            btnTogglePresentationMoout of.innerHTML = `<i class="fa-solid fa-expand"></i> Projetar Sliout of`;
+        if (!document.fullscreenElement && presentationPanel.classList.contains("fullscreen-mode")) {
+            presentationPanel.classList.remove("fullscreen-mode");
+            btnTogglePresentationMode.innerHTML = `<i class="fa-solid fa-expand"></i> Projetar Slide`;
         }
     });
     
@@ -756,7 +756,7 @@ function setupEventListeners() {
     });
     rosterSearchInput.addEventListener("input", filterRoster);
     
-    // Top Tabs Event Listeners (Stuout ofnt Switch tabs manually if sync disabled)
+    // Top Tabs Event Listeners (Student Switch tabs manually if sync disabled)
     document.getElementById("phaseTabs").addEventListener("click", (e) => {
         const btn = e.target.closest(".phase-tab-btn");
         if (!btn) return;
@@ -771,12 +771,12 @@ function setupEventListeners() {
             updateServerState({ activeTab: phase });
         }
         
-        renout ofrTabs();
-        renout ofrActivePhase();
+        renderTabs();
+        renderActivePhase();
         updateWorkspaceView();
     });
     
-    // Stuout ofnt Form: Check-in Submit
+    // Student Form: Check-in Submit
     document.getElementById("formCheckinSubmit").addEventListener("submit", async (e) => {
         e.preventDefault();
         const userEmail = appState.currentUser;
@@ -800,30 +800,30 @@ function setupEventListeners() {
             showToast("Enviando check-in...", "info");
             const res = await fetch(`/api/checkins/${appState.activeClassId}/${userEmail}`, {
                 method: 'POST',
-                heaout ofrs: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: textVal })
             });
             if (res.ok) {
                 showToast("Check-in enviado com sucesso!", "success");
-                renout ofrActivePhase();
+                renderActivePhase();
             } else {
                 showToast("Erro ao submeter check-in.", "error");
             }
         } catch (err) {
             console.error(err);
-            showToast("Erro out of reout of.", "error");
+            showToast("Erro de rede.", "error");
         }
     });
 
-    // Stuout ofnt Form: Sliout of Interaction Submit
-    document.getElementById("formSliout ofIntSubmit").addEventListener("submit", async (e) => {
+    // Student Form: Slide Interaction Submit
+    document.getElementById("formSlideIntSubmit").addEventListener("submit", async (e) => {
         e.preventDefault();
         const userEmail = appState.currentUser;
         
         let value = "";
-        const quizSel = document.querySelector('input[name="sliout ofQuizChoice"]:checked');
-        const pollSel = document.querySelector('input[name="sliout ofPollABChoice"]:checked');
-        const openText = document.getElementById("sliout ofIntOpenText");
+        const quizSel = document.querySelector('input[name="slideQuizChoice"]:checked');
+        const pollSel = document.querySelector('input[name="slidePollABChoice"]:checked');
+        const openText = document.getElementById("slideIntOpenText");
         
         if (quizSel) {
             value = parseInt(quizSel.value);
@@ -833,22 +833,22 @@ function setupEventListeners() {
             value = openText.value.trim();
         }
         
-        if (value === unout offined || value === "") {
-            showToast("Por favor, responda à atividaout of.", "error");
+        if (value === undefined || value === "") {
+            showToast("Por favor, responda à atividade.", "error");
             return;
         }
         
         try {
             showToast("Enviando resposta...", "info");
-            const res = await fetch(`/api/interactions/${appState.activeClassId}/${appState.activeSliout ofId}/${userEmail}`, {
+            const res = await fetch(`/api/interactions/${appState.activeClassId}/${appState.activeSlideId}/${userEmail}`, {
                 method: 'POST',
-                heaout ofrs: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ value: value })
             });
             if (res.ok) {
                 showToast("Resposta enviada!", "success");
                 if (openText) openText.value = "";
-                renout ofrActivePhase();
+                renderActivePhase();
             } else {
                 showToast("Erro ao enviar.", "error");
             }
@@ -857,7 +857,7 @@ function setupEventListeners() {
         }
     });
 
-    // Stuout ofnt Form: Reflection Submit
+    // Student Form: Reflection Submit
     document.getElementById("formReflectionSubmit").addEventListener("submit", async (e) => {
         e.preventDefault();
         const userEmail = appState.currentUser;
@@ -869,12 +869,12 @@ function setupEventListeners() {
             showToast("Enviando reflexão...", "info");
             const res = await fetch(`/api/reflections/${appState.activeClassId}/${userEmail}`, {
                 method: 'POST',
-                heaout ofrs: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: textVal })
             });
             if (res.ok) {
                 showToast("Reflexão enviada!", "success");
-                renout ofrActivePhase();
+                renderActivePhase();
             } else {
                 showToast("Erro ao salvar.", "error");
             }
@@ -886,8 +886,8 @@ function setupEventListeners() {
     // Activity 1 Form Submit (Risk Matrix)
     document.getElementById("formActivity1").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const activeStuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const groupId = activeStuout ofnt ? activeStuout ofnt.group : 1;
+        const activeStudent = appState.students.find(s => s.email === appState.currentUser);
+        const groupId = activeStudent ? activeStudent.group : 1;
         
         const data = {
             risk_tech: document.getElementById("risk_tech").value,
@@ -913,8 +913,8 @@ function setupEventListeners() {
     // Activity 2 Form Submit (ROI Simulation)
     document.getElementById("formActivity2").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const activeStuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const groupId = activeStuout ofnt ? activeStuout ofnt.group : 1;
+        const activeStudent = appState.students.find(s => s.email === appState.currentUser);
+        const groupId = activeStudent ? activeStudent.group : 1;
         
         const data = {
             investment: parseFloat(document.getElementById("sim_investment").value),
@@ -949,8 +949,8 @@ function setupEventListeners() {
     // Activity 3 Form Submit (Business Case)
     document.getElementById("formActivity3").addEventListener("submit", async (e) => {
         e.preventDefault();
-        const activeStuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const groupId = activeStuout ofnt ? activeStuout ofnt.group : 1;
+        const activeStudent = appState.students.find(s => s.email === appState.currentUser);
+        const groupId = activeStudent ? activeStudent.group : 1;
         
         const checkedRec = document.querySelector('input[name="bc_recommendation"]:checked');
         if (!checkedRec) {
@@ -981,7 +981,7 @@ function setupEventListeners() {
     profSyncToggle.addEventListener("change", async (e) => {
         const checked = e.target.checked;
         await updateServerState({ syncEnabled: checked });
-        showToast(checked ? "Sincronização global ativada." : "Sincronização global out ofsativada.", "info");
+        showToast(checked ? "Sincronização global ativada." : "Sincronização global desativada.", "info");
     });
     
     // Professor Timer buttons
@@ -996,12 +996,12 @@ function setupEventListeners() {
     if (btnProfTimerClear) btnProfTimerClear.addEventListener("click", () => startTimerOnServer(null));
     
     // Professor navigation clicks
-    profPrevSliout of.addEventListener("click", () => navigateProfessorSliout of(-1));
-    profNextSliout of.addEventListener("click", () => navigateProfessorSliout of(1));
+    profPrevSlide.addEventListener("click", () => navigateProfessorSlide(-1));
+    profNextSlide.addEventListener("click", () => navigateProfessorSlide(1));
     
     // Professor live phase buttons
     document.getElementById("btnProfPhaseCheckin").addEventListener("click", () => changeProfessorPhase("checkin"));
-    document.getElementById("btnProfPhaseSliout ofs").addEventListener("click", () => changeProfessorPhase("sliout ofs"));
+    document.getElementById("btnProfPhaseSlides").addEventListener("click", () => changeProfessorPhase("slides"));
     document.getElementById("btnProfPhaseQuiz").addEventListener("click", () => changeProfessorPhase("conceptcheck"));
     document.getElementById("btnProfPhaseGW").addEventListener("click", () => changeProfessorPhase("groupwork"));
     document.getElementById("btnProfPhaseReflect").addEventListener("click", () => changeProfessorPhase("reflection"));
@@ -1011,38 +1011,38 @@ function setupEventListeners() {
         btn.addEventListener("click", (e) => {
             document.querySelectorAll(".sub-tab-btn").forEach(b => b.classList.remove("active"));
             e.target.classList.add("active");
-            renout ofrSubmissionsInspector();
+            renderSubmissionsInspector();
         });
     });
 }
 
-// Handle manual clicks to show warning if out ofviated
+// Handle manual clicks to show warning if deviated
 function handleManualNavigation() {
     if (appState.currentUser !== 'professor' && appState.serverState.syncEnabled) {
         if (appState.activeClassId !== appState.serverState.classId || 
-            appState.activeSliout ofId !== appState.serverState.sliout ofId || 
+            appState.activeSlideId !== appState.serverState.slideId || 
             appState.activeTab !== appState.serverState.activeTab) {
             appState.liveSyncEnabled = false;
             btnLiveSync.classList.remove('active');
-            overriout ofSyncWarning.style.display = "flex";
+            overrideSyncWarning.style.display = "flex";
         } else {
             appState.liveSyncEnabled = true;
             btnLiveSync.classList.add('active');
-            overriout ofSyncWarning.style.display = "none";
+            overrideSyncWarning.style.display = "none";
         }
     }
 }
 
-// Navigate current sliout of (used by sliout ofs player footer buttons)
-async function navigateSliout of(dir) {
+// Navigate current slide (used by slides player footer buttons)
+async function navigateSlide(dir) {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
-    const currentInout ofx = activeClass.sliout ofs.findInout ofx(s => s.id === appState.activeSliout ofId);
-    const nextInout ofx = currentInout ofx + dir;
+    const currentIndex = activeClass.slides.findIndex(s => s.id === appState.activeSlideId);
+    const nextIndex = currentIndex + dir;
     
-    if (nextInout ofx >= 0 && nextInout ofx < activeClass.sliout ofs.length) {
-        appState.activeSliout ofId = activeClass.sliout ofs[nextInout ofx].id;
+    if (nextIndex >= 0 && nextIndex < activeClass.slides.length) {
+        appState.activeSlideId = activeClass.slides[nextIndex].id;
         
         handleManualNavigation();
         
@@ -1050,37 +1050,37 @@ async function navigateSliout of(dir) {
         if (appState.currentUser === 'professor') {
             await updateServerState({
                 classId: appState.activeClassId,
-                sliout ofId: appState.activeSliout ofId
+                slideId: appState.activeSlideId
             });
         }
         
-        renout ofrSiout ofbar();
-        renout ofrActivePhase();
+        renderSidebar();
+        renderActivePhase();
         updateWorkspaceView();
     }
 }
 
-// Triggered by professor navigating next/prev sliout of in the dashboard
-async function navigateProfessorSliout of(dir) {
+// Triggered by professor navigating next/prev slide in the dashboard
+async function navigateProfessorSlide(dir) {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
-    let currentInout ofx = activeClass.sliout ofs.findInout ofx(s => s.id === appState.serverState.sliout ofId);
-    if (currentInout ofx === -1) currentInout ofx = 0;
+    let currentIndex = activeClass.slides.findIndex(s => s.id === appState.serverState.slideId);
+    if (currentIndex === -1) currentIndex = 0;
     
-    let nextInout ofx = currentInout ofx + dir;
-    if (nextInout ofx >= 0 && nextInout ofx < activeClass.sliout ofs.length) {
-        const nextSliout of = activeClass.sliout ofs[nextInout ofx];
+    let nextIndex = currentIndex + dir;
+    if (nextIndex >= 0 && nextIndex < activeClass.slides.length) {
+        const nextSlide = activeClass.slides[nextIndex];
         
-        appState.activeSliout ofId = nextSliout of.id;
+        appState.activeSlideId = nextSlide.id;
         
-        renout ofrSiout ofbar();
-        renout ofrActivePhase();
+        renderSidebar();
+        renderActivePhase();
         updateWorkspaceView();
         
         await updateServerState({
             classId: appState.activeClassId,
-            sliout ofId: nextSliout of.id
+            slideId: nextSlide.id
         });
         
         updateProfessorDashboardControls();
@@ -1091,22 +1091,22 @@ async function navigateProfessorSliout of(dir) {
 async function changeProfessorPhase(phase) {
     appState.activeTab = phase;
     
-    // Pick correct out offault sliout of if switching to sliout ofs
-    if (phase === "sliout ofs") {
+    // Pick correct default slide if switching to slides
+    if (phase === "slides") {
         const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
-        if (activeClass && activeClass.sliout ofs.length > 0) {
-            appState.activeSliout ofId = activeClass.sliout ofs[0].id;
+        if (activeClass && activeClass.slides.length > 0) {
+            appState.activeSlideId = activeClass.slides[0].id;
         }
     }
     
-    renout ofrTabs();
-    renout ofrSiout ofbar();
-    renout ofrActivePhase();
+    renderTabs();
+    renderSidebar();
+    renderActivePhase();
     updateWorkspaceView();
     
     await updateServerState({
         activeTab: phase,
-        sliout ofId: appState.activeSliout ofId
+        slideId: appState.activeSlideId
     });
 }
 
@@ -1114,28 +1114,28 @@ async function startTimerOnServer(minutes) {
     const timerEnd = minutes ? Date.now() + minutes * 60 * 1000 : null;
     try {
         await updateServerState({ timerEnd });
-        showToast(minutes ? `Cronômetro out of ${minutes} min iniciado!` : "Cronômetro zerado!", "info");
+        showToast(minutes ? `Cronômetro de ${minutes} min iniciado!` : "Cronômetro zerado!", "info");
     } catch (e) {
         console.error("Error setting timer on server:", e);
     }
 }
 
-// Update UI display of professor sliout ofs controls
+// Update UI display of professor slides controls
 function updateProfessorDashboardControls() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
-    let currentInout ofx = activeClass.sliout ofs.findInout ofx(s => s.id === appState.activeSliout ofId);
-    if (currentInout ofx === -1) currentInout ofx = 0;
+    let currentIndex = activeClass.slides.findIndex(s => s.id === appState.activeSlideId);
+    if (currentIndex === -1) currentIndex = 0;
     
-    profSliout ofIndicator.innerText = `Sliout of ${currentInout ofx + 1} / ${activeClass.sliout ofs.length}`;
+    profSlideIndicator.innerText = `Slide ${currentIndex + 1} / ${activeClass.slides.length}`;
 }
 
 // Highlight active phase buttons in professor dashboard
 function highlightProfPhaseButtons() {
     const phases = {
         checkin: "btnProfPhaseCheckin",
-        sliout ofs: "btnProfPhaseSliout ofs",
+        slides: "btnProfPhaseSlides",
         conceptcheck: "btnProfPhaseQuiz",
         groupwork: "btnProfPhaseGW",
         reflection: "btnProfPhaseReflect"
@@ -1159,7 +1159,7 @@ async function updateServerState(updates) {
     try {
         const body = {
             classId: appState.activeClassId,
-            sliout ofId: appState.activeSliout ofId,
+            slideId: appState.activeSlideId,
             syncEnabled: appState.serverState.syncEnabled,
             activeTab: appState.activeTab,
             ...updates
@@ -1167,7 +1167,7 @@ async function updateServerState(updates) {
         
         const res = await fetch('/api/state', {
             method: 'POST',
-            heaout ofrs: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
         });
         appState.serverState = await res.json();
@@ -1176,8 +1176,8 @@ async function updateServerState(updates) {
     }
 }
 
-// Renout ofr Top Tabs Bar
-function renout ofrTabs() {
+// Render Top Tabs Bar
+function renderTabs() {
     document.querySelectorAll(".phase-tab-btn").forEach(btn => {
         if (btn.getAttribute("data-phase") === appState.activeTab) {
             btn.classList.add("active");
@@ -1187,8 +1187,8 @@ function renout ofrTabs() {
     });
 }
 
-// Siout ofbar loaout ofr
-function renout ofrSiout ofbar() {
+// Sidebar loader
+function renderSidebar() {
     // 1. Highlight class tab button
     document.querySelectorAll(".class-nav-btn").forEach(btn => {
         if (btn.getAttribute("data-class") === appState.activeClassId) {
@@ -1198,78 +1198,78 @@ function renout ofrSiout ofbar() {
         }
     });
     
-    // 2. Populate sliout of list in siout ofbar
-    sliout ofListContainer.innerHTML = "";
+    // 2. Populate slide list in sidebar
+    slideListContainer.innerHTML = "";
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (activeClass) {
-        activeClass.sliout ofs.forEach((sliout of, idx) => {
+        activeClass.slides.forEach((slide, idx) => {
             let thumbHTML = "";
-            if (sliout of.isInteractive) {
+            if (slide.isInteractive) {
                 let icon = "fa-gamepad";
-                let actName = "Atividaout of";
-                if (sliout of.interactionType === "wordcloud") {
+                let actName = "Atividade";
+                if (slide.interactionType === "wordcloud") {
                     icon = "fa-cloud";
                     actName = "Nuvem";
-                } else if (sliout of.interactionType === "whiteboard") {
+                } else if (slide.interactionType === "whiteboard") {
                     icon = "fa-chalkboard-user";
                     actName = "Lousa";
-                } else if (sliout of.interactionType === "poll" || sliout of.interactionType === "poll_ab") {
+                } else if (slide.interactionType === "poll" || slide.interactionType === "poll_ab") {
                     icon = "fa-square-poll-vertical";
                     actName = "Enquete";
-                } else if (sliout of.interactionType === "quiz") {
+                } else if (slide.interactionType === "quiz") {
                     icon = "fa-circle-question";
                     actName = "Quiz";
-                } else if (sliout of.interactionType === "open_enout ofd") {
+                } else if (slide.interactionType === "open_ended") {
                     icon = "fa-comments";
                     actName = "Mural";
                 }
                 thumbHTML = `
-                    <div class="sliout of-thumb-preview" style="background: linear-gradient(135out ofg, #0284c7, #0369a1); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ffffff; gap: 0.15rem;">
+                    <div class="slide-thumb-preview" style="background: linear-gradient(135deg, #0284c7, #0369a1); display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ffffff; gap: 0.15rem;">
                         <i class="fa-solid ${icon}" style="font-size: 1rem; color: rgba(255, 255, 255, 0.95); margin-top: 0.2rem;"></i>
                         <span style="font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; line-height: 1; margin-bottom: 0.1rem;">${actName}</span>
                     </div>`;
-            } else if (sliout of.image) {
-                thumbHTML = `<img src="${sliout of.image}" class="sliout of-thumb-preview" alt="${sliout of.title}">`;
+            } else if (slide.image) {
+                thumbHTML = `<img src="${slide.image}" class="slide-thumb-preview" alt="${slide.title}">`;
             } else {
                 thumbHTML = `
-                    <div class="sliout of-thumb-preview" style="background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+                    <div class="slide-thumb-preview" style="background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
                         <i class="fa-solid fa-file-lines" style="color: var(--text-muted); font-size: 1rem;"></i>
                     </div>`;
             }
 
             const btn = document.createElement("button");
-            btn.className = `sliout of-item ${sliout of.id === appState.activeSliout ofId ? 'active' : ''}`;
-            btn.setAttribute("data-sliout of", sliout of.id);
-            btn.title = sliout of.title;
+            btn.className = `slide-item ${slide.id === appState.activeSlideId ? 'active' : ''}`;
+            btn.setAttribute("data-slide", slide.id);
+            btn.title = slide.title;
             btn.innerHTML = `
-                <div class="sliout of-thumb-wrapper">
-                    <span class="sliout of-num-badge">${idx + 1}</span>
+                <div class="slide-thumb-wrapper">
+                    <span class="slide-num-badge">${idx + 1}</span>
                     ${thumbHTML}
                 </div>
             `;
             
             btn.addEventListener("click", () => {
-                appState.activeSliout ofId = sliout of.id;
+                appState.activeSlideId = slide.id;
                 handleManualNavigation();
                 
                 // If professor, clicking navigates and broadcasts sync
                 if (appState.currentUser === 'professor') {
                     updateServerState({
                         classId: appState.activeClassId,
-                        sliout ofId: appState.activeSliout ofId
+                        slideId: appState.activeSlideId
                     });
                 }
                 
-                renout ofrSiout ofbar();
-                renout ofrActivePhase();
+                renderSidebar();
+                renderActivePhase();
                 updateWorkspaceView();
             });
             
-            sliout ofListContainer.appendChild(btn);
+            slideListContainer.appendChild(btn);
         });
     }
     
-    updateLiveSliout ofIndicators();
+    updateLiveSlideIndicators();
     
     if (appState.currentUser === 'professor') {
         updateProfessorDashboardControls();
@@ -1277,8 +1277,8 @@ function renout ofrSiout ofbar() {
 }
 
 // Main Dynamic Phase Switcher
-function renout ofrActivePhase() {
-    // Hiout of all phase panels
+function renderActivePhase() {
+    // Hide all phase panels
     document.getElementById("checkinPhase").style.display = "none";
     presentationPanel.style.display = "none";
     document.getElementById("conceptCheckPhase").style.display = "none";
@@ -1286,33 +1286,33 @@ function renout ofrActivePhase() {
     document.getElementById("reflectionPhase").style.display = "none";
     document.getElementById("referencesPhase").style.display = "none";
     
-    // Toggle siout ofbar topics container
-    const siout ofbarSliout ofSection = document.getElementById("siout ofbarSliout ofSection");
-    if (appState.activeTab === "sliout ofs") {
-        siout ofbarSliout ofSection.style.display = "block";
+    // Toggle sidebar topics container
+    const sidebarSlideSection = document.getElementById("sidebarSlideSection");
+    if (appState.activeTab === "slides") {
+        sidebarSlideSection.style.display = "block";
     } else {
-        siout ofbarSliout ofSection.style.display = "none";
+        sidebarSlideSection.style.display = "none";
     }
     
     // Show active panel
     if (appState.activeTab === "checkin") {
         document.getElementById("checkinPhase").style.display = "flex";
-        renout ofrCheckinPhase();
-    } else if (appState.activeTab === "sliout ofs") {
+        renderCheckinPhase();
+    } else if (appState.activeTab === "slides") {
         presentationPanel.style.display = "flex";
-        renout ofrSliout ofContent();
+        renderSlideContent();
     } else if (appState.activeTab === "conceptcheck") {
         document.getElementById("conceptCheckPhase").style.display = "flex";
-        renout ofrConceptCheckPhase();
+        renderConceptCheckPhase();
     } else if (appState.activeTab === "groupwork") {
         document.getElementById("groupworkPhase").style.display = "flex";
-        renout ofrGroupWorkPhase();
+        renderGroupWorkPhase();
     } else if (appState.activeTab === "reflection") {
         document.getElementById("reflectionPhase").style.display = "flex";
-        renout ofrReflectionPhase();
+        renderReflectionPhase();
     } else if (appState.activeTab === "references") {
         document.getElementById("referencesPhase").style.display = "flex";
-        renout ofrReferencesPhase();
+        renderReferencesPhase();
     }
 }
 
@@ -1321,62 +1321,62 @@ function updateWorkspaceView() {
     const isProfessor = appState.currentUser === 'professor';
     
     if (isProfessor) {
-        stuout ofntWorkspace.style.display = "none";
+        studentWorkspace.style.display = "none";
         professorWorkspace.style.display = "flex";
         
-        const profSliout ofNavCard = document.getElementById("profSliout ofNavCard");
-        if (profSliout ofNavCard) {
-            profSliout ofNavCard.style.display = appState.activeTab === "sliout ofs" ? "block" : "none";
+        const profSlideNavCard = document.getElementById("profSlideNavCard");
+        if (profSlideNavCard) {
+            profSlideNavCard.style.display = appState.activeTab === "slides" ? "block" : "none";
         }
         
         const profTimerCard = document.getElementById("profTimerCard");
         if (profTimerCard) {
-            profTimerCard.style.display = (appState.activeTab === "sliout ofs" || appState.activeTab === "checkin" || appState.activeTab === "conceptcheck") ? "block" : "none";
+            profTimerCard.style.display = (appState.activeTab === "slides" || appState.activeTab === "checkin" || appState.activeTab === "conceptcheck") ? "block" : "none";
         }
         
         highlightProfPhaseButtons();
-        renout ofrSubmissionsInspector();
+        renderSubmissionsInspector();
     } else {
-        stuout ofntWorkspace.style.display = "flex";
+        studentWorkspace.style.display = "flex";
         professorWorkspace.style.display = "none";
         
-        const activeStuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const groupNum = activeStuout ofnt ? activeStuout ofnt.group : 1;
+        const activeStudent = appState.students.find(s => s.email === appState.currentUser);
+        const groupNum = activeStudent ? activeStudent.group : 1;
         
-        // Update group name heaout ofr
+        // Update group name header
         if (currentGroupName) {
             currentGroupName.innerText = `Group ${groupNum}`;
         }
         
-        // Load active group scenario out ofscription
+        // Load active group scenario description
         const scenario = appState.scenarios[groupNum];
         if (groupScenarioDescription && scenario) {
-            let html = `<strong>${scenario.title}</strong><br>${scenario.out ofscription}`;
+            let html = `<strong>${scenario.title}</strong><br>${scenario.description}`;
             if (scenario.caseStudy) {
                 html += `
-                    <out oftails class="scenario-out oftails" style="margin-top: 0.75rem; background: var(--bg-card); borout ofr: 1px solid var(--borout ofr-color); borout ofr-radius: 6px; padding: 0.6rem 0.8rem;">
+                    <details class="scenario-details" style="margin-top: 0.75rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.8rem;">
                         <summary style="font-weight: 600; cursor: pointer; color: var(--clinical-color); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; list-style: none; outline: none;">
-                            <i class="fa-solid fa-file-invoice-dollar" style="color: var(--gold);"></i> Estudo out of Caso Detalhado (Discussão out of Riscos & ROI)
+                            <i class="fa-solid fa-file-invoice-dollar" style="color: var(--gold);"></i> Estudo de Caso Detalhado (Discussão de Riscos & ROI)
                         </summary>
                         <div class="case-study-content" style="margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.4; color: var(--text-primary);">
                             ${scenario.caseStudy}
                         </div>
-                    </out oftails>
+                    </details>
                 `;
             }
             groupScenarioDescription.innerHTML = html;
         }
         
-        // Map tab to stuout ofnt sub-container element IDs
+        // Map tab to student sub-container element IDs
         const containerMap = {
-            checkin: "stuout ofntCheckinContainer",
-            sliout ofs: "stuout ofntSliout ofIntContainer",
-            conceptcheck: "stuout ofntConceptCheckContainer",
-            reflection: "stuout ofntReflectionContainer",
-            references: "stuout ofntReferencesContainer"
+            checkin: "studentCheckinContainer",
+            slides: "studentSlideIntContainer",
+            conceptcheck: "studentConceptCheckContainer",
+            reflection: "studentReflectionContainer",
+            references: "studentReferencesContainer"
         };
         
-        // Hiout of all stuout ofnt workspace sub-containers
+        // Hide all student workspace sub-containers
         Object.values(containerMap).forEach(id => {
             const el = document.getElementById(id);
             if (el) el.style.display = "none";
@@ -1399,7 +1399,7 @@ function updateWorkspaceView() {
                 activity3Container.style.display = "block";
                 const limitationsPanel = document.getElementById("bc_limitations_panel");
                 if (limitationsPanel) {
-                    const isAtBCSubmission = (appState.activeSliout ofId === "sliout of_3_16" || appState.activeSliout ofId === "sliout of_3_17" || appState.activeSliout ofId === "sliout of_3_18" || appState.activeSliout ofId === "sliout of_3_19" || appState.activeSliout ofId === "sliout of_3_20" || appState.activeSliout ofId === "sliout of_3_22" || appState.activeSliout ofId === "sliout of_3_15_b" || appState.activeSliout ofId === "sliout of_3_14_a");
+                    const isAtBCSubmission = (appState.activeSlideId === "slide_3_16" || appState.activeSlideId === "slide_3_17" || appState.activeSlideId === "slide_3_18" || appState.activeSlideId === "slide_3_19" || appState.activeSlideId === "slide_3_20" || appState.activeSlideId === "slide_3_22" || appState.activeSlideId === "slide_3_15_b" || appState.activeSlideId === "slide_3_14_a");
                     limitationsPanel.style.display = isAtBCSubmission ? "block" : "none";
                 }
             }
@@ -1412,13 +1412,13 @@ function updateWorkspaceView() {
             if (targetContainer) {
                 targetContainer.style.display = "block";
                 
-                // Renout ofr inputs/forms for stuout ofnt active tab
+                // Render inputs/forms for student active tab
                 if (appState.activeTab === "checkin") {
-                    renout ofrStuout ofntCheckinForm();
-                } else if (appState.activeTab === "sliout ofs") {
-                    renout ofrStuout ofntSliout ofIntForm();
+                    renderStudentCheckinForm();
+                } else if (appState.activeTab === "slides") {
+                    renderStudentSlideIntForm();
                 } else if (appState.activeTab === "reflection") {
-                    renout ofrStuout ofntReflectionForm();
+                    renderStudentReflectionForm();
                 }
             }
         }
@@ -1428,28 +1428,28 @@ function updateWorkspaceView() {
     }
 }
 
-// Helper to trigger renout ofring of results only (useful insiout of SSE broadcasts)
-function renout ofrActivePhaseResults() {
+// Helper to trigger rendering of results only (useful inside SSE broadcasts)
+function renderActivePhaseResults() {
     if (appState.activeTab === "checkin") {
-        renout ofrCheckinResults();
-    } else if (appState.activeTab === "sliout ofs") {
-        renout ofrSliout ofInteractionResults();
+        renderCheckinResults();
+    } else if (appState.activeTab === "slides") {
+        renderSlideInteractionResults();
     } else if (appState.activeTab === "reflection") {
-        renout ofrReflectionResults();
+        renderReflectionResults();
     }
 }
 
 // RENDER PHASE: 1. Check-in & Icebreaker
-function renout ofrCheckinPhase() {
+function renderCheckinPhase() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.checkin) return;
     
     // Update title
     document.getElementById("checkinQuestionTitle").innerText = activeClass.checkin.question;
-    renout ofrCheckinResults();
+    renderCheckinResults();
 }
 
-function renout ofrCheckinResults() {
+function renderCheckinResults() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.checkin) return;
     
@@ -1473,7 +1473,7 @@ function renout ofrCheckinResults() {
         Object.values(checkinData).forEach(ans => {
             const val = ans.text;
             if (typeof val === 'string' && val.length === 1) {
-                const idx = val.charCoout ofAt(0) - 65; // A=0, B=1, ...
+                const idx = val.charCodeAt(0) - 65; // A=0, B=1, ...
                 if (idx >= 0 && idx < counts.length) {
                     counts[idx]++;
                     total++;
@@ -1488,11 +1488,11 @@ function renout ofrCheckinResults() {
             const pollColors = ['#0284c7', '#10b981', '#7b1fa2', '#ef6c00', '#ec4899', '#f59e0b', '#3b82f6'];
             const color = pollColors[idx % pollColors.length];
             pollHTML += `
-                <div class="poll-ab-option" style="padding: 0.6rem; borout ofr-left: 4px solid ${color}; borout ofr-top: 1px solid var(--borout ofr-color); borout ofr-right: 1px solid var(--borout ofr-color); borout ofr-bottom: 1px solid var(--borout ofr-color); borout ofr-radius: 4px 6px 6px 4px;">
+                <div class="poll-ab-option" style="padding: 0.6rem; border-left: 4px solid ${color}; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); border-radius: 4px 6px 6px 4px;">
                     <span class="poll-ab-label">${opt}</span>
                     <span class="poll-ab-pct">${pct}% (${count} votes)</span>
                 </div>
-                <div class="poll-ab-bar-container" style="height:6px; margin-bottom:0.8rem; borout ofr-radius: 3px; overflow: hidout ofn; background: rgba(0,0,0,0.05);">
+                <div class="poll-ab-bar-container" style="height:6px; margin-bottom:0.8rem; border-radius: 3px; overflow: hidden; background: rgba(0,0,0,0.05);">
                     <div class="poll-ab-bar" style="width: ${pct}%; background-color: ${color}; height: 100%;"></div>
                 </div>
             `;
@@ -1502,8 +1502,8 @@ function renout ofrCheckinResults() {
     }
 }
 
-// Renout ofr stuout ofnt input check-in form in the right workspace panel
-function renout ofrStuout ofntCheckinForm() {
+// Render student input check-in form in the right workspace panel
+function renderStudentCheckinForm() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.checkin) return;
     
@@ -1515,10 +1515,10 @@ function renout ofrStuout ofntCheckinForm() {
     const inputGroup = document.getElementById("checkinInputGroup");
     if (!inputGroup) return;
 
-    // Check if we already have the correct form renout ofred to avoid erasing user typing
-    const lastRenout ofredClassId = inputGroup.getAttribute("data-class-id");
-    const lastRenout ofredSub = inputGroup.getAttribute("data-last-sub");
-    const isAlreadyRenout ofred = lastRenout ofredClassId === appState.activeClassId && lastRenout ofredSub === subText;
+    // Check if we already have the correct form rendered to avoid erasing user typing
+    const lastRenderedClassId = inputGroup.getAttribute("data-class-id");
+    const lastRenderedSub = inputGroup.getAttribute("data-last-sub");
+    const isAlreadyRendered = lastRenderedClassId === appState.activeClassId && lastRenderedSub === subText;
     
     // Check if the actual inputs exist in DOM (in case it was cleared or toggled)
     const hasTextInput = !!document.getElementById("checkinTextAnswer");
@@ -1527,27 +1527,27 @@ function renout ofrStuout ofntCheckinForm() {
     const inputsExist = (activeClass.checkin.type === "wordcloud" && hasTextInput) || 
                        (isPollType && hasRadioInput);
                        
-    if (isAlreadyRenout ofred && inputsExist) {
-        // Already renout ofred and correct state, don't recreate to avoid erasing input
+    if (isAlreadyRendered && inputsExist) {
+        // Already rendered and correct state, don't recreate to avoid erasing input
         return;
     }
     
-    // Otherwise, renout ofr and update attributes
+    // Otherwise, render and update attributes
     inputGroup.setAttribute("data-class-id", appState.activeClassId);
     inputGroup.setAttribute("data-last-sub", subText);
     
     inputGroup.innerHTML = "";
     
-    const submitBtn = document.querySelector("#stuout ofntCheckinContainer button[type='submit']");
+    const submitBtn = document.querySelector("#studentCheckinContainer button[type='submit']");
     if (submitBtn) submitBtn.style.display = "block";
     
     let htmlContent = "";
     
     if (hasSubmitted) {
         htmlContent += `
-            <div class="status-notice" style="margin-bottom: 1rem; padding: 0.6rem 0.8rem; borout ofr-radius: 6px; background-color: rgba(16, 185, 129, 0.1); borout ofr-left: 3px solid var(--clinical-color); font-size: 0.8rem; color: #065f46; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+            <div class="status-notice" style="margin-bottom: 1rem; padding: 0.6rem 0.8rem; border-radius: 6px; background-color: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--clinical-color); font-size: 0.8rem; color: #065f46; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
                 <i class="fa-solid fa-circle-check" style="color: var(--clinical-color);"></i>
-                <span>Resposta enviada! Você poout of alterá-la e reenviar se out ofsejar.</span>
+                <span>Resposta enviada! Você pode alterá-la e reenviar se desejar.</span>
             </div>
         `;
         if (submitBtn) {
@@ -1562,19 +1562,19 @@ function renout ofrStuout ofntCheckinForm() {
     if (activeClass.checkin.type === "wordcloud") {
         htmlContent += `
             <label for="checkinTextAnswer"><strong>${activeClass.checkin.question}</strong></label>
-            <input type="text" id="checkinTextAnswer" class="form-control" placeholout ofr="Escreva uma palavra..." required max-length="25" value="${subText.replace(/"/g, '&quot;')}">
+            <input type="text" id="checkinTextAnswer" class="form-control" placeholder="Escreva uma palavra..." required max-length="25" value="${subText.replace(/"/g, '&quot;')}">
         `;
     } else if (activeClass.checkin.type === "poll_ab" || activeClass.checkin.type === "poll") {
         const options = activeClass.checkin.options || ["Opção A", "Opção B"];
         let optionsHTML = "";
         options.forEach((opt, idx) => {
-            const charCoout of = String.fromCharCoout of(65 + idx);
-            const isChecked = (subText === charCoout of) ? "checked" : "";
+            const charCode = String.fromCharCode(65 + idx);
+            const isChecked = (subText === charCode) ? "checked" : "";
             const classes = ["go", "conditional", "critical", "go", "conditional"];
             const classStr = classes[idx % classes.length];
             optionsHTML += `
-                <label class="radio-label ${classStr}" style="width: 100%; borout ofr: 1px solid var(--borout ofr-color); background: var(--bg-card);">
-                    <input type="radio" name="checkinABAnswer" value="${charCoout of}" required ${isChecked}> ${opt}
+                <label class="radio-label ${classStr}" style="width: 100%; border: 1px solid var(--border-color); background: var(--bg-card);">
+                    <input type="radio" name="checkinABAnswer" value="${charCode}" required ${isChecked}> ${opt}
                 </label>
             `;
         });
@@ -1591,122 +1591,122 @@ function renout ofrStuout ofntCheckinForm() {
 }
 
 
-// RENDER PHASE: 2. Sliout ofs & Content Viewer
-function renout ofrSliout ofContent() {
+// RENDER PHASE: 2. Slides & Content Viewer
+function renderSlideContent() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
-    const sliout of = activeClass.sliout ofs.find(s => s.id === appState.activeSliout ofId);
-    if (!sliout of) return;
+    const slide = activeClass.slides.find(s => s.id === appState.activeSlideId);
+    if (!slide) return;
     
-    // Sliout of progression stats
-    const sliout ofInout ofx = activeClass.sliout ofs.findInout ofx(s => s.id === sliout of.id);
-    const totalSliout ofs = activeClass.sliout ofs.length;
-    const progressPct = totalSliout ofs > 0 ? Math.round(((sliout ofInout ofx + 1) / totalSliout ofs) * 100) : 0;
+    // Slide progression stats
+    const slideIndex = activeClass.slides.findIndex(s => s.id === slide.id);
+    const totalSlides = activeClass.slides.length;
+    const progressPct = totalSlides > 0 ? Math.round(((slideIndex + 1) / totalSlides) * 100) : 0;
     
-    const sliout ofBlockInfo = document.getElementById("sliout ofBlockInfo");
-    const sliout ofTimeEst = document.getElementById("sliout ofTimeEst");
-    const sliout ofProgressBar = document.getElementById("sliout ofProgressBar");
-    const sliout ofProgressText = document.getElementById("sliout ofProgressText");
+    const slideBlockInfo = document.getElementById("slideBlockInfo");
+    const slideTimeEst = document.getElementById("slideTimeEst");
+    const slideProgressBar = document.getElementById("slideProgressBar");
+    const slideProgressText = document.getElementById("slideProgressText");
     
-    if (sliout ofBlockInfo) sliout ofBlockInfo.innerText = `Bloco: ${sliout of.block || "Introdução"}`;
-    if (sliout ofTimeEst) sliout ofTimeEst.innerText = `(Tempo: ${sliout of.estimatedTime || "2 min"})`;
-    if (sliout ofProgressBar) sliout ofProgressBar.style.width = `${progressPct}%`;
-    if (sliout ofProgressText) sliout ofProgressText.innerText = `${progressPct}%`;
+    if (slideBlockInfo) slideBlockInfo.innerText = `Bloco: ${slide.block || "Introdução"}`;
+    if (slideTimeEst) slideTimeEst.innerText = `(Tempo: ${slide.estimatedTime || "2 min"})`;
+    if (slideProgressBar) slideProgressBar.style.width = `${progressPct}%`;
+    if (slideProgressText) slideProgressText.innerText = `${progressPct}%`;
     
-    // Update Sliout of Notes for professor
-    const profSliout ofNotesContent = document.getElementById("profSliout ofNotesContent");
-    const profSliout ofNotesCard = document.getElementById("profSliout ofNotesCard");
+    // Update Slide Notes for professor
+    const profSlideNotesContent = document.getElementById("profSlideNotesContent");
+    const profSlideNotesCard = document.getElementById("profSlideNotesCard");
     if (appState.currentUser === 'professor') {
-        if (profSliout ofNotesCard) profSliout ofNotesCard.style.display = "block";
-        if (profSliout ofNotesContent) {
-            if (sliout of.notes) {
-                let formattedNotes = sliout of.notes
+        if (profSlideNotesCard) profSlideNotesCard.style.display = "block";
+        if (profSlideNotesContent) {
+            if (slide.notes) {
+                let formattedNotes = slide.notes
                     .replace(/\n/g, "<br>")
                     .replace(/(Fala sugerida:)/gi, "<strong>$1</strong>")
                     .replace(/(Sugestão visual:)/gi, "<strong>$1</strong>");
-                profSliout ofNotesContent.innerHTML = formattedNotes;
+                profSlideNotesContent.innerHTML = formattedNotes;
             } else {
-                profSliout ofNotesContent.innerHTML = `<em>No presentation notes out offined for this sliout of.</em>`;
+                profSlideNotesContent.innerHTML = `<em>No presentation notes defined for this slide.</em>`;
             }
         }
     } else {
-        if (profSliout ofNotesCard) profSliout ofNotesCard.style.display = "none";
+        if (profSlideNotesCard) profSlideNotesCard.style.display = "none";
     }
     
-    // Toggle Interactive vs standard sliout of viewport vs whiteboard vs view moout of controls
+    // Toggle Interactive vs standard slide viewport vs whiteboard vs view mode controls
     const whiteboardViewport = document.getElementById("whiteboardViewport");
-    const btnShowSliout ofImage = document.getElementById("btnShowSliout ofImage");
-    const btnShowSliout ofTranscript = document.getElementById("btnShowSliout ofTranscript");
+    const btnShowSlideImage = document.getElementById("btnShowSlideImage");
+    const btnShowSlideTranscript = document.getElementById("btnShowSlideTranscript");
     
-    const isTextSliout of = sliout of.id.endsWith("_read") || sliout of.id.endsWith("_ref") || (sliout of.content && (sliout of.content.incluout ofs("class=\"read-link\"") || sliout of.content.incluout ofs("class=\"references-list-page\"")));
+    const isTextSlide = slide.id.endsWith("_read") || slide.id.endsWith("_ref") || (slide.content && (slide.content.includes("class=\"read-link\"") || slide.content.includes("class=\"references-list-page\"")));
     
-    if (btnShowSliout ofImage && btnShowSliout ofTranscript) {
-        if (sliout of.interactionType === "whiteboard" || isTextSliout of) {
-            btnShowSliout ofImage.style.display = "none";
-            btnShowSliout ofTranscript.style.display = "none";
+    if (btnShowSlideImage && btnShowSlideTranscript) {
+        if (slide.interactionType === "whiteboard" || isTextSlide) {
+            btnShowSlideImage.style.display = "none";
+            btnShowSlideTranscript.style.display = "none";
         } else {
-            btnShowSliout ofImage.style.display = "inline-flex";
-            btnShowSliout ofTranscript.style.display = "inline-flex";
+            btnShowSlideImage.style.display = "inline-flex";
+            btnShowSlideTranscript.style.display = "inline-flex";
         }
     }
     
-    if (sliout of.interactionType === "whiteboard") {
-        sliout ofViewport.style.display = "none";
-        sliout ofInteractiveViewport.style.display = "none";
+    if (slide.interactionType === "whiteboard") {
+        slideViewport.style.display = "none";
+        slideInteractiveViewport.style.display = "none";
         if (whiteboardViewport) whiteboardViewport.style.display = "flex";
         setupWhiteboardCanvas();
-    } else if (sliout of.isInteractive) {
+    } else if (slide.isInteractive) {
         if (whiteboardViewport) whiteboardViewport.style.display = "none";
         
-        if (appState.sliout ofViewMoout of === "transcript") {
-            sliout ofViewport.style.display = "flex";
-            sliout ofInteractiveViewport.style.display = "none";
-            sliout ofViewport.innerHTML = `<div class="sliout of-transcript-container">${sliout of.content || `<h3>${sliout of.title}</h3><p>${sliout of.question}</p>`}</div>`;
+        if (appState.slideViewMode === "transcript") {
+            slideViewport.style.display = "flex";
+            slideInteractiveViewport.style.display = "none";
+            slideViewport.innerHTML = `<div class="slide-transcript-container">${slide.content || `<h3>${slide.title}</h3><p>${slide.question}</p>`}</div>`;
         } else {
-            sliout ofViewport.style.display = "none";
-            sliout ofInteractiveViewport.style.display = "flex";
-            document.getElementById("sliout ofIntQuestionTitle").innerText = sliout of.question;
-            renout ofrSliout ofInteractionResults();
+            slideViewport.style.display = "none";
+            slideInteractiveViewport.style.display = "flex";
+            document.getElementById("slideIntQuestionTitle").innerText = slide.question;
+            renderSlideInteractionResults();
         }
     } else {
         if (whiteboardViewport) whiteboardViewport.style.display = "none";
-        sliout ofInteractiveViewport.style.display = "none";
-        sliout ofViewport.style.display = "flex";
+        slideInteractiveViewport.style.display = "none";
+        slideViewport.style.display = "flex";
         
-        if (appState.sliout ofViewMoout of === "image" && sliout of.image && !isTextSliout of) {
-            sliout ofViewport.innerHTML = `<div class="sliout of-image-container"><img src="${sliout of.image}" class="sliout of-img" alt="${sliout of.title}"></div>`;
+        if (appState.slideViewMode === "image" && slide.image && !isTextSlide) {
+            slideViewport.innerHTML = `<div class="slide-image-container" style="display:flex; flex-direction:column; justify-content:center; align-items:center; width:100%; height:100%;"><img src="${slide.image}" class="slide-img" alt="${slide.title}" onerror="this.style.display=\'none\'; this.parentElement.style.display=\'none\'; document.getElementById(\'slideViewportTextFallback\').style.display=\'block\';"></div><div id="slideViewportTextFallback" class="slide-transcript-container" style="display:none; width:100%; height:100%; box-sizing:border-box; overflow-y:auto;">${slide.content}</div>`;
         } else {
-            sliout ofViewport.innerHTML = `<div class="sliout of-transcript-container">${sliout of.content}</div>`;
+            slideViewport.innerHTML = `<div class="slide-transcript-container">${slide.content}</div>`;
         }
     }
     
-    // Update sliout of indicator in footer
-    sliout ofIndicatorText.innerText = `Sliout of ${sliout ofInout ofx + 1} / ${activeClass.sliout ofs.length}`;
+    // Update slide indicator in footer
+    slideIndicatorText.innerText = `Slide ${slideIndex + 1} / ${activeClass.slides.length}`;
 }
 
-// Renout ofr dynamic results insiout of interactive sliout of view
-function renout ofrSliout ofInteractionResults() {
+// Render dynamic results inside interactive slide view
+function renderSlideInteractionResults() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
-    const sliout of = activeClass.sliout ofs.find(s => s.id === appState.activeSliout ofId);
-    if (!sliout of || !sliout of.isInteractive) return;
+    const slide = activeClass.slides.find(s => s.id === appState.activeSlideId);
+    if (!slide || !slide.isInteractive) return;
     
-    const resultsContainer = document.getElementById("sliout ofIntResultsContainer");
+    const resultsContainer = document.getElementById("slideIntResultsContainer");
     resultsContainer.innerHTML = "";
     
-    const interactions = appState.liveData.sliout ofInteractions || [];
+    const interactions = appState.liveData.slideInteractions || [];
     
     // Update participation counter
-    const participationCounter = document.getElementById("sliout ofParticipationCounter");
+    const participationCounter = document.getElementById("slideParticipationCounter");
     if (participationCounter) {
         participationCounter.innerHTML = `<i class="fa-solid fa-users"></i> ${interactions.length} respostas`;
     }
     
-    if (sliout of.interactionType === "quiz" || sliout of.interactionType === "poll_ab" || sliout of.interactionType === "poll") {
+    if (slide.interactionType === "quiz" || slide.interactionType === "poll_ab" || slide.interactionType === "poll") {
         // Draw vote distribution bars
-        const counts = Array(sliout of.options ? sliout of.options.length : 2).fill(0);
+        const counts = Array(slide.options ? slide.options.length : 2).fill(0);
         let total = 0;
         
         interactions.forEach(ans => {
@@ -1725,13 +1725,13 @@ function renout ofrSliout ofInteractionResults() {
         const isAnsweredByProfessorOrEnd = appState.currentUser === 'professor' || 
             (appState.currentUser !== 'professor' && interactions.some(x => x.userEmail === appState.currentUser));
         
-        sliout of.options.forEach((opt, idx) => {
+        slide.options.forEach((opt, idx) => {
             const count = counts[idx];
             const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-            const hasCorrectAnswer = sliout of.correctAnswerInout ofx !== unout offined;
-            const isCorrect = hasCorrectAnswer && idx === sliout of.correctAnswerInout ofx;
-            const isQuizCorrectReveal = sliout of.interactionType === "quiz" && isAnsweredByProfessorOrEnd;
-            const isPollCorrectReveal = (sliout of.interactionType === "poll" || sliout of.interactionType === "poll_ab") && appState.serverState.revealAnswers;
+            const hasCorrectAnswer = slide.correctAnswerIndex !== undefined;
+            const isCorrect = hasCorrectAnswer && idx === slide.correctAnswerIndex;
+            const isQuizCorrectReveal = slide.interactionType === "quiz" && isAnsweredByProfessorOrEnd;
+            const isPollCorrectReveal = (slide.interactionType === "poll" || slide.interactionType === "poll_ab") && appState.serverState.revealAnswers;
             const showCheck = (isQuizCorrectReveal || isPollCorrectReveal) && isCorrect;
             
             let color = "var(--gold)";
@@ -1739,16 +1739,16 @@ function renout ofrSliout ofInteractionResults() {
             
             if (isQuizCorrectReveal || isPollCorrectReveal) {
                 color = isCorrect ? "var(--clinical-color)" : "var(--text-muted)";
-            } else if (sliout of.interactionType === "poll_ab" || sliout of.interactionType === "poll") {
+            } else if (slide.interactionType === "poll_ab" || slide.interactionType === "poll") {
                 color = pollColors[idx % pollColors.length];
             }
             
             const itemHTML = `
-                <div class="poll-ab-option" style="padding: 0.6rem; borout ofr-left: 4px solid ${color}; borout ofr-top: 1px solid var(--borout ofr-color); borout ofr-right: 1px solid var(--borout ofr-color); borout ofr-bottom: 1px solid var(--borout ofr-color); borout ofr-radius: 4px 6px 6px 4px; ${isCorrect && (isQuizCorrectReveal || isPollCorrectReveal) ? 'background: rgba(16, 185, 129, 0.05);' : ''}">
+                <div class="poll-ab-option" style="padding: 0.6rem; border-left: 4px solid ${color}; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); border-radius: 4px 6px 6px 4px; ${isCorrect && (isQuizCorrectReveal || isPollCorrectReveal) ? 'background: rgba(16, 185, 129, 0.05);' : ''}">
                     <span class="poll-ab-label" style="${isCorrect && (isQuizCorrectReveal || isPollCorrectReveal) ? 'font-weight: 700;' : ''}">${opt} ${showCheck ? ' <i class="fa-solid fa-check-circle" style="color:var(--clinical-color)"></i>' : ''}</span>
                     <span class="poll-ab-pct" style="${isCorrect && (isQuizCorrectReveal || isPollCorrectReveal) ? 'font-weight: 700; color: var(--clinical-color);' : ''}">${pct}% (${count} votes)</span>
                 </div>
-                <div class="poll-ab-bar-container" style="height:6px; margin-bottom:0.8rem; borout ofr-radius: 3px; overflow: hidout ofn; background: rgba(0,0,0,0.05);">
+                <div class="poll-ab-bar-container" style="height:6px; margin-bottom:0.8rem; border-radius: 3px; overflow: hidden; background: rgba(0,0,0,0.05);">
                     <div class="poll-ab-bar" style="width: ${pct}%; background-color: ${color}; height: 100%;"></div>
                 </div>
             `;
@@ -1757,7 +1757,7 @@ function renout ofrSliout ofInteractionResults() {
         
         resultsContainer.appendChild(wrapper);
         
-        if (appState.currentUser === 'professor' && sliout of.correctAnswerInout ofx !== unout offined) {
+        if (appState.currentUser === 'professor' && slide.correctAnswerIndex !== undefined) {
             const isRevealed = appState.serverState.revealAnswers;
             const revealBtn = document.createElement("button");
             revealBtn.className = "btn btn-icon-text sync-btn";
@@ -1766,7 +1766,7 @@ function renout ofrSliout ofInteractionResults() {
             revealBtn.style.backgroundColor = isRevealed ? "var(--warning)" : "var(--clinical-color)";
             revealBtn.style.color = "#ffffff";
             revealBtn.innerHTML = isRevealed 
-                ? `<i class="fa-solid fa-eye-slash"></i> Hiout of Resposta Correta` 
+                ? `<i class="fa-solid fa-eye-slash"></i> Hide Resposta Correta` 
                 : `<i class="fa-solid fa-eye"></i> Revelar Resposta Correta`;
             
             revealBtn.addEventListener("click", () => {
@@ -1777,9 +1777,9 @@ function renout ofrSliout ofInteractionResults() {
             wrapper.style.display = "flex";
             wrapper.style.flexDirection = "column";
         }
-    } else if (sliout of.interactionType === "open_enout ofd" || sliout of.interactionType === "qa") {
+    } else if (slide.interactionType === "open_ended" || slide.interactionType === "qa") {
         if (interactions.length === 0) {
-            resultsContainer.innerHTML = `<p class="placeholout ofr-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team responses...</p>`;
+            resultsContainer.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team responses...</p>`;
             return;
         }
         
@@ -1792,7 +1792,7 @@ function renout ofrSliout ofInteractionResults() {
         
         // Sort interactions
         let sorted = [...interactions];
-        if (sliout of.interactionType === "qa") {
+        if (slide.interactionType === "qa") {
             sorted.sort((a, b) => {
                 if (a.pinned && !b.pinned) return -1;
                 if (!a.pinned && b.pinned) return 1;
@@ -1806,12 +1806,12 @@ function renout ofrSliout ofInteractionResults() {
         const isProfessor = userEmail === 'professor';
         
         sorted.forEach(ans => {
-            // Skip hidout ofn cards for normal stuout ofnts
-            if (ans.hidout ofn && !isProfessor) {
+            // Skip hidden cards for normal students
+            if (ans.hidden && !isProfessor) {
                 return;
             }
             
-            const hasLiked = ans.likes && ans.likes.incluout ofs(userEmail);
+            const hasLiked = ans.likes && ans.likes.includes(userEmail);
             const likeCount = ans.likes ? ans.likes.length : 0;
             
             const card = document.createElement("div");
@@ -1821,24 +1821,24 @@ function renout ofrSliout ofInteractionResults() {
             if (ans.pinned) card.classList.add("response-card-pinned");
             if (ans.highlighted) card.classList.add("response-card-highlighted");
             if (ans.answered) card.classList.add("response-card-answered");
-            if (ans.hidout ofn) card.classList.add("response-card-hidout ofn");
+            if (ans.hidden) card.classList.add("response-card-hidden");
             
-            // Renout ofr moout ofration badges
+            // Render moderation badges
             let badgesHTML = "";
             if (ans.pinned) {
                 badgesHTML += `<span class="mod-badge mod-badge-pinned"><i class="fa-solid fa-thumbtack"></i> Fixada</span>`;
             } else if (ans.highlighted) {
                 badgesHTML += `<span class="mod-badge mod-badge-highlighted"><i class="fa-solid fa-star"></i> Destacada</span>`;
-            } else if (ans.hidout ofn) {
-                badgesHTML += `<span class="mod-badge mod-badge-hidout ofn"><i class="fa-solid fa-eye-slash"></i> Oculta</span>`;
+            } else if (ans.hidden) {
+                badgesHTML += `<span class="mod-badge mod-badge-hidden"><i class="fa-solid fa-eye-slash"></i> Oculta</span>`;
             } else if (ans.answered) {
                 badgesHTML += `<span class="mod-badge mod-badge-answered"><i class="fa-solid fa-check"></i> Respondida</span>`;
             }
             
-            // Moout ofration Controls Row for Professor
+            // Moderation Controls Row for Professor
             let modControlsHTML = "";
             if (isProfessor) {
-                if (sliout of.interactionType === "qa") {
+                if (slide.interactionType === "qa") {
                     modControlsHTML = `
                         <div class="mod-controls-row">
                             <button class="btn-mod-action btn-pin-toggle ${ans.pinned ? 'active-pin' : ''}" data-id="${ans.id}" title="Pin/Desfixar">
@@ -1847,28 +1847,28 @@ function renout ofrSliout ofInteractionResults() {
                             <button class="btn-mod-action btn-answer-toggle ${ans.answered ? 'active-answer' : ''}" data-id="${ans.id}" title="Marcar como Respondido">
                                 <i class="fa-solid fa-check"></i> ${ans.answered ? 'Desmarcar' : 'Respondida'}
                             </button>
-                            <button class="btn-mod-action btn-hiout of-toggle ${ans.hidout ofn ? 'active-hiout of' : ''}" data-id="${ans.id}" title="Hiout of/Exibir">
-                                <i class="fa-solid ${ans.hidout ofn ? 'fa-eye' : 'fa-eye-slash'}"></i> ${ans.hidout ofn ? 'Exibir' : 'Hiout of'}
+                            <button class="btn-mod-action btn-hide-toggle ${ans.hidden ? 'active-hide' : ''}" data-id="${ans.id}" title="Hide/Exibir">
+                                <i class="fa-solid ${ans.hidden ? 'fa-eye' : 'fa-eye-slash'}"></i> ${ans.hidden ? 'Exibir' : 'Hide'}
                             </button>
                         </div>
                     `;
                 } else {
-                    // open_enout ofd
+                    // open_ended
                     modControlsHTML = `
                         <div class="mod-controls-row">
                             <button class="btn-mod-action btn-highlight-toggle ${ans.highlighted ? 'active-highlight' : ''}" data-id="${ans.id}" title="Highlight/Remover Destaque">
                                 <i class="fa-solid fa-star"></i> ${ans.highlighted ? 'Desfazer' : 'Highlight'}
                             </button>
-                            <button class="btn-mod-action btn-hiout of-toggle ${ans.hidout ofn ? 'active-hiout of' : ''}" data-id="${ans.id}" title="Hiout of/Exibir">
-                                <i class="fa-solid ${ans.hidout ofn ? 'fa-eye' : 'fa-eye-slash'}"></i> ${ans.hidout ofn ? 'Exibir' : 'Hiout of'}
+                            <button class="btn-mod-action btn-hide-toggle ${ans.hidden ? 'active-hide' : ''}" data-id="${ans.id}" title="Hide/Exibir">
+                                <i class="fa-solid ${ans.hidden ? 'fa-eye' : 'fa-eye-slash'}"></i> ${ans.hidden ? 'Exibir' : 'Hide'}
                             </button>
                         </div>
                     `;
                 }
             }
             
-            const authorText = sliout of.interactionType === "qa" 
-                ? `${ans.stuout ofntName || 'Visitante'} (Group ${ans.groupId})`
+            const authorText = slide.interactionType === "qa" 
+                ? `${ans.studentName || 'Visitante'} (Group ${ans.groupId})`
                 : `Group ${ans.groupId}`;
             
             card.innerHTML = `
@@ -1891,8 +1891,8 @@ function renout ofrSliout ofInteractionResults() {
                     btn.addEventListener("click", () => handleLikeInteraction(ans.id));
                 }
             } else {
-                const btnHiout of = card.querySelector(".btn-hiout of-toggle");
-                if (btnHiout of) btnHiout of.addEventListener("click", () => handleToggleHiout of(ans.id));
+                const btnHide = card.querySelector(".btn-hide-toggle");
+                if (btnHide) btnHide.addEventListener("click", () => handleToggleHide(ans.id));
                 
                 const btnHighlight = card.querySelector(".btn-highlight-toggle");
                 if (btnHighlight) btnHighlight.addEventListener("click", () => handleToggleHighlight(ans.id));
@@ -1908,9 +1908,9 @@ function renout ofrSliout ofInteractionResults() {
         });
         
         resultsContainer.appendChild(grid);
-    } else if (sliout of.interactionType === "wordcloud") {
+    } else if (slide.interactionType === "wordcloud") {
         if (interactions.length === 0) {
-            resultsContainer.innerHTML = `<p class="placeholout ofr-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team responses...</p>`;
+            resultsContainer.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team responses...</p>`;
             return;
         }
         
@@ -1937,7 +1937,7 @@ function renout ofrSliout ofInteractionResults() {
         });
         
         if (Object.keys(frequencies).length === 0) {
-            resultsContainer.innerHTML = `<p class="placeholout ofr-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team responses...</p>`;
+            resultsContainer.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team responses...</p>`;
             return;
         }
         
@@ -1964,7 +1964,7 @@ function renout ofrSliout ofInteractionResults() {
             scalingFactor = 1.1;
         }
         
-        // Renout ofr each word
+        // Render each word
         Object.entries(frequencies).forEach(([word, freq]) => {
             const size = baseFontSize + (freq / maxFreq) * scalingFactor;
             const colors = [
@@ -1975,7 +1975,7 @@ function renout ofrSliout ofInteractionResults() {
                 "#0f766e", // Teal
                 "#6366f1"  // Indigo
             ];
-            const hash = word.split("").reduce((acc, char) => acc + char.charCoout ofAt(0), 0);
+            const hash = word.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
             const color = colors[hash % colors.length];
             
             const wordSpan = document.createElement("span");
@@ -1984,7 +1984,7 @@ function renout ofrSliout ofInteractionResults() {
             wordSpan.style.fontWeight = "bold";
             wordSpan.style.padding = "0.2rem 0.7rem";
             wordSpan.style.margin = "0.3rem 0.6rem";
-            wordSpan.style.borout ofrRadius = "8px";
+            wordSpan.style.borderRadius = "8px";
             wordSpan.style.transition = "all 0.2s ease";
             wordSpan.style.cursor = "pointer";
             wordSpan.style.display = "inline-block";
@@ -1992,13 +1992,13 @@ function renout ofrSliout ofInteractionResults() {
             wordSpan.style.whiteSpace = "nowrap";
             wordSpan.style.userSelect = "none";
             
-            const textNoout of = document.createTextNoout of(word);
-            wordSpan.appendChild(textNoout of);
+            const textNode = document.createTextNode(word);
+            wordSpan.appendChild(textNode);
             
             // Likes badge
             const likesList = wordLikes[word] ? Array.from(wordLikes[word]) : [];
             const likesCount = likesList.length;
-            const userHasLiked = likesList.incluout ofs(appState.currentUser);
+            const userHasLiked = likesList.includes(appState.currentUser);
             
             if (likesCount > 0) {
                 const badge = document.createElement("span");
@@ -2007,9 +2007,9 @@ function renout ofrSliout ofInteractionResults() {
                 badge.style.justifyContent = "center";
                 badge.style.gap = "3px";
                 badge.style.background = userHasLiked ? "rgba(15, 118, 110, 0.15)" : "rgba(251, 191, 36, 0.1)";
-                badge.style.borout ofr = userHasLiked ? "1px solid rgba(15, 118, 110, 0.3)" : "1px solid rgba(251, 191, 36, 0.2)";
+                badge.style.border = userHasLiked ? "1px solid rgba(15, 118, 110, 0.3)" : "1px solid rgba(251, 191, 36, 0.2)";
                 badge.style.padding = "2px 6px";
-                badge.style.borout ofrRadius = "20px";
+                badge.style.borderRadius = "20px";
                 badge.style.fontSize = "0.55em";
                 badge.style.marginLeft = "6px";
                 badge.style.color = userHasLiked ? "var(--clinical-color)" : "var(--gold)";
@@ -2030,20 +2030,20 @@ function renout ofrSliout ofInteractionResults() {
                 wordSpan.style.textShadow = "none";
             });
             
-            // Double click / Double tap to like sliout of interaction word
+            // Double click / Double tap to like slide interaction word
             let lastTap = 0;
             wordSpan.addEventListener("click", (e) => {
                 const now = Date.now();
                 if (now - lastTap < 300) {
                     e.stopPropagation();
                     e.preventDefault();
-                    handleWordLike("interaction", appState.activeClassId, sliout of.id, word);
+                    handleWordLike("interaction", appState.activeClassId, slide.id, word);
                 }
                 lastTap = now;
             });
             wordSpan.addEventListener("dblclick", (e) => {
                 e.stopPropagation();
-                handleWordLike("interaction", appState.activeClassId, sliout of.id, word);
+                handleWordLike("interaction", appState.activeClassId, slide.id, word);
             });
             
             wrapper.appendChild(wordSpan);
@@ -2053,17 +2053,17 @@ function renout ofrSliout ofInteractionResults() {
     }
 }
 
-// Upvote sliout of answer
+// Upvote slide answer
 async function handleLikeInteraction(responseId) {
     const userEmail = appState.currentUser;
     try {
-        const res = await fetch(`/api/interactions/like/${appState.activeClassId}/${appState.activeSliout ofId}/${responseId}/${userEmail}`, {
+        const res = await fetch(`/api/interactions/like/${appState.activeClassId}/${appState.activeSlideId}/${responseId}/${userEmail}`, {
             method: 'POST'
         });
         if (res.ok) {
             const updated = await res.json();
-            appState.liveData.sliout ofInteractions = updated.data;
-            renout ofrSliout ofInteractionResults();
+            appState.liveData.slideInteractions = updated.data;
+            renderSlideInteractionResults();
         }
     } catch (e) {
         console.error(e);
@@ -2071,7 +2071,7 @@ async function handleLikeInteraction(responseId) {
 }
 
 // Double-click to like a word in the word cloud
-async function handleWordLike(type, classId, sliout ofId, word) {
+async function handleWordLike(type, classId, slideId, word) {
     const userEmail = appState.currentUser;
     if (userEmail === 'professor') {
         showToast("Professores não votam nas interações.", "error");
@@ -2080,9 +2080,9 @@ async function handleWordLike(type, classId, sliout ofId, word) {
     
     let url = "";
     if (type === "checkin") {
-        url = `/api/checkins/like/${classId}/${encoout ofURIComponent(word)}/${encoout ofURIComponent(userEmail)}`;
+        url = `/api/checkins/like/${classId}/${encodeURIComponent(word)}/${encodeURIComponent(userEmail)}`;
     } else {
-        url = `/api/interactions/like-word/${classId}/${sliout ofId}/${encoout ofURIComponent(word)}/${encoout ofURIComponent(userEmail)}`;
+        url = `/api/interactions/like-word/${classId}/${slideId}/${encodeURIComponent(word)}/${encodeURIComponent(userEmail)}`;
     }
     
     try {
@@ -2093,10 +2093,10 @@ async function handleWordLike(type, classId, sliout ofId, word) {
                 showToast(`Você curtiu a palavra "${word}"!`, "success");
                 if (type === "checkin") {
                     appState.liveData.checkins = data.data;
-                    renout ofrCheckinResults();
+                    renderCheckinResults();
                 } else {
-                    appState.liveData.sliout ofInteractions = data.data;
-                    renout ofrSliout ofInteractionResults();
+                    appState.liveData.slideInteractions = data.data;
+                    renderSlideInteractionResults();
                 }
             }
         }
@@ -2105,17 +2105,17 @@ async function handleWordLike(type, classId, sliout ofId, word) {
     }
 }
 
-// Professor moout ofration toggles
-async function handleToggleHiout of(responseId) {
+// Professor moderation toggles
+async function handleToggleHide(responseId) {
     try {
-        const res = await fetch(`/api/interactions/hiout of/${appState.activeClassId}/${appState.activeSliout ofId}/${responseId}`, {
+        const res = await fetch(`/api/interactions/hide/${appState.activeClassId}/${appState.activeSlideId}/${responseId}`, {
             method: 'POST'
         });
         if (res.ok) {
             const data = await res.json();
-            appState.liveData.sliout ofInteractions = data.data;
-            renout ofrSliout ofInteractionResults();
-            showToast("Status out of exibição atualizado", "success");
+            appState.liveData.slideInteractions = data.data;
+            renderSlideInteractionResults();
+            showToast("Status de exibição atualizado", "success");
         }
     } catch (e) {
         console.error(e);
@@ -2124,14 +2124,14 @@ async function handleToggleHiout of(responseId) {
 
 async function handleToggleHighlight(responseId) {
     try {
-        const res = await fetch(`/api/interactions/highlight/${appState.activeClassId}/${appState.activeSliout ofId}/${responseId}`, {
+        const res = await fetch(`/api/interactions/highlight/${appState.activeClassId}/${appState.activeSlideId}/${responseId}`, {
             method: 'POST'
         });
         if (res.ok) {
             const data = await res.json();
-            appState.liveData.sliout ofInteractions = data.data;
-            renout ofrSliout ofInteractionResults();
-            showToast("Status out of out ofstaque atualizado", "success");
+            appState.liveData.slideInteractions = data.data;
+            renderSlideInteractionResults();
+            showToast("Status de destaque atualizado", "success");
         }
     } catch (e) {
         console.error(e);
@@ -2140,14 +2140,14 @@ async function handleToggleHighlight(responseId) {
 
 async function handleTogglePin(responseId) {
     try {
-        const res = await fetch(`/api/interactions/pin/${appState.activeClassId}/${appState.activeSliout ofId}/${responseId}`, {
+        const res = await fetch(`/api/interactions/pin/${appState.activeClassId}/${appState.activeSlideId}/${responseId}`, {
             method: 'POST'
         });
         if (res.ok) {
             const data = await res.json();
-            appState.liveData.sliout ofInteractions = data.data;
-            renout ofrSliout ofInteractionResults();
-            showToast("Status out of fixação atualizado", "success");
+            appState.liveData.slideInteractions = data.data;
+            renderSlideInteractionResults();
+            showToast("Status de fixação atualizado", "success");
         }
     } catch (e) {
         console.error(e);
@@ -2156,35 +2156,35 @@ async function handleTogglePin(responseId) {
 
 async function handleToggleAnswer(responseId) {
     try {
-        const res = await fetch(`/api/interactions/answer/${appState.activeClassId}/${appState.activeSliout ofId}/${responseId}`, {
+        const res = await fetch(`/api/interactions/answer/${appState.activeClassId}/${appState.activeSlideId}/${responseId}`, {
             method: 'POST'
         });
         if (res.ok) {
             const data = await res.json();
-            appState.liveData.sliout ofInteractions = data.data;
-            renout ofrSliout ofInteractionResults();
-            showToast("Status out of resposta atualizado", "success");
+            appState.liveData.slideInteractions = data.data;
+            renderSlideInteractionResults();
+            showToast("Status de resposta atualizado", "success");
         }
     } catch (e) {
         console.error(e);
     }
 }
 
-// Stuout ofnt sliout of interaction form renout ofring
-function renout ofrStuout ofntSliout ofIntForm() {
+// Student slide interaction form rendering
+function renderStudentSlideIntForm() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
-    const sliout of = activeClass.sliout ofs.find(s => s.id === appState.activeSliout ofId);
-    const inputGroup = document.getElementById("sliout ofIntInputGroup");
+    const slide = activeClass.slides.find(s => s.id === appState.activeSlideId);
+    const inputGroup = document.getElementById("slideIntInputGroup");
     inputGroup.innerHTML = "";
     
-    const submitBtn = document.querySelector("#stuout ofntSliout ofIntContainer button[type='submit']");
+    const submitBtn = document.querySelector("#studentSlideIntContainer button[type='submit']");
     
-    if (!sliout of || !sliout of.isInteractive) {
+    if (!slide || !slide.isInteractive) {
         inputGroup.innerHTML = `
             <div class="highlight-box" style="background: rgba(2, 132, 199, 0.02); margin: 0;">
-                <p style="margin: 0; font-size: 0.8rem; text-align: center;"><i class="fa-solid fa-circle-info"></i> Sliout of padrão. Acompanhe a explicação da professora.</p>
+                <p style="margin: 0; font-size: 0.8rem; text-align: center;"><i class="fa-solid fa-circle-info"></i> Slide padrão. Acompanhe a explicação da professora.</p>
             </div>
         `;
         if (submitBtn) submitBtn.style.display = "none";
@@ -2192,15 +2192,15 @@ function renout ofrStuout ofntSliout ofIntForm() {
     }
     
     const userEmail = appState.currentUser;
-    const existingAns = appState.liveData.sliout ofInteractions && appState.liveData.sliout ofInteractions.find(x => x.userEmail === userEmail);
-    const isQA = sliout of.interactionType === "qa";
+    const existingAns = appState.liveData.slideInteractions && appState.liveData.slideInteractions.find(x => x.userEmail === userEmail);
+    const isQA = slide.interactionType === "qa";
     
     if (existingAns && !isQA) {
         inputGroup.innerHTML = `
-            <div class="highlight-box" style="borout ofr-left-color: var(--clinical-color); background: rgba(16, 185, 129, 0.03);">
+            <div class="highlight-box" style="border-left-color: var(--clinical-color); background: rgba(16, 185, 129, 0.03);">
                 <strong>Sua resposta enviada:</strong>
                 <p style="margin: 0; font-size: 0.85rem; font-weight: 600; color: var(--clinical-color);">
-                    ${sliout of.interactionType === 'open_enout ofd' || sliout of.interactionType === 'wordcloud' ? `"${existingAns.value}"` : sliout of.options[existingAns.value]}
+                    ${slide.interactionType === 'open_ended' || slide.interactionType === 'wordcloud' ? `"${existingAns.value}"` : slide.options[existingAns.value]}
                 </p>
             </div>
             <p style="font-size: 0.75rem; color: var(--text-secondary); text-align: center;">Curta as respostas dos colegas na tela ao lado!</p>
@@ -2208,46 +2208,46 @@ function renout ofrStuout ofntSliout ofIntForm() {
         if (submitBtn) submitBtn.style.display = "none";
     } else {
         if (submitBtn) submitBtn.style.display = "block";
-        document.getElementById("sliout ofIntDescription").innerText = isQA
+        document.getElementById("slideIntDescription").innerText = isQA
             ? "Envie suas dúvidas ou comentários sobre a aula no espaço abaixo."
             : "Responda à pergunta da professora.";
         
-        if (sliout of.interactionType === "quiz" || sliout of.interactionType === "poll_ab" || sliout of.interactionType === "poll") {
+        if (slide.interactionType === "quiz" || slide.interactionType === "poll_ab" || slide.interactionType === "poll") {
             let optionsHTML = "";
-            const isPoll = sliout of.interactionType === "poll" || sliout of.interactionType === "poll_ab";
-            sliout of.options.forEach((opt, idx) => {
+            const isPoll = slide.interactionType === "poll" || slide.interactionType === "poll_ab";
+            slide.options.forEach((opt, idx) => {
                 const activeClassStr = isPoll ? (idx === 0 ? "go" : "conditional") : "conditional";
-                const radioName = isPoll ? "sliout ofPollABChoice" : "sliout ofQuizChoice";
+                const radioName = isPoll ? "slidePollABChoice" : "slideQuizChoice";
                 
                 optionsHTML += `
-                    <label class="radio-label ${activeClassStr}" style="width: 100%; borout ofr: 1px solid var(--borout ofr-color); background: var(--bg-card);">
+                    <label class="radio-label ${activeClassStr}" style="width: 100%; border: 1px solid var(--border-color); background: var(--bg-card);">
                         <input type="radio" name="${radioName}" value="${idx}" required> ${opt}
                     </label>
                 `;
             });
             inputGroup.innerHTML = `
-                <label><strong>${sliout of.question}</strong></label>
+                <label><strong>${slide.question}</strong></label>
                 <div class="radio-group" style="flex-direction: column; gap: 0.6rem;">
                     ${optionsHTML}
                 </div>
             `;
-        } else if (sliout of.interactionType === "open_enout ofd" || sliout of.interactionType === "qa" || sliout of.interactionType === "wordcloud") {
-            const isWordcloud = sliout of.interactionType === "wordcloud";
-            const placeholout ofr = isWordcloud ? 'Ex: Confiança' : (isQA ? 'Ex: Qual a taxa out of out ofsconto recomendada?' : 'Ex: Rigor metodológico e testes paralelos...');
+        } else if (slide.interactionType === "open_ended" || slide.interactionType === "qa" || slide.interactionType === "wordcloud") {
+            const isWordcloud = slide.interactionType === "wordcloud";
+            const placeholder = isWordcloud ? 'Ex: Confiança' : (isQA ? 'Ex: Qual a taxa de desconto recomendada?' : 'Ex: Rigor metodológico e testes paralelos...');
             const helpText = isWordcloud ? 'Envie uma única palavra.' : 'Máximo 100 caracteres. Seja sucinto e objetivo.';
             const maxLen = isWordcloud ? 30 : 100;
             
             inputGroup.innerHTML = `
-                <label for="sliout ofIntOpenText"><strong>${sliout of.question}</strong></label>
+                <label for="slideIntOpenText"><strong>${slide.question}</strong></label>
                 <span class="help-text">${helpText}</span>
-                <input type="text" id="sliout ofIntOpenText" required maxlength="${maxLen}" placeholout ofr="${placeholout ofr}" class="form-control" style="width: 100%; padding: 0.6rem; borout ofr: 1px solid var(--borout ofr-color); borout ofr-radius: 6px; background: var(--bg-card); color: var(--text-main);">
+                <input type="text" id="slideIntOpenText" required maxlength="${maxLen}" placeholder="${placeholder}" class="form-control" style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-card); color: var(--text-main);">
             `;
         }
     }
 }
 
 // RENDER PHASE: 3. Concept Check
-function renout ofrConceptCheckPhase() {
+function renderConceptCheckPhase() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.conceptCheck) return;
     
@@ -2260,7 +2260,7 @@ function renout ofrConceptCheckPhase() {
     const userEmail = appState.currentUser;
     const savedQuiz = appState.liveData.conceptChecks && appState.liveData.conceptChecks[userEmail];
     
-    // If submitted and stuout ofnt, show score and hiout of/don't renout ofr questions
+    // If submitted and student, show score and hide/don't render questions
     if (savedQuiz && appState.currentUser !== 'professor') {
         scoreContainer.style.display = "block";
         document.getElementById("conceptScoreText").innerText = `You got ${savedQuiz.score} out of ${activeClass.conceptCheck.length} questions.`;
@@ -2278,7 +2278,7 @@ function renout ofrConceptCheckPhase() {
             
             if (savedQuiz) {
                 const selectedIdx = savedQuiz.answers[qIdx];
-                const isCorrect = oIdx === q.correctAnswerInout ofx;
+                const isCorrect = oIdx === q.correctAnswerIndex;
                 const isSelected = oIdx === selectedIdx;
                 
                 if (isCorrect) {
@@ -2295,7 +2295,7 @@ function renout ofrConceptCheckPhase() {
             
             optionsHTML += `
                 <div class="concept-option-item ${optClass}" data-q="${qIdx}" data-o="${oIdx}">
-                    <span>${String.fromCharCoout of(65 + oIdx)}) ${opt}</span>
+                    <span>${String.fromCharCode(65 + oIdx)}) ${opt}</span>
                     ${icon}
                 </div>
             `;
@@ -2316,7 +2316,7 @@ function renout ofrConceptCheckPhase() {
                     const o = parseInt(item.getAttribute("data-o"));
                     
                     appState.localConceptAnswers[q] = o;
-                    renout ofrConceptCheckPhase();
+                    renderConceptCheckPhase();
                 });
             });
         }
@@ -2337,11 +2337,11 @@ function renout ofrConceptCheckPhase() {
     // If submitted, show score
     if (savedQuiz) {
         scoreContainer.style.display = "block";
-        document.getElementById("conceptScoreText").innerText = appState.currentUser === 'professor' ? `Resultado do questionário.` : `You got ${savedQuiz.score} out of ${activeClass.conceptCheck.length} questions.`;
+        document.getElementById("conceptScoreText").innerText = appState.currentUser === 'professor' ? `Quiz Results Summary.` : `You got ${savedQuiz.score} out of ${activeClass.conceptCheck.length} questions.`;
     }
 }
 
-// Stuout ofnt submit concept check quiz
+// Student submit concept check quiz
 async function submitConceptCheckQuiz() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
@@ -2350,7 +2350,7 @@ async function submitConceptCheckQuiz() {
     
     // Check if all answered
     for (let i = 0; i < countQ; i++) {
-        if (appState.localConceptAnswers[i] === unout offined) {
+        if (appState.localConceptAnswers[i] === undefined) {
             showToast(`Por favor, responda à Questão ${i + 1}.`, "error");
             return;
         }
@@ -2359,7 +2359,7 @@ async function submitConceptCheckQuiz() {
     // Calculate score
     let score = 0;
     activeClass.conceptCheck.forEach((q, idx) => {
-        if (appState.localConceptAnswers[idx] === q.correctAnswerInout ofx) {
+        if (appState.localConceptAnswers[idx] === q.correctAnswerIndex) {
             score++;
         }
     });
@@ -2369,7 +2369,7 @@ async function submitConceptCheckQuiz() {
         showToast("Enviando questionário...", "info");
         const res = await fetch(`/api/conceptchecks/${appState.activeClassId}/${userEmail}`, {
             method: 'POST',
-            heaout ofrs: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 score: `${score}`,
                 answers: appState.localConceptAnswers
@@ -2377,7 +2377,7 @@ async function submitConceptCheckQuiz() {
         });
         if (res.ok) {
             showToast("Concept Check enviado!", "success");
-            renout ofrConceptCheckPhase();
+            renderConceptCheckPhase();
         } else {
             showToast("Erro ao submeter.", "error");
         }
@@ -2386,8 +2386,8 @@ async function submitConceptCheckQuiz() {
     }
 }
 
-// RENDER PHASE: 4. Trabalho em Grupo (Instructions renout ofr)
-function renout ofrGroupWorkPhase() {
+// RENDER PHASE: 4. Trabalho em Grupo (Instructions render)
+function renderGroupWorkPhase() {
     const gwScenarioTitle = document.getElementById("gwScenarioTitle");
     const gwScenarioDesc = document.getElementById("gwScenarioDesc");
     const gwInstructionsList = document.getElementById("gwInstructionsList");
@@ -2396,22 +2396,22 @@ function renout ofrGroupWorkPhase() {
     gwInstructionsList.innerHTML = "";
     if (appState.activeClassId === "class1") {
         gwInstructionsList.innerHTML = `
-            <li>Preencha a matriz out of risco mapeando 1 risco relevante para cada um dos 4 pilares estratégicos.</li>
-            <li>Insira uma proposta sólida out of mitigação para cada pilar.</li>
-            <li>Marque qual risco representa o <strong>Showstopper</strong> crítico da viabilidaout of do projeto.</li>
-            <li>Submeta o formulário para a nota final da primeira aula.</li>
+            <li>Fill in the risk matrix by mapping 1 relevant risk for each of the 4 strategic pillars.</li>
+            <li>Enter a solid mitigation strategy for each dimension.</li>
+            <li>Mark which risk represents the critical project <strong>Showstopper</strong>.</li>
+            <li>Submit the form for Class 1 final grading.</li>
         `;
     } else if (appState.activeClassId === "class2") {
         gwInstructionsList.innerHTML = `
-            <li>Use o simulador financeiro no painel direito. Insira os parâmetros do seu projeto assistencial.</li>
-            <li>Simule o VPL, ROI e Payback sob condições <strong>Esperada</strong> (90% adoção), <strong>Realista</strong> (70%) e <strong>Pessimista</strong> (45% + riscos).</li>
-            <li>Aponte em qual cenário o investimento se quebra e justifique os fatores out ofterminantes na caixa out of texto.</li>
+            <li>Use the financial simulator in the right panel. Input your clinical project parameters.</li>
+            <li>Simulate NPV, ROI, and Payback under <strong>Expected</strong> (90% adoption), <strong>Realistic</strong> (70%), and <strong>Pessimistic</strong> (45% + risks) conditions.</li>
+            <li>Identify under which scenario the investment fails and justify the key factors in the text area.</li>
         `;
     } else if (appState.activeClassId === "class3") {
         gwInstructionsList.innerHTML = `
-            <li>Elabore um Business Case estruturado out of 2 páginas compilando o problema, solução e resultados financeiros estressados.</li>
-            <li>Redija os 5 tópicos obrigatórios para out ofcisão executiva do conselho.</li>
-            <li>Tome uma recomendação executiva final: <strong>GO</strong>, <strong>NO-GO</strong> ou <strong>CONDICIONAL</strong> justificando as condicionantes out of mitigação.</li>
+            <li>Draft a structured 2-page Business Case compiling the problem, solution, and stressed financial results.</li>
+            <li>Write the 5 mandatory sections for the C-suite executive decision.</li>
+            <li>Provide your final executive recommendation: <strong>GO</strong> or <strong>NO-GO</strong> justifying the mitigation requirements.</li>
         `;
     }
 
@@ -2428,7 +2428,7 @@ function renout ofrGroupWorkPhase() {
             profContainer.style.display = "flex";
             profContainer.style.flexDirection = "column";
             profContainer.style.gap = "1rem";
-            gwScenarioDesc.parentNoout of.insertBefore(profContainer, gwScenarioDesc.nextSibling);
+            gwScenarioDesc.parentNode.insertBefore(profContainer, gwScenarioDesc.nextSibling);
         }
         
         profContainer.style.display = "flex";
@@ -2437,26 +2437,26 @@ function renout ofrGroupWorkPhase() {
         Object.entries(appState.scenarios).forEach(([grpNum, scenario]) => {
             const card = document.createElement("div");
             card.style.background = "var(--bg-card)";
-            card.style.borout ofrLeft = "4px solid var(--gold)";
+            card.style.borderLeft = "4px solid var(--gold)";
             card.style.padding = "1rem";
-            card.style.borout ofrRadius = "6px";
-            card.style.borout ofr = "1px solid var(--borout ofr-color)";
-            card.style.borout ofrLeftWidth = "4px";
+            card.style.borderRadius = "6px";
+            card.style.border = "1px solid var(--border-color)";
+            card.style.borderLeftWidth = "4px";
             
             card.innerHTML = `
-                <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 1rem; borout ofr: none; padding: 0;">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--text-main); font-size: 1rem; border: none; padding: 0;">
                     Group ${grpNum}: ${scenario.title.split(': ')[1] || scenario.title}
                 </h4>
                 <p style="margin: 0; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary);">
-                    ${scenario.out ofscription}
+                    ${scenario.description}
                 </p>
             `;
             profContainer.appendChild(card);
         });
     } else {
-        // Stuout ofnt view: Show only their team's scenario
-        const activeStuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const groupNum = activeStuout ofnt ? activeStuout ofnt.group : 1;
+        // Student view: Show only their team's scenario
+        const activeStudent = appState.students.find(s => s.email === appState.currentUser);
+        const groupNum = activeStudent ? activeStudent.group : 1;
         const scenario = appState.scenarios[groupNum];
         
         gwScenarioTitle.style.display = "block";
@@ -2469,21 +2469,21 @@ function renout ofrGroupWorkPhase() {
         
         if (scenario) {
             gwScenarioTitle.innerText = `Group ${groupNum}: ${scenario.title.split(': ')[1] || scenario.title}`;
-            gwScenarioDesc.innerText = scenario.out ofscription;
+            gwScenarioDesc.innerText = scenario.description;
         }
     }
 }
 
 // RENDER PHASE: 5. Reflexão Pós-Aula
-function renout ofrReflectionPhase() {
+function renderReflectionPhase() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.reflection) return;
     
     document.getElementById("reflectionQuestionTitle").innerText = activeClass.reflection.question;
-    renout ofrReflectionResults();
+    renderReflectionResults();
 }
 
-function renout ofrReflectionResults() {
+function renderReflectionResults() {
     const resultsContainer = document.getElementById("reflectionDisplayContainer");
     resultsContainer.innerHTML = "";
     
@@ -2501,19 +2501,19 @@ function renout ofrReflectionResults() {
         drawWordCloud("reflectionWordCloudCanvas", reflections);
     } else {
         if (Object.keys(reflections).length === 0) {
-            resultsContainer.innerHTML = `<p class="placeholout ofr-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team reflections...</p>`;
+            resultsContainer.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Waiting for team reflections...</p>`;
             return;
         }
         
         Object.entries(reflections).forEach(([grpId, data]) => {
             const card = document.createElement("div");
             card.className = "feedback-card";
-            card.style.borout ofrLeft = "4px solid var(--gold)";
+            card.style.borderLeft = "4px solid var(--gold)";
             card.style.background = "var(--bg-card)";
             card.style.marginBottom = "0.75rem";
             
-            const stuout ofnt = appState.stuout ofnts.find(s => s.email === grpId);
-            const displayName = stuout ofnt ? `${stuout ofnt.name} (Group ${stuout ofnt.group})` : grpId;
+            const student = appState.students.find(s => s.email === grpId);
+            const displayName = student ? `${student.name} (Group ${student.group})` : grpId;
             
             card.innerHTML = `
                 <div class="comment-meta">
@@ -2527,30 +2527,30 @@ function renout ofrReflectionResults() {
     }
 }
 
-function renout ofrStuout ofntReflectionForm() {
+function renderStudentReflectionForm() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.reflection) return;
     
     const userEmail = appState.currentUser;
     const hasSubmitted = !!(appState.liveData.reflections && appState.liveData.reflections[userEmail]);
     
-    const inputGroup = document.getElementById("stuout ofntReflectionContainer");
+    const inputGroup = document.getElementById("studentReflectionContainer");
     const textarea = document.getElementById("reflectionText");
     const submitBtn = inputGroup.querySelector("button[type='submit']");
     const label = inputGroup.querySelector("label[for='reflectionText']");
-    const formDescription = inputGroup.querySelector(".out ofscription");
+    const formDescription = inputGroup.querySelector(".description");
     
     const isWordCloud = activeClass.reflection.type === "wordcloud";
     
     if (isWordCloud) {
         if (formDescription) {
-            formDescription.innerText = "Responda à reflexão enviando apenas uma palavra para compor a nuvem out of palavras da turma.";
+            formDescription.innerText = "Responda à reflexão enviando apenas uma palavra para compor a nuvem de palavras da turma.";
         }
         if (label) {
             label.innerText = "Sua Palavra-Chave (Sem espaços, máximo 25 caracteres):";
         }
         textarea.rows = 2;
-        textarea.placeholout ofr = "Ex: Viabilidaout of";
+        textarea.placeholder = "Ex: Viabilidade";
         textarea.maxLength = 25;
         
         // Remove spaces while typing
@@ -2562,13 +2562,13 @@ function renout ofrStuout ofntReflectionForm() {
         }
     } else {
         if (formDescription) {
-            formDescription.innerText = "Escreva suas reflexões out of auto-avaliação do dia out of hoje para o feedback da professora.";
+            formDescription.innerText = "Escreva suas reflexões de auto-avaliação do dia de hoje para o feedback da professora.";
         }
         if (label) {
             label.innerText = "Sua Reflexão (máximo 500 palavras):";
         }
         textarea.rows = 6;
-        textarea.placeholout ofr = "Com a aula out of hoje, percebi que o ROI real exige avaliar além do marketing. Para o nosso projeto, a mitigação crítica out ofve ser...";
+        textarea.placeholder = "Com a aula de hoje, percebi que o ROI real exige avaliar além do marketing. Para o nosso projeto, a mitigação crítica deve ser...";
         textarea.removeAttribute("maxLength");
     }
     
@@ -2583,7 +2583,7 @@ function renout ofrStuout ofntReflectionForm() {
         if (!noticeBox) {
             noticeBox = document.createElement("div");
             noticeBox.className = "reflection-submitted-notice highlight-box";
-            noticeBox.style.borout ofrLeftColor = "var(--clinical-color)";
+            noticeBox.style.borderLeftColor = "var(--clinical-color)";
             noticeBox.style.background = "rgba(16, 185, 129, 0.03)";
             noticeBox.style.marginTop = "1rem";
             noticeBox.innerHTML = `<p style="margin:0; color:var(--clinical-color); font-weight:600;"><i class="fa-solid fa-circle-check"></i> Reflexão enviada com sucesso!</p>`;
@@ -2599,26 +2599,26 @@ function renout ofrStuout ofntReflectionForm() {
 }
 
 // RENDER PHASE: 6. Referências Bibliográficas
-function renout ofrReferencesPhase() {
+function renderReferencesPhase() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
     
     const container = document.getElementById("referencesListContainer");
     container.innerHTML = "";
     
-    // 1. Recommenout ofd readings heaout ofr
-    const recommenout ofdHeaout ofr = document.createElement("h3");
-    recommenout ofdHeaout ofr.innerHTML = `<i class="fa-solid fa-graduation-cap" style="color: var(--clinical-color);"></i> Estudos Recentes e Leituras Recomendadas para esta Aula`;
-    recommenout ofdHeaout ofr.style.fontSize = "1.1rem";
-    recommenout ofdHeaout ofr.style.marginBottom = "1rem";
-    recommenout ofdHeaout ofr.style.marginTop = "0.5rem";
-    recommenout ofdHeaout ofr.style.borout ofrBottom = "2px solid var(--borout ofr-color)";
-    recommenout ofdHeaout ofr.style.paddingBottom = "0.4rem";
-    container.appendChild(recommenout ofdHeaout ofr);
+    // 1. Recommended readings header
+    const recommendedHeader = document.createElement("h3");
+    recommendedHeader.innerHTML = `<i class="fa-solid fa-graduation-cap" style="color: var(--clinical-color);"></i> Estudos Recentes e Leituras Recomendadas para esta Aula`;
+    recommendedHeader.style.fontSize = "1.1rem";
+    recommendedHeader.style.marginBottom = "1rem";
+    recommendedHeader.style.marginTop = "0.5rem";
+    recommendedHeader.style.borderBottom = "2px solid var(--border-color)";
+    recommendedHeader.style.paddingBottom = "0.4rem";
+    container.appendChild(recommendedHeader);
 
     if (!activeClass.references || activeClass.references.length === 0) {
         const p = document.createElement("p");
-        p.className = "placeholout ofr-text";
+        p.className = "placeholder-text";
         p.innerText = "Sem leituras recomendadas cadastradas para esta aula.";
         container.appendChild(p);
     } else {
@@ -2629,8 +2629,8 @@ function renout ofrReferencesPhase() {
             let extraHTML = "";
             if (ref.suggestion) {
                 extraHTML += `
-                    <div class="reference-suggestion" style="margin-top: 0.6rem; padding: 0.6rem 0.8rem; background: rgba(2, 132, 199, 0.04); borout ofr-left: 3px solid var(--gold); borout ofr-radius: 4px; font-size: 0.8rem; color: var(--text-primary); line-height: 1.4;">
-                        <strong><i class="fa-regular fa-lightbulb" style="color: var(--gold);"></i> Sugestão out of Uso em Aula:</strong> ${ref.suggestion}
+                    <div class="reference-suggestion" style="margin-top: 0.6rem; padding: 0.6rem 0.8rem; background: rgba(2, 132, 199, 0.04); border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.8rem; color: var(--text-primary); line-height: 1.4;">
+                        <strong><i class="fa-regular fa-lightbulb" style="color: var(--gold);"></i> Sugestão de Uso em Aula:</strong> ${ref.suggestion}
                     </div>
                 `;
             }
@@ -2638,7 +2638,7 @@ function renout ofrReferencesPhase() {
                 extraHTML += `
                     <div class="reference-time" style="margin-top: 0.3rem; font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.3rem; padding-left: 0.2rem;">
                         <i class="fa-regular fa-clock" style="color: var(--clinical-color);"></i>
-                        <span><strong>Tempo out of Leitura Recomendado:</strong> ${ref.readingTime}</span>
+                        <span><strong>Tempo de Leitura Recomendado:</strong> ${ref.readingTime}</span>
                     </div>
                 `;
             }
@@ -2654,15 +2654,15 @@ function renout ofrReferencesPhase() {
         });
     }
 
-    // 1.5. Recommenout ofd Podcasts
-    const podcastsHeaout ofr = document.createElement("h3");
-    podcastsHeaout ofr.innerHTML = `<i class="fa-solid fa-podcast" style="color: var(--clinical-color);"></i> Podcasts Recomendados da Disciplina`;
-    podcastsHeaout ofr.style.fontSize = "1.1rem";
-    podcastsHeaout ofr.style.marginBottom = "1rem";
-    podcastsHeaout ofr.style.marginTop = "2rem";
-    podcastsHeaout ofr.style.borout ofrBottom = "2px solid var(--borout ofr-color)";
-    podcastsHeaout ofr.style.paddingBottom = "0.4rem";
-    container.appendChild(podcastsHeaout ofr);
+    // 1.5. Recommended Podcasts
+    const podcastsHeader = document.createElement("h3");
+    podcastsHeader.innerHTML = `<i class="fa-solid fa-podcast" style="color: var(--clinical-color);"></i> Podcasts Recomendados da Disciplina`;
+    podcastsHeader.style.fontSize = "1.1rem";
+    podcastsHeader.style.marginBottom = "1rem";
+    podcastsHeader.style.marginTop = "2rem";
+    podcastsHeader.style.borderBottom = "2px solid var(--border-color)";
+    podcastsHeader.style.paddingBottom = "0.4rem";
+    container.appendChild(podcastsHeader);
 
     const podcastsGrid = document.createElement("div");
     podcastsGrid.style.display = "grid";
@@ -2672,19 +2672,19 @@ function renout ofrReferencesPhase() {
 
     const podcasts = [
         {
-            title: "Episódio 1: Avaliação out of Risco e Inovação na Saúout of",
-            url: "https://open.spotify.com/episoout of/3dkauHxBAacmOiq6jst0J3?si=2B4SxMQ4T1Kv_9GSWGiB0A&nd=1&dlsi=eddb65a356d84fa6",
-            out ofsc: "Discussão aprofundada sobre como equilibrar a velocidaout of da inovação tecnológica com a segurança assistencial e a viabilidaout of financeira."
+            title: "Episódio 1: Avaliação de Risco e Inovação na Saúde",
+            url: "https://open.spotify.com/episode/3dkauHxBAacmOiq6jst0J3?si=2B4SxMQ4T1Kv_9GSWGiB0A&nd=1&dlsi=eddb65a356d84fa6",
+            desc: "Discussão aprofundada sobre como equilibrar a velocidade da inovação tecnológica com a segurança assistencial e a viabilidade financeira."
         },
         {
-            title: "Episódio 2: A Anatomia do ROI em Projetos out of IA",
-            url: "https://open.spotify.com/episoout of/5AZ0yIG6RHDRGkUUb2hMsz?si=-OoswYu3S9K5AGA8HrNCNA&nd=1&dlsi=2e2af190943c43c5",
-            out ofsc: "Análise prática out of moout oflagem out of business cases em saúout of, out ofsmistificando os custos out of riscos ocultos e as taxas out of adoção clínica."
+            title: "Episódio 2: A Anatomia do ROI em Projetos de IA",
+            url: "https://open.spotify.com/episode/5AZ0yIG6RHDRGkUUb2hMsz?si=-OoswYu3S9K5AGA8HrNCNA&nd=1&dlsi=2e2af190943c43c5",
+            desc: "Análise prática de modelagem de business cases em saúde, desmistificando os custos de riscos ocultos e as taxas de adoção clínica."
         },
         {
             title: "Episódio 3: Governança, Barreiras Regulatórias e o Efeito Dominó",
-            url: "https://open.spotify.com/episoout of/5kyif0Ynqil7LQ8SNx886g?si=mRlXHHgaSVSIf4dgqy2E1A",
-            out ofsc: "Como estruturar comitês out of governança out of IA e mitigar os efeitos em cascata (downstream bottlenecks) no fluxo hospitalar."
+            url: "https://open.spotify.com/episode/5kyif0Ynqil7LQ8SNx886g?si=mRlXHHgaSVSIf4dgqy2E1A",
+            desc: "Como estruturar comitês de governança de IA e mitigar os efeitos em cascata (downstream bottlenecks) no fluxo hospitalar."
         }
     ];
 
@@ -2699,9 +2699,9 @@ function renout ofrReferencesPhase() {
                 <strong style="color: var(--gold); display: block; font-size: 0.9rem; margin-bottom: 0.3rem;">
                     <i class="fa-brands fa-spotify" style="color: #1DB954;"></i> ${pod.title}
                 </strong>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 0.8rem;">${pod.out ofsc}</p>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 0.8rem;">${pod.desc}</p>
             </div>
-            <a href="${pod.url}" target="_blank" class="reference-link" style="margin-top: auto; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; text-out ofcoration: none;">
+            <a href="${pod.url}" target="_blank" class="reference-link" style="margin-top: auto; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; text-decoration: none;">
                 <i class="fa-solid fa-circle-play" style="color: var(--clinical-color);"></i> Ouvir no Spotify
             </a>
         `;
@@ -2709,18 +2709,18 @@ function renout ofrReferencesPhase() {
     });
     container.appendChild(podcastsGrid);
 
-    // 2. Fetch and renout ofr syllabus bibliography
+    // 2. Fetch and render syllabus bibliography
     fetch('/api/bibliography')
         .then(res => res.json())
         .then(bib => {
-            const bibHeaout ofr = document.createElement("h3");
-            bibHeaout ofr.innerHTML = `<i class="fa-solid fa-book" style="color: var(--gold);"></i> Plano out of Ensino: Bibliografia Completa`;
-            bibHeaout ofr.style.fontSize = "1.1rem";
-            bibHeaout ofr.style.marginBottom = "1rem";
-            bibHeaout ofr.style.marginTop = "2rem";
-            bibHeaout ofr.style.borout ofrBottom = "2px solid var(--borout ofr-color)";
-            bibHeaout ofr.style.paddingBottom = "0.4rem";
-            container.appendChild(bibHeaout ofr);
+            const bibHeader = document.createElement("h3");
+            bibHeader.innerHTML = `<i class="fa-solid fa-book" style="color: var(--gold);"></i> Plano de Ensino: Bibliografia Completa`;
+            bibHeader.style.fontSize = "1.1rem";
+            bibHeader.style.marginBottom = "1rem";
+            bibHeader.style.marginTop = "2rem";
+            bibHeader.style.borderBottom = "2px solid var(--border-color)";
+            bibHeader.style.paddingBottom = "0.4rem";
+            container.appendChild(bibHeader);
 
             const grid = document.createElement("div");
             grid.style.display = "grid";
@@ -2730,7 +2730,7 @@ function renout ofrReferencesPhase() {
             
             // Sub-grid for Basica
             const basicaCol = document.createElement("div");
-            basicaCol.innerHTML = `<h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:var(--clinical-color); borout ofr:none; padding:0;"><i class="fa-solid fa-bookmark"></i> Bibliografia Básica</h4>`;
+            basicaCol.innerHTML = `<h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:var(--clinical-color); border:none; padding:0;"><i class="fa-solid fa-bookmark"></i> Bibliografia Básica</h4>`;
             bib.basica.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.className = "reference-card";
@@ -2745,7 +2745,7 @@ function renout ofrReferencesPhase() {
 
             // Sub-grid for Complementar
             const complementarCol = document.createElement("div");
-            complementarCol.innerHTML = `<h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:var(--gold); borout ofr:none; padding:0;"><i class="fa-regular fa-bookmark"></i> Bibliografia Complementar</h4>`;
+            complementarCol.innerHTML = `<h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:var(--gold); border:none; padding:0;"><i class="fa-regular fa-bookmark"></i> Bibliografia Complementar</h4>`;
             
             const compListContainer = document.createElement("div");
             compListContainer.style.maxHeight = "500px";
@@ -2771,17 +2771,17 @@ function renout ofrReferencesPhase() {
 }
 
 
-// Populate simulator inputs with out offault values from group scenario
+// Populate simulator inputs with default values from group scenario
 function setupSimulatorInputs(scenario) {
     const invInput = document.getElementById("sim_investment");
     
-    if (parseFloat(invInput.value) === 0 || invInput.getAttribute("data-loaout ofd-for") !== appState.currentUser) {
+    if (parseFloat(invInput.value) === 0 || invInput.getAttribute("data-loaded-for") !== appState.currentUser) {
         document.getElementById("sim_investment").value = scenario.investment;
         document.getElementById("sim_benefit").value = scenario.annualBenefit;
         document.getElementById("sim_maintenance").value = scenario.annualCost;
         document.getElementById("sim_risk").value = scenario.riskCost;
         document.getElementById("sim_years").value = 5;
-        invInput.setAttribute("data-loaout ofd-for", appState.currentUser);
+        invInput.setAttribute("data-loaded-for", appState.currentUser);
         runSimulationCalculations();
     }
 }
@@ -2832,7 +2832,7 @@ function runSimulationCalculations() {
     updateMetricUI("calc_vpl_real", results.realistic.npv, "$");
     updateMetricUI("calc_vpl_pess", results.pessimistic.npv, "$");
     
-    renout ofrChart(results.expected.roi, results.realistic.roi, results.pessimistic.roi);
+    renderChart(results.expected.roi, results.realistic.roi, results.pessimistic.roi);
 }
 
 function updateMetricUI(elementId, val, unit) {
@@ -2856,14 +2856,14 @@ function updateMetricUI(elementId, val, unit) {
     }
 }
 
-// Chart.js renout ofrer for ROI simulation comparison
-function renout ofrChart(expRoi, realRoi, pessRoi) {
+// Chart.js renderer for ROI simulation comparison
+function renderChart(expRoi, realRoi, pessRoi) {
     const canvas = document.getElementById('chartROI');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     
     if (appState.chartInstance) {
-        appState.chartInstance.out ofstroy();
+        appState.chartInstance.destroy();
     }
     
     const values = [
@@ -2884,13 +2884,13 @@ function renout ofrChart(expRoi, realRoi, pessRoi) {
                     'rgba(2, 132, 199, 0.4)',   // Blue
                     'rgba(239, 108, 0, 0.4)'    // Amber
                 ],
-                borout ofrColor: [
+                borderColor: [
                     '#10b981',
                     '#0284c7',
                     '#ef6c00'
                 ],
-                borout ofrWidth: 2,
-                borout ofrRadius: 5
+                borderWidth: 2,
+                borderRadius: 5
             }]
         },
         options: {
@@ -2916,17 +2916,17 @@ function renout ofrChart(expRoi, realRoi, pessRoi) {
 // Submit assignment to database
 async function submitAssignment(classId, groupId, data) {
     try {
-        const activeStuout ofnt = appState.stuout ofnts.find(s => s.email === appState.currentUser);
-        const stuout ofntName = activeStuout ofnt ? activeStuout ofnt.name : "Aluno";
+        const activeStudent = appState.students.find(s => s.email === appState.currentUser);
+        const studentName = activeStudent ? activeStudent.name : "Aluno";
         
         showToast("Enviando trabalho...", "info");
         const res = await fetch(`/api/submissions/${classId}/${groupId}`, {
             method: 'POST',
-            heaout ofrs: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 submissionData: data,
-                submittedBy: stuout ofntName,
-                stuout ofntEmail: appState.currentUser
+                submittedBy: studentName,
+                studentEmail: appState.currentUser
             })
         });
         
@@ -2938,14 +2938,14 @@ async function submitAssignment(classId, groupId, data) {
         }
     } catch (e) {
         console.error(e);
-        showToast("Erro out of conexão com o servidor.", "error");
+        showToast("Erro de conexão com o servidor.", "error");
     }
 }
 
-// Load previous submissions to restore state for stuout ofnts
+// Load previous submissions to restore state for students
 async function loadSavedSubmission(classId, groupId) {
     try {
-        const res = await fetch(`/api/submissions/${classId}/${groupId}?stuout ofntEmail=${encoout ofURIComponent(appState.currentUser)}`);
+        const res = await fetch(`/api/submissions/${classId}/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
         const result = await res.json();
         
         resetForms();
@@ -2953,7 +2953,7 @@ async function loadSavedSubmission(classId, groupId) {
         // Carry-over logic from previous dynamics
         if (classId === "class2") {
             try {
-                const prevRes = await fetch(`/api/submissions/aula1/${groupId}?stuout ofntEmail=${encoout ofURIComponent(appState.currentUser)}`);
+                const prevRes = await fetch(`/api/submissions/aula1/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
                 const prevResult = await prevRes.json();
                 const prevContainer = document.getElementById("prevSubmissionAula1");
                 const prevContent = document.getElementById("prevSubmissionAula1Content");
@@ -2977,7 +2977,7 @@ async function loadSavedSubmission(classId, groupId) {
                             <div class="prev-submission-value"><strong>Risco:</strong> ${prevData.risk_financial || 'Não informado'}<br><strong>Mitigação:</strong> ${prevData.mit_financial || 'Não informada'}</div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Fator Crítico out of Decisão (Showstopper)</span>
+                            <span class="prev-submission-label">Fator Crítico de Decisão (Showstopper)</span>
                             <div class="prev-submission-value">Mapeado como showstopper: ${prevData.showstopper === 'technical' ? 'Risco Técnico' : prevData.showstopper === 'operational' ? 'Risco Operacional' : prevData.showstopper === 'clinical' ? 'Risco Clínico' : prevData.showstopper === 'financial' ? 'Risco Financeiro' : 'Nenhum'}</div>
                         </div>
                     `;
@@ -2990,7 +2990,7 @@ async function loadSavedSubmission(classId, groupId) {
             }
         } else if (classId === "class3") {
             try {
-                const prevRes = await fetch(`/api/submissions/aula2/${groupId}?stuout ofntEmail=${encoout ofURIComponent(appState.currentUser)}`);
+                const prevRes = await fetch(`/api/submissions/aula2/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
                 const prevResult = await prevRes.json();
                 const prevContainer = document.getElementById("prevSubmissionAula2");
                 const prevContent = document.getElementById("prevSubmissionAula2Content");
@@ -2998,17 +2998,17 @@ async function loadSavedSubmission(classId, groupId) {
                     const prevData = prevResult.data.submissionData || prevResult.data;
                     prevContent.innerHTML = `
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Parâmetros out of Simulação out of ROI</span>
+                            <span class="prev-submission-label">Parâmetros de Simulação de ROI</span>
                             <div class="prev-submission-value">
                                 <strong>Initial Investment:</strong> R$ ${(prevData.investment || 0).toLocaleString('en-US')}<br>
                                 <strong>Annual Benefit:</strong> R$ ${(prevData.benefit || 0).toLocaleString('en-US')}<br>
                                 <strong>Annual Maintenance Cost:</strong> R$ ${(prevData.maintenance || 0).toLocaleString('en-US')}<br>
-                                <strong>Hidout ofn Risk Costs:</strong> R$ ${(prevData.risk || 0).toLocaleString('en-US')}<br>
+                                <strong>Hidden Risk Costs:</strong> R$ ${(prevData.risk || 0).toLocaleString('en-US')}<br>
                                 <strong>Horizonte Temporal:</strong> ${prevData.years || 5} anos
                             </div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Ponto out of Quebra (Break Point)</span>
+                            <span class="prev-submission-label">Ponto de Quebra (Break Point)</span>
                             <div class="prev-submission-value">
                                 ${prevData.breakPoint === 'pessimistic' ? 'Cenário Pessimista' : (prevData.breakPoint === 'realistic' ? 'Cenário Realista' : 'Nenhum (Viável em todos)')}
                             </div>
@@ -3085,12 +3085,12 @@ async function loadSavedSubmission(classId, groupId) {
                 if (submitBtn3) submitBtn3.style.display = "none";
             }
         } else {
-            submissionStatus.innerText = "Penout ofnte";
+            submissionStatus.innerText = "Pendente";
             submissionStatus.className = "badge";
             
             resetForms();
             
-            // Re-apply scenario out offaults for Aula 2 if not submitted
+            // Re-apply scenario defaults for Aula 2 if not submitted
             const scenario = appState.scenarios[groupNum];
             if (classId === "class2" && scenario) {
                 document.getElementById("sim_investment").value = scenario.investment;
@@ -3098,7 +3098,7 @@ async function loadSavedSubmission(classId, groupId) {
                 document.getElementById("sim_maintenance").value = scenario.annualCost;
                 document.getElementById("sim_risk").value = scenario.riskCost;
                 document.getElementById("sim_years").value = 5;
-                document.getElementById("sim_investment").removeAttribute("data-loaout ofd-for"); // force reload check if user changes
+                document.getElementById("sim_investment").removeAttribute("data-loaded-for"); // force reload check if user changes
                 runSimulationCalculations();
             }
             
@@ -3140,15 +3140,15 @@ function resetForms() {
     if (prev2) prev2.style.display = "none";
 }
 
-// Fetch comments and graout ofs for stuout ofnt display
+// Fetch comments and grades for student display
 async function loadProfessorFeedback(classId, groupId) {
     try {
-        const res = await fetch(`/api/comments/${classId}/${groupId}?stuout ofntEmail=${encoout ofURIComponent(appState.currentUser)}`);
+        const res = await fetch(`/api/comments/${classId}/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
         const comments = await res.json();
         
         if (comments.length > 0) {
-            stuout ofntFeedbackBox.style.display = "block";
-            stuout ofntFeedbackMessages.innerHTML = "";
+            studentFeedbackBox.style.display = "block";
+            studentFeedbackMessages.innerHTML = "";
             
             comments.forEach(comment => {
                 const card = document.createElement("div");
@@ -3159,14 +3159,14 @@ async function loadProfessorFeedback(classId, groupId) {
                 card.innerHTML = `
                     <div class="comment-meta">
                         <span>Professor Faila Santos • ${dateStr}</span>
-                        ${comment.graout of ? `<span class="comment-graout of" style="background:var(--gold); color:#fff;">Nota: ${comment.graout of}</span>` : ''}
+                        ${comment.grade ? `<span class="comment-grade" style="background:var(--gold); color:#fff;">Nota: ${comment.grade}</span>` : ''}
                     </div>
                     <p>${comment.text}</p>
                 `;
-                stuout ofntFeedbackMessages.appendChild(card);
+                studentFeedbackMessages.appendChild(card);
             });
         } else {
-            stuout ofntFeedbackBox.style.display = "none";
+            studentFeedbackBox.style.display = "none";
         }
     } catch (e) {
         console.error("Error loading professor feedback", e);
@@ -3177,10 +3177,10 @@ async function loadProfessorFeedback(classId, groupId) {
 function populateRoster() {
     const isProf = appState.currentUser === 'professor';
     
-    // Dynamically update search input placeholout ofr out ofpending on role
+    // Dynamically update search input placeholder depending on role
     const searchInput = document.getElementById("rosterSearchInput");
     if (searchInput) {
-        searchInput.placeholout ofr = isProf ? "Buscar aluno por nome ou email..." : "Buscar aluno por nome...";
+        searchInput.placeholder = isProf ? "Buscar aluno por nome ou email..." : "Buscar aluno por nome...";
     }
 
     for (let i = 1; i <= 5; i++) {
@@ -3188,8 +3188,8 @@ function populateRoster() {
         if (!list) continue;
         list.innerHTML = "";
         
-        const groupStuout ofnts = appState.stuout ofnts.filter(s => s.group === i);
-        groupStuout ofnts.forEach(s => {
+        const groupStudents = appState.students.filter(s => s.group === i);
+        groupStudents.forEach(s => {
             const li = document.createElement("li");
             if (isProf) {
                 li.innerHTML = `<span>${s.name}</span><span class="email">${s.email}</span>`;
@@ -3201,7 +3201,7 @@ function populateRoster() {
     }
 }
 
-// Filter stuout ofnts roster by search term
+// Filter students roster by search term
 function filterRoster() {
     const isProf = appState.currentUser === 'professor';
     const query = rosterSearchInput.value.toLowerCase();
@@ -3211,12 +3211,12 @@ function filterRoster() {
         const section = document.querySelector(`.roster-group-section[data-group="${i}"]`);
         let matches = 0;
         
-        const groupStuout ofnts = appState.stuout ofnts.filter(s => s.group === i);
+        const groupStudents = appState.students.filter(s => s.group === i);
         list.innerHTML = "";
         
-        groupStuout ofnts.forEach(s => {
-            const matchName = s.name.toLowerCase().incluout ofs(query);
-            const matchEmail = isProf && s.email.toLowerCase().incluout ofs(query);
+        groupStudents.forEach(s => {
+            const matchName = s.name.toLowerCase().includes(query);
+            const matchEmail = isProf && s.email.toLowerCase().includes(query);
             if (matchName || matchEmail) {
                 const li = document.createElement("li");
                 if (isProf) {
@@ -3237,7 +3237,7 @@ function filterRoster() {
 let selectedInspectClass = "class1";
 let selectedInspectGroup = 1;
 
-async function renout ofrSubmissionsInspector() {
+async function renderSubmissionsInspector() {
     const activeSubTab = document.querySelector(".sub-tab-btn.active");
     selectedInspectClass = activeSubTab ? activeSubTab.getAttribute("data-subclass") : "class1";
     
@@ -3256,31 +3256,31 @@ async function renout ofrSubmissionsInspector() {
         
         btn.addEventListener("click", () => {
             selectedInspectGroup = i;
-            renout ofrSubmissionsInspector();
+            renderSubmissionsInspector();
         });
         inspectorGroupsNav.appendChild(btn);
     }
     
     const submissionsForGroup = submissions[selectedInspectGroup] || {};
-    renout ofrSubmissionDetails(submissionsForGroup, selectedInspectClass, selectedInspectGroup);
+    renderSubmissionDetails(submissionsForGroup, selectedInspectClass, selectedInspectGroup);
 }
 
-function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
+function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
     if (!submissionsForGroup || Object.keys(submissionsForGroup).length === 0) {
         submissionDetailViewer.innerHTML = `
             <div class="inspect-submission-card">
-                <h4>Group ${groupId} - Submissão Penout ofnte</h4>
-                <p class="placeholout ofr-text"><i class="fa-solid fa-hourglass-half"></i> Esta equipe ainda não enviou a atividaout of para a ${classId === 'class1' ? 'Aula 1' : classId === 'class2' ? 'Aula 2' : 'Aula 3'}.</p>
+                <h4>Group ${groupId} - Submissão Pendente</h4>
+                <p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Esta equipe ainda não enviou a atividade para a ${classId === 'class1' ? 'Aula 1' : classId === 'class2' ? 'Aula 2' : 'Aula 3'}.</p>
             </div>
         `;
         return;
     }
     
-    let out oftailsHTML = "";
+    let detailsHTML = "";
     
-    Object.entries(submissionsForGroup).forEach(([stuout ofntEmail, submission]) => {
+    Object.entries(submissionsForGroup).forEach(([studentEmail, submission]) => {
         const submittedTime = new Date(submission.submittedAt).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
-        const stuout ofntName = submission.submittedBy || "Aluno";
+        const studentName = submission.submittedBy || "Aluno";
         
         let subContentHTML = "";
         
@@ -3313,12 +3313,12 @@ function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
         } else if (classId === "class2") {
             subContentHTML = `
                 <div class="inspect-item-value">
-                    <h6>Parâmetros out of Simulação Submetidos</h6>
+                    <h6>Parâmetros de Simulação Submetidos</h6>
                     <p><strong>Investment:</strong> R$ ${(submission.investment || 0).toLocaleString('en-US')}</p>
                     <p><strong>Annual Benefit:</strong> R$ ${(submission.benefit || 0).toLocaleString('en-US')}</p>
                     <p><strong>Annual Maintenance:</strong> R$ ${(submission.maintenance || 0).toLocaleString('en-US')}</p>
                     <p><strong>Risk Costs:</strong> R$ ${(submission.risk || 0).toLocaleString('en-US')}</p>
-                    <p><strong>Anos out of Análise:</strong> ${submission.years || 5} anos</p>
+                    <p><strong>Anos de Análise:</strong> ${submission.years || 5} anos</p>
                 </div>
 
                 <div class="inspect-roi-grid">
@@ -3340,12 +3340,12 @@ function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>Ponto out of Quebra Mapeado</h6>
+                    <h6>Ponto de Quebra Mapeado</h6>
                     <p>${submission.breakPoint === 'realistic' ? 'Cenário Realista' : submission.breakPoint === 'pessimistic' ? 'Cenário Pessimista' : 'Nenhum'}</p>
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>Justificativa out of Estresse</h6>
+                    <h6>Justificativa de Estresse</h6>
                     <p>${submission.justification || 'Não informada'}</p>
                 </div>
             `;
@@ -3378,69 +3378,69 @@ function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
                 </div>
                 
                 <div class="inspect-item-value">
-                    <h6>Painel out of Apoio: Premissas Utilizadas</h6>
+                    <h6>Painel de Apoio: Premissas Utilizadas</h6>
                     <p><strong>Volume:</strong> ${submission.prem_volume || 'Não preenchido'}</p>
-                    <p><strong>Taxa out of Adoção:</strong> ${submission.prem_adoption || 'Não preenchido'}</p>
-                    <p><strong>Horizonte out of Análise:</strong> ${submission.prem_horizon || 'Não preenchido'}</p>
+                    <p><strong>Taxa de Adoção:</strong> ${submission.prem_adoption || 'Não preenchido'}</p>
+                    <p><strong>Horizonte de Análise:</strong> ${submission.prem_horizon || 'Não preenchido'}</p>
                     <p><strong>Custo/Hora Group:</strong> ${submission.prem_cost || 'Não preenchido'}</p>
-                    <p><strong>Fonte out of cada dado:</strong> ${submission.prem_source || 'Não preenchido'}</p>
+                    <p><strong>Fonte de cada dado:</strong> ${submission.prem_source || 'Não preenchido'}</p>
                 </div>
                 
                 <div class="inspect-item-value">
-                    <h6>Painel out of Apoio: Limitações do Projeto</h6>
+                    <h6>Painel de Apoio: Limitações do Projeto</h6>
                     <p>${submission.lim_text || 'Não preenchido'}</p>
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>6. Recomendação Final out of Investimento</h6>
+                    <h6>6. Recomendação Final de Investimento</h6>
                     <p class="${recClass}"><strong>${submission.recommendation || 'Não informada'}</strong></p>
                     <p class="mt-2"><strong>Condições/Justificativa:</strong><br>${submission.rec_justification || 'Não informada'}</p>
                 </div>
             `;
         }
         
-        out oftailsHTML += `
-            <div class="inspect-submission-card" style="margin-bottom: 2rem; borout ofr: 1px solid var(--borout ofr-color); borout ofr-radius: 8px; padding: 1.25rem; background: var(--bg-card);">
-                <div style="display: flex; justify-content: space-between; align-items: center; borout ofr-bottom: 1px solid var(--borout ofr-color); padding-bottom: 0.5rem; margin-bottom: 1rem;">
-                    <h4 style="margin: 0; borout ofr: none; font-size: 1.1rem; color: var(--gold);"><i class="fa-solid fa-user"></i> ${stuout ofntName} (${stuout ofntEmail})</h4>
+        detailsHTML += `
+            <div class="inspect-submission-card" style="margin-bottom: 2rem; border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; background: var(--bg-card);">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                    <h4 style="margin: 0; border: none; font-size: 1.1rem; color: var(--gold);"><i class="fa-solid fa-user"></i> ${studentName} (${studentEmail})</h4>
                     <span style="font-size: 0.8rem; color: var(--text-secondary);">Enviado às ${submittedTime}</span>
                 </div>
                 
                 ${subContentHTML}
                 
-                <!-- Feedback Editor per Stuout ofnt -->
-                <form class="formProfFeedbackSingle feedback-editor-form" data-stuout ofnt-email="${stuout ofntEmail}" style="margin-top: 1.5rem; padding-top: 1rem; borout ofr-top: 1px dashed var(--borout ofr-color);">
+                <!-- Feedback Editor per Student -->
+                <form class="formProfFeedbackSingle feedback-editor-form" data-student-email="${studentEmail}" style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
                     <h5 style="font-size: 0.95rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-pen-nib"></i> Fornecer Feedback Individual</h5>
                     
                     <div class="form-group" style="margin-bottom: 0.75rem;">
                         <label style="font-size: 0.8rem;">Comentários e Orientações:</label>
-                        <textarea class="profCommentSingle" required rows="2" placeholout ofr="Parabéns pelo trabalho individual, ${stuout ofntName}..." style="font-size: 0.85rem; width: 100%; borout ofr: 1px solid var(--borout ofr-color); borout ofr-radius: 4px; padding: 0.5rem; background: var(--bg-body); color: var(--text-primary);"></textarea>
+                        <textarea class="profCommentSingle" required rows="2" placeholder="Parabéns pelo trabalho individual, ${studentName}..." style="font-size: 0.85rem; width: 100%; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--bg-body); color: var(--text-primary);"></textarea>
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-sm" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;"><i class="fa-solid fa-paper-plane"></i> Save Individual Feedback</button>
                 </form>
                 
-                <!-- Display existing feedback for this stuout ofnt if any -->
-                <div class="stuout ofnt-existing-feedback-container" data-stuout ofnt-email="${stuout ofntEmail}" style="margin-top: 1rem; display: none;">
+                <!-- Display existing feedback for this student if any -->
+                <div class="student-existing-feedback-container" data-student-email="${studentEmail}" style="margin-top: 1rem; display: none;">
                     <strong style="font-size: 0.8rem; color: var(--gold);"><i class="fa-solid fa-comments"></i> Feedbacks Enviados:</strong>
-                    <div class="stuout ofnt-existing-feedback-list" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
+                    <div class="student-existing-feedback-list" style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></div>
                 </div>
             </div>
         `;
     });
     
-    submissionDetailViewer.innerHTML = out oftailsHTML;
+    submissionDetailViewer.innerHTML = detailsHTML;
     
-    // Attach form submission listeners and fetch existing comments for each stuout ofnt
+    // Attach form submission listeners and fetch existing comments for each student
     document.querySelectorAll(".formProfFeedbackSingle").forEach(form => {
-        const stuout ofntEmail = form.getAttribute("data-stuout ofnt-email");
+        const studentEmail = form.getAttribute("data-student-email");
         
         // Fetch and display existing comments
-        fetch(`/api/comments/${classId}/${groupId}?stuout ofntEmail=${encoout ofURIComponent(stuout ofntEmail)}`)
+        fetch(`/api/comments/${classId}/${groupId}?studentEmail=${encodeURIComponent(studentEmail)}`)
             .then(r => r.json())
             .then(comments => {
-                const feedbackContainer = document.querySelector(`.stuout ofnt-existing-feedback-container[data-stuout ofnt-email="${stuout ofntEmail}"]`);
-                const feedbackList = document.querySelector(`.stuout ofnt-existing-feedback-list[data-stuout ofnt-email="${stuout ofntEmail}"]`);
+                const feedbackContainer = document.querySelector(`.student-existing-feedback-container[data-student-email="${studentEmail}"]`);
+                const feedbackList = document.querySelector(`.student-existing-feedback-list[data-student-email="${studentEmail}"]`);
                 if (comments && comments.length > 0) {
                     feedbackContainer.style.display = "block";
                     feedbackList.innerHTML = "";
@@ -3449,8 +3449,8 @@ function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
                         div.style.fontSize = "0.8rem";
                         div.style.padding = "0.5rem";
                         div.style.background = "rgba(218, 165, 32, 0.05)";
-                        div.style.borout ofrLeft = "3px solid var(--gold)";
-                        div.style.borout ofrRadius = "4px";
+                        div.style.borderLeft = "3px solid var(--gold)";
+                        div.style.borderRadius = "4px";
                         div.innerHTML = `
                             <p style="margin: 0; color: var(--text-primary);">${c.text}</p>
                             <span style="font-size: 0.7rem; color: var(--text-secondary);">${new Date(c.timestamp).toLocaleString("en-US")}</span>
@@ -3469,10 +3469,10 @@ function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
                 showToast("Salvando feedback...", "info");
                 const res = await fetch(`/api/comments/${classId}/${groupId}`, {
                     method: 'POST',
-                    heaout ofrs: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         text: commentText,
-                        stuout ofntEmail: stuout ofntEmail
+                        studentEmail: studentEmail
                     })
                 });
                 
@@ -3480,19 +3480,19 @@ function renout ofrSubmissionDetails(submissionsForGroup, classId, groupId) {
                     showToast("Feedback salvo com sucesso!", "success");
                     form.querySelector(".profCommentSingle").value = "";
                     // Refresh inspector
-                    renout ofrSubmissionsInspector();
+                    renderSubmissionsInspector();
                 } else {
                     showToast("Erro ao salvar feedback.", "error");
                 }
             } catch (err) {
                 console.error(err);
-                showToast("Erro out of conexão.", "error");
+                showToast("Erro de conexão.", "error");
             }
         });
     });
 }
 
-// Custom Tag Cloud implementation for Check-ins and Interactive Sliout ofs
+// Custom Tag Cloud implementation for Check-ins and Interactive Slides
 function drawWordCloud(elementId, submissions) {
     const container = document.getElementById(elementId);
     if (!container) return;
@@ -3520,7 +3520,7 @@ function drawWordCloud(elementId, submissions) {
     });
     
     if (Object.keys(freq).length === 0) {
-        container.innerHTML = `<p class="placeholout ofr-text"><i class="fa-solid fa-hourglass-half"></i> Nenhuma palavra enviada pelas equipes ainda...</p>`;
+        container.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Nenhuma palavra enviada pelas equipes ainda...</p>`;
         return;
     }
     
@@ -3559,7 +3559,7 @@ function drawWordCloud(elementId, submissions) {
             "#0f766e", // Teal
             "#6366f1"  // Indigo
         ];
-        const hash = word.split("").reduce((acc, char) => acc + char.charCoout ofAt(0), 0);
+        const hash = word.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
         const color = colors[hash % colors.length];
         
         const wordSpan = document.createElement("span");
@@ -3568,7 +3568,7 @@ function drawWordCloud(elementId, submissions) {
         wordSpan.style.fontWeight = "bold";
         wordSpan.style.padding = "0.2rem 0.7rem";
         wordSpan.style.margin = "0.3rem 0.6rem";
-        wordSpan.style.borout ofrRadius = "8px";
+        wordSpan.style.borderRadius = "8px";
         wordSpan.style.transition = "all 0.2s ease";
         wordSpan.style.cursor = "pointer";
         wordSpan.style.display = "inline-block";
@@ -3576,13 +3576,13 @@ function drawWordCloud(elementId, submissions) {
         wordSpan.style.whiteSpace = "nowrap";
         wordSpan.style.userSelect = "none";
         
-        const textNoout of = document.createTextNoout of(word);
-        wordSpan.appendChild(textNoout of);
+        const textNode = document.createTextNode(word);
+        wordSpan.appendChild(textNode);
         
         // Likes badge
         const likesList = wordLikes[word] ? Array.from(wordLikes[word]) : [];
         const likesCount = likesList.length;
-        const userHasLiked = likesList.incluout ofs(appState.currentUser);
+        const userHasLiked = likesList.includes(appState.currentUser);
         
         if (likesCount > 0) {
             const badge = document.createElement("span");
@@ -3591,9 +3591,9 @@ function drawWordCloud(elementId, submissions) {
             badge.style.justifyContent = "center";
             badge.style.gap = "3px";
             badge.style.background = userHasLiked ? "rgba(15, 118, 110, 0.15)" : "rgba(251, 191, 36, 0.1)";
-            badge.style.borout ofr = userHasLiked ? "1px solid rgba(15, 118, 110, 0.3)" : "1px solid rgba(251, 191, 36, 0.2)";
+            badge.style.border = userHasLiked ? "1px solid rgba(15, 118, 110, 0.3)" : "1px solid rgba(251, 191, 36, 0.2)";
             badge.style.padding = "2px 6px";
-            badge.style.borout ofrRadius = "20px";
+            badge.style.borderRadius = "20px";
             badge.style.fontSize = "0.55em";
             badge.style.marginLeft = "6px";
             badge.style.color = userHasLiked ? "var(--clinical-color)" : "var(--gold)";
@@ -3621,9 +3621,9 @@ function drawWordCloud(elementId, submissions) {
             if (now - lastTap < 300) {
                 e.stopPropagation();
                 e.preventDefault();
-                if (elementId.incluout ofs("checkin")) {
+                if (elementId.includes("checkin")) {
                     handleWordLike("checkin", appState.activeClassId, null, word);
-                } else if (elementId.incluout ofs("reflection")) {
+                } else if (elementId.includes("reflection")) {
                     showToast("Reflexões não suportam curtidas individuais.", "info");
                 }
             }
@@ -3631,9 +3631,9 @@ function drawWordCloud(elementId, submissions) {
         });
         wordSpan.addEventListener("dblclick", (e) => {
             e.stopPropagation();
-            if (elementId.incluout ofs("checkin")) {
+            if (elementId.includes("checkin")) {
                 handleWordLike("checkin", appState.activeClassId, null, word);
-            } else if (elementId.incluout ofs("reflection")) {
+            } else if (elementId.includes("reflection")) {
                 showToast("Reflexões não suportam curtidas individuais.", "info");
             }
         });
@@ -3659,7 +3659,7 @@ function showToast(message, type = "info") {
     container.appendChild(toast);
     
     setTimeout(() => {
-        toast.classList.add("toast-faout of-out");
+        toast.classList.add("toast-fade-out");
         toast.addEventListener("animationend", () => {
             toast.remove();
         });
@@ -3667,4 +3667,4 @@ function showToast(message, type = "info") {
 }
 
 // Run application initialization
-window.addEventListener("DOMContentLoaout ofd", init);
+window.addEventListener("DOMContentLoaded", init);

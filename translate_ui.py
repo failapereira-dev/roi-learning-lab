@@ -276,6 +276,20 @@ def translate_js():
     js = js.replace('votos', 'votes')
     js = js.replace('voto', 'vote')
     
+    # Group work instructions & quiz titles
+    js = js.replace('Preencha a matriz de risco mapeando 1 risco relevante para cada um dos 4 pilares estratégicos.', 'Fill in the risk matrix by mapping 1 relevant risk for each of the 4 strategic pillars.')
+    js = js.replace('Insira uma proposta sólida de mitigação para cada pilar.', 'Enter a solid mitigation strategy for each dimension.')
+    js = js.replace('Marque qual risco representa o <strong>Showstopper</strong> crítico da viabilidade do projeto.', 'Mark which risk represents the critical project <strong>Showstopper</strong>.')
+    js = js.replace('Submeta o formulário para a nota final da primeira aula.', 'Submit the form for Class 1 final grading.')
+    js = js.replace('Use o simulador financeiro no painel direito. Insira os parâmetros do seu projeto assistencial.', 'Use the financial simulator in the right panel. Input your clinical project parameters.')
+    js = js.replace('Simule o VPL, ROI e Payback sob condições <strong>Esperada</strong> (90% adoção), <strong>Realista</strong> (70%) e <strong>Pessimista</strong> (45% + riscos).', 'Simulate NPV, ROI, and Payback under <strong>Expected</strong> (90% adoption), <strong>Realistic</strong> (70%), and <strong>Pessimistic</strong> (45% + risks) conditions.')
+    js = js.replace('Aponte em qual cenário o investimento se quebra e justifique os fatores determinantes na caixa de texto.', 'Identify under which scenario the investment fails and justify the key factors in the text area.')
+    js = js.replace('Elabore um Business Case estruturado de 2 páginas compilando o problema, solução e resultados financeiros estressados.', 'Draft a structured 2-page Business Case compiling the problem, solution, and stressed financial results.')
+    js = js.replace('Redija os 5 tópicos obrigatórios para decisão executiva do conselho.', 'Write the 5 mandatory sections for the C-suite executive decision.')
+    js = js.replace('Tome uma recomendação executiva final: <strong>GO</strong>, <strong>NO-GO</strong> ou <strong>CONDICIONAL</strong> justificando as condicionantes de mitigação.', 'Provide your final executive recommendation: <strong>GO</strong> or <strong>NO-GO</strong> justifying the mitigation requirements.')
+    js = js.replace('Resultado do questionário.', 'Quiz Results Summary.')
+    js = js.replace('Resultado Geral da Turma', 'Overall Class Performance')
+    
     # Class IDs mapping (aula1 -> class1 etc.)
     js = js.replace('"aula1"', '"class1"')
     js = js.replace('"aula2"', '"class2"')
@@ -302,9 +316,7 @@ def translate_js():
     js = js.replace('Payback Pessimista', 'Pessimistic Payback')
     
     # Quiz grading message
-    js = js.replace('Você acertou', 'You got')
-    js = js.replace('de', 'out of')
-    js = js.replace('questões', 'questions')
+    js = js.replace('`Você acertou ${savedQuiz.score} de ${activeClass.conceptCheck.length} questões.`', '`You got ${savedQuiz.score} out of ${activeClass.conceptCheck.length} questions.`')
     
     # Student Roster Title
     js = js.replace('Alunos Cadastrados na Disciplina (${roster.length})', 'Registered Students in this Course (${roster.length})')
