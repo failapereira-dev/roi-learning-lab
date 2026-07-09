@@ -79,7 +79,7 @@ const rosterSearchInput = document.getElementById("rosterSearchInput");
 // Initialize Application
 async function init() {
     try {
-        showToast("Inicializando Navigator...", "info");
+        showToast("Initializing Navigator...", "info");
         
         // Fetch static content from server
         const [classesRes, scenariosRes, studentsRes, stateRes] = await Promise.all([
@@ -138,10 +138,10 @@ async function init() {
         renderActivePhase();
         updateWorkspaceView();
         
-        showToast("Navigator pronto para a aula!", "success");
+        showToast("Navigator ready for class!", "success");
     } catch (e) {
         console.error("Initialization error", e);
-        showToast("Erro ao carregar dados do servidor.", "error");
+        showToast("Error loading data from server.", "error");
     }
 }
 
@@ -631,7 +631,7 @@ function setupEventListeners() {
         appState.liveSyncEnabled = !appState.liveSyncEnabled;
         if (appState.liveSyncEnabled) {
             btnLiveSync.classList.add('active');
-            showToast("Sincronização de slides ativada.", "success");
+            showToast("Slide synchronization enabled.", "success");
             
             // Sync instantly
             if (appState.serverState.syncEnabled) {
@@ -646,7 +646,7 @@ function setupEventListeners() {
             }
         } else {
             btnLiveSync.classList.remove('active');
-            showToast("Sincronização desativada. Navegação livre.", "info");
+            showToast("Synchronization disabled. Free navigation.", "info");
         }
     });
     
@@ -700,7 +700,7 @@ function setupEventListeners() {
         btnShowSlideImage.classList.add("active");
         btnShowSlideTranscript.classList.remove("active");
         renderSlideContent();
-        showToast("Modo de exibição: Imagem do Slide", "info");
+        showToast("Display mode: Slide Image", "info");
     });
     
     btnShowSlideTranscript.addEventListener("click", () => {
@@ -708,7 +708,7 @@ function setupEventListeners() {
         btnShowSlideTranscript.classList.add("active");
         btnShowSlideImage.classList.remove("active");
         renderSlideContent();
-        showToast("Modo de exibição: Transcrição em Texto", "info");
+        showToast("Display mode: Text Transcript", "info");
     });
     
     // Workspace panel toggle
@@ -717,11 +717,11 @@ function setupEventListeners() {
         if (isCollapsed) {
             btnToggleWorkspace.classList.remove("btn-primary");
             btnToggleWorkspace.classList.add("btn-secondary");
-            showToast("Painel de Interação ocultado.", "info");
+            showToast("Interaction Panel hidden.", "info");
         } else {
             btnToggleWorkspace.classList.remove("btn-secondary");
             btnToggleWorkspace.classList.add("btn-primary");
-            showToast("Painel de Interação visível.", "info");
+            showToast("Interaction Panel visible.", "info");
         }
     });
     
@@ -730,8 +730,8 @@ function setupEventListeners() {
         const isFullscreen = presentationPanel.classList.toggle("fullscreen-mode");
         
         if (isFullscreen) {
-            btnTogglePresentationMode.innerHTML = `<i class="fa-solid fa-compress"></i> Logout da Projeção`;
-            showToast("Modo Projeção ativado (pressione ESC para sair).", "info");
+            btnTogglePresentationMode.innerHTML = `<i class="fa-solid fa-compress"></i> Exit Projection`;
+            showToast("Projection Mode enabled (press ESC to exit).", "info");
             
             if (presentationPanel.requestFullscreen) {
                 presentationPanel.requestFullscreen().catch(() => {});
@@ -873,14 +873,14 @@ function setupEventListeners() {
         if (!textVal) return;
         
         try {
-            showToast("Enviando reflexão...", "info");
+            showToast("Submitting reflection...", "info");
             const res = await fetch(`/api/reflections/${appState.activeClassId}/${userEmail}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: textVal })
             });
             if (res.ok) {
-                showToast("Reflexão enviada!", "success");
+                showToast("Reflection submitted!", "success");
                 renderActivePhase();
             } else {
                 showToast("Erro ao salvar.", "error");
@@ -961,7 +961,7 @@ function setupEventListeners() {
         
         const checkedRec = document.querySelector('input[name="bc_recommendation"]:checked');
         if (!checkedRec) {
-            showToast("Por favor, selecione uma recomendação final.", "error");
+            showToast("Please select a final recommendation.", "error");
             return;
         }
         
@@ -988,7 +988,7 @@ function setupEventListeners() {
     profSyncToggle.addEventListener("change", async (e) => {
         const checked = e.target.checked;
         await updateServerState({ syncEnabled: checked });
-        showToast(checked ? "Sincronização global ativada." : "Sincronização global desativada.", "info");
+        showToast(checked ? "Global sync enabled." : "Global sync disabled.", "info");
     });
     
     // Professor Timer buttons
@@ -1121,7 +1121,7 @@ async function startTimerOnServer(minutes) {
     const timerEnd = minutes ? Date.now() + minutes * 60 * 1000 : null;
     try {
         await updateServerState({ timerEnd });
-        showToast(minutes ? `Cronômetro de ${minutes} min iniciado!` : "Cronômetro zerado!", "info");
+        showToast(minutes ? `Timer of ${minutes} min started!` : "Timer reset!", "info");
     } catch (e) {
         console.error("Error setting timer on server:", e);
     }
@@ -1363,7 +1363,7 @@ function updateWorkspaceView() {
                 html += `
                     <details class="scenario-details" style="margin-top: 0.75rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem 0.8rem;">
                         <summary style="font-weight: 600; cursor: pointer; color: var(--clinical-color); font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; list-style: none; outline: none;">
-                            <i class="fa-solid fa-file-invoice-dollar" style="color: var(--gold);"></i> Estudo de Caso Detalhado (Discussão de Riscos & ROI)
+                            <i class="fa-solid fa-file-invoice-dollar" style="color: var(--gold);"></i> Detailed Case Study (Risk & ROI Discussion)
                         </summary>
                         <div class="case-study-content" style="margin-top: 0.6rem; font-size: 0.8rem; line-height: 1.4; color: var(--text-primary);">
                             ${scenario.caseStudy}
@@ -1473,7 +1473,7 @@ function renderCheckinResults() {
         resultsContainer.appendChild(cloudDiv);
         drawWordCloud("checkinWordCloud", checkinData);
     } else if (activeClass.checkin.type === "poll_ab" || activeClass.checkin.type === "poll") {
-        const options = activeClass.checkin.options || ["Opção A", "Opção B"];
+        const options = activeClass.checkin.options || ["Option A", "Option B"];
         const counts = Array(options.length).fill(0);
         let total = 0;
         
@@ -1554,7 +1554,7 @@ function renderStudentCheckinForm() {
         htmlContent += `
             <div class="status-notice" style="margin-bottom: 1rem; padding: 0.6rem 0.8rem; border-radius: 6px; background-color: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--clinical-color); font-size: 0.8rem; color: #065f46; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
                 <i class="fa-solid fa-circle-check" style="color: var(--clinical-color);"></i>
-                <span>Resposta enviada! Você pode alterá-la e reenviar se desejar.</span>
+                <span>Response submitted! You can change it and resubmit if desired.</span>
             </div>
         `;
         if (submitBtn) {
@@ -1572,7 +1572,7 @@ function renderStudentCheckinForm() {
             <input type="text" id="checkinTextAnswer" class="form-control" placeholder="Escreva uma palavra..." required max-length="25" value="${subText.replace(/"/g, '&quot;')}">
         `;
     } else if (activeClass.checkin.type === "poll_ab" || activeClass.checkin.type === "poll") {
-        const options = activeClass.checkin.options || ["Opção A", "Opção B"];
+        const options = activeClass.checkin.options || ["Option A", "Option B"];
         let optionsHTML = "";
         options.forEach((opt, idx) => {
             const charCode = String.fromCharCode(65 + idx);
@@ -1616,7 +1616,7 @@ function renderSlideContent() {
     const slideProgressBar = document.getElementById("slideProgressBar");
     const slideProgressText = document.getElementById("slideProgressText");
     
-    if (slideBlockInfo) slideBlockInfo.innerText = `Bloco: ${slide.block || "Introdução"}`;
+    if (slideBlockInfo) slideBlockInfo.innerText = `Block: ${slide.block || "Introduction"}`;
     if (slideTimeEst) slideTimeEst.innerText = `(Tempo: ${slide.estimatedTime || "2 min"})`;
     if (slideProgressBar) slideProgressBar.style.width = `${progressPct}%`;
     if (slideProgressText) slideProgressText.innerText = `${progressPct}%`;
@@ -1631,7 +1631,7 @@ function renderSlideContent() {
                 let formattedNotes = slide.notes
                     .replace(/\n/g, "<br>")
                     .replace(/(Fala sugerida:)/gi, "<strong>$1</strong>")
-                    .replace(/(Sugestão visual:)/gi, "<strong>$1</strong>");
+                    .replace(/(Visual suggestion:)/gi, "<strong>$1</strong>");
                 profSlideNotesContent.innerHTML = formattedNotes;
             } else {
                 profSlideNotesContent.innerHTML = `<em>No presentation notes defined for this slide.</em>`;
@@ -2081,7 +2081,7 @@ async function handleLikeInteraction(responseId) {
 async function handleWordLike(type, classId, slideId, word) {
     const userEmail = appState.currentUser;
     if (userEmail === 'professor') {
-        showToast("Professores não votam nas interações.", "error");
+        showToast("Instructors do not vote on interactions.", "error");
         return;
     }
     
@@ -2097,7 +2097,7 @@ async function handleWordLike(type, classId, slideId, word) {
         if (res.ok) {
             const data = await res.json();
             if (data.success) {
-                showToast(`Você curtiu a palavra "${word}"!`, "success");
+                showToast(`You liked the word "${word}"!`, "success");
                 if (type === "checkin") {
                     appState.liveData.checkins = data.data;
                     renderCheckinResults();
@@ -2122,7 +2122,7 @@ async function handleToggleHide(responseId) {
             const data = await res.json();
             appState.liveData.slideInteractions = data.data;
             renderSlideInteractionResults();
-            showToast("Status de exibição atualizado", "success");
+            showToast("Display status updated", "success");
         }
     } catch (e) {
         console.error(e);
@@ -2154,7 +2154,7 @@ async function handleTogglePin(responseId) {
             const data = await res.json();
             appState.liveData.slideInteractions = data.data;
             renderSlideInteractionResults();
-            showToast("Status de fixação atualizado", "success");
+            showToast("Pin status updated", "success");
         }
     } catch (e) {
         console.error(e);
@@ -2191,7 +2191,7 @@ function renderStudentSlideIntForm() {
     if (!slide || !slide.isInteractive) {
         inputGroup.innerHTML = `
             <div class="highlight-box" style="background: rgba(2, 132, 199, 0.02); margin: 0;">
-                <p style="margin: 0; font-size: 0.8rem; text-align: center;"><i class="fa-solid fa-circle-info"></i> Slide padrão. Acompanhe a explicação da professora.</p>
+                <p style="margin: 0; font-size: 0.8rem; text-align: center;"><i class="fa-solid fa-circle-info"></i> Default slide. Follow the instructor's explanation.</p>
             </div>
         `;
         if (submitBtn) submitBtn.style.display = "none";
@@ -2216,7 +2216,7 @@ function renderStudentSlideIntForm() {
     } else {
         if (submitBtn) submitBtn.style.display = "block";
         document.getElementById("slideIntDescription").innerText = isQA
-            ? "Envie suas dúvidas ou comentários sobre a aula no espaço abaixo."
+            ? "Submit your questions or comments about the class in the space below."
             : "Responda à pergunta da professora.";
         
         if (slide.interactionType === "quiz" || slide.interactionType === "poll_ab" || slide.interactionType === "poll") {
@@ -2240,8 +2240,8 @@ function renderStudentSlideIntForm() {
             `;
         } else if (slide.interactionType === "open_ended" || slide.interactionType === "qa" || slide.interactionType === "wordcloud") {
             const isWordcloud = slide.interactionType === "wordcloud";
-            const placeholder = isWordcloud ? 'Ex: Confiança' : (isQA ? 'Ex: Qual a taxa de desconto recomendada?' : 'Ex: Rigor metodológico e testes paralelos...');
-            const helpText = isWordcloud ? 'Envie uma única palavra.' : 'Máximo 100 caracteres. Seja sucinto e objetivo.';
+            const placeholder = isWordcloud ? 'e.g., Trust' : (isQA ? 'e.g., What is the recommended discount rate?' : 'e.g., Methodological rigor and parallel testing...');
+            const helpText = isWordcloud ? 'Submit a single word.' : 'Maximum 100 characters. Be concise and focused.';
             const maxLen = isWordcloud ? 30 : 100;
             
             inputGroup.innerHTML = `
@@ -2309,7 +2309,7 @@ function renderConceptCheckPhase() {
         });
         
         card.innerHTML = `
-            <h4>Questão ${qIdx + 1}: ${q.question}</h4>
+            <h4>Question ${qIdx + 1}: ${q.question}</h4>
             <div class="concept-options-list">
                 ${optionsHTML}
             </div>
@@ -2336,7 +2336,7 @@ function renderConceptCheckPhase() {
         const subBtn = document.createElement("button");
         subBtn.className = "btn btn-primary btn-block";
         subBtn.style.marginTop = "1rem";
-        subBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar Questionário`;
+        subBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Submit Quiz`;
         subBtn.addEventListener("click", submitConceptCheckQuiz);
         container.appendChild(subBtn);
     }
@@ -2358,7 +2358,7 @@ async function submitConceptCheckQuiz() {
     // Check if all answered
     for (let i = 0; i < countQ; i++) {
         if (appState.localConceptAnswers[i] === undefined) {
-            showToast(`Por favor, responda à Questão ${i + 1}.`, "error");
+            showToast(`Por favor, responda à Question ${i + 1}.`, "error");
             return;
         }
     }
@@ -2373,7 +2373,7 @@ async function submitConceptCheckQuiz() {
     
     const userEmail = appState.currentUser;
     try {
-        showToast("Enviando questionário...", "info");
+        showToast("Submitting quiz...", "info");
         const res = await fetch(`/api/conceptchecks/${appState.activeClassId}/${userEmail}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -2481,7 +2481,7 @@ function renderGroupWorkPhase() {
     }
 }
 
-// RENDER PHASE: 5. Reflexão Pós-Aula
+// RENDER PHASE: 5. Post-Class Reflection
 function renderReflectionPhase() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass || !activeClass.reflection) return;
@@ -2551,10 +2551,10 @@ function renderStudentReflectionForm() {
     
     if (isWordCloud) {
         if (formDescription) {
-            formDescription.innerText = "Responda à reflexão enviando apenas uma palavra para compor a nuvem de palavras da turma.";
+            formDescription.innerText = "Answer the reflection by submitting a single word to build the class word cloud.";
         }
         if (label) {
-            label.innerText = "Sua Palavra-Chave (Sem espaços, máximo 25 caracteres):";
+            label.innerText = "Your Key Word (No spaces, maximum 25 characters):";
         }
         textarea.rows = 2;
         textarea.placeholder = "Ex: Viabilidade";
@@ -2569,13 +2569,13 @@ function renderStudentReflectionForm() {
         }
     } else {
         if (formDescription) {
-            formDescription.innerText = "Escreva suas reflexões de auto-avaliação do dia de hoje para o feedback da professora.";
+            formDescription.innerText = "Write your self-evaluation reflections of today for the instructor's feedback.";
         }
         if (label) {
-            label.innerText = "Sua Reflexão (máximo 500 palavras):";
+            label.innerText = "Your Reflection (maximum 500 words):";
         }
         textarea.rows = 6;
-        textarea.placeholder = "Com a aula de hoje, percebi que o ROI real exige avaliar além do marketing. Para o nosso projeto, a mitigação crítica deve ser...";
+        textarea.placeholder = "Following today's session, I realized that real ROI requires looking beyond the marketing hype. For our project, the critical mitigation must be...";
         textarea.removeAttribute("maxLength");
     }
     
@@ -2593,7 +2593,7 @@ function renderStudentReflectionForm() {
             noticeBox.style.borderLeftColor = "var(--clinical-color)";
             noticeBox.style.background = "rgba(16, 185, 129, 0.03)";
             noticeBox.style.marginTop = "1rem";
-            noticeBox.innerHTML = `<p style="margin:0; color:var(--clinical-color); font-weight:600;"><i class="fa-solid fa-circle-check"></i> Reflexão enviada com sucesso!</p>`;
+            noticeBox.innerHTML = `<p style="margin:0; color:var(--clinical-color); font-weight:600;"><i class="fa-solid fa-circle-check"></i> Reflection submitted successfully!</p>`;
             inputGroup.appendChild(noticeBox);
         }
     } else {
@@ -2605,7 +2605,7 @@ function renderStudentReflectionForm() {
     }
 }
 
-// RENDER PHASE: 6. Referências Bibliográficas
+// RENDER PHASE: 6. Bibliography & References
 function renderReferencesPhase() {
     const activeClass = appState.classes.find(c => c.id === appState.activeClassId);
     if (!activeClass) return;
@@ -2637,7 +2637,7 @@ function renderReferencesPhase() {
             if (ref.suggestion) {
                 extraHTML += `
                     <div class="reference-suggestion" style="margin-top: 0.6rem; padding: 0.6rem 0.8rem; background: rgba(2, 132, 199, 0.04); border-left: 3px solid var(--gold); border-radius: 4px; font-size: 0.8rem; color: var(--text-primary); line-height: 1.4;">
-                        <strong><i class="fa-regular fa-lightbulb" style="color: var(--gold);"></i> Sugestão de Uso em Aula:</strong> ${ref.suggestion}
+                        <strong><i class="fa-regular fa-lightbulb" style="color: var(--gold);"></i> Suggested Session Use:</strong> ${ref.suggestion}
                     </div>
                 `;
             }
@@ -2654,7 +2654,7 @@ function renderReferencesPhase() {
                 <div class="reference-citation" style="font-weight: 500;">${ref.citation}</div>
                 ${extraHTML}
                 <a href="${ref.url || ref.link}" target="_blank" class="reference-link" style="margin-top: 0.75rem; display: inline-block;">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Acessar publicação oficial
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Access official publication
                 </a>
             `;
             container.appendChild(card);
@@ -2679,19 +2679,19 @@ function renderReferencesPhase() {
 
     const podcasts = [
         {
-            title: "Episódio 1: Avaliação de Risco e Inovação na Saúde",
+            title: "Episode 1: Risk Assessment & Health Innovation",
             url: "https://open.spotify.com/episode/3dkauHxBAacmOiq6jst0J3?si=2B4SxMQ4T1Kv_9GSWGiB0A&nd=1&dlsi=eddb65a356d84fa6",
-            desc: "Discussão aprofundada sobre como equilibrar a velocidade da inovação tecnológica com a segurança assistencial e a viabilidade financeira."
+            desc: "Deep dive into balancing the speed of technological innovation with patient safety and financial feasibility."
         },
         {
-            title: "Episódio 2: A Anatomia do ROI em Projetos de IA",
+            title: "Episode 2: The Anatomy of ROI in AI Projects",
             url: "https://open.spotify.com/episode/5AZ0yIG6RHDRGkUUb2hMsz?si=-OoswYu3S9K5AGA8HrNCNA&nd=1&dlsi=2e2af190943c43c5",
-            desc: "Análise prática de modelagem de business cases em saúde, desmistificando os custos de riscos ocultos e as taxas de adoção clínica."
+            desc: "Practical business case modeling in healthcare, demystifying hidden risk costs and clinical adoption rates."
         },
         {
-            title: "Episódio 3: Governança, Barreiras Regulatórias e o Efeito Dominó",
+            title: "Episode 3: Governance, Regulatory Barriers & the Domino Effect",
             url: "https://open.spotify.com/episode/5kyif0Ynqil7LQ8SNx886g?si=mRlXHHgaSVSIf4dgqy2E1A",
-            desc: "Como estruturar comitês de governança de IA e mitigar os efeitos em cascata (downstream bottlenecks) no fluxo hospitalar."
+            desc: "How to structure AI governance committees and mitigate downstream bottlenecks in hospital workflows."
         }
     ];
 
@@ -2737,7 +2737,7 @@ function renderReferencesPhase() {
             
             // Sub-grid for Basica
             const basicaCol = document.createElement("div");
-            basicaCol.innerHTML = `<h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:var(--clinical-color); border:none; padding:0;"><i class="fa-solid fa-bookmark"></i> Bibliografia Básica</h4>`;
+            basicaCol.innerHTML = `<h4 style="font-size:0.95rem; margin-bottom:0.8rem; color:var(--clinical-color); border:none; padding:0;"><i class="fa-solid fa-bookmark"></i> Core Bibliography</h4>`;
             bib.basica.forEach(item => {
                 const itemDiv = document.createElement("div");
                 itemDiv.className = "reference-card";
@@ -2847,7 +2847,7 @@ function updateMetricUI(elementId, val, unit) {
     if (!el) return;
     
     if (val === Infinity || isNaN(val) || val < -9999) {
-        el.innerText = "Inviável";
+        el.innerText = "Unviable";
         el.style.color = "var(--danger)";
     } else {
         if (unit === "%") {
@@ -2945,7 +2945,7 @@ async function submitAssignment(classId, groupId, data) {
         }
     } catch (e) {
         console.error(e);
-        showToast("Erro de conexão com o servidor.", "error");
+        showToast("Connection error with server.", "error");
     }
 }
 
@@ -2968,24 +2968,24 @@ async function loadSavedSubmission(classId, groupId) {
                     const prevData = prevResult.data.submissionData || prevResult.data;
                     prevContent.innerHTML = `
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Risco Técnico & Mitigação</span>
-                            <div class="prev-submission-value"><strong>Risco:</strong> ${prevData.risk_tech || 'Não informado'}<br><strong>Mitigação:</strong> ${prevData.mit_tech || 'Não informada'}</div>
+                            <span class="prev-submission-label">Technical Risk & Mitigation</span>
+                            <div class="prev-submission-value"><strong>Risk:</strong> ${prevData.risk_tech || 'Not provided'}<br><strong>Mitigation:</strong> ${prevData.mit_tech || 'Not provided'}</div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Risco Operacional & Mitigação</span>
-                            <div class="prev-submission-value"><strong>Risco:</strong> ${prevData.risk_oper || 'Não informado'}<br><strong>Mitigação:</strong> ${prevData.mit_oper || 'Não informada'}</div>
+                            <span class="prev-submission-label">Operational Risk & Mitigation</span>
+                            <div class="prev-submission-value"><strong>Risk:</strong> ${prevData.risk_oper || 'Not provided'}<br><strong>Mitigation:</strong> ${prevData.mit_oper || 'Not provided'}</div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Risco Clínico-Cultural & Mitigação</span>
-                            <div class="prev-submission-value"><strong>Risco:</strong> ${prevData.risk_clinical || 'Não informado'}<br><strong>Mitigação:</strong> ${prevData.mit_clinical || 'Não informada'}</div>
+                            <span class="prev-submission-label">Clinical-Cultural Risk & Mitigation</span>
+                            <div class="prev-submission-value"><strong>Risk:</strong> ${prevData.risk_clinical || 'Not provided'}<br><strong>Mitigation:</strong> ${prevData.mit_clinical || 'Not provided'}</div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Risco Financeiro & Mitigação</span>
-                            <div class="prev-submission-value"><strong>Risco:</strong> ${prevData.risk_financial || 'Não informado'}<br><strong>Mitigação:</strong> ${prevData.mit_financial || 'Não informada'}</div>
+                            <span class="prev-submission-label">Financial Risk & Mitigation</span>
+                            <div class="prev-submission-value"><strong>Risk:</strong> ${prevData.risk_financial || 'Not provided'}<br><strong>Mitigation:</strong> ${prevData.mit_financial || 'Not provided'}</div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Fator Crítico de Decisão (Showstopper)</span>
-                            <div class="prev-submission-value">Mapeado como showstopper: ${prevData.showstopper === 'technical' ? 'Risco Técnico' : prevData.showstopper === 'operational' ? 'Risco Operacional' : prevData.showstopper === 'clinical' ? 'Risco Clínico' : prevData.showstopper === 'financial' ? 'Risco Financeiro' : 'Nenhum'}</div>
+                            <span class="prev-submission-label">Critical Decision Factor (Showstopper)</span>
+                            <div class="prev-submission-value">Mapped as showstopper: ${prevData.showstopper === 'technical' ? 'Technical Risk' : prevData.showstopper === 'operational' ? 'Operational Risk' : prevData.showstopper === 'clinical' ? 'Clinical Risk' : prevData.showstopper === 'financial' ? 'Financial Risk' : 'None'}</div>
                         </div>
                     `;
                     if (prevContainer) prevContainer.style.display = "block";
@@ -2993,7 +2993,7 @@ async function loadSavedSubmission(classId, groupId) {
                     if (prevContainer) prevContainer.style.display = "none";
                 }
             } catch (e) {
-                console.error("Error loading Aula 1 submission in Aula 2", e);
+                console.error("Error loading Class 1 submission in Class 2", e);
             }
         } else if (classId === "class3") {
             try {
@@ -3005,7 +3005,7 @@ async function loadSavedSubmission(classId, groupId) {
                     const prevData = prevResult.data.submissionData || prevResult.data;
                     prevContent.innerHTML = `
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Parâmetros de Simulação de ROI</span>
+                            <span class="prev-submission-label">ROI Simulation Parameters</span>
                             <div class="prev-submission-value">
                                 <strong>Initial Investment:</strong> R$ ${(prevData.investment || 0).toLocaleString('en-US')}<br>
                                 <strong>Annual Benefit:</strong> R$ ${(prevData.benefit || 0).toLocaleString('en-US')}<br>
@@ -3017,12 +3017,12 @@ async function loadSavedSubmission(classId, groupId) {
                         <div class="prev-submission-field">
                             <span class="prev-submission-label">Ponto de Quebra (Break Point)</span>
                             <div class="prev-submission-value">
-                                ${prevData.breakPoint === 'pessimistic' ? 'Cenário Pessimista' : (prevData.breakPoint === 'realistic' ? 'Cenário Realista' : 'Nenhum (Viável em todos)')}
+                                ${prevData.breakPoint === 'pessimistic' ? 'Pessimistic Scenario' : (prevData.breakPoint === 'realistic' ? 'Realistic Scenario' : 'None (Viable in all)')}
                             </div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Justificativa da Simulação</span>
-                            <div class="prev-submission-value">${prevData.justification || 'Não informada'}</div>
+                            <span class="prev-submission-label">Simulation Justification</span>
+                            <div class="prev-submission-value">${prevData.justification || 'Not provided'}</div>
                         </div>
                     `;
                     if (prevContainer) prevContainer.style.display = "block";
@@ -3030,7 +3030,7 @@ async function loadSavedSubmission(classId, groupId) {
                     if (prevContainer) prevContainer.style.display = "none";
                 }
             } catch (e) {
-                console.error("Error loading Aula 2 submission in Aula 3", e);
+                console.error("Error loading Class 2 submission in Class 3", e);
             }
         }
         
@@ -3097,7 +3097,7 @@ async function loadSavedSubmission(classId, groupId) {
             
             resetForms();
             
-            // Re-apply scenario defaults for Aula 2 if not submitted
+            // Re-apply scenario defaults for Class 2 if not submitted
             const scenario = appState.scenarios[groupNum];
             if (classId === "class2" && scenario) {
                 document.getElementById("sim_investment").value = scenario.investment;
@@ -3276,8 +3276,8 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
     if (!submissionsForGroup || Object.keys(submissionsForGroup).length === 0) {
         submissionDetailViewer.innerHTML = `
             <div class="inspect-submission-card">
-                <h4>Group ${groupId} - Submissão Pendente</h4>
-                <p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Esta equipe ainda não enviou a atividade para a ${classId === 'class1' ? 'Aula 1' : classId === 'class2' ? 'Aula 2' : 'Aula 3'}.</p>
+                <h4>Group ${groupId} - Pending Submission</h4>
+                <p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> This team has not yet submitted the activity for ${classId === 'class1' ? 'Class 1' : classId === 'class2' ? 'Class 2' : 'Class 3'}.</p>
             </div>
         `;
         return;
@@ -3294,38 +3294,38 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
         if (classId === "class1") {
             subContentHTML = `
                 <div class="inspect-item-value ${submission.showstopper === 'technical' ? 'inspect-showstopper' : ''}">
-                    <h6>Risco Técnico ${submission.showstopper === 'technical' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_tech || 'Não informado'}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_tech || 'Não informada'}</p>
+                    <h6>Technical Risk ${submission.showstopper === 'technical' ? '(SHOWSTOPPER)' : ''}</h6>
+                    <p><strong>Risk:</strong> ${submission.risk_tech || 'Not provided'}</p>
+                    <p><strong>Mitigation:</strong> ${submission.mit_tech || 'Not provided'}</p>
                 </div>
                 
                 <div class="inspect-item-value ${submission.showstopper === 'operational' ? 'inspect-showstopper' : ''}">
-                    <h6>Risco Operacional ${submission.showstopper === 'operational' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_oper || 'Não informado'}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_oper || 'Não informada'}</p>
+                    <h6>Operational Risk ${submission.showstopper === 'operational' ? '(SHOWSTOPPER)' : ''}</h6>
+                    <p><strong>Risk:</strong> ${submission.risk_oper || 'Not provided'}</p>
+                    <p><strong>Mitigation:</strong> ${submission.mit_oper || 'Not provided'}</p>
                 </div>
                 
                 <div class="inspect-item-value ${submission.showstopper === 'clinical' ? 'inspect-showstopper' : ''}">
-                    <h6>Risco Clínico-Cultural ${submission.showstopper === 'clinical' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_clinical || 'Não informado'}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_clinical || 'Não informada'}</p>
+                    <h6>Clinical Risk-Cultural ${submission.showstopper === 'clinical' ? '(SHOWSTOPPER)' : ''}</h6>
+                    <p><strong>Risk:</strong> ${submission.risk_clinical || 'Not provided'}</p>
+                    <p><strong>Mitigation:</strong> ${submission.mit_clinical || 'Not provided'}</p>
                 </div>
                 
                 <div class="inspect-item-value ${submission.showstopper === 'financial' ? 'inspect-showstopper' : ''}">
-                    <h6>Risco Financeiro ${submission.showstopper === 'financial' ? '(SHOWSTOPPER)' : ''}</h6>
-                    <p><strong>Risco:</strong> ${submission.risk_financial || 'Não informado'}</p>
-                    <p><strong>Mitigação:</strong> ${submission.mit_financial || 'Não informada'}</p>
+                    <h6>Financial Risk ${submission.showstopper === 'financial' ? '(SHOWSTOPPER)' : ''}</h6>
+                    <p><strong>Risk:</strong> ${submission.risk_financial || 'Not provided'}</p>
+                    <p><strong>Mitigation:</strong> ${submission.mit_financial || 'Not provided'}</p>
                 </div>
             `;
         } else if (classId === "class2") {
             subContentHTML = `
                 <div class="inspect-item-value">
-                    <h6>Parâmetros de Simulação Submetidos</h6>
+                    <h6>Submitted Simulation Parameters</h6>
                     <p><strong>Investment:</strong> R$ ${(submission.investment || 0).toLocaleString('en-US')}</p>
                     <p><strong>Annual Benefit:</strong> R$ ${(submission.benefit || 0).toLocaleString('en-US')}</p>
                     <p><strong>Annual Maintenance:</strong> R$ ${(submission.maintenance || 0).toLocaleString('en-US')}</p>
                     <p><strong>Risk Costs:</strong> R$ ${(submission.risk || 0).toLocaleString('en-US')}</p>
-                    <p><strong>Anos de Análise:</strong> ${submission.years || 5} anos</p>
+                    <p><strong>Analysis Years:</strong> ${submission.years || 5} anos</p>
                 </div>
 
                 <div class="inspect-roi-grid">
@@ -3348,60 +3348,60 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
 
                 <div class="inspect-item-value">
                     <h6>Ponto de Quebra Mapeado</h6>
-                    <p>${submission.breakPoint === 'realistic' ? 'Cenário Realista' : submission.breakPoint === 'pessimistic' ? 'Cenário Pessimista' : 'Nenhum'}</p>
+                    <p>${submission.breakPoint === 'realistic' ? 'Realistic Scenario' : submission.breakPoint === 'pessimistic' ? 'Pessimistic Scenario' : 'None'}</p>
                 </div>
 
                 <div class="inspect-item-value">
                     <h6>Justificativa de Estresse</h6>
-                    <p>${submission.justification || 'Não informada'}</p>
+                    <p>${submission.justification || 'Not provided'}</p>
                 </div>
             `;
         } else if (classId === "class3") {
             const recClass = submission.recommendation === 'GO' ? 'color-clinical' : submission.recommendation === 'NO-GO' ? 'color-financial' : 'color-tech';
             subContentHTML = `
                 <div class="inspect-item-value">
-                    <h6>1. Sumário Executivo</h6>
-                    <p>${submission.summary || 'Não preenchido'}</p>
+                    <h6>1. Executive Summary</h6>
+                    <p>${submission.summary || 'Not filled'}</p>
                 </div>
 
                 <div class="inspect-item-value">
                     <h6>2. Problema & Contexto</h6>
-                    <p>${submission.problem || 'Não preenchido'}</p>
+                    <p>${submission.problem || 'Not filled'}</p>
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>3. Solução Proposta</h6>
-                    <p>${submission.solution || 'Não preenchido'}</p>
+                    <h6>3. Proposed Solution</h6>
+                    <p>${submission.solution || 'Not filled'}</p>
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>4. Análise Financeira sob Estresse</h6>
-                    <p>${submission.finance || 'Não preenchido'}</p>
+                    <h6>4. Financial Evaluation under Stress</h6>
+                    <p>${submission.finance || 'Not filled'}</p>
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>5. Riscos e Mitigações</h6>
-                    <p>${submission.risks || 'Não preenchido'}</p>
+                    <h6>5. Risks and Mitigations</h6>
+                    <p>${submission.risks || 'Not filled'}</p>
                 </div>
                 
                 <div class="inspect-item-value">
                     <h6>Painel de Apoio: Premissas Utilizadas</h6>
-                    <p><strong>Volume:</strong> ${submission.prem_volume || 'Não preenchido'}</p>
-                    <p><strong>Taxa de Adoção:</strong> ${submission.prem_adoption || 'Não preenchido'}</p>
-                    <p><strong>Horizonte de Análise:</strong> ${submission.prem_horizon || 'Não preenchido'}</p>
-                    <p><strong>Custo/Hora Group:</strong> ${submission.prem_cost || 'Não preenchido'}</p>
-                    <p><strong>Fonte de cada dado:</strong> ${submission.prem_source || 'Não preenchido'}</p>
+                    <p><strong>Volume:</strong> ${submission.prem_volume || 'Not filled'}</p>
+                    <p><strong>Adoption Rate:</strong> ${submission.prem_adoption || 'Not filled'}</p>
+                    <p><strong>Analysis Horizon:</strong> ${submission.prem_horizon || 'Not filled'}</p>
+                    <p><strong>Cost/Hour Group:</strong> ${submission.prem_cost || 'Not filled'}</p>
+                    <p><strong>Data Sources:</strong> ${submission.prem_source || 'Not filled'}</p>
                 </div>
                 
                 <div class="inspect-item-value">
-                    <h6>Painel de Apoio: Limitações do Projeto</h6>
-                    <p>${submission.lim_text || 'Não preenchido'}</p>
+                    <h6>Supporting Panel: Project Limitations</h6>
+                    <p>${submission.lim_text || 'Not filled'}</p>
                 </div>
 
                 <div class="inspect-item-value">
-                    <h6>6. Recomendação Final de Investimento</h6>
-                    <p class="${recClass}"><strong>${submission.recommendation || 'Não informada'}</strong></p>
-                    <p class="mt-2"><strong>Condições/Justificativa:</strong><br>${submission.rec_justification || 'Não informada'}</p>
+                    <h6>6. Final Investment Recommendation</h6>
+                    <p class="${recClass}"><strong>${submission.recommendation || 'Not provided'}</strong></p>
+                    <p class="mt-2"><strong>Conditions/Justification:</strong><br>${submission.rec_justification || 'Not provided'}</p>
                 </div>
             `;
         }
@@ -3420,8 +3420,8 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
                     <h5 style="font-size: 0.95rem; margin-bottom: 0.75rem;"><i class="fa-solid fa-pen-nib"></i> Fornecer Feedback Individual</h5>
                     
                     <div class="form-group" style="margin-bottom: 0.75rem;">
-                        <label style="font-size: 0.8rem;">Comentários e Orientações:</label>
-                        <textarea class="profCommentSingle" required rows="2" placeholder="Parabéns pelo trabalho individual, ${studentName}..." style="font-size: 0.85rem; width: 100%; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--bg-body); color: var(--text-primary);"></textarea>
+                        <label style="font-size: 0.8rem;">Comments and Guidelines:</label>
+                        <textarea class="profCommentSingle" required rows="2" placeholder="Congratulations on your individual work, ${studentName}..." style="font-size: 0.85rem; width: 100%; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--bg-body); color: var(--text-primary);"></textarea>
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-sm" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;"><i class="fa-solid fa-paper-plane"></i> Save Individual Feedback</button>
@@ -3493,7 +3493,7 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
                 }
             } catch (err) {
                 console.error(err);
-                showToast("Erro de conexão.", "error");
+                showToast("Connection error.", "error");
             }
         });
     });
@@ -3527,7 +3527,7 @@ function drawWordCloud(elementId, submissions) {
     });
     
     if (Object.keys(freq).length === 0) {
-        container.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Nenhuma palavra enviada pelas equipes ainda...</p>`;
+        container.innerHTML = `<p class="placeholder-text"><i class="fa-solid fa-hourglass-half"></i> Nonea palavra enviada pelas equipes ainda...</p>`;
         return;
     }
     
@@ -3631,7 +3631,7 @@ function drawWordCloud(elementId, submissions) {
                 if (elementId.includes("checkin")) {
                     handleWordLike("checkin", appState.activeClassId, null, word);
                 } else if (elementId.includes("reflection")) {
-                    showToast("Reflexões não suportam curtidas individuais.", "info");
+                    showToast("Reflexions do not support individual likes.", "info");
                 }
             }
             lastTap = now;
@@ -3641,7 +3641,7 @@ function drawWordCloud(elementId, submissions) {
             if (elementId.includes("checkin")) {
                 handleWordLike("checkin", appState.activeClassId, null, word);
             } else if (elementId.includes("reflection")) {
-                showToast("Reflexões não suportam curtidas individuais.", "info");
+                showToast("Reflexions do not support individual likes.", "info");
             }
         });
         

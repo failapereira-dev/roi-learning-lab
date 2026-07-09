@@ -142,6 +142,7 @@ const classesContent = [
     "slides": [
       {
         "id": "slide_1_1",
+        "image": "/slides/slide_1_1.png",
         "title": "Welcome to ROI & Risk Assessment",
         "block": "Introduction",
         "estimatedTime": "2 min",
@@ -169,6 +170,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_4",
+        "image": "/slides/slide_1_4.png",
         "title": "Agenda & Objectives",
         "block": "Introduction",
         "estimatedTime": "3 min",
@@ -177,6 +179,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_5",
+        "image": "/slides/slide_1_5.png",
         "title": "The Guardian of Viability",
         "block": "Block 1: Risk Identity",
         "estimatedTime": "5 min",
@@ -201,6 +204,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_8",
+        "image": "/slides/slide_1_8.png",
         "title": "Four Dimensions of US Healthcare Risk",
         "block": "Block 1: Risk Identity",
         "estimatedTime": "6 min",
@@ -209,6 +213,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_9",
+        "image": "/slides/slide_1_9.png",
         "title": "Probability vs. Impact in Medicine",
         "block": "Block 1: Risk Identity",
         "estimatedTime": "5 min",
@@ -283,6 +288,7 @@ const classesContent = [
     "slides": [
       {
         "id": "slide_2_1",
+        "image": "/slides/slide_2_1.png",
         "title": "Simulation & Stress Testing",
         "block": "Introduction",
         "estimatedTime": "5 min",
@@ -291,6 +297,7 @@ const classesContent = [
       },
       {
         "id": "slide_2_2",
+        "image": "/slides/slide_2_2.png",
         "title": "The Adoption Equation",
         "block": "Block 1: ROI Modeling",
         "estimatedTime": "8 min",
@@ -318,6 +325,7 @@ const classesContent = [
       },
       {
         "id": "slide_2_5",
+        "image": "/slides/slide_2_5.png",
         "title": "Loss Avoidance vs. Pure Savings",
         "block": "Block 1: ROI Modeling",
         "estimatedTime": "10 min",
@@ -376,6 +384,7 @@ const classesContent = [
     "slides": [
       {
         "id": "slide_3_1",
+        "image": "/slides/slide_3_1.png",
         "title": "Governance & Capital Allocation",
         "block": "Introduction",
         "estimatedTime": "5 min",
@@ -384,6 +393,7 @@ const classesContent = [
       },
       {
         "id": "slide_3_2",
+        "image": "/slides/slide_3_2.png",
         "title": "The ROI-5 Framework",
         "block": "Block 1: Governance",
         "estimatedTime": "10 min",

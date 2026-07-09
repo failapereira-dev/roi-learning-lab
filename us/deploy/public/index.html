@@ -237,9 +237,9 @@
 
             <!-- Slide Navigation Footer -->
             <div class="slide-control-footer">
-                <button class="btn btn-sm btn-secondary" id="btnPrevSlide"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+                <button class="btn btn-sm btn-secondary" id="btnPrevSlide"><i class="fa-solid fa-chevron-left"></i> Previous</button>
                 <span id="slideIndicatorText" class="slide-indicator-text">Slide 1 / 12</span>
-                <button class="btn btn-sm btn-secondary" id="btnNextSlide">Próximo <i class="fa-solid fa-chevron-right"></i></button>
+                <button class="btn btn-sm btn-secondary" id="btnNextSlide">Next <i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </section>
 
@@ -247,7 +247,7 @@
         <section class="phase-panel-container" id="conceptCheckPhase" style="display: none; flex: 1.2; border-right: 1px solid var(--border-color);">
             <div>
                 <h2><i class="fa-solid fa-list-check" style="color: var(--gold);"></i> Concept Check</h2>
-                <p class="lead-desc">Verificação de conceitos chaves da aula de hoje. Responda abaixo e receba feedback imediato na tela.</p>
+                <p class="lead-desc">Key concepts check for today's session. Answer below and get instant feedback on the screen.</p>
             </div>
             
             <div class="concept-check-container" id="conceptQuestionsList">
@@ -256,25 +256,25 @@
             
             <div id="conceptScoreContainer" style="display: none; margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: var(--bg-card); border: 2px solid var(--clinical-color); border-radius: 10px;">
                 <h3 style="color: var(--clinical-color); border: none; margin-bottom: 0.5rem;"><i class="fa-solid fa-square-poll-vertical"></i> Respostas Enviadas!</h3>
-                <p id="conceptScoreText" style="font-size: 1.1rem; font-weight: 700;">Você acertou 2 de 3 questões.</p>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">O feedback detalhado das questões foi exibido acima para sua revisão.</p>
+                <p id="conceptScoreText" style="font-size: 1.1rem; font-weight: 700;">You got 2 out of 3 questions correct.</p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Detailed feedback for the questions is displayed above for your review.</p>
             </div>
         </section>
 
         <!-- PHASE 4: Trabalho em Grupo (Center is instructions/scenario, Right is the form) -->
         <section class="phase-panel-container" id="groupworkPhase" style="display: none; flex: 1.2; border-right: 1px solid var(--border-color);">
             <div>
-                <h2><i class="fa-solid fa-users-gear" style="color: var(--gold);"></i> Trabalho em Equipe Colaborativo</h2>
-                <p class="lead-desc">Realize a atividade prática com sua equipe no painel direito. Abaixo estão os detalhes do seu cenário institucional.</p>
+                <h2><i class="fa-solid fa-users-gear" style="color: var(--gold);"></i> Trabalho em Group Colaborativo</h2>
+                <p class="lead-desc">Perform the practical activity with your team in the right panel. Below are the details of your institutional scenario.</p>
             </div>
             
             <div class="slide-activity-widget" style="margin-top: 1rem;">
-                <h4 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fa-solid fa-hospital"></i> Cenário da Equipe</h4>
-                <h3 id="gwScenarioTitle" style="border: none; font-size: 1.15rem; margin-bottom: 0.75rem;">Grupo 1: IA de Triagem de Urgência</h3>
-                <p id="gwScenarioDesc" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">Carregando descrição do cenário...</p>
+                <h4 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fa-solid fa-hospital"></i> Team Scenario</h4>
+                <h3 id="gwScenarioTitle" style="border: none; font-size: 1.15rem; margin-bottom: 0.75rem;">Group 1: Emergency Triage AI</h3>
+                <p id="gwScenarioDesc" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">Loading scenario description...</p>
                 
                 <div class="highlight-box" style="margin-top: 1.5rem; margin-bottom: 0; background: rgba(2, 132, 199, 0.03);">
-                    <strong>Instruções de Entrega:</strong>
+                    <strong>Submission Instructions:</strong>
                     <ul id="gwInstructionsList">
                         <li>Preencha a matriz de risco mapeando 4 categorias e defina o Showstopper.</li>
                     </ul>
@@ -282,11 +282,11 @@
             </div>
         </section>
 
-        <!-- PHASE 5: Reflexão Pós-Aula -->
+        <!-- PHASE 5: Post-Class Reflection -->
         <section class="phase-panel-container" id="reflectionPhase" style="display: none; flex: 1.2; border-right: 1px solid var(--border-color);">
             <div>
-                <h2><i class="fa-solid fa-pen-fancy" style="color: var(--gold);"></i> Reflexão Pós-Aula</h2>
-                <p class="lead-desc">Reflexão final consolidada e auto-avaliação sobre a aula de hoje.</p>
+                <h2><i class="fa-solid fa-pen-fancy" style="color: var(--gold);"></i> Post-Class Reflection</h2>
+                <p class="lead-desc">Final consolidated reflection and self-evaluation on today's session.</p>
             </div>
             
             <div class="slide-activity-widget" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
@@ -294,16 +294,16 @@
                 
                 <div id="reflectionDisplayContainer" style="flex: 1; overflow-y: auto; max-height: 350px;">
                     <!-- Reflections list (visible for professor or student post-submit) -->
-                    <p class="placeholder-text" style="text-align: center;">Escreva sua reflexão no painel à direita.</p>
+                    <p class="placeholder-text" style="text-align: center;">Write your reflection in the panel on the right.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PHASE 6: Referências Bibliográficas -->
+        <!-- PHASE 6: Bibliography & References -->
         <section class="phase-panel-container" id="referencesPhase" style="display: none; flex: 1.2; border-right: 1px solid var(--border-color);">
             <div>
-                <h2><i class="fa-solid fa-book-bookmark" style="color: var(--gold);"></i> Referências Bibliográficas</h2>
-                <p class="lead-desc">Artigos científicos, livros e links indicados para aprofundamento nesta aula.</p>
+                <h2><i class="fa-solid fa-book-bookmark" style="color: var(--gold);"></i> Bibliography & References</h2>
+                <p class="lead-desc">Scientific articles, books, and suggested links for deeper study in this session.</p>
             </div>
             
             <div class="references-list" id="referencesListContainer">
@@ -323,14 +323,14 @@
 
                 <div class="workspace-content">
                     <div class="scenario-highlight">
-                        <h5>Cenário do Grupo:</h5>
+                        <h5>Group Scenario:</h5>
                         <p id="groupScenarioDescription">Loading...</p>
                     </div>
 
                     <!-- SUB-CONTAINER 1: Check-in Input Form -->
                     <div class="activity-box" id="studentCheckinContainer" style="display: none;">
                         <h4><i class="fa-solid fa-clipboard-question"></i> Responder Check-in</h4>
-                        <p class="description">Submeta sua resposta inicial para a discussão.</p>
+                        <p class="description">Submit your initial response for the discussion.</p>
                         
                         <form id="formCheckinSubmit" class="activity-form">
                             <div class="form-group" id="checkinInputGroup">
@@ -343,7 +343,7 @@
                     <!-- SUB-CONTAINER 2: Live Slide Interaction Form -->
                     <div class="activity-box" id="studentSlideIntContainer" style="display: none;">
                         <h4><i class="fa-solid fa-tower-broadcast"></i> Resposta da Atividade ao Vivo</h4>
-                        <p class="description" id="slideIntDescription">Responda à questão exibida no slide ativo.</p>
+                        <p class="description" id="slideIntDescription">Answer the question displayed on the active slide.</p>
                         
                         <form id="formSlideIntSubmit" class="activity-form">
                             <div class="form-group" id="slideIntInputGroup">
@@ -356,25 +356,25 @@
                     <!-- SUB-CONTAINER 3: Concept Check placeholder -->
                     <div class="activity-box" id="studentConceptCheckContainer" style="display: none;">
                         <h4><i class="fa-solid fa-list-check"></i> Concept Check</h4>
-                        <p class="description">Responda ao questionário interativo no painel central da tela.</p>
+                        <p class="description">Answer the interactive quiz in the main panel.</p>
                         <div class="highlight-box" style="margin-top: 1rem; border-left-color: var(--gold); background: rgba(2, 132, 199, 0.03);">
-                            <p style="font-size: 0.8rem; margin: 0; color: var(--text-primary);">A atividade de Concept Check deve ser realizada diretamente na área principal da tela. Selecione as alternativas nas perguntas correspondentes.</p>
+                            <p style="font-size: 0.8rem; margin: 0; color: var(--text-primary);">The Concept Check activity must be completed directly in the main display area. Select options in the corresponding questions.</p>
                         </div>
                     </div>
 
                     <!-- SUB-CONTAINER 4: RISK MAPPING FORM (Aula 1 Group Work) -->
                     <div class="activity-box" id="activity1Container" style="display: none;">
-                        <h4><i class="fa-solid fa-shield-halved"></i> Mapeamento de Risco (Aula 1)</h4>
-                        <p class="description">Identifique os riscos do seu projeto e proponha ações de mitigação. Marque um risco como "Showstopper".</p>
+                        <h4><i class="fa-solid fa-shield-halved"></i> Risk Mapping (Class 1)</h4>
+                        <p class="description">Identify your project's risks and propose mitigation actions. Mark one risk as a "Showstopper".</p>
                         
                         <form id="formActivity1" class="activity-form">
                             <div class="form-grid">
                                 <!-- Technical -->
                                 <div class="form-group-card">
                                     <h5><i class="fa-solid fa-microchip color-tech"></i> Technical Risk</h5>
-                                    <textarea id="risk_tech" required placeholder="Ex: Baixa acurácia do algoritmo de triagem na triagem real..."></textarea>
+                                    <textarea id="risk_tech" required placeholder="e.g., Low accuracy of the triage algorithm in clinical production..."></textarea>
                                     <label>Technical Mitigation:</label>
-                                    <textarea id="mit_tech" required placeholder="Ex: Criar comitê de validação assistida no primeiro mês..."></textarea>
+                                    <textarea id="mit_tech" required placeholder="e.g., Establish an assisted validation committee during the first month..."></textarea>
                                     <label class="checkbox-label">
                                         <input type="radio" name="showstopper" value="technical" required> Mark as Showstopper
                                     </label>
@@ -383,9 +383,9 @@
                                 <!-- Operational -->
                                 <div class="form-group-card">
                                     <h5><i class="fa-solid fa-arrows-spin color-oper"></i> Operational Risk</h5>
-                                    <textarea id="risk_oper" required placeholder="Ex: O efeito dominó no fluxo: aceleração gera gargalo na admissão de exames..."></textarea>
+                                    <textarea id="risk_oper" required placeholder="e.g., Domino effect: workflow acceleration creates bottlenecks in billing admissions..."></textarea>
                                     <label>Operational Mitigation:</label>
-                                    <textarea id="mit_oper" required placeholder="Ex: Redesenhar escala de recepção e treinar atendentes..."></textarea>
+                                    <textarea id="mit_oper" required placeholder="e.g., Redesign reception staffing and retrain attendants..."></textarea>
                                     <label class="checkbox-label">
                                         <input type="radio" name="showstopper" value="operational"> Mark as Showstopper
                                     </label>
@@ -394,9 +394,9 @@
                                 <!-- Clinical -->
                                 <div class="form-group-card">
                                     <h5><i class="fa-solid fa-user-doctor color-clinical"></i> Clinical-Cultural Risk</h5>
-                                    <textarea id="risk_clinical" required placeholder="Ex: Resistência e desconfiança dos médicos ao recomendador de IA..."></textarea>
-                                    <label>Mitigação Clínico-Cultural:</label>
-                                    <textarea id="mit_clinical" required placeholder="Ex: Criar governança de IA 'assistente' e dar controle final ao médico..."></textarea>
+                                    <textarea id="risk_clinical" required placeholder="e.g., Physician resistance and distrust of the AI recommendation system..."></textarea>
+                                    <label>Clinical-Cultural Mitigation:</label>
+                                    <textarea id="mit_clinical" required placeholder="e.g., Formulate 'assistant' AI governance and leave final decision to physicians..."></textarea>
                                     <label class="checkbox-label">
                                         <input type="radio" name="showstopper" value="clinical"> Mark as Showstopper
                                     </label>
@@ -422,7 +422,7 @@
                         <h4><i class="fa-solid fa-calculator"></i> Simulator & Stress Test (Class 2)</h4>
                         <p class="description">Calculate the ROI under three conditions and justify financial viability.</p>
 
-                        <!-- Bloco Colapsável: Respostas da Aula 1 -->
+                        <!-- Collapsible Block: Class 1 Responses -->
                         <details class="prev-submission-details" id="prevSubmissionAula1" style="display: none; margin-bottom: 1.5rem;">
                             <summary>
                                 <i class="fa-solid fa-clock-rotate-left"></i> View Class 1 Answers (Risk Mapping)
@@ -505,41 +505,41 @@
 
                         <form id="formActivity2" class="activity-form mt-4">
                             <div class="form-group">
-                                <label><strong>Ponto de Quebra:</strong> Em qual cenário o projeto se torna inviável?</label>
+                                <label><strong>Break Point:</strong> In which scenario does the project become unfeasible?</label>
                                 <select id="breakPointScenario" class="form-control" required>
                                     <option value="">Selecione...</option>
-                                    <option value="no_break">Nenhum (Viável em todos)</option>
-                                    <option value="realistic">Cenário Realistic</option>
-                                    <option value="pessimistic">Cenário Pessimistic</option>
+                                    <option value="no_break">None (Viable in all)</option>
+                                    <option value="realistic">Realistic Scenario</option>
+                                    <option value="pessimistic">Pessimistic Scenario</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label><strong>Justificativa da Simulação:</strong> Justifique as principais diferenças de ROI encontradas entre os cenários:</label>
-                                <textarea id="simulationJustification" class="form-control" required rows="4" placeholder="Descreva os fatores que mais afetam a viabilidade (ex: custos ocultos, baixa adoção clínica, aumento de tempo de validação)."></textarea>
+                                <label><strong>Simulation Justification:</strong> Explain the main ROI variations observed across scenarios:</label>
+                                <textarea id="simulationJustification" class="form-control" required rows="4" placeholder="Describe the factors that most affect viability (e.g., hidden costs, low clinical adoption, increased validation time)."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-save"></i> Enviar Simulação de ROI</button>
+                            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-save"></i> Submit ROI Simulation</button>
                         </form>
                     </div>
 
                     <!-- SUB-CONTAINER 6: C-SUITE BUSINESS CASE EDITOR (Aula 3 Group Work) -->
                     <div class="activity-box" id="activity3Container" style="display: none;">
-                        <h4><i class="fa-solid fa-file-invoice-dollar"></i> Business Case Executivo (Aula 3)</h4>
-                        <p class="description">Redija colaborativamente um Business Case de 2 páginas baseado em dados reais de Risco e ROI.</p>
+                        <h4><i class="fa-solid fa-file-invoice-dollar"></i> Executive Business Case (Class 3)</h4>
+                        <p class="description">Collaboratively draft a 2-page Business Case based on real Risk and ROI data.</p>
 
-                        <!-- Bloco Colapsável: Respostas da Aula 2 -->
+                        <!-- Collapsible Block: Class 2 Responses -->
                         <details class="prev-submission-details" id="prevSubmissionAula2" style="display: none; margin-bottom: 1.5rem;">
                             <summary>
-                                <i class="fa-solid fa-clock-rotate-left"></i> Visualizar Respostas da Aula 2 (Simulação de ROI)
+                                <i class="fa-solid fa-clock-rotate-left"></i> View Class 2 Answers (ROI Simulation)
                             </summary>
                             <div class="prev-submission-content" id="prevSubmissionAula2Content">
                                 <!-- Inserido dinamicamente via JS -->
                             </div>
                         </details>
 
-                        <!-- Box de Download do Template do Relatório Executivo -->
+                        <!-- Download Box: Executive Template -->
                         <div class="template-download-box" style="margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; text-align: left;">
                             <div style="flex-grow: 1;">
-                                <h5 style="color: var(--clinical-color); margin: 0; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem;"><i class="fa-solid fa-file-word" style="color: #2b579a; font-size: 1.1rem;"></i> Template do Relatório Executivo Final</h5>
+                                <h5 style="color: var(--clinical-color); margin: 0; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem;"><i class="fa-solid fa-file-word" style="color: #2b579a; font-size: 1.1rem;"></i> Final Executive Report Template</h5>
                                 <p style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.25rem 0 0 0; line-height: 1.4;">Download the structured template (.docx) for the team final project, fill in the data, and submit via email.</p>
                             </div>
                             <a href="/Trabalho_Final_Template.docx" download class="btn btn-success" style="white-space: nowrap; background-color: var(--clinical-color); border-color: var(--clinical-color); color: #ffffff; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.82rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: var(--transition); cursor: pointer;"><i class="fa-solid fa-download"></i> Download Template</a>
@@ -548,21 +548,21 @@
                                                 <form id="formActivity3" class="activity-form bc-editor">
                             <!-- C1. Painel "Premissas Utilizadas" -->
                             <div class="form-group-card" style="margin-bottom: 1.5rem; background: rgba(2, 132, 199, 0.02); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 8px;">
-                                <h5 style="color: var(--clinical-color); margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;"><i class="fa-solid fa-list-check"></i> Painel de Apoio: Premissas Utilizadas</h5>
+                                <h5 style="color: var(--clinical-color); margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;"><i class="fa-solid fa-list-check"></i> Supporting Panel: Mapped Assumptions</h5>
                                 <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.4;">
-                                    Documentem aqui as premissas antes de escrever o Sumário Executivo. Um ROI defensável é um ROI cujas premissas alguém de fora conseguiria auditar. <i>Copie este conteúdo para a seção correspondente no seu documento Word final.</i>
+                                    Document the assumptions here before writing the Executive Summary. A defensible ROI is one whose assumptions can be audited. <i>Copy this content to the corresponding section of your final Word document.</i>
                                 </p>
                                 <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem;">
                                     <div class="form-group" style="margin-bottom: 0;">
-                                        <label style="font-size: 0.75rem; font-weight: 600;">Volume (pacientes/exames por período)</label>
+                                        <label style="font-size: 0.75rem; font-weight: 600;">Volume (patients/scans per period)</label>
                                         <input type="text" id="bc_prem_volume" class="form-control" placeholder="Ex: 80.000 exames/ano" style="font-size: 0.8rem; padding: 0.4rem;">
                                     </div>
                                     <div class="form-group" style="margin-bottom: 0;">
-                                        <label style="font-size: 0.75rem; font-weight: 600;">Taxa de Adoção Assumida</label>
-                                        <input type="text" id="bc_prem_adoption" class="form-control" placeholder="Ex: 75% no cenário esperado" style="font-size: 0.8rem; padding: 0.4rem;">
+                                        <label style="font-size: 0.75rem; font-weight: 600;">Assumed Adoption Rate</label>
+                                        <input type="text" id="bc_prem_adoption" class="form-control" placeholder="e.g., 75% in the expected scenario" style="font-size: 0.8rem; padding: 0.4rem;">
                                     </div>
                                     <div class="form-group" style="margin-bottom: 0;">
-                                        <label style="font-size: 0.75rem; font-weight: 600;">Horizonte de Análise (anos)</label>
+                                        <label style="font-size: 0.75rem; font-weight: 600;">Analysis Horizon (years)</label>
                                         <input type="text" id="bc_prem_horizon" class="form-control" placeholder="Ex: 5 anos" style="font-size: 0.8rem; padding: 0.4rem;">
                                     </div>
                                     <div class="form-group" style="margin-bottom: 0;">
@@ -577,61 +577,61 @@
                             </div>
                             <!-- Executive Summary -->
                             <div class="form-group">
-                                <label><span class="bc-num">1</span> Sumário Executivo (Executive Summary)</label>
-                                <span class="help-text">Máximo 200 palavras. Resuma o problema, a solução, os custos, os retornos e a recomendação final de investimentos.</span>
+                                <label><span class="bc-num">1</span> Executive Summary</label>
+                                <span class="help-text">Maximum 200 words. Summarize the problem, the solution, the costs, the returns, and the final investment recommendation.</span>
                                 <textarea id="bc_summary" class="form-control" required rows="4" placeholder="O presente caso visa..."></textarea>
                             </div>
 
                             <!-- Context and Problem -->
                             <div class="form-group">
                                 <label><span class="bc-num">2</span> Problema & Contexto Hospitalar</label>
-                                <span class="help-text">Descreva o gargalo clínico/operacional baseline e as perdas financeiras em decorrência de ineficiência ou falhas.</span>
+                                <span class="help-text">Describe the baseline clinical/operational bottleneck and the financial losses resulting from inefficiency or failures.</span>
                                 <textarea id="bc_problem" class="form-control" required rows="4" placeholder="Atualmente, o fluxo operacional apresenta..."></textarea>
                             </div>
 
                             <!-- Proposed Solution -->
                             <div class="form-group">
-                                <label><span class="bc-num">3</span> Solução Tecnológica Proposta</label>
-                                <span class="help-text">Descreva o quê, o como da ferramenta, seu cronograma de adoção e custos detalhados.</span>
-                                <textarea id="bc_solution" class="form-control" required rows="4" placeholder="A solução de IA consiste na implantação..."></textarea>
+                                <label><span class="bc-num">3</span> Proposed Technical Solution</label>
+                                <span class="help-text">Describe the what, how, adoption timeline, and detailed costs of the tool.</span>
+                                <textarea id="bc_solution" class="form-control" required rows="4" placeholder="The AI solution consists of the deployment of..."></textarea>
                             </div>
 
                             <!-- Financial Evaluation -->
                             <div class="form-group">
-                                <label><span class="bc-num">4</span> Avaliação Financeira sob Estresse</label>
-                                <span class="help-text">Apresente o ROI, Payback e VPL para os cenários Expected, Realistic e Pessimistic. Aponte o ponto de quebra.</span>
+                                <label><span class="bc-num">4</span> Financial Evaluation under Stress</label>
+                                <span class="help-text">Present the ROI, Payback, and NPV for the Expected, Realistic, and Pessimistic scenarios. State the break point.</span>
                                 <textarea id="bc_finance" class="form-control" required rows="4" placeholder="Com base no teste de estresse, o ROI realista..."></textarea>
                             </div>
 
                             <!-- Risks and Mitigations -->
                             <div class="form-group">
-                                <label><span class="bc-num">5</span> Riscos & Plano de Mitigação</label>
-                                <span class="help-text">Descreva os 2 principais riscos, suas estratégias de contingenciamento assistencial/tecnológico e os custos associados.</span>
-                                <textarea id="bc_risks" class="form-control" required rows="4" placeholder="Os principais riscos mapeados são..."></textarea>
+                                <label><span class="bc-num">5</span> Risks & Mitigation Plan</label>
+                                <span class="help-text">Describe the 2 key risks, their clinical/technological contingency strategies, and associated costs.</span>
+                                <textarea id="bc_risks" class="form-control" required rows="4" placeholder="The main mapped risks are..."></textarea>
                             </div>
 
-                            <!-- C2. Painel "Limitações" -->
+                            <!-- C2. Limitations Panel -->
                             <div class="form-group-card" id="bc_limitations_panel" style="margin-bottom: 1.5rem; background: rgba(239, 68, 68, 0.01); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 8px;">
-                                <h5 style="color: #b91c1c; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;"><i class="fa-solid fa-triangle-exclamation"></i> Painel de Apoio: Limitações do Projeto</h5>
+                                <h5 style="color: #b91c1c; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;"><i class="fa-solid fa-triangle-exclamation"></i> Supporting Panel: Project Limitations</h5>
                                 <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.4;">
-                                    <b>Pergunta guia:</b> O que pode fazer o ROI deste projeto não acontecer?<br>
-                                    Listem no mínimo 2 limitações reais (não hipotéticas) do próprio business case, conectando-as explicitamente com as perguntas 4 (Adoção) e 5 (Estresse) do Framework ROI-5. <i>Copie este conteúdo para a seção correspondente no seu documento Word final.</i>
+                                    <b>Guiding question:</b> What could cause this project's ROI not to materialize?<br>
+                                    List at least 2 real (non-hypothetical) limitations of the business case, connecting them explicitly to questions 4 (Adoption) and 5 (Stress) of the ROI-5 Framework. <i>Copy this content to the corresponding section of your final Word document.</i>
                                 </p>
                                 <div class="form-group" style="margin-bottom: 0;">
-                                    <textarea id="bc_lim_text" class="form-control" rows="3" placeholder="Ex: 1) Adoção insuficiente dos radiologistas seniores devido a fadiga de alertas (Pergunta 4). 2) Aumento inesperado do OPEX anual se houver necessidade de nova infraestrutura de rede, derrubando o ROI após estresse (Pergunta 5)..." style="font-size: 0.8rem; padding: 0.4rem;"></textarea>
+                                    <textarea id="bc_lim_text" class="form-control" rows="3" placeholder="e.g., 1) Insufficient adoption by senior radiologists due to alert fatigue (Question 4). 2) Unexpected increase in annual OPEX if new network infrastructure is needed, lowering the ROI under stress (Question 5)..." style="font-size: 0.8rem; padding: 0.4rem;"></textarea>
                                 </div>
                             </div>
 
                             <!-- Final Recommendation -->
                             <div class="form-group border-gold">
-                                <label><span class="bc-num">6</span> Recomendação Final de Investimento</label>
+                                <label><span class="bc-num">6</span> Final Investment Recommendation</label>
                                 <div class="radio-group">
                                     <label class="radio-label go"><input type="radio" name="bc_recommendation" value="GO" required> <strong>GO</strong> (Aprovado)</label>
                                     <label class="radio-label nogo"><input type="radio" name="bc_recommendation" value="NO-GO"> <strong>NO-GO</strong> (Rejeitado)</label>
                                     <label class="radio-label conditional"><input type="radio" name="bc_recommendation" value="CONDITIONAL"> <strong>CONDICIONAL</strong> (Aprovado com condicionantes)</label>
                                 </div>
-                                <label class="mt-2">Condições ou Justificativas Finais:</label>
-                                <textarea id="bc_rec_justification" class="form-control" required rows="3" placeholder="Insira as condições específicas para o GO ou a justificativa fundamental para o NO-GO."></textarea>
+                                <label class="mt-2">Final Conditions or Justifications:</label>
+                                <textarea id="bc_rec_justification" class="form-control" required rows="3" placeholder="Enter specific conditions for GO or the core justification for NO-GO."></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-file-shield"></i> Submit Final Business Case</button>
@@ -640,27 +640,27 @@
 
                     <!-- SUB-CONTAINER 7: Reflection Input Container -->
                     <div class="activity-box" id="studentReflectionContainer" style="display: none;">
-                        <h4><i class="fa-solid fa-pen-fancy"></i> Enviar Reflexão Final</h4>
-                        <p class="description">Escreva suas reflexões de auto-avaliação do dia de hoje para o feedback da professora.</p>
+                        <h4><i class="fa-solid fa-pen-fancy"></i> Submit Reflection Final</h4>
+                        <p class="description">Write your self-evaluation reflections of today for the instructor's feedback.</p>
                         
                         <form id="formReflectionSubmit" class="activity-form">
                             <div class="form-group">
-                                <label for="reflectionText">Sua Reflexão (máximo 500 palavras):</label>
-                                <textarea id="reflectionText" required rows="6" placeholder="Com a aula de hoje, percebi que o ROI real exige avaliar além do marketing. Para o nosso projeto, a mitigação crítica deve ser..."></textarea>
+                                <label for="reflectionText">Your Reflection (maximum 500 words):</label>
+                                <textarea id="reflectionText" required rows="6" placeholder="With today's class, I realized that real ROI requires looking beyond the marketing hype. For our project, the critical mitigation must be..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;"><i class="fa-solid fa-paper-plane"></i> Enviar Reflexão</button>
+                            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;"><i class="fa-solid fa-paper-plane"></i> Submit Reflection</button>
                         </form>
                     </div>
 
                     <!-- SUB-CONTAINER 8: References placeholder -->
                     <div class="activity-box" id="studentReferencesContainer" style="display: none;">
-                        <h4><i class="fa-solid fa-book-bookmark"></i> Referências da Aula</h4>
-                        <p class="description">A bibliografia oficial de apoio está disponível na área principal da tela.</p>
+                        <h4><i class="fa-solid fa-book-bookmark"></i> Class References</h4>
+                        <p class="description">The official supporting bibliography is available in the main screen area.</p>
                     </div>
 
                     <!-- PROFESSOR COMMENT BOARD FOR STUDENTS -->
                     <div class="professor-feedback-section" id="studentFeedbackBox" style="display: none;">
-                        <h5><i class="fa-solid fa-comment-dots" style="color: var(--gold);"></i> Feedback da Professora:</h5>
+                        <h5><i class="fa-solid fa-comment-dots" style="color: var(--gold);"></i> Feedback da Professor:</h5>
                         <div class="feedback-messages" id="studentFeedbackMessages">
                             <!-- Populated dynamically -->
                         </div>
@@ -679,40 +679,40 @@
                     
                     <!-- FASES CONTROL SECTION (Live Sync Tabs) -->
                     <div class="prof-card">
-                        <h3><i class="fa-solid fa-clock-rotate-left"></i> Condução da Aula (Fases)</h3>
-                        <p>Controle qual fase da aula os alunos devem ver síncronamente na tela deles.</p>
+                        <h3><i class="fa-solid fa-clock-rotate-left"></i> Class Conduct (Phases)</h3>
+                        <p>Control which phase of the class students see synchronously on their screens.</p>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.4rem;">
                             <button class="btn btn-sm btn-secondary btn-block" id="btnProfPhaseCheckin"><i class="fa-solid fa-clipboard-question"></i> 1. Check-in</button>
                             <button class="btn btn-sm btn-secondary btn-block" id="btnProfPhaseSlides"><i class="fa-solid fa-chalkboard-user"></i> 2. Slides</button>
                             <button class="btn btn-sm btn-secondary btn-block" id="btnProfPhaseQuiz"><i class="fa-solid fa-list-check"></i> 3. Quiz</button>
                             <button class="btn btn-sm btn-secondary btn-block" id="btnProfPhaseGW"><i class="fa-solid fa-users-gear"></i> 4. Grupos</button>
-                            <button class="btn btn-sm btn-secondary btn-block" id="btnProfPhaseReflect"><i class="fa-solid fa-pen-fancy"></i> 5. Reflexão</button>
+                            <button class="btn btn-sm btn-secondary btn-block" id="btnProfPhaseReflect"><i class="fa-solid fa-pen-fancy"></i> 5. Reflection</button>
                         </div>
                     </div>
 
                     <!-- Presentation slide sync control -->
                     <div class="prof-card" id="profSlideNavCard" style="display: none;">
-                        <h3><i class="fa-solid fa-tower-broadcast"></i> Apresentação Síncrona</h3>
-                        <p>Controle qual slide é mostrado na tela dos alunos na modalidade ao vivo.</p>
+                        <h3><i class="fa-solid fa-tower-broadcast"></i> Synchronous Presentation</h3>
+                        <p>Control which slide is displayed on the students' screens in live mode.</p>
                         
                         <div class="prof-sync-controls">
                             <label class="switch">
                                 <input type="checkbox" id="profSyncToggle" checked>
                                 <span class="slider round"></span>
                             </label>
-                            <span>Forçar sincronização de slides</span>
+                            <span>Force slide synchronization</span>
                         </div>
 
                         <div class="prof-slide-nav">
-                            <button class="btn btn-secondary" id="profPrevSlide"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+                            <button class="btn btn-secondary" id="profPrevSlide"><i class="fa-solid fa-arrow-left"></i> Previous</button>
                             <span class="slide-indicator" id="profSlideIndicator">Slide 1 / 4</span>
-                            <button class="btn btn-secondary" id="profNextSlide">Próximo <i class="fa-solid fa-arrow-right"></i></button>
+                            <button class="btn btn-secondary" id="profNextSlide">Next <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </div>
 
                     <!-- Timer control for professor -->
                     <div class="prof-card" id="profTimerCard" style="display: none; margin-top: 0rem;">
-                        <h3><i class="fa-solid fa-stopwatch"></i> Cronômetro de Atividade</h3>
+                        <h3><i class="fa-solid fa-stopwatch"></i> Activity Timer</h3>
                         <p>Defina o tempo limite para a atividade:</p>
                         <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem; justify-content: space-between;">
                             <button class="btn btn-sm btn-secondary" id="btnProfTimer1" style="flex: 1; padding: 0.4rem;"><i class="fa-solid fa-hourglass-start"></i> 1 min</button>
@@ -725,7 +725,7 @@
 
                     <!-- Teams Submissions Viewer -->
                     <div class="prof-card">
-                        <h3><i class="fa-solid fa-file-circle-check"></i> Submissões das Equipes</h3>
+                        <h3><i class="fa-solid fa-file-circle-check"></i> Team Submissions</h3>
                         <div class="tab-subnav">
                             <button class="sub-tab-btn active" data-subclass="aula1">Aula 1 (Matriz)</button>
                             <button class="sub-tab-btn" data-subclass="aula2">Aula 2 (ROI)</button>
@@ -734,7 +734,7 @@
 
                         <div class="submission-inspection-area">
                             <div class="group-list-inspector">
-                                <h5>Equipes:</h5>
+                                <h5>Groups:</h5>
                                 <div class="inspector-groups-nav" id="inspectorGroupsNav">
                                     <!-- Dynamic group buttons -->
                                 </div>
@@ -742,7 +742,7 @@
 
                             <div class="submission-detail-viewer" id="submissionDetailViewer">
                                 <!-- Dynamic detail view and feedback form -->
-                                <p class="placeholder-text">Selecione uma equipe para avaliar a submissão.</p>
+                                <p class="placeholder-text">Select a team to evaluate their submission.</p>
                             </div>
                         </div>
                     </div>
@@ -755,24 +755,24 @@
     <div class="modal-backdrop" id="rosterModal" style="display: none;">
         <div class="modal-card">
             <div class="modal-header">
-                <h3><i class="fa-solid fa-users"></i> Lista de Alunos e Equipes (38 Alunos)</h3>
+                <h3><i class="fa-solid fa-users"></i> Lista de Alunos e Groups (38 Alunos)</h3>
                 <button class="btn-close" id="btnCloseRoster"><i class="fa-solid fa-times"></i></button>
             </div>
             <div class="modal-body">
                 <div class="roster-search">
-                    <input type="text" id="rosterSearchInput" class="form-control" placeholder="Buscar aluno por nome ou email...">
+                    <input type="text" id="rosterSearchInput" class="form-control" placeholder="Search student by name or email...">
                 </div>
                 <div class="roster-grid">
                     <div class="roster-group-section" data-group="1">
-                        <h4>Grupo 1: IA Triagem de Urgência</h4>
+                        <h4>Group 1</h4>
                         <ul id="rosterList1"></ul>
                     </div>
                     <div class="roster-group-section" data-group="2">
-                        <h4>Grupo 2: Farmácia Robótica</h4>
+                        <h4>Group 2</h4>
                         <ul id="rosterList2"></ul>
                     </div>
                     <div class="roster-group-section" data-group="3">
-                        <h4>Grupo 3: Telemetria Cardíaca</h4>
+                        <h4>Group 3</h4>
                         <ul id="rosterList3"></ul>
                     </div>
                     <div class="roster-group-section" data-group="4">
@@ -780,7 +780,7 @@
                         <ul id="rosterList4"></ul>
                     </div>
                     <div class="roster-group-section" data-group="5">
-                        <h4>Grupo 5: Prontuário Integrado</h4>
+                        <h4>Group 5</h4>
                         <ul id="rosterList5"></ul>
                     </div>
                 </div>
