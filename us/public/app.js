@@ -199,16 +199,23 @@ function handleUserLogin(userId) {
         appState.liveSyncEnabled = true;
         btnLiveSync.classList.add('active');
         
-        // Sync immediately to server state
-        if (appState.serverState.syncEnabled) {
+        // Sync immediately to server state (restricted to class1 for students)
+        if (appState.serverState.syncEnabled && appState.serverState.classId === 'class1') {
             appState.activeClassId = appState.serverState.classId;
             appState.activeSlideId = appState.serverState.slideId;
             appState.activeTab = appState.serverState.activeTab || "checkin";
-            renderTabs();
-            renderSidebar();
-            renderActivePhase();
-            overrideSyncWarning.style.display = "none";
+        } else {
+            appState.activeClassId = 'class1';
+            const targetClass = appState.classes.find(c => c.id === 'class1');
+            if (targetClass && targetClass.slides.length > 0) {
+                appState.activeSlideId = targetClass.slides[0].id;
+            }
+            appState.activeTab = "checkin";
         }
+        renderTabs();
+        renderSidebar();
+        renderActivePhase();
+        overrideSyncWarning.style.display = "none";
     }
     
     updateCurrentUserUI();
@@ -217,18 +224,27 @@ function handleUserLogin(userId) {
 
 // Update Current User display UI in the header
 function updateCurrentUserUI() {
+    const class2Btn = document.querySelector('.class-nav-btn[data-class="class2"]');
+    const class3Btn = document.querySelector('.class-nav-btn[data-class="class3"]');
+    
     if (!appState.currentUser) {
         currentUserDisplay.innerHTML = `<i class="fa-solid fa-user-circle"></i> Desconectado`;
+        if (class2Btn) class2Btn.style.display = 'none';
+        if (class3Btn) class3Btn.style.display = 'none';
         return;
     }
     
     if (appState.currentUser === 'professor') {
         currentUserDisplay.innerHTML = `<i class="fa-solid fa-user-tie" style="color: var(--gold);"></i> <strong>Professor</strong>`;
+        if (class2Btn) class2Btn.style.display = 'flex';
+        if (class3Btn) class3Btn.style.display = 'flex';
     } else {
         const student = appState.students.find(s => s.email === appState.currentUser);
         const displayName = student ? student.name : appState.currentUser;
         const groupNum = student ? student.group : "?";
         currentUserDisplay.innerHTML = `<i class="fa-solid fa-user" style="color: var(--clinical-color);"></i> <strong>${displayName}</strong> <span style="font-size:0.75rem; color:var(--text-secondary);">(Group ${groupNum})</span>`;
+        if (class2Btn) class2Btn.style.display = 'none';
+        if (class3Btn) class3Btn.style.display = 'none';
     }
 }
 
@@ -263,19 +279,21 @@ function setupLiveSync() {
             currentLectureText.innerText = activeClass.title;
         }
         
-        // Apply sync if enabled by student
+        // Apply sync if enabled by student (restricted to class1)
         if (appState.liveSyncEnabled && state.syncEnabled && appState.currentUser !== 'professor') {
-            appState.activeClassId = state.classId;
-            appState.activeSlideId = state.slideId;
-            appState.activeTab = state.activeTab || "checkin";
-            
-            // Re-render components
-            renderTabs();
-            renderSidebar();
-            renderActivePhase();
-            updateWorkspaceView();
-            
-            overrideSyncWarning.style.display = "none";
+            if (state.classId === 'class1') {
+                appState.activeClassId = state.classId;
+                appState.activeSlideId = state.slideId;
+                appState.activeTab = state.activeTab || "checkin";
+                
+                // Re-render components
+                renderTabs();
+                renderSidebar();
+                renderActivePhase();
+                updateWorkspaceView();
+                
+                overrideSyncWarning.style.display = "none";
+            }
         } else {
             // Re-render active results even if manual navigation, to see live updates
             renderActivePhaseResults();
@@ -591,17 +609,17 @@ function setupEventListeners() {
         const password = loginPassword.value.trim();
         
         let isValid = false;
+        const passClean = password.toLowerCase().replace(/\s+/g, '').trim();
+        
         if (selectedUser === 'professor') {
-            const passLower = password.toLowerCase().trim();
-            isValid = (passLower === 'professor' || passLower === 'professor@hmv.org.br' || passLower === 'professor@example.com');
+            isValid = (passClean === 'professor');
         } else {
             const student = appState.students.find(s => s.email === selectedUser);
             if (student) {
-                const prefix = student.email.split('@')[0].toLowerCase();
-                const passLower = password.toLowerCase().trim();
-                if (passLower === student.email.toLowerCase() || 
-                    passLower === prefix || 
-                    passLower === student.name.toLowerCase()) {
+                const studentClean = student.email.toLowerCase().replace(/\s+/g, '');
+                if (passClean === studentClean || 
+                    passClean === `student${student.group}` ||
+                    passClean === `studentgroup${student.group}`) {
                     isValid = true;
                 }
             }
@@ -613,7 +631,7 @@ function setupEventListeners() {
             loginOverlay.classList.add("hidden");
             showToast("Access authorized!", "success");
         } else {
-            showToast("Incorrect password (enter your registered email)!", "error");
+            showToast("Incorrect password!", "error");
         }
     });
     

@@ -131,7 +131,7 @@ def main():
     apply_text_styling(run_link, font_name="Arial", size_pt=11, bold=True, color_rgb=BRAND_BLUE_RGB)
     
     add_bullet_item(doc, "Identity Selection: ", "On the login screen, click the dropdown menu ('Select your Name') and choose your corresponding student group name (e.g., Student Group 1).")
-    add_bullet_item(doc, "Access Credential: ", "In the 'Password' field, enter your assigned course email address (e.g., student1@example.com).")
+    add_bullet_item(doc, "Access Credential: ", "In the 'Password' field, enter your group name (e.g., student1 or student 1).")
     add_bullet_item(doc, "Login: ", "Click 'Login' to unlock access to the interactive class dashboard.")
     
     # Section 2

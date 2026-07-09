@@ -3,13 +3,12 @@ const path = require('path');
 
 const DB_FILE = path.join(__dirname, 'db.json');
 
-// Pre-populated simplified student list (1 student per group)
 const students = [
-  { name: "Student Group 1", email: "student1@example.com", group: 1 },
-  { name: "Student Group 2", email: "student2@example.com", group: 2 },
-  { name: "Student Group 3", email: "student3@example.com", group: 3 },
-  { name: "Student Group 4", email: "student4@example.com", group: 4 },
-  { name: "Student Group 5", email: "student5@example.com", group: 5 }
+  { name: "Student Group 1", email: "student1", group: 1 },
+  { name: "Student Group 2", email: "student2", group: 2 },
+  { name: "Student Group 3", email: "student3", group: 3 },
+  { name: "Student Group 4", email: "student4", group: 4 },
+  { name: "Student Group 5", email: "student5", group: 5 }
 ];
 
 // Mapped US C-Suite Group Scenarios
@@ -145,6 +144,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_3",
+        "image": "/slides/slide_1_3.png",
         "title": "Icebreaker · The Tech Backfire",
         "block": "Opening",
         "estimatedTime": "8 min",
@@ -165,6 +165,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_6",
+        "image": "/slides/slide_1_6.png",
         "title": "Apparent vs. Hidden Risks",
         "block": "Block 1: Risk Identity",
         "estimatedTime": "5 min",
@@ -215,6 +216,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_11",
+        "image": "/slides/slide_1_11.png",
         "title": "Classify the Risk · Interactive Activity",
         "block": "Block 1: Risk Identity",
         "estimatedTime": "5 min",
@@ -291,6 +293,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_13",
+        "image": "/slides/slide_1_13.png",
         "title": "The Speed That Hurts",
         "block": "Block 2: Flow Dynamics",
         "estimatedTime": "5 min",
@@ -299,6 +302,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_14",
+        "image": "/slides/slide_1_14.png",
         "title": "Secondary Bottlenecks",
         "block": "Block 2: Flow Dynamics",
         "estimatedTime": "5 min",
@@ -318,6 +322,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_16",
+        "image": "/slides/slide_1_16.png",
         "title": "Case Study: IBM Watson for Oncology",
         "block": "Case Study",
         "estimatedTime": "15 min",
@@ -326,6 +331,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_17",
+        "image": "/slides/slide_1_17.png",
         "title": "Integrated Case: MRI Report AI",
         "block": "Case Study",
         "estimatedTime": "10 min",
@@ -393,6 +399,7 @@ const classesContent = [
       },
       {
         "id": "slide_1_22",
+        "image": "/slides/slide_1_22.png",
         "title": "Key Takeaways & Bridge to Class 2",
         "block": "Closing",
         "estimatedTime": "5 min",
