@@ -592,11 +592,18 @@ function setupEventListeners() {
         
         let isValid = false;
         if (selectedUser === 'professor') {
-            isValid = (password.toLowerCase() === 'professor' || password.toLowerCase() === 'professor@hmv.org.br');
+            const passLower = password.toLowerCase().trim();
+            isValid = (passLower === 'professor' || passLower === 'professor@hmv.org.br' || passLower === 'professor@example.com');
         } else {
             const student = appState.students.find(s => s.email === selectedUser);
-            if (student && password.toLowerCase() === student.email.toLowerCase()) {
-                isValid = true;
+            if (student) {
+                const prefix = student.email.split('@')[0].toLowerCase();
+                const passLower = password.toLowerCase().trim();
+                if (passLower === student.email.toLowerCase() || 
+                    passLower === prefix || 
+                    passLower === student.name.toLowerCase()) {
+                    isValid = true;
+                }
             }
         }
         
