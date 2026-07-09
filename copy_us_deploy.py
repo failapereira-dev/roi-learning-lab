@@ -26,7 +26,7 @@ def sync_and_package():
             print(f"Warning: {src} not found.")
             
     # 3. Copy frontend files
-    frontend_files = ["index.html", "app.js", "styles.css"]
+    frontend_files = ["index.html", "app.js", "styles.css", "Final_Project_Template.docx", "Student_Manual.docx"]
     for filename in frontend_files:
         src = os.path.join(us_dir, "public", filename)
         dst = os.path.join(deploy_dir, "public", filename)

@@ -348,14 +348,14 @@ function setupWhiteboardCanvas() {
     } else if (allowStudentDraw) {
         if (controls) controls.style.display = "none";
         if (status) {
-            status.innerHTML = `<i class="fa-solid fa-pen-fancy"></i> Lousa Aberta (Desenhe na tela!)`;
+            status.innerHTML = `<i class="fa-solid fa-pen-fancy"></i> Whiteboard Open (Draw on the screen!)`;
             status.style.backgroundColor = "var(--clinical-color)";
             status.style.color = "#fff";
         }
     } else {
         if (controls) controls.style.display = "none";
         if (status) {
-            status.innerHTML = `<i class="fa-solid fa-lock"></i> Apenas Leitura (Aluno)`;
+            status.innerHTML = `<i class="fa-solid fa-lock"></i> Read-Only (Student)`;
             status.style.backgroundColor = "var(--border-color)";
             status.style.color = "var(--text-secondary)";
         }
@@ -1219,10 +1219,10 @@ function renderSidebar() {
                     actName = "Nuvem";
                 } else if (slide.interactionType === "whiteboard") {
                     icon = "fa-chalkboard-user";
-                    actName = "Lousa";
+                    actName = "Whiteboard";
                 } else if (slide.interactionType === "poll" || slide.interactionType === "poll_ab") {
                     icon = "fa-square-poll-vertical";
-                    actName = "Enquete";
+                    actName = "Poll";
                 } else if (slide.interactionType === "quiz") {
                     icon = "fa-circle-question";
                     actName = "Quiz";
@@ -2615,7 +2615,7 @@ function renderReferencesPhase() {
     
     // 1. Recommended readings header
     const recommendedHeader = document.createElement("h3");
-    recommendedHeader.innerHTML = `<i class="fa-solid fa-graduation-cap" style="color: var(--clinical-color);"></i> Estudos Recentes e Leituras Recomendadas para esta Aula`;
+    recommendedHeader.innerHTML = `<i class="fa-solid fa-graduation-cap" style="color: var(--clinical-color);"></i> Recent Studies & Recommended Readings for this Class`;
     recommendedHeader.style.fontSize = "1.1rem";
     recommendedHeader.style.marginBottom = "1rem";
     recommendedHeader.style.marginTop = "0.5rem";
@@ -2626,7 +2626,7 @@ function renderReferencesPhase() {
     if (!activeClass.references || activeClass.references.length === 0) {
         const p = document.createElement("p");
         p.className = "placeholder-text";
-        p.innerText = "Sem leituras recomendadas cadastradas para esta aula.";
+        p.innerText = "No recommended readings registered for this class.";
         container.appendChild(p);
     } else {
         activeClass.references.forEach(ref => {
@@ -2831,9 +2831,9 @@ function runSimulationCalculations() {
     updateMetricUI("calc_roi_real", results.realistic.roi, "%");
     updateMetricUI("calc_roi_pess", results.pessimistic.roi, "%");
     
-    updateMetricUI("calc_pb_exp", results.expected.payback, " anos");
-    updateMetricUI("calc_pb_real", results.realistic.payback, " anos");
-    updateMetricUI("calc_pb_pess", results.pessimistic.payback, " anos");
+    updateMetricUI("calc_pb_exp", results.expected.payback, " years");
+    updateMetricUI("calc_pb_real", results.realistic.payback, " years");
+    updateMetricUI("calc_pb_pess", results.pessimistic.payback, " years");
     
     updateMetricUI("calc_vpl_exp", results.expected.npv, "$");
     updateMetricUI("calc_vpl_real", results.realistic.npv, "$");
@@ -2884,7 +2884,7 @@ function renderChart(expRoi, realRoi, pessRoi) {
         data: {
             labels: ['Esperado (90%)', 'Realista (70%)', 'Pessimista (45%)'],
             datasets: [{
-                label: 'Retorno sobre Investimento (ROI %)',
+                label: 'Return on Investment (ROI %)',
                 data: values,
                 backgroundColor: [
                     'rgba(16, 185, 129, 0.4)',  // Green
@@ -2924,9 +2924,9 @@ function renderChart(expRoi, realRoi, pessRoi) {
 async function submitAssignment(classId, groupId, data) {
     try {
         const activeStudent = appState.students.find(s => s.email === appState.currentUser);
-        const studentName = activeStudent ? activeStudent.name : "Aluno";
+        const studentName = activeStudent ? activeStudent.name : "Student";
         
-        showToast("Enviando trabalho...", "info");
+        showToast("Submitting project...", "info");
         const res = await fetch(`/api/submissions/${classId}/${groupId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -2938,10 +2938,10 @@ async function submitAssignment(classId, groupId, data) {
         });
         
         if (res.ok) {
-            showToast("Trabalho enviado com sucesso!", "success");
+            showToast("Project submitted successfully!", "success");
             loadSavedSubmission(classId, groupId);
         } else {
-            showToast("Erro ao submeter trabalho.", "error");
+            showToast("Error submitting project.", "error");
         }
     } catch (e) {
         console.error(e);
@@ -2960,7 +2960,7 @@ async function loadSavedSubmission(classId, groupId) {
         // Carry-over logic from previous dynamics
         if (classId === "class2") {
             try {
-                const prevRes = await fetch(`/api/submissions/aula1/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
+                const prevRes = await fetch(`/api/submissions/class1/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
                 const prevResult = await prevRes.json();
                 const prevContainer = document.getElementById("prevSubmissionAula1");
                 const prevContent = document.getElementById("prevSubmissionAula1Content");
@@ -2997,7 +2997,7 @@ async function loadSavedSubmission(classId, groupId) {
             }
         } else if (classId === "class3") {
             try {
-                const prevRes = await fetch(`/api/submissions/aula2/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
+                const prevRes = await fetch(`/api/submissions/class2/${groupId}?studentEmail=${encodeURIComponent(appState.currentUser)}`);
                 const prevResult = await prevRes.json();
                 const prevContainer = document.getElementById("prevSubmissionAula2");
                 const prevContent = document.getElementById("prevSubmissionAula2Content");
@@ -3007,15 +3007,15 @@ async function loadSavedSubmission(classId, groupId) {
                         <div class="prev-submission-field">
                             <span class="prev-submission-label">ROI Simulation Parameters</span>
                             <div class="prev-submission-value">
-                                <strong>Initial Investment:</strong> R$ ${(prevData.investment || 0).toLocaleString('en-US')}<br>
-                                <strong>Annual Benefit:</strong> R$ ${(prevData.benefit || 0).toLocaleString('en-US')}<br>
-                                <strong>Annual Maintenance Cost:</strong> R$ ${(prevData.maintenance || 0).toLocaleString('en-US')}<br>
-                                <strong>Hidden Risk Costs:</strong> R$ ${(prevData.risk || 0).toLocaleString('en-US')}<br>
-                                <strong>Horizonte Temporal:</strong> ${prevData.years || 5} anos
+                                <strong>Initial Investment:</strong> $ ${(prevData.investment || 0).toLocaleString('en-US')}<br>
+                                <strong>Annual Benefit:</strong> $ ${(prevData.benefit || 0).toLocaleString('en-US')}<br>
+                                <strong>Annual Maintenance Cost:</strong> $ ${(prevData.maintenance || 0).toLocaleString('en-US')}<br>
+                                <strong>Hidden Risk Costs:</strong> $ ${(prevData.risk || 0).toLocaleString('en-US')}<br>
+                                <strong>Time Horizon:</strong> ${prevData.years || 5} years
                             </div>
                         </div>
                         <div class="prev-submission-field">
-                            <span class="prev-submission-label">Ponto de Quebra (Break Point)</span>
+                            <span class="prev-submission-label">Break Point</span>
                             <div class="prev-submission-value">
                                 ${prevData.breakPoint === 'pessimistic' ? 'Pessimistic Scenario' : (prevData.breakPoint === 'realistic' ? 'Realistic Scenario' : 'None (Viable in all)')}
                             </div>
@@ -3039,7 +3039,7 @@ async function loadSavedSubmission(classId, groupId) {
         const submitBtn3 = document.querySelector("#activity3Container button[type='submit']");
         
         if (result.submitted) {
-            submissionStatus.innerText = `Enviado por ${result.data.submittedBy || 'Group'}`;
+            submissionStatus.innerText = `Submitted by ${result.data.submittedBy || 'Group'}`;
             submissionStatus.className = "badge submitted";
             
             const data = result.data.submissionData || result.data;
@@ -3092,7 +3092,7 @@ async function loadSavedSubmission(classId, groupId) {
                 if (submitBtn3) submitBtn3.style.display = "none";
             }
         } else {
-            submissionStatus.innerText = "Pendente";
+            submissionStatus.innerText = "Pending";
             submissionStatus.className = "badge";
             
             resetForms();
@@ -3187,7 +3187,7 @@ function populateRoster() {
     // Dynamically update search input placeholder depending on role
     const searchInput = document.getElementById("rosterSearchInput");
     if (searchInput) {
-        searchInput.placeholder = isProf ? "Buscar aluno por nome ou email..." : "Buscar aluno por nome...";
+        searchInput.placeholder = isProf ? "Search student by name or email..." : "Search student by name...";
     }
 
     for (let i = 1; i <= 5; i++) {
@@ -3287,7 +3287,7 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
     
     Object.entries(submissionsForGroup).forEach(([studentEmail, submission]) => {
         const submittedTime = new Date(submission.submittedAt).toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit' });
-        const studentName = submission.submittedBy || "Aluno";
+        const studentName = submission.submittedBy || "Student";
         
         let subContentHTML = "";
         
@@ -3322,10 +3322,10 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
                 <div class="inspect-item-value">
                     <h6>Submitted Simulation Parameters</h6>
                     <p><strong>Investment:</strong> R$ ${(submission.investment || 0).toLocaleString('en-US')}</p>
-                    <p><strong>Annual Benefit:</strong> R$ ${(submission.benefit || 0).toLocaleString('en-US')}</p>
+                    <p><strong>Annual Benefit:</strong> $ ${(submission.benefit || 0).toLocaleString('en-US')}</p>
                     <p><strong>Annual Maintenance:</strong> R$ ${(submission.maintenance || 0).toLocaleString('en-US')}</p>
                     <p><strong>Risk Costs:</strong> R$ ${(submission.risk || 0).toLocaleString('en-US')}</p>
-                    <p><strong>Analysis Years:</strong> ${submission.years || 5} anos</p>
+                    <p><strong>Analysis Years:</strong> ${submission.years || 5} years</p>
                 </div>
 
                 <div class="inspect-roi-grid">
