@@ -601,284 +601,203 @@ const classesContent = [
       }
     ],
     "slides": [
-      {
-        "id": "slide_2_1",
-        "title": "Capa da Aula",
-        "image": "/slides/aula2/slide_1.png",
-        "block": "Introdução",
-        "estimatedTime": "2 min",
-        "notes": "<strong>Fala sugerida:</strong> Boas-vindas à nossa segunda sessão. Hoje entraremos a fundo na modelagem de cálculo do ROI abrangente. Vamos aprender a precificar o invisível, estimar a economia de eventos adversos evitados e rodar testes de estresse.",
-        "content": "<h3>Mitigação de Risco e a Anatomia do ROI Inteligente</h3><p>Tornando o invisível quantificável</p><p>Professora: Dra. Faila Santos</p>"
-      },
-      {
-        "id": "slide_2_2",
-        "title": "Icebreaker · O Custo que Ninguém Somou",
-        "image": "/slides/aula2/slide_2.png",
-        "block": "Abertura",
-        "estimatedTime": "8 min",
-        "isInteractive": true,
-        "interactionType": "poll_ab",
-        "question": "Sob sua ótica executiva: qual custo é mais severamente subestimado nas propostas comerciais de saúde digital?",
-        "notes": "<strong>Fala sugerida:</strong> Vamos iniciar com nossa enquete de check-in. Respondam no portal: qual custo costuma sumir com mais frequência das planilhas de investimento em saúde? O OPEX de infraestrutura tecnológica secundária ou o tempo e treinamento dedicados ao suporte de adoção médica?",
-        "content": "<h3>Icebreaker · O custo que ninguém somou</h3><p>Sob sua ótica executiva: qual custo é mais severamente subestimado nas propostas comerciais de saúde digital?</p><p>Vote no portal.</p>"
-      },
-      {
-        "id": "slide_2_3",
-        "title": "Objetivos e Agenda",
-        "image": "/slides/aula2/slide_3.png",
-        "block": "Introdução",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Nosso objetivo hoje é sair da teoria do risco e entrar na matemática do ROI. Vocês vão aprender a rodar um teste de estresse financeiro e a calcular o ROI abrangente, aquele que inclui os custos que a proposta comercial nunca menciona. A agenda tem dois blocos: primeiro, testes de estresse; depois, a matemática do ROI invisível, com casos reais de telemetria, dermatologia e farmácia. Ao final, cada grupo vai submeter uma mini planilha de ROI — hoje vocês calculam, não só ouvem.",
-        "content": "<h3>Objetivos e Agenda</h3><p><b>O que você vai saber:</b> Rodar um teste de estresse financeiro e calcular o ROI abrangente, incluindo riscos operacionais e custos indiretos.</p><p><b>Agenda:</b> Bloco 1 (Testes de Estresse) + Bloco 2 (ROI Invisível) + Dinâmica de Simulação Financeira nos comitês.</p>"
-      },
-      {
-        "id": "slide_2_3_a",
-        "title": "Como os Hospitais Calculam ROI?",
-        "image": "/slides/aula2/slide_3.png",
-        "block": "Fundamentação Metodológica",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> Antes de entrarmos na matemática do ROI abrangente, preciso que vocês saibam de onde ela vem. Não é uma metodologia proprietária da nossa disciplina: é o padrão usado internacionalmente para avaliar investimentos em tecnologia de saúde, formalizado pela AHRQ nos Estados Unidos. A fórmula-base é simples: ROI é igual aos benefícios financeiros menos o investimento, dividido pelo investimento. O que a torna robusta não é a fórmula em si, mas o que vem depois dela: o Payback nos diz quando o dinheiro volta, o VPL traz os fluxos futuros a valor presente, a TIR compara a taxa de retorno do projeto com o custo de capital da instituição, e a análise de sensibilidade nos mostra o que acontece quando as premissas mudam. Quando vocês apresentarem um business case usando essas quatro métricas juntas, estarão falando a língua que qualquer diretoria financeira já conhece e espera ouvir.",
-        "content": "<h3>Como os Hospitais Calculam ROI?</h3><p>Metodologia internacionalmente reconhecida, referendada pela AHRQ (Agency for Healthcare Research and Quality, EUA) em seu Health IT Costs and Benefits Toolkit.</p><p>Fórmula-base: ROI = (Benefícios Financeiros − Investimento) ÷ Investimento</p><p>Complementada por 4 métricas de apoio: Payback, VPL (Valor Presente Líquido), TIR (Taxa Interna de Retorno) e Análise de Sensibilidade.</p><p>Não é uma criação da disciplina: é o padrão que qualquer CFO reconhece e vai cobrar.</p>"
-      },
-      {
-        "id": "slide_2_3_b",
-        "title": "ROI Financeiro + Benefícios Estratégicos",
-        "image": "/slides/aula2/slide_3.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Um erro comum de quem está começando é jogar tudo dentro do número do ROI, incluindo coisas como reputação e satisfação do paciente. Isso é um erro técnico, porque não são números auditáveis, e é um erro estratégico, porque diminui a credibilidade do business case diante do CFO. Vamos separar em duas colunas. Na financeira, entra tudo que pode virar reais: redução de custo, aumento de receita, ganho de produtividade. Na estratégica, entram os benefícios que sustentam a decisão mas que vocês nunca deveriam forçar dentro da fórmula de ROI: segurança do paciente, experiência do paciente, redução de burnout da equipe, reputação e conformidade regulatória. Um bom business case apresenta as duas colunas lado a lado, nunca uma disfarçada de outra.",
-        "content": "<h3>ROI Financeiro + Benefícios Estratégicos</h3><p><b>Benefícios Financeiros (entram na fórmula do ROI):</b> redução de custos, aumento de receita, produtividade / horas economizadas.</p><p><b>Benefícios Estratégicos (não entram na fórmula, mas entram na decisão):</b> segurança do paciente, experiência do paciente, redução de burnout, reputação institucional, compliance regulatório.</p>"
-      },
-      {
-        "id": "slide_2_3_c",
-        "title": "O que Entra no ROI? A Matriz de Monetização",
-        "image": "/slides/aula2/slide_3.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> Toda turma me pergunta a mesma coisa nesse ponto: isso entra ou não entra na planilha? Vamos resolver com duas tabelas. A primeira separa o que efetivamente compõe o numerador do ROI do que fica de fora, mesmo sendo real e importante. A segunda é mais sutil: existem benefícios que parecem impossíveis de monetizar, mas têm uma porta de entrada indireta. Burnout não entra direto, mas vira turnover, e turnover tem custo de recrutamento e retreinamento perfeitamente mensurável. Mortalidade e segurança do paciente raramente entram como número direto, mas os eventos adversos que eles evitam, sim. Essa é a disciplina de tradução que separa um analista júnior de um verdadeiro guardião da viabilidade.",
-        "content": "<h3>O que Entra no ROI? A Matriz de Monetização</h3><h4>Tabela 1 — O que entra / não entra no cálculo:</h4><table class=\"table table-bordered table-striped\"><thead><tr><th>Entra no cálculo</th><th>Não entra no cálculo</th></tr></thead><tbody><tr><td>Economia de horas da equipe</td><td>Satisfação do paciente</td></tr><tr><td>Redução de glosas</td><td>Cultura organizacional</td></tr><tr><td>Redução de readmissões (quando monetizada por convênio/DRG)</td><td>Reputação institucional</td></tr><tr><td>Receita adicional por novo volume/serviço</td><td>Equidade em saúde</td></tr></tbody></table><h4>Tabela 2 — Matriz de Monetização:</h4><table class=\"table table-bordered table-striped\"><thead><tr><th>Benefício</th><th>Pode monetizar?</th></tr></thead><tbody><tr><td>Tempo médico</td><td>Sim</td></tr><tr><td>Tempo de enfermagem</td><td>Sim</td></tr><tr><td>Burnout</td><td>Parcialmente (via turnover e absenteísmo)</td></tr><tr><td>Mortalidade</td><td>Não diretamente (mas os eventos evitados sim)</td></tr><tr><td>Segurança do paciente</td><td>Não diretamente (mas os eventos adversos evitados sim)</td></tr><tr><td>Reputação</td><td>Muito difícil</td></tr></tbody></table>"
-      },
-      {
-        "id": "slide_2_4",
-        "title": "Avaliação de Risco como Defesa Institucional",
-        "image": "/slides/aula2/slide_3.png",
-        "block": "Introdução",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Esse é o mantra do nosso segundo encontro: dizer não, quando os dados apontam para isso, também é entregar valor. Avaliação de risco não existe para travar a inovação, existe para proteger a instituição de investimentos que a infraestrutura ou a cultura organizacional ainda não sustentam. O papel de vocês como guardiões da viabilidade não é aprovar tudo que chega bonito na proposta comercial, é ter a coragem analítica de vetar o que os números mostram que não vai funcionar.",
-        "content": "<h3>Avaliação de Risco como Defesa</h3><p><i>\"Dizer não a um investimento tecnologicamente atraente, mas operacionalmente inviável, é um dos papéis de maior entrega de valor do guardião da viabilidade.\"</i></p><p>Evitar desperdício de CAPEX protege o fluxo de caixa livre hospitalar.</p>"
-      },
-      {
-        "id": "slide_2_5",
-        "title": "O que é um Teste de Estresse Financeiro",
-        "image": "/slides/aula2/slide_4.png",
-        "block": "Bloco 1: Testes de Estresse",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> Um teste de estresse financeiro consiste em simular a resiliência orçamentária do projeto diante das piores premissas possíveis antes do GO. O cálculo nominal do ROI do fornecedor assume sempre um mundo perfeito. O teste de estresse força três perguntas: E se a adoção clínica cair pela metade? E se o suporte técnico exigir mais OPEX do que o previsto? E se a infraestrutura hospitalar falhar e o retorno atrasar?",
-        "content": "<h3>O que é um Teste de Estresse Financeiro?</h3><p><b>Definição:</b> Avaliar a resiliência orçamentária do projeto simulando as piores premissas possíveis de custos e adoção assistencial.</p><p>As 3 perguntas-chave do teste de estresse:</p><ol><li>E se a adoção clínica do corpo médico cair para 50%?</li><li>E se o custo fixo operacional (OPEX) do suporte de TI dobrar?</li><li>E se a implantação atrasar e o retorno começar 12 meses depois?</li></ol>"
-      },
-      {
-        "id": "slide_2_5_a",
-        "title": "Qual Premissa Mais Influencia o ROI?",
-        "image": "/slides/aula2/slide_4.png",
-        "block": "Bloco 1: Testes de Estresse",
-        "estimatedTime": "8 min",
-        "isInteractive": true,
-        "interactionType": "poll",
-        "question": "No cenário do seu grupo, qual variável, se cair 10%, mais destrói o ROI: adoção clínica, custo de manutenção, ou benefício operacional esperado?",
-        "options": [
-          "Adoção clínica da equipe assistencial",
-          "Custo fixo de manutenção e suporte (OPEX)",
-          "Benefício operacional anual esperado"
-        ],
-        "notes": "<strong>Fala sugerida (Gabarito: Adoção Clínica):</strong> Votem na enquete síncrona. *Dica de condução:* A resposta correta aqui é a **Adoção clínica da equipe assistencial** (opção 1). Explique aos alunos que a adoção é o multiplicador final na equação: se a adoção for zero, o ROI será zero, não importa o quão baixo seja o custo de manutenção ou quão alto seja o benefício teórico. É a variável de maior sensibilidade e risco no projeto.",
-        "content": "<h3>Qual Premissa Mais Influencia o ROI?</h3><p><b>Cadeia causal 1:</b> Adoção &rarr; Economia &rarr; ROI</p><p><b>Cadeia causal 2:</b> Treinamento &rarr; Adoção &rarr; ROI</p><p>Pergunta-chave: \"Se vocês só puderem melhorar UMA variável do projeto, qual teria mais efeito sobre o ROI final?\"</p>"
-      },
-      {
-        "id": "slide_2_5_b",
-        "title": "O ROI Não É um Número. É um Intervalo.",
-        "image": "/slides/aula2/slide_4.png",
-        "block": "Bloco 1: Testes de Estresse",
-        "estimatedTime": "4 min",
-        "notes": "<strong>Fala sugerida:</strong> Até agora, cada grupo calculou um número único de ROI. Isso é o primeiro passo, não o último. No mundo real, vocês nunca vão apresentar um ROI de 35% sem contexto. Vão apresentar um ROI esperado de 35%, com um intervalo provável entre 18 e 46%, dependendo da taxa de adoção e dos custos de infraestrutura que discutimos. Essa é a diferença entre um analista que entende risco e um vendedor que só repete o número do fornecedor. Quando o conselho perguntar 'e se a adoção for menor', vocês já vão ter a resposta pronta, porque já rodaram o intervalo.",
-        "content": "<h3>O ROI Não É um Número. É um Intervalo.</h3><p><b>ROI esperado:</b> 35%</p><p><b>Intervalo provável:</b> 18% &ndash; 46%</p><p><i>\"Um ROI apresentado sem intervalo de confiança é uma promessa de marketing disfarçada de matemática financeira.\"</i></p>"
-      },
-      {
-        "id": "slide_2_5_c",
-        "title": "ROI Esperado vs. ROI Observado: A Equação da Adoção",
-        "image": "/slides/aula2/slide_4.png",
-        "block": "Bloco 1: Testes de Estresse",
-        "estimatedTime": "7 min",
-        "notes": "<strong>Fala sugerida:</strong> Existe uma diferença enorme entre o que uma tecnologia é capaz de fazer e o que ela de fato faz dentro da sua instituição. Chamamos isso de exposição teórica versus exposição observada. Um fornecedor vai te mostrar o teto técnico da ferramenta. Mas o uso real, em produção, dentro da cultura e dos processos do seu hospital, é sempre uma fração disso. Essa lacuna tem nome: taxa de adoção. E ela não é um detalhe, é multiplicativa. ROI observado é igual ao ROI esperado multiplicado pela taxa de adoção. Se a adoção for de 45%, não importa quão bom seja o algoritmo, o retorno real nunca vai chegar perto do que está na proposta comercial. A partir de hoje, toda vez que alguém apresentar um número de ROI, a primeira pergunta de vocês deve ser: essa é a taxa de adoção esperada, ou a taxa de adoção observada em um caso real parecido com o meu?",
-        "content": "<h3>ROI Esperado vs. ROI Observado: A Equação da Adoção</h3><p><b>Conceito:</b> exposição teórica (o que a tecnologia consegue fazer) vs. exposição observada (o que ela realmente faz em uso real).</p><p><b>Dado real de mercado:</b> em tarefas administrativas, sistemas de IA têm capacidade técnica para automatizar a maior parte da tarefa, mas o uso observado em escala real ainda é uma fração bem menor disso.</p><p><b>Exemplo prático:</b> \"O fornecedor promete 40 horas economizadas por mês. Na prática, a equipe entrega 12 horas.\"</p><p><b>Equação central:</b> <i>ROI observado = ROI esperado &times; Taxa de adoção</i></p><p><b>Consequência direta:</b> com 45% de adoção, o ROI jamais alcança o número da proposta comercial, mesmo que a tecnologia funcione perfeitamente.</p>"
-      },
-      {
-        "id": "slide_2_5_d",
-        "title": "Use, Compose ou Build: Qual Gera Mais ROI?",
-        "image": "/slides/aula2/slide_4.png",
-        "block": "Bloco 1: Testes de Estresse",
-        "estimatedTime": "12 min",
-        "isInteractive": true,
-        "interactionType": "poll",
-        "question": "Depois da discussão em grupo: qual modelo de implementação (Use, Compose ou Build) vocês escolheriam para o cenário da sua equipe?",
-        "options": [
-          "Use — SaaS pronto de mercado (baixo custo/controle, alta velocidade)",
-          "Compose — Customização via API e contexto próprio (médio custo/controle)",
-          "Build — Modelo treinado e controlado internamente (alto custo/controle, baixa velocidade)"
-        ],
-        "notes": "<strong>Fala sugerida (Análise de Opções):</strong> Qual das três opções gera o maior ROI para o cenário do seu grupo? *Dica de condução:* Destaque que, comercialmente, o modelo **Use (SaaS)** tem a implantação mais rápida e menor CAPEX, mas o **Compose** oferece melhor relação custo-benefício para hospitais de médio/grande porte que precisam customizar processos sem arcar com o custo astronômico do **Build**. Não há uma resposta única, mas a justificativa de TCO e controle deve fundamentar a escolha do comitê.",
-        "content": "<h3>Use, Compose ou Build: Qual Gera Mais ROI?</h3><p><b>Use &mdash; SaaS pronto de mercado:</b> alavancagem máxima, diferenciação mínima, baixo custo, alta velocidade, baixo controle.</p><p><b>Compose &mdash; construção sobre API de modelo de fronteira:</b> alavancagem e diferenciação médias, custo e velocidade equilibrados.</p><p><b>Build &mdash; modelo treinado internamente:</b> alavancagem baixa, diferenciação máxima, alto custo, menor velocidade, maior controle.</p><p><b>Comando:</b> \"Qual das três opções gera o maior ROI para o cenário do seu grupo? Justifiquem em 3 frases.\"</p>"
-      },
-      {
-        "id": "slide_2_5_stress_pic",
-        "title": "Simulação de Estresse Operacional",
-        "image": "/slides/aula2/slide_5.png",
-        "block": "Bloco 1: Testes de Estresse",
-        "estimatedTime": "4 min",
-        "notes": "<strong>Fala sugerida:</strong> Este gráfico de dispersão exemplifica como a oscilação da curva de adoção impacta no fluxo financeiro hospitalar. À esquerda, baixa adoção clínica estende o Payback do projeto e destrói o VPL, enquanto a alta adoção à direita atinge o ROI esperado. Vamos levar esse conceito para os nossos casos clínicos.",
-        "content": "<h3>Simulação de Estresse Operacional</h3><p>Análise gráfica da correlação entre a Adoção Clínica (%) e o VPL final obtido na modelagem financeira hospitalar.</p>"
-      },
-      {
-        "id": "slide_2_6",
-        "title": "Caso Integrado · Telemetria em Leitos",
-        "image": "/slides/aula2/slide_6.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> Analisemos a telemetria em leitos gerais. Adquirir sensores de monitoramento de sinais vitais por IA parece um investimento simples. O custo oculto no caso estudado (R$ 1,5 milhão) envolveu readequar a rede física Wi-Fi do hospital para suportar os dados em tempo real sem quedas (risco técnico de latência), além de criar uma central integrada de enfermagem para receber alertas (risco operacional). Sem essas duas readequações físicas e estruturais, os patches clínicos perdem toda a finalidade diagnóstica e viram puro desperdício de capital.",
-        "content": "<h3>Caso Integrado: Telemetria em Leitos</h3><p>Investimento em patches inteligentes e IA preditiva de sinais vitais em leitos gerais.</p><p><b>Vulnerabilidade de infraestrutura:</b> Necessidade de infraestrutura de rede de alta densidade estável para evitar perda de dados e fadiga assistencial por perda de sinal.</p>"
-      },
-      {
-        "id": "slide_2_7",
-        "title": "Caso Real Internacional · Google DermAssist",
-        "image": "/slides/aula2/slide_7.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> O Google DermAssist é um grande exemplo de risco regulatório no cotidiano. O sistema sugere potenciais condições de pele a partir de fotos feitas pelo paciente e um questionário de sintomas. No entanto, o sistema obteve marcação CE europeia mas enfrentou cautelas e barreiras regulatórias nos EUA. Além disso, surgiram questionamentos éticos sobre o viés de desempenho em tons de pele mais escuros. Um exemplo claro de como riscos regulatórios e de conformidade de algoritmos impactam o go-to-market comercial.",
-        "content": "<h3>Caso Real Internacional: Google DermAssist</h3><p>Ferramenta de IA dermatológica CE-marked na Europa, que sugere potenciais doenças de pele a partir de fotos tiradas de smartphones.</p><p><b>Risco Regulatório e Ético:</b> Dificuldades de homologação FDA nos EUA e barreiras éticas de acurácia em tons de pele escuros por falta de dados representativos no treinamento.</p>"
-      },
-      {
-        "id": "slide_2_10",
-        "title": "O Erro do ROI de Curto Prazo",
-        "image": "/slides/aula2/slide_10.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Aqui mora um dos vieses mais caros da gestão de saúde: olhar só a planilha do mês seguinte. Um projeto de prevenção, como triagem precoce ou telemetria contínua, raramente devolve o investimento no primeiro trimestre. Os benefícios de prevenção aparecem no ano 2 ou 3, quando a curva de eventos evitados começa a compensar o investimento inicial. Se vocês avaliarem um projeto de saúde digital só pelo fluxo de caixa de curto prazo, vão sistematicamente rejeitar exatamente os projetos que mais protegem o paciente e a instituição no longo prazo.",
-        "content": "<h3>O Erro do ROI de Curto Prazo</h3><p>Avaliar projetos de IA apenas pelo fluxo de caixa do primeiro ano penaliza inovações voltadas a ganho de segurança de longo prazo.</p><p>Os maiores benefícios de IA em saúde (evitar readmissões, prevenir sepse) geram valor incremental contínuo em prazos superiores a 24 meses.</p>"
-      },
-      {
-        "id": "slide_2_11",
-        "title": "Riscos Invisíveis · Parte 1",
-        "image": "/slides/aula2/slide_11.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> Os riscos invisíveis de maior peso clínico e financeiro em IA na saúde são as falhas de suporte à decisão que induzem a erros de medicação e eventos adversos severos. No fluxo hospitalar comum, cada evento adverso grave tem um custo estimado alto (diária em UTI adicional, exames repetidos, novas terapias). Evitar esses eventos por meio de alertas inteligentes da IA é uma receita real indireta de alta tração financeira.",
-        "content": "<h3>Riscos Invisíveis · Parte 1</h3><p><b>Erros de Medicação e Eventos Adversos:</b> Custos clínicos diretos adicionais (hotelaria prolongada, UTI) e glosas no repasse que corroem o fluxo financeiro.</p><p>A segurança do paciente deve ser precificada como ativo financeiro estratégico.</p>"
-      },
-      {
-        "id": "slide_2_12",
-        "title": "Riscos Invisíveis · Parte 2",
-        "image": "/slides/aula2/slide_12.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> A segunda camada dos riscos invisíveis são as repercussões jurídicas e de responsabilidade civil. Um erro de medicação induzido por um falso negativo da IA pode resultar em processos indenizatórios judiciais complexos e multas. A contratação de seguros de responsabilidade profissional e a assessoria jurídica dedicada para inovações em IA clínica são despesas operacionais (OPEX) reais que devem constar no cálculo de viabilidade.",
-        "content": "<h3>Riscos Invisíveis · Parte 2</h3><p><b>Custos Jurídicos e Passivos de Responsabilidade Civil:</b> Processos de indenização por desfechos clínicos adversos induzidos ou não detectados por suporte algorítmico.</p><p>OPEX de assessoria regulatória, auditoria jurídica e contratação de seguros corporativos para novos sistemas com IA clínica.</p>"
-      },
-      {
-        "id": "slide_2_13",
-        "title": "Transformar Prevenção em Valor",
-        "image": "/slides/aula2/slide_13.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> Como monetizamos a prevenção? A fórmula mental para calcular o valor gerado indiretamente por prevenção de perdas (Loss Avoidance) é: frequência histórica anual do evento multiplicada pelo custo financeiro médio de cada evento, ponderado pela eficácia esperada do sistema de IA. Exemplo prático do cotidiano: se o hospital tem 100 erros de dispensação de alto custo por ano, e cada erro custa R$ 5 mil em desperdício e retratamento, e a IA da farmácia evita 80% deles, a economia gerada é de R$ 400 mil anuais.",
-        "content": "<h3>Transformar Prevenção em Valor</h3><p><b>Fórmula de Prevenção de Perda (Loss Avoidance):</b></p><p>$$\text{Valor Evitado} = (\text{Freq. Evento}) \times (\text{Custo do Evento}) \times (\text{Taxa Eficácia IA})$$</p><p>Exemplo: 100 eventos/ano evitados &times; R$ 5.000 custo/evento &times; 80% eficácia da IA = R$ 400.000 economizados por ano.</p>"
-      },
-      {
-        "id": "slide_2_14",
-        "title": "Caso Integrado · Automação de Farmácia",
-        "image": "/slides/aula2/slide_14.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> Automação de farmácia é um dos casos mais diretos de ROI abrangente, porque cada erro de dispensação evitado tem valor financeiro e clínico simultâneo. Dispensadores robóticos reduzem o erro humano de troca de medicamento e dose, mas o retorno real depende de dois fatores que a proposta comercial raramente detalha: a integração com o sistema de prescrição legado, que se falhar propaga o erro em vez de eliminá-lo, e a curva de confiança da equipe farmacêutica, que pode resistir ao novo fluxo de trabalho. O benefício técnico só vira ROI quando os dois se resolvem.",
-        "content": "<h3>Caso Integrado: Automação de Farmácia</h3><p><b>O Caso:</b> Dispensadores robóticos e IA preditiva de estoque de medicamentos de alto custo.</p><p><b>Benefício visível:</b> Redução de desperdício por validade de lote e desvio de inventário.</p><p><b>Risco invisível:</b> Resistência operacional dos farmacêuticos ao novo fluxo assistencial de conferência eletrônica.</p>"
-      },
-      {
-        "id": "slide_2_14_read",
-        "title": "Leitura Rápida: Logística de Farmácia no Brasil",
-        "image": "/slides/aula2/slide_14.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Dediquem 5 minutos de leitura dirigida ao guia de farmácia hospitalar nacional. Analisaremos como o fracionamento e rastreabilidade por dose unitária mitiga desvios físicos de estoque e glosas orçamentárias de medicação antes da dinâmica.",
-        "content": "<h3>Leitura Rápida: Logística de Farmácia no Brasil</h3><p>Análise prática de como o controle de estoque em lote e dose unitária evita perdas diretas por vencimento ou glosa orçamentária.</p>"
-      },
-      {
-        "id": "slide_2_14_dyn",
-        "title": "Dinâmica: Gargalos de Estoque na Lousa",
-        "image": "/slides/aula2/slide_14.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "6 min",
-        "isInteractive": true,
-        "interactionType": "whiteboard",
-        "question": "O professor abrirá o console da lousa. Aponte no mapa a etapa da cadeia de medicação com maior atrito ou desperdício.",
-        "notes": "<strong>Fala sugerida:</strong> Vou abrir nossa lousa síncrona. Marquem no fluxo logístico apresentado onde a instituição de vocês sofre as perdas de suprimentos e medicação mais severas: na recepção do estoque, no fracionamento unitário ou na dispensação nas enfermarias.",
-        "content": "<h3>Dinâmica: Gargalos de Estoque na Lousa</h3><p>O professor abrirá o console da lousa. Aponte no mapa a etapa da cadeia de medicação com maior atrito ou desperdício orçamentário no seu hospital.</p>"
-      },
-      {
-        "id": "slide_2_15",
-        "title": "Leitura Recomendada: AHRQ Toolkit",
-        "image": "/slides/aula2/slide_15.png",
-        "block": "Bloco 2: ROI Invisível",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Recomendo como leitura de suporte o Health IT Costs and Benefits Toolkit da AHRQ. A metodologia de separação de custos diretos de TI versus custos indiretos de transição que o manual apresenta apoia a análise de viabilidade dos projetos de vocês.",
-        "content": "<h3>Leitura Recomendada: AHRQ Toolkit</h3><p><b>AHRQ Health IT Costs and Benefits Toolkit:</b> Diretrizes internacionais de separação de custos diretos e indiretos de implantação.</p>"
-      },
-      {
-        "id": "slide_2_16",
-        "title": "Dinâmica · Cálculo de ROI Abrangente",
-        "image": "/slides/aula2/slide_16.png",
-        "block": "Trabalho em Grupo",
-        "estimatedTime": "40 min",
-        "notes": "<strong>Fala sugerida:</strong> Hora de trabalhar nos simuladores dos comitês. Acessem o portal nos seus grupos. Utilizem o simulador de ROI abrangente inserindo as premissas econômicas do cenário do seu comitê, avaliem o VPL em cenários otimistas e sob estresse de adoção e enviem a análise financeira.",
-        "content": "<h3>Dinâmica: Simulação Financeira nos Comitês</h3><p>Trabalho Prático em Grupo: Acesse o simulador de ROI no portal, preencha as premissas econômicas de CAPEX, OPEX e riscos, e envie a análise de viabilidade do comitê.</p>"
-      },
-      {
-        "id": "slide_2_17",
-        "title": "Debrief · O Que Mudou o Resultado",
-        "image": "/slides/aula2/slide_17.png",
-        "block": "Estudo de Caso",
-        "estimatedTime": "15 min",
-        "notes": "<strong>Fala sugerida:</strong> Parabéns pelas submissões financeiras. O Grupo 4 concluiu pela inviabilidade no cenário realista devido ao alto CAPEX e custo de manutenção, enquanto o Grupo 1 justificou a resiliência do payback mesmo sob baixa adoção. Vamos debater estas conclusões estratégicas.",
-        "content": "<h3>Debrief: O que alterou o VPL do projeto?</h3><p>Análise comparativa das taxas de payback e VPL alcançados nos simuladores por cada equipe sob cenários de estresse de engajamento.</p>"
-      },
-      {
-        "id": "slide_2_18",
-        "title": "Reflexão Final",
-        "image": "/slides/aula2/slide_18.png",
-        "block": "Fechamento",
-        "estimatedTime": "8 min",
-        "isInteractive": true,
-        "interactionType": "open_ended",
-        "question": "Qual variável financeira ou operacional passou a ser prioritária na sua análise de viabilidade de projetos?",
-        "notes": "<strong>Fala sugerida:</strong> Peço que respondam no painel, em uma palavra: o que vocês passam a enxergar agora que antes era invisível? Não precisa ser sofisticado. Pode ser 'adoção', pode ser 'infraestrutura', pode ser 'glosa'. O que importa é que, a partir de hoje, esse termo vai aparecer na cabeça de vocês toda vez que alguém apresentar um ROI bonito demais para ser verdade.",
-        "content": "<h3>Reflexão Final</h3><p>Responda no portal: Qual variável financeira ou operacional passou a ser prioritária na sua análise de viabilidade de projetos após as simulações sob estresse?</p>"
-      },
-      {
-        "id": "slide_2_19",
-        "title": "Síntese e Ponte para a Aula 3",
-        "image": "/slides/aula2/slide_19.png",
-        "block": "Encerramento",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Em síntese, o engajamento assistencial do usuário final é a variável crítica do ROI real, e a precificação de riscos deve compor a planilha orçamentária do projeto de forma transparente. Preparem-se para as diretrizes de governança da Aula 3.",
-        "content": "<h3>Takeaways da Aula 2</h3><ul><li>ROI observado depende da taxa de adoção do corpo clínico.</li><li>Cálculo de Loss Avoidance quantifica financeiramente a segurança assistencial.</li><li>O teste de estresse define o ponto de quebra antes de empenhar capital.</li></ul>"
-      },
-      {
-        "id": "slide_2_20_ref",
-        "title": "Referências e Fontes da Aula",
-        "image": "/slides/aula2/slide_20.png",
-        "block": "Encerramento",
-        "estimatedTime": "2 min",
-        "notes": "<strong>Fala sugerida:</strong> As referências bibliográficas do Bloco 2 de modelagem econômico-financeira sob risco estão disponíveis no portal. Todos os links acadêmicos e estudos de caso nacionais encontram-se ativos para consulta e citação nos relatórios finais.",
-        "content": "<h3>Referências Bibliográficas</h3><p>Google DermAssist · WIRED & Blog Google</p><p>Cálculo de ROI em TI e Logística Assistencial · AHRQ Toolkit & Artigos de Rastreabilidade</p>"
-      }
-    ]
+  {
+    "id": "slide_2_1",
+    "title": "Capa da Aula",
+    "image": "/slides/aula2/slide_1.png",
+    "block": "Introdução",
+    "estimatedTime": "2 min",
+    "notes": "<strong>Fala sugerida:</strong> Boas-vindas à nossa segunda sessão. Hoje entraremos a fundo na modelagem de cálculo do ROI abrangente. Vamos aprender a precificar o invisível, estimar a economia de eventos adversos evitados e rodar testes de estresse.",
+    "content": "<h3>Mitigação de Risco e a Anatomia do ROI Inteligente</h3><p>Tornando o invisível quantificável</p><p>Professora: Dra. Faila Santos</p>"
+  },
+  {
+    "id": "slide_2_2",
+    "title": "Icebreaker · O Custo que Ninguém Somou",
+    "image": "/slides/aula2/slide_2.png",
+    "block": "Abertura",
+    "estimatedTime": "8 min",
+    "isInteractive": true,
+    "interactionType": "poll_ab",
+    "question": "Qual destes custos você acha que mais \"some\" das planilhas de projeto?",
+    "options": [
+      "Rede / Obras",
+      "Treinamento",
+      "Retrabalho",
+      "Glosas",
+      "Jurídico"
+    ],
+    "notes": "<strong>Fala sugerida:</strong> Vamos iniciar com nossa enquete de check-in. Respondam no portal: qual destes custos você acha que mais 'some' das planilhas de projeto: Rede/Obras, Treinamento, Retrabalho, Glosas ou Jurídico?",
+    "content": "<h3>Icebreaker · O Custo que Ninguém Somou</h3><p>Qual destes custos você acha que mais \"some\" das planilhas de projeto?</p><p>Vote no portal.</p>"
+  },
+  {
+    "id": "slide_2_3",
+    "title": "Objetivos e Agenda",
+    "image": "/slides/aula2/slide_3.png",
+    "block": "Introdução",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Fala sugerida:</strong> Nosso objetivo hoje é sair da teoria do risco e entrar na matemática do ROI. Vocês vão aprender a rodar um teste de estresse financeiro e a calcular o ROI abrangente, aquele que inclui os custos que a proposta comercial nunca menciona. A agenda tem dois blocos: primeiro, testes de estresse; depois, a matemática do ROI invisível, com casos reais de telemetria, dermatologia e farmácia. Ao final, cada grupo vai submeter uma mini planilha de ROI — hoje vocês calculam, não só ouvem.",
+    "content": "<h3>Objetivos e Agenda</h3><p><b>O que você vai saber:</b> Rodar um teste de estresse financeiro e calcular o ROI abrangente, incluindo riscos operacionais e custos indiretos.</p><p><b>Agenda:</b> Bloco 1 (Testes de Estresse) + Bloco 2 (ROI Invisível) + Dinâmica de Simulação Financeira nos comitês.</p>"
+  },
+  {
+    "id": "slide_2_4",
+    "title": "Avaliação de Risco como Defesa Institucional",
+    "image": "/slides/aula2/slide_4.png",
+    "block": "Introdução",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Fala sugerida:</strong> Esse é o mantra do nosso segundo encontro: dizer não, quando os dados apontam para isso, também é entregar valor. Avaliação de risco não existe para travar a inovação, existe para proteger a instituição de investimentos que a infraestrutura ou a cultura organizacional ainda não sustentam. O papel de vocês como guardiões da viabilidade não é aprovar tudo que chega bonito na proposta comercial, é ter a coragem analítica de vetar o que os números mostram que não vai funcionar.",
+    "content": "<h3>Avaliação de Risco como Defesa Institucional</h3><p><i>\"Tomar decisões baseadas em dados é ter a coragem de escolher o que funciona, e não apenas o que é moda.\"</i></p><p>O veto dos dados: dizer \"não\" de forma fundamentada também é entregar valor. Proteger a instituição de investimentos que a infraestrutura não sustenta é liderança, não resistência.</p>"
+  },
+  {
+    "id": "slide_2_5",
+    "title": "O que é um Teste de Estresse Financeiro",
+    "image": "/slides/aula2/slide_5.png",
+    "block": "Bloco 1: Testes de Estresse",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Fala sugerida:</strong> Um teste de estresse financeiro consiste em simular a resiliência orçamentária do projeto diante das piores premissas possíveis antes do GO. O cálculo nominal do ROI do fornecedor assume sempre um mundo perfeito. O teste de estresse força três perguntas: E se a adoção clínica cair pela metade? E se a rede precisar de upgrade? E se houver obra?",
+    "content": "<h3>O que é um Teste de Estresse Financeiro?</h3><p><b>Definição:</b> Avaliar a resiliência orçamentária do projeto simulando as piores premissas possíveis de custos e adoção assistencial.</p><p>As 3 perguntas-chave do teste de estresse:</p><ol><li>E se a adoção clínica do corpo médico cair para 50%?</li><li>E se a rede precisar de upgrade de infraestrutura?</li><li>E se houver necessidade de obras civis e adequação física?</li></ol>"
+  },
+  {
+    "id": "slide_2_6",
+    "title": "Custos Ocultos de Infraestrutura",
+    "image": "/slides/aula2/slide_6.png",
+    "block": "Bloco 1: Testes de Estresse",
+    "estimatedTime": "6 min",
+    "notes": "<strong>Fala sugerida:</strong> A fundação que sustenta o projeto de IA não aparece na fatura do software. O custo do software raramente é o maior custo do projeto. Abaixo do nível do solo, temos rede e conectividade, integração com o prontuário eletrônico (EHR), obras civis, treinamento e mudança de processos, cibersegurança, suporte e monitoramento contínuo do modelo. Ignorar isso é o que destrói o ROI real.",
+    "content": "<h3>Custos Ocultos de Infraestrutura</h3><p>A fundação que sustenta o projeto não aparece na fatura de software.</p><p>Custos abaixo do nível do solo:</p><ul><li>Rede e conectividade</li><li>Integração com o prontuário (EHR)</li><li>Obras civis e adequação física</li><li>Treinamento e mudança de processo</li><li>Cibersegurança e conformidade</li><li>Suporte, manutenção e monitoramento contínuo</li></ul>"
+  },
+  {
+    "id": "slide_2_7",
+    "title": "Caso Integrado · Telemetria em Leitos",
+    "image": "/slides/aula2/slide_7.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Fala sugerida:</strong> Analisemos a telemetria em leitos gerais. Adquirir sensores de monitoramento de sinais vitais por IA parece um investimento simples. O custo oculto no caso estudado (R$ 1,5 milhão) envolveu readequar a rede física Wi-Fi do hospital para suportar os dados em tempo real sem quedas (risco técnico de latência), além de criar uma central integrada de enfermagem para receber alertas (risco operacional). Sem essas duas readequações físicas e estruturais, os patches clínicos perdem toda a finalidade diagnóstica e viram puro desperdício de capital.",
+    "content": "<h3>Caso Integrado: Telemetria em Leitos</h3><p><b>O Caso:</b> Solução de telemetria promissora e bem avaliada clinicamente. Custo oculto: a infraestrutura de rede e monitoramento central — não apenas os sensores.</p><p><b>Lastro Real (Brasil):</b> A reinauguração da UTI do Hospital Regional de Sobradinho (DF), com monitoramento central, telemetria e leitos adaptados, somou cerca de R$ 1,5 milhão. Telemetria exige investimento estrutural, não apenas compra de equipamentos.</p>"
+  },
+  {
+    "id": "slide_2_8",
+    "title": "Coragem Analítica vs. Moda Tecnológica",
+    "image": "/slides/aula2/slide_8.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "8 min",
+    "isInteractive": true,
+    "interactionType": "open_ended",
+    "question": "Qual custo oculto você mais subestima nos seus projetos e por quê?",
+    "notes": "<strong>Fala sugerida:</strong> Respondam na dinâmica síncrona: qual custo oculto você mais subestima nos seus projetos e por quê? Preterir a solução moderna em favor da que funciona na infraestrutura instalada exige coragem analítica. Reconhecer o ponto cego é o primeiro passo da mitigação.",
+    "content": "<h3>Coragem Analítica vs. Moda Tecnológica</h3><p>Qual custo oculto você mais subestima nos seus projetos e por quê?</p><p>Responda no mural do portal para debatermos as respostas mais votadas pela turma.</p>"
+  },
+  {
+    "id": "slide_2_9",
+    "title": "Caso Real Internacional · Google DermAssist",
+    "image": "/slides/aula2/slide_9.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Fala sugerida:</strong> O Google DermAssist é um grande exemplo de risco regulatório no cotidiano. O sistema sugere potenciais condições de pele a partir de fotos feitas pelo paciente e um questionário de sintomas. No entanto, o sistema obteve marcação CE europeia mas enfrentou cautelas e barreiras regulatórias nos EUA. Além disso, surgiram questionamentos éticos sobre o viés de desempenho em tons de pele mais escuros. Um exemplo claro de como riscos regulatórios e de conformidade de algoritmos impactam o go-to-market comercial.",
+    "content": "<h3>Caso Real Internacional: Google DermAssist</h3><p>Ferramenta de IA dermatológica que sugere condições a partir de foto e sintomas. Marcação CE Classe I na UE; não avaliada pela FDA; não é diagnóstico.</p><p><b>Risco de Viés e Validação:</b> Críticas pela baixa representação de tons de pele mais escuros (risco de viés), validação clínica limitada e risco de autodiagnóstico. A due diligence exige perguntar se a IA foi validada no seu público antes de assinar.</p>"
+  },
+  {
+    "id": "slide_2_10",
+    "title": "O Erro do ROI de Curto Prazo",
+    "image": "/slides/aula2/slide_10.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Fala sugerida:</strong> Aqui mora um dos vieses mais caros da gestão de saúde: olhar só a planilha do mês seguinte. Um projeto de prevenção, como triagem precoce ou telemetria contínua, raramente devolve o investimento no primeiro trimestre. Os benefícios de prevenção aparecem no ano 2 ou 3, quando a curva de eventos evitados começa a compensar o investimento inicial. Se vocês avaliarem um projeto de saúde digital só pelo fluxo de caixa de curto prazo, vão sistematicamente rejeitar exatamente os projetos que mais protegem o paciente e a instituição no longo prazo.",
+    "content": "<h3>O Erro do ROI de Curto Prazo</h3><p>Avaliar projetos de IA apenas pelo fluxo de caixa do primeiro ano penaliza inovações voltadas a ganho de segurança de longo prazo.</p><p>Os maiores benefícios de IA em saúde (evitar readmissões, prevenir sepse) geram valor incremental contínuo em prazos superiores a 24 meses.</p>"
+  },
+  {
+    "id": "slide_2_11",
+    "title": "Riscos Invisíveis · Parte 1",
+    "image": "/slides/aula2/slide_11.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "6 min",
+    "notes": "<strong>Fala sugerida:</strong> Os riscos invisíveis de maior peso clínico e financeiro em IA na saúde são as falhas de suporte à decisão que induzem a erros de medicação e eventos adversos severos. No fluxo hospitalar comum, cada evento adverso grave tem um custo estimado alto (diária em UTI adicional, exames repetidos, novas terapias). Evitar esses eventos por meio de alertas inteligentes da IA é uma receita real indireta de alta tração financeira. Além disso, falhas de registro geram glosas de convênios que corroem silenciosamente a receita.",
+    "content": "<h3>Riscos Invisíveis · Parte 1</h3><p><b>Erros de Medicação e Eventos Adversos:</b> Custos clínicos diretos adicionais (hotelaria prolongada, UTI) e glosas no repasse que corroem o fluxo financeiro.</p><p><b>Glosas de Convênios:</b> Falhas de registro geram glosas que não aparecem na planilha do projeto, mas corroem o resultado financeiro.</p>"
+  },
+  {
+    "id": "slide_2_12",
+    "title": "Riscos Invisíveis · Parte 2",
+    "image": "/slides/aula2/slide_12.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "6 min",
+    "notes": "<strong>Fala sugerida:</strong> A segunda camada dos riscos invisíveis são as repercussões jurídicas e de responsabilidade civil. Um erro de medicação induzido por um falso negativo da IA pode resultar em processos indenizatórios judiciais complexos e multas. A contratação de seguros de responsabilidade profissional e a assessoria jurídica dedicada para inovações em IA clínica são despesas operacionais (OPEX) reais que devem constar no cálculo de viabilidade. Adicione a isso os custos de reputação e o retrabalho operacional.",
+    "content": "<h3>Riscos Invisíveis · Parte 2</h3><p><b>Custos Jurídicos:</b> Processos de indenização por desfechos clínicos adversos induzidos ou não detectados por suporte algorítmico.</p><p><b>Imagem e Reputação:</b> Custos de reputação institucional são difíceis de quantificar, mas devastadores quando materializados.</p><p><b>Retrabalho Operacional:</b> Ineficiências geradas por soluções mal implantadas que consomem tempo e recursos fora do orçamento.</p>"
+  },
+  {
+    "id": "slide_2_13",
+    "title": "Transformar Prevenção em Valor",
+    "image": "/slides/aula2/slide_13.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Fala sugerida:</strong> Como monetizamos a prevenção? A fórmula mental para calcular o valor gerado indiretamente por prevenção de perdas (Loss Avoidance) é: frequência histórica anual do evento multiplicada pelo custo financeiro médio de cada evento, ponderado pela eficácia esperada do sistema de IA. Exemplo prático do cotidiano: se o hospital tem 100 erros de dispensação de alto custo por ano, e cada erro custa R$ 5 mil em desperdício e retratamento, e a IA da farmácia evita 80% deles, a economia gerada é de R$ 400 mil anuais.",
+    "content": "<h3>Transformar Prevenção em Valor</h3><p><b>Fórmula de Prevenção de Perda (Loss Avoidance):</b></p><p>$$\\text{Valor Evitado} = (\\text{Freq. Evento}) \\times (\\text{Custo do Evento}) \\times (\\text{Taxa Eficácia IA})$$</p><p>Adicione os riscos evitados ao retorno direto da solução para obter o ROI abrangente. Lembre-se: ROI defensável é ROI auditável, com premissas explícitas.</p>"
+  },
+  {
+    "id": "slide_2_14",
+    "title": "Caso Integrado · Automação de Farmácia",
+    "image": "/slides/aula2/slide_14.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Fala sugerida:</strong> Automação de farmácia é um dos casos mais diretos de ROI abrangente, porque cada erro de dispensação evitado tem valor financeiro e clínico simultâneo. Dispensadores robóticos reduzem o erro humano de troca de medicamento e dose, mas o retorno real depende de dois fatores que a proposta comercial raramente detalha: a integração com o sistema de prescrição legado, que se falhar propaga o erro em vez de eliminá-lo, e a curva de confiança da equipe farmacêutica, que pode resistir ao novo fluxo de trabalho. O benefício técnico só vira ROI quando os dois se resolvem.",
+    "content": "<h3>Caso Integrado: Automação de Farmácia</h3><p><b>O Caso:</b> Automação reduz erros de dispensação e perdas de medicação. Erros e perdas evitados se convertem diretamente em valor financeiro.</p><p><b>Lastro Real (Brasil):</b> Informatização da logística de farmácia reduziu perdas por validade em 47,9% e compras emergenciais em 70% (JBES, 2022). Em outro hospital, devoluções de medicamentos após dispensação custaram R$ 2,87 milhões (RSD, 2021).</p>"
+  },
+  {
+    "id": "slide_2_15",
+    "title": "Caso Integrado · Como a Prevenção Vira ROI",
+    "image": "/slides/aula2/slide_15.png",
+    "block": "Bloco 2: ROI Invisível",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Fala sugerida:</strong> Este slide resume visualmente o fluxo da farmácia onde a prevenção vira ROI. À esquerda, temos a automação com dispensários eletrônicos que garantem armazenamento seguro, controle e dispensação auditável. À direita, a rastreabilidade informatizada que reduz retrabalho e perdas por validade em 47.9% e compras emergenciais em 70%.",
+    "content": "<h3>Caso Integrado: Como a Prevenção vira ROI</h3><p>Fluxograma de valor na farmácia hospitalar:</p><ul><li><b>Dispensário Eletrônico:</b> Armazenamento seguro, dispensação correta e auditável, rastreabilidade completa.</li><li><b>Rastreabilidade Informatizada:</b> Identificação, registro, integração e relatórios de auditoria.</li><li><b>Impacto:</b> Redução de 47,9% em perdas por validade e de 70% em compras emergenciais.</li></ul>"
+  },
+  {
+    "id": "slide_2_16",
+    "title": "Dinâmica · Cálculo de ROI Abrangente",
+    "image": "/slides/aula2/slide_16.png",
+    "block": "Trabalho em Grupo",
+    "estimatedTime": "40 min",
+    "notes": "<strong>Fala sugerida:</strong> Hora de trabalhar nos simuladores dos comitês. Acessem o portal nos seus grupos. Utilizem o simulador de ROI abrangente inserindo as premissas econômicas do cenário do seu comitê, avaliem o VPL em cenários otimistas e sob estresse de adoção e enviem a análise financeira.",
+    "content": "<h3>Dinâmica: Simulação Financeira nos Comitês</h3><p>Trabalho Prático em Grupo: Acesse o simulador de ROI no portal, preencha as premissas econômicas de CAPEX, OPEX e riscos, e envie a análise de viabilidade do comitê.</p><ol><li>Receba o cenário do comitê</li><li>Calcule o ROI convencional</li><li>Adicione os riscos invisíveis</li><li>Apresente a diferença do ROI real</li></ol>"
+  },
+  {
+    "id": "slide_2_17",
+    "title": "Debrief · O Que Mudou o Resultado",
+    "image": "/slides/aula2/slide_17.png",
+    "block": "Estudo de Caso",
+    "estimatedTime": "15 min",
+    "notes": "<strong>Fala sugerida:</strong> Parabéns pelas submissões financeiras. O Grupo 4 concluiu pela inviabilidade no cenário realista devido ao alto CAPEX e custo de manutenção, enquanto o Grupo 1 justificou a resiliência do payback mesmo sob baixa adoção. Vamos debater estas conclusões estratégicas.",
+    "content": "<h3>Debrief: O que alterou o VPL do projeto?</h3><p>Análise comparativa das taxas de payback e VPL alcançados nos simuladores por cada equipe sob cenários de estresse de engajamento.</p><p>Compare o ROI só visível com o ROI abrangente: a mesma solução muda de veredito quando o invisível entra na conta.</p>"
+  },
+  {
+    "id": "slide_2_18",
+    "title": "Reflexão Final",
+    "image": "/slides/aula2/slide_18.png",
+    "block": "Fechamento",
+    "estimatedTime": "8 min",
+    "isInteractive": true,
+    "interactionType": "open_ended",
+    "question": "Qual variável financeira ou operacional passou a ser prioritária na sua análise de viabilidade de projetos?",
+    "notes": "<strong>Fala sugerida:</strong> Peço que respondam no painel, em uma palavra: o que vocês passam a enxergar agora que antes era invisível? Não precisa ser sofisticado. Pode ser 'adoção', pode ser 'infraestrutura', pode ser 'glosa'. O que importa é que, a partir de hoje, esse termo vai aparecer na cabeça de vocês toda vez que alguém apresentar um ROI bonito demais para ser verdade.",
+    "content": "<h3>Reflexão Final</h3><p>Responda no portal: Em uma palavra, o que você passa a enxergar agora que antes era invisível?</p><p>As palavras de todos formarão uma nuvem de palavras ao vivo.</p>"
+  },
+  {
+    "id": "slide_2_19",
+    "title": "Síntese e Ponte para a Aula 3",
+    "image": "/slides/aula2/slide_19.png",
+    "block": "Encerramento",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Fala sugerida:</strong> Em síntese, o engajamento assistencial do usuário final é a variável crítica do ROI real, e a precificação de riscos deve compor a planilha orçamentária do projeto de forma transparente. Preparem-se para as diretrizes de governança da Aula 3.",
+    "content": "<h3>Takeaways da Aula 2</h3><ul><li>ROI observado depende da taxa de adoção do corpo clínico.</li><li>Cálculo de Loss Avoidance quantifica financeiramente a segurança assistencial.</li><li>O teste de estresse define o ponto de quebra antes de empenhar capital.</li></ul><p>O veto dos dados: escolha a solução que os dados aprovam, e não a que o marketing vende.</p>"
+  },
+  {
+    "id": "slide_2_20_ref",
+    "title": "Referências e Fontes da Aula",
+    "image": "/slides/aula2/slide_20.png",
+    "block": "Encerramento",
+    "estimatedTime": "2 min",
+    "notes": "<strong>Fala sugerida:</strong> As referências bibliográficas do Bloco 2 de modelagem econômico-financeira sob risco estão disponíveis no portal. Todos os links acadêmicos e estudos de caso nacionais encontram-se ativos para consulta e citação nos relatórios finais.",
+    "content": "<h3>Referências Bibliográficas</h3><ul><li>Google DermAssist: <a href=\"https://blog.google/technology/health/ai-dermatology-preview-io-2021\" target=\"_blank\">Blog Google (2021)</a> & <a href=\"https://www.wired.com/story/google-ai-skin-conditions-medical-device/\" target=\"_blank\">WIRED (2021)</a></li><li>Telemetria: <a href=\"https://www.correiobraziliense.com.br\" target=\"_blank\">UTI Hospital Regional de Sobradinho (2026)</a></li><li>IA em dermatologia: <a href=\"https://arxiv.org/abs/2106.07725\" target=\"_blank\">Disparidades por tom de pele, arXiv (2021)</a></li><li>Farmácia: <a href=\"https://www.ahrq.gov/health-it/tools-and-resources/costs-and-benefits-toolkit.html\" target=\"_blank\">JBES (2022) e RSD (2021)</a></li></ul>"
+  }
+]
   },
   {
     "id": "aula3",
