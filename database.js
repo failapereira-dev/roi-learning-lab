@@ -795,7 +795,7 @@ const classesContent = [
     "block": "Encerramento",
     "estimatedTime": "2 min",
     "notes": "<strong>Fala sugerida:</strong> As referências bibliográficas do Bloco 2 de modelagem econômico-financeira sob risco estão disponíveis no portal. Todos os links acadêmicos e estudos de caso nacionais encontram-se ativos para consulta e citação nos relatórios finais.",
-    "content": "<h3>Referências Bibliográficas</h3><ul><li>Google DermAssist · WIRED & Blog Google (2021)</li><li>Telemetria · UTI Hospital Regional de Sobradinho (2026)</li><li>IA em dermatologia · disparidades por tom de pele, arXiv (2021)</li><li>Farmácia · JBES (2022) e RSD (2021)</li></ul>"
+    "content": "<h3>Referências Bibliográficas</h3><ul><li>Google DermAssist: <a href=\"https://blog.google/technology/health/ai-dermatology-preview-io-2021\" target=\"_blank\">Blog Google (2021)</a> & <a href=\"https://www.wired.com/story/google-ai-skin-conditions-medical-device/\" target=\"_blank\">WIRED (2021)</a></li><li>Telemetria: <a href=\"https://www.correiobraziliense.com.br\" target=\"_blank\">UTI Hospital Regional de Sobradinho (2026)</a></li><li>IA em dermatologia: <a href=\"https://arxiv.org/abs/2106.07725\" target=\"_blank\">Disparidades por tom de pele, arXiv (2021)</a></li><li>Farmácia: <a href=\"https://www.ahrq.gov/health-it/tools-and-resources/costs-and-benefits-toolkit.html\" target=\"_blank\">JBES (2022) e RSD (2021)</a></li></ul>"
   }
 ]
   },

@@ -654,7 +654,7 @@ const classesContent = [
     "block": "Closing",
     "estimatedTime": "2 min",
     "notes": "<strong>Suggested Notes:</strong> The bibliography for Block 2 of economic-financial modeling under risk is available in the portal. All academic links and national case studies are active for reference and citation in your final reports.",
-    "content": "<h3>References & Sources</h3><ul><li>Google DermAssist · WIRED & Google Blog (2021)</li><li>Telemetry · UTI Sobradinho (2026)</li><li>Dermatology AI · Skin Tone Disparities, arXiv (2021)</li><li>Pharmacy · JBES (2022) & RSD (2021)</li></ul>"
+    "content": "<h3>References & Sources</h3><ul><li>Google DermAssist: <a href=\"https://blog.google/technology/health/ai-dermatology-preview-io-2021\" target=\"_blank\">Google Blog (2021)</a> & <a href=\"https://www.wired.com/story/google-ai-skin-conditions-medical-device/\" target=\"_blank\">WIRED (2021)</a></li><li>Telemetry: <a href=\"https://www.correiobraziliense.com.br\" target=\"_blank\">UTI Sobradinho Regional Hospital (2026)</a></li><li>Dermatology AI: <a href=\"https://arxiv.org/abs/2106.07725\" target=\"_blank\">Skin Tone Disparities, arXiv (2021)</a></li><li>Pharmacy: <a href=\"https://www.ahrq.gov/health-it/tools-and-resources/costs-and-benefits-toolkit.html\" target=\"_blank\">JBES (2022) & RSD (2021)</a></li></ul>"
   }
 ]
   },
@@ -994,46 +994,63 @@ function getSubmissions(classId) {
 
 function getSubmission(classId, groupId, studentEmail) {
   const db = readData();
-  const classSubs = db.submissions[classId] || {};
-  
+  const groupSubmissions = (db.submissions[classId] || {})[groupId] || {};
   if (studentEmail && studentEmail.toLowerCase().trim() === 'professor') {
-    return classSubs[groupId];
+    return groupSubmissions;
   }
-  
-  const student = students.find(s => s.email.toLowerCase().trim() === studentEmail?.toLowerCase().trim());
-  if (student && student.group == groupId) {
-    return classSubs[groupId];
+  if (studentEmail) {
+    return groupSubmissions[studentEmail] || null;
   }
-  return null;
+  const keys = Object.keys(groupSubmissions);
+  return keys.length > 0 ? groupSubmissions[keys[0]] : null;
 }
 
 function saveSubmission(classId, groupId, studentEmail, submissionData, submittedBy) {
   const db = readData();
   if (!db.submissions[classId]) db.submissions[classId] = {};
+  if (!db.submissions[classId][groupId]) db.submissions[classId][groupId] = {};
   
-  db.submissions[classId][groupId] = {
+  const emailKey = studentEmail || "anonymous";
+  db.submissions[classId][groupId][emailKey] = {
     ...submissionData,
-    submittedBy,
-    studentEmail,
-    timestamp: new Date().toISOString()
+    submittedBy: submittedBy || "Team Student",
+    submittedAt: new Date().toISOString()
   };
   
   writeData(db);
-  return db.submissions[classId][groupId];
+  return db.submissions[classId][groupId][emailKey];
 }
 
 function getComments(classId, groupId, studentEmail) {
   const db = readData();
   const classComments = db.comments[classId] || {};
-  return classComments[groupId] || { text: "", grade: null };
+  const groupComments = classComments[groupId] || {};
+  
+  if (studentEmail) {
+    return groupComments[studentEmail] || [];
+  }
+  const keys = Object.keys(groupComments);
+  return keys.length > 0 ? groupComments[keys[0]] : [];
 }
 
 function saveComment(classId, groupId, studentEmail, text, grade) {
   const db = readData();
   if (!db.comments[classId]) db.comments[classId] = {};
-  db.comments[classId][groupId] = { text, grade, timestamp: new Date().toISOString() };
+  if (!db.comments[classId][groupId]) db.comments[classId][groupId] = {};
+  
+  const emailKey = studentEmail || "anonymous";
+  if (!db.comments[classId][groupId][emailKey]) {
+    db.comments[classId][groupId][emailKey] = [];
+  }
+  const newComment = {
+    text,
+    grade: grade || null,
+    timestamp: new Date().toISOString()
+  };
+  db.comments[classId][groupId][emailKey].push(newComment);
+  
   writeData(db);
-  return db.comments[classId][groupId];
+  return db.comments[classId][groupId][emailKey];
 }
 
 function getCheckins(classId) {
