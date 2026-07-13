@@ -460,253 +460,203 @@ const classesContent = [
       }
     ],
     "slides": [
-      {
-        "id": "slide_2_1",
-        "image": "/slides/slide_2_1.png",
-        "title": "Simulation & Stress Testing",
-        "block": "Introduction",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> Today we will focus on simulation and stress testing. A commercial proposal shows a stable, ideal state. We must stress test this proposal using realistic clinical variables and clinician adoption rates.",
-        "content": "<h3>Operational Simulation & ROI Stress Testing</h3><p>Moving from ideal business plans to stressed financial models in health systems.</p>"
-      },
-      {
-        "id": "slide_2_2",
-        "image": "/slides/slide_2_2.png",
-        "title": "The Adoption Equation",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> The fundamental rule of digital health ROI: Realized ROI is Expected ROI multiplied by the clinician adoption rate. If doctors only use the ambient AI tool 50% of the time, you only realize 50% of the ROI.",
-        "content": "<h3>The Adoption Equation</h3><p>$$\\text{Realized ROI} = \\text{Expected ROI} \\times \\text{Adoption Rate}$$</p><p>A tool with 100% theoretical ROI and 20% clinical adoption yields a 20% return. Clinician friction is a direct financial cost.</p>"
-      },
-      {
-        "id": "slide_2_3",
-        "title": "Check-in: The Bottleneck",
-        "block": "Opening",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> Let's run our check-in. In your experience, what is the biggest operational bottleneck when introducing a new clinical application?",
-        "content": "<h3>Check-in: The Bottleneck</h3><p>What is the biggest operational hurdle when deploying a new clinical software?</p>"
-      },
-      {
-        "id": "slide_2_3_a",
-        "title": "How do Health Systems Calculate ROI?",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Suggested Notes:</strong> Before we look at the math, where does it come from? It's the international standard for health IT evaluation, formal-ized by the AHRQ. We calculate ROI, Payback, NPV, and IRR, and run sensitivity analyses to stress-test our premises.",
-        "content": "<h3>How do Health Systems Calculate ROI?</h3><p>Based on the international standard AHRQ Health IT Costs and Benefits Toolkit.</p><p>Formula: ROI = (Financial Benefits − Investment) ÷ Investment</p><p>Supported by 4 key metrics: Payback Period, NPV (Net Present Value), IRR (Internal Rate of Return), and Sensitivity Analysis.</p>"
-      },
-      {
-        "id": "slide_2_3_b",
-        "title": "Financial ROI vs. Strategic Benefits",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> Don't mix clinical quality or patient satisfaction directly into the ROI formula. Keep them in two columns. Financial column for hard savings/revenue; Strategic column for quality, experience, and compliance.",
-        "content": "<h3>Financial ROI + Strategic Benefits</h3><p><b>Financial Benefits (enter the ROI formula):</b> cost reductions, revenue gains, staff productivity.</p><p><b>Strategic Benefits (inform the decision, but stay out of the formula):</b> patient safety, physician burnout reduction, brand reputation, compliance.</p>"
-      },
-      {
-        "id": "slide_2_3_c",
-        "title": "What enters the ROI? The Monetization Matrix",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> We separate what directly enters the ROI numerator from what stays out. Indirect benefits like physician burnout reduction can be monetized indirectly via clinical staff turnover costs (recruiting and retraining).",
-        "content": "<h3>What enters the ROI?</h3><p><b>Direct Savings:</b> Supply waste reduction, beds freed, claims denials prevented.</p><p><b>Indirect Monetization:</b> Staff burnout reduced (measured as lower turnover costs), clinical errors prevented (measured as avoided malpractice payouts).</p>"
-      },
-      {
-        "id": "slide_2_4",
-        "title": "Risk Assessment as Institutional Defense",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> Risk mapping is not just about identifying threats; it's a financial defense. We calculate the Risk Cost: (probability) × (impact) × (mitigation coefficient). This converts uncertainty into a clear line item on the spreadsheet.",
-        "content": "<h3>Risk Cost Calculation</h3><p>$$\\text{Risk Cost} = \\text{Probability} \\times \\text{Financial Impact} \\times (1 - \\text{Mitigation Effectiveness})$$</p><p>Risk Cost acts as a discount factor on expected benefits. Unmitigated risks directly erode the financial return."
-      },
-      {
-        "id": "slide_2_5",
-        "image": "/slides/slide_2_5.png",
-        "title": "What is a Financial Stress Test?",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Suggested Notes:</strong> A stress test evaluates how the project's financial feasibility behaves under degraded conditions. We never model a single scenario. We stress test the variables that the vendor assumes are ideal.",
-        "content": "<h3>Financial Stress Testing</h3><p>Modeling financial feasibility under degraded conditions.</p><p>Key stress variables: lower clinical adoption, extended integration timeline, higher implementation OPEX, and unexpected risk costs.</p>"
-      },
-      {
-        "id": "slide_2_5_a",
-        "title": "Which Assumption Most Influences the ROI?",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "8 min",
-        "isInteractive": true,
-        "interactionType": "poll",
-        "question": "Which assumption is most volatile and has the highest sensitivity in health IT projects?",
-        "notes": "<strong>Suggested Notes:</strong> Vote: in your experience, which assumption is most volatile and has the highest sensitivity in health IT projects? Clinical adoption rate, software license price, or hardware maintenance?",
-        "content": "<h3>Which Assumption Most Influences the ROI?</h3><p>Vote in the live enquete regarding variable sensitivity in clinical software models.</p>",
-        "options": [
-          "Clinician adoption rate and daily usage",
-          "Software license price and contract escalation",
-          "Hardware maintenance and hosting costs"
-        ]
-      },
-      {
-        "id": "slide_2_5_b",
-        "title": "ROI is not a Single Number. It is a Range.",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Suggested Notes:</strong> Never present a single ROI percentage. Present a range. Expected (90% adoption), Realistic (70% adoption), and Pessimistic (45% adoption + Risk Cost). The CFO wants to see that the project remains viable even under stress.",
-        "content": "<h3>ROI is a Range, Not a Number</h3><p>Always present three scenarios to the C-suite:</p><ul><li><b>Expected:</b> High adoption, zero risk costs. (The sales pitch)</li><li><b>Realistic:</b> Average adoption, mitigated risks. (The baseline)</li><li><b>Pessimistic:</b> Low adoption, realized risk costs. (The stress test)</li></ul>"
-      },
-      {
-        "id": "slide_2_5_c",
-        "title": "Expected vs. Realized ROI: The Adoption Equation",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> We formalize this mathematically. Realized ROI equals Expected ROI times the adoption rate. Adoption is not a qualitative metric; it is a multiplier of your financial return.",
-        "content": "<h3>The Adoption Equation</h3><p>$$\\text{Realized ROI} = \\text{Expected ROI} \\times \\text{Adoption Rate}$$</p><p>Clinician adoption is a direct financial variable. If usage falls to 40%, 60% of the projected benefits vanish immediately."
-      },
-      {
-        "id": "slide_2_5_d",
-        "title": "Use, Compose ou Build: Qual Gera Mais ROI?",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "8 min",
-        "isInteractive": true,
-        "interactionType": "poll",
-        "question": "Which architecture strategy yields the most sustainable ROI for a mid-sized health system?",
-        "notes": "<strong>Suggested Notes:</strong> Vote: when selecting architecture, which strategy is more cost-effective? Use (buying commercial off-the-shelf), Compose (API-integrating multiple niche systems), or Build (developing custom in-house software)?",
-        "content": "<h3>Use, Compose, or Build?</h3><p>Vote on the preferred architecture strategy for digital health integration.</p>",
-        "options": [
-          "Use: Buying commercial off-the-shelf (COTS) software (low setup, high licensing)",
-          "Compose: Integrating niche API-based solutions (moderate cost, high integration overhead)",
-          "Build: Custom in-house software development (high initial CAPEX, custom strategic value)"
-        ]
-      },
-      {
-        "id": "slide_2_5_stress_pic",
-        "title": "Operational Stress Simulation",
-        "block": "Block 1: ROI Modeling",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> Now let's open the simulator in the portal. We will plug in these variables and see how NPV, Payback, and ROI shift under stress.",
-        "content": "<h3>Operational Stress Simulator</h3><p>Prepare to input parameters and run stress scenarios on the financial model.</p>"
-      },
-      {
-        "id": "slide_2_6",
-        "title": "Integrated Case: Wireless Bed Telemetry",
-        "block": "Case Study",
-        "estimatedTime": "15 min",
-        "notes": "<strong>Suggested Notes:</strong> Let's review the telemetry case. Standard telemetry is expensive. Wireless patches promise to expand monitoring to general beds. However, without Wi-Fi network updates, signal dropouts trigger false alarms, causing nurse fatigue and liability risks.",
-        "content": "<h3>Case: Wireless Cardiac Telemetry</h3><p>Expanding telemetry monitoring to general wards via wireless patches.</p><p><b>Operational Friction:</b> Poor Wi-Fi coverage leads to signal drops, generating false warning alerts, alarm fatigue, and patient safety risks.</p>"
-      },
-      {
-        "id": "slide_2_7",
-        "title": "Case Study: Google DermAssist",
-        "block": "Case Study",
-        "estimatedTime": "12 min",
-        "notes": "<strong>Suggested Notes:</strong> Google DermAssist uses deep learning to identify skin conditions. However, validation trials revealed that accuracy dropped significantly on darker skin tones. Implementing it without accounting for local patient demographics introduces a major regulatory and clinical risk.",
-        "content": "<h3>Case: Google DermAssist</h3><p>AI tool for skin conditions identification.</p><p><b>Failure Point:</b> Model validation revealed poor generalizability and bias on darker skin tones, creating immediate clinical and liability risks.</p>"
-      },
-      {
-        "id": "slide_2_10",
-        "title": "The Short-Term ROI Fallacy",
-        "block": "Block 2: Invisible Risks",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> CFOs often demand a payback under 1 year. In clinical software, this is a trap. Accelerated timelines compromise training and integration, causing workflow rejection and negative long-term ROI.",
-        "content": "<h3>The Short-Term ROI Fallacy</h3><p>Demanding a payback period under 1 year leads to rushed implementations, poor clinical training, and eventual system rejection.</p>"
-      },
-      {
-        "id": "slide_2_11",
-        "title": "Invisible Risks · Part 1",
-        "block": "Block 2: Invisible Risks",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> We discuss two major invisible risks: data drift and API changes. A model that works perfectly today will degrade as patient demographics change or EHR vendor APIs update.",
-        "content": "<h3>Invisible Risks: Data Drift & API Changes</h3><p><b>Data Drift:</b> AI model performance degrades over time as clinical practice patterns or patient populations change.</p><p><b>API Fragility:</b> EHR version upgrades can break AI integrations, requiring custom patch engineering.</p>"
-      },
-      {
-        "id": "slide_2_12",
-        "title": "Invisible Risks · Part 2",
-        "block": "Block 2: Invisible Risks",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> The second set of invisible risks includes vendor lock-in and clinical liability. Replacing a deeply integrated system is incredibly expensive, and the hospital retains ultimate malpractice liability if the AI fails.",
-        "content": "<h3>Invisible Risks: Lock-in & Liability</h3><p><b>Vendor Lock-in:</b> High cost of switching vendors once patient data is locked in a proprietary database.</p><p><b>Clinical Liability:</b> The health system, not the AI vendor, bears the legal burden for diagnostic errors.</p>"
-      },
-      {
-        "id": "slide_2_13",
-        "title": "Turning Prevention into Value",
-        "block": "Block 2: Invisible Risks",
-        "estimatedTime": "10 min",
-        "notes": "<strong>Suggested Notes:</strong> How do you monetize prevention? We map the avoided cost of adverse events. For instance, preventing one ICU readmission saves $15,000. Under a capitated or value-based model, this is a direct financial benefit.",
-        "content": "<h3>Monetizing Prevention (Loss Avoidance)</h3><p>Calculate the savings of prevented adverse events:</p><p>$$\\text{Savings} = \\text{Event Rate} \\times \\text{Cost per Event} \\times \\text{Reduction Rate}$$</p><p>In value-based care, avoiding readmissions is a core driver of financial health.</p>"
-      },
-      {
-        "id": "slide_2_14",
-        "title": "Case: Robotic Pharmacy Dispensing",
-        "block": "Case Study",
-        "estimatedTime": "10 min",
-        "notes": "<strong>Suggested Notes:</strong> Robotic dispensing centralizes medication preparation, reducing errors. However, integration with old EHR prescription modules is highly complex. A mechanical pane paralyzes drug distribution, requiring emergency staff backups.",
-        "content": "<h3>Case: Robotic Pharmacy Dispensing</h3><p>Automated robotic dispensing centrally units drug doses.</p><p><b>Technical Risk:</b> High integration complexity with legacy EHR databases.</p><p><b>Operational Risk:</b> Equipment failure paralyzes pharmacy output, requiring emergency backup staffing.</p>"
-      },
-      {
-        "id": "slide_2_14_read",
-        "title": "Quick Reading: Robotic Pharmacy in US Hospitals",
-        "block": "Case Study",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> Read the study on robotic pharmacy integrations. Analyze the operational metrics and integration timelines before we begin the simulation.",
-        "content": "<h3>Quick Reading: Robotic Pharmacy in the US</h3><p>Review and discuss integration challenges, TCO, and workflow re-engineering in automated hospital pharmacies.</p>"
-      },
-      {
-        "id": "slide_2_14_dyn",
-        "title": "Interactive: Inventory Bottlenecks on the Whiteboard",
-        "block": "Case Study",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Suggested Notes:</strong> Let's use the whiteboard to map how pharmacy robot delays propagate through nursing floors and delay patient discharges.",
-        "content": "<h3>Inventory Bottlenecks</h3><p>The instructor will map the medication distribution workflow and locate points of failure on the board.</p>"
-      },
-      {
-        "id": "slide_2_15",
-        "title": "Recommended Reading: AHRQ Toolkit",
-        "block": "Case Study",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> The AHRQ Toolkit provides structured guidelines and spreadsheets for health IT financial modeling. Review this toolkit to defend your final business case.",
-        "content": "<h3>AHRQ Health IT ROI Toolkit</h3><p>Review the guidelines and spreadsheets provided by the Agency for Healthcare Research and Quality for clinical software evaluation.</p>"
-      },
-      {
-        "id": "slide_2_16",
-        "title": "Group Work: Comprehensive ROI Simulation",
-        "block": "Group Work",
-        "estimatedTime": "15 min",
-        "notes": "<strong>Suggested Notes:</strong> Move to your groups. Open the Group Work tab and use the simulator to model your assigned scenario. Stress test the adoption rate and input your calculated Risk Costs.",
-        "content": "<h3>Group Work: ROI Stress Testing</h3><p>Team project: open the simulator in the 'Group Work' tab, model your scenario under three adoption rates, and submit your ROI simulation.</p>"
-      },
-      {
-        "id": "slide_2_17",
-        "title": "Debrief: What Shifted the Result?",
-        "block": "Case Study",
-        "estimatedTime": "10 min",
-        "notes": "<strong>Suggested Notes:</strong> Let's review the simulations. Most groups saw their ROI turn negative in the pessimistic scenario because they didn't mitigate hidden costs. Let's discuss how to address this.",
-        "content": "<h3>Case Debrief</h3><p>Discussion of simulation outcomes: how adoption rate and hidden risks shift the project's break point.</p>"
-      },
-      {
-        "id": "slide_2_18",
-        "title": "Final Reflection",
-        "block": "Closing",
-        "estimatedTime": "8 min",
-        "isInteractive": true,
-        "interactionType": "wordcloud",
-        "question": "Which metric holds the most weight in your capital approval process?",
-        "notes": "<strong>Suggested Notes:</strong> Please submit your reflection: as an innovation leader, which financial or clinical metric holds the most weight when deciding to approve or reject a new project?",
-        "content": "<h3>Final Reflection</h3><p>Respond in the portal: Which metric (NPV, Payback, Adoption Rate, or Risk Cost) holds the most weight in your capital approval process?</p>"
-      },
-      {
-        "id": "slide_2_19",
-        "title": "Key Takeaways & Bridge to Class 3",
-        "block": "Closing",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Suggested Notes:</strong> Summary of Class 2: ROI is a range, adoption is a direct multiplier, and Loss Avoidance has hard value. Next class, we discuss decision governance and pitching to the C-suite.",
-        "content": "<h3>Key Takeaways from Class 2</h3><ul><li>ROI is a range of outcomes, not a single static number.</li><li>Adoption rate is a direct multiplier of realized financial return.</li><li>Loss Avoidance has quantifiable value in value-based care.</li></ul>"
-      },
-      {
-        "id": "slide_2_20_ref",
-        "title": "Class References & Sources",
-        "block": "Closing",
-        "estimatedTime": "2 min",
-        "notes": "<strong>Suggested Notes:</strong> We have updated the portal references with links to the AHRQ toolkit and case studies discussed today. See you in the final session.",
-        "content": "<h3>References & Sources</h3><p>Google DermAssist Dermatology AI Generalizability Study</p><p>AHRQ Health IT Costs and Benefits Toolkit</p>"
-      }
-    ]
+  {
+    "id": "slide_2_1",
+    "title": "Capa da Aula",
+    "image": "/slides/slide_2_1.png",
+    "block": "Introduction",
+    "estimatedTime": "2 min",
+    "notes": "<strong>Suggested Notes:</strong> Welcome to our second session. Today we will dive deep into modeling the comprehensive ROI. We will learn how to price the invisible, estimate savings from avoided adverse events, and run stress tests.",
+    "content": "<h3>Mitigation of Risk & the Anatomy of Smart ROI</h3><p>Making the invisible quantifiable</p><p>Instructor: Faila Santos, PhD</p>"
+  },
+  {
+    "id": "slide_2_2",
+    "title": "Icebreaker · The Cost That No One Added",
+    "image": "/slides/slide_2_2.png",
+    "block": "Opening",
+    "estimatedTime": "8 min",
+    "isInteractive": true,
+    "interactionType": "poll_ab",
+    "question": "Which of these costs do you think most frequently 'disappears' from project spreadsheets?",
+    "options": [
+      "Network / Infrastructure Works",
+      "Staff Training",
+      "Operational Rework",
+      "Insurance Claim Denials",
+      "Legal / Compliance"
+    ],
+    "notes": "<strong>Suggested Notes:</strong> Let's start with our check-in poll. Answer in the portal: which of these costs do you think most frequently 'disappears' from project spreadsheets: Network/Works, Training, Rework, Denials, or Legal?",
+    "content": "<h3>Icebreaker · The Cost That No One Added</h3><p>Which of these costs do you think most frequently 'disappears' from project spreadsheets?</p><p>Vote in the portal.</p>"
+  },
+  {
+    "id": "slide_2_3",
+    "title": "Objectives and Agenda",
+    "image": "/slides/slide_2_3.png",
+    "block": "Introduction",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Suggested Notes:</strong> Our goal today is to move from the theory of risk to the mathematics of ROI. You will learn to run a financial stress test and calculate comprehensive ROI—the one that includes the costs commercial proposals never mention. The agenda has two blocks: first, stress testing; second, the math of invisible ROI, with real cases in telemetry, dermatology, and pharmacy. Finally, each group will submit a mini ROI spreadsheet—today you calculate, not just listen.",
+    "content": "<h3>Objectives and Agenda</h3><p><b>What you will know:</b> How to run a financial stress test and calculate comprehensive ROI, including operational risks and indirect costs.</p><p><b>Agenda:</b> Block 1 (Stress Tests) + Block 2 (Invisible ROI) + Dynamic Group Simulation in the committees.</p>"
+  },
+  {
+    "id": "slide_2_4",
+    "title": "Risk Assessment as Institutional Defense",
+    "image": "/slides/slide_2_4.png",
+    "block": "Introduction",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Suggested Notes:</strong> This is the mantra of our second session: saying no, when data points to it, is also delivering value. Risk assessment doesn't exist to block innovation; it exists to protect the institution from investments that the infrastructure or culture cannot support. Your role as a guardian of viability is to have the analytical courage to veto what the numbers show will not work.",
+    "content": "<h3>Risk Assessment as Institutional Defense</h3><p><i>\"Making data-driven decisions means having the courage to choose what works, not just what is trendy.\"</i></p><p>Data veto: saying 'no' with solid justification is also delivering value. Protecting the institution from investments its infrastructure cannot support is leadership, not resistance.</p>"
+  },
+  {
+    "id": "slide_2_5",
+    "title": "What is a Financial Stress Test",
+    "image": "/slides/slide_2_5.png",
+    "block": "Block 1: Stress Tests",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Suggested Notes:</strong> A financial stress test consists of simulating the project's budget resilience under the worst possible assumptions before the GO. The vendor's nominal ROI calculation always assumes a perfect world. The stress test forces three questions: What if clinical adoption is halved? What if the network needs an upgrade? What if physical construction is required?",
+    "content": "<h3>What is a Financial Stress Test?</h3><p><b>Definition:</b> Evaluating the budget resilience of the project by simulating the worst-case scenarios of costs and clinical adoption.</p><p>The 3 key questions of a stress test:</p><ol><li>What if clinical adoption by the medical staff drops to 50%?</li><li>What if the network requires an infrastructure upgrade?</li><li>What if physical construction and ward adaptation are needed?</li></ol>"
+  },
+  {
+    "id": "slide_2_6",
+    "title": "Hidden Infrastructure Costs",
+    "image": "/slides/slide_2_6.png",
+    "block": "Block 1: Stress Tests",
+    "estimatedTime": "6 min",
+    "notes": "<strong>Suggested Notes:</strong> The foundation that supports the AI project doesn't appear on the software invoice. The software price is rarely the largest cost of the project. Below the surface, we have network and connectivity, EHR integration, construction works, staff training, cybersecurity, support, and continuous model monitoring. Ignoring this is what destroys the real ROI.",
+    "content": "<h3>Hidden Infrastructure Costs</h3><p>The foundation supporting the project does not appear on the software invoice.</p><p>Costs below the surface:</p><ul><li>Network and connectivity</li><li>Integration with the electronic health record (EHR)</li><li>Construction and physical adaptation</li><li>Staff training and process change</li><li>Cybersecurity and compliance</li><li>Support, maintenance, and continuous model monitoring</li></ul>"
+  },
+  {
+    "id": "slide_2_7",
+    "title": "Integrated Case Study · Ward Telemetry",
+    "image": "/slides/slide_2_7.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Suggested Notes:</strong> Let's analyze telemetry in general wards. Buying AI-powered vital signs sensors seems like a simple investment. The hidden cost in the studied case ($1.5 million) involved upgrading the hospital's physical Wi-Fi network to support real-time data without drops (technical latency risk), and creating a central nursing hub to receive alerts (operational risk). Without these, the clinical patches lose all diagnostic purpose and become pure waste.",
+    "content": "<h3>Integrated Case: Wireless Bed Telemetry</h3><p><b>The Case:</b> Promising telemetry solution with excellent clinical evaluation. Hidden cost: network infrastructure and central monitoring hub—not just the sensors.</p><p><b>Real Grounding (US):</b> Implementing real-time telemetry and adapting hospital beds in a regional facility required significant structural network investment. Telemetry requires physical readiness, not just equipment purchase.</p>"
+  },
+  {
+    "id": "slide_2_8",
+    "title": "Analytical Courage vs. Tech Trend",
+    "image": "/slides/slide_2_8.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "8 min",
+    "isInteractive": true,
+    "interactionType": "open_ended",
+    "question": "Which hidden cost do you underestimate the most in your projects and why?",
+    "notes": "<strong>Suggested Notes:</strong> Answer in the synchronous dynamic: which hidden cost do you underestimate the most in your projects and why? Preferring a functional solution on installed infrastructure over a shiny trend requires analytical courage. Recognizing the blind spot is the first step of mitigation.",
+    "content": "<h3>Analytical Courage vs. Tech Trend</h3><p>Which hidden cost do you underestimate the most in your projects and why?</p><p>Respond on the portal mural to discuss the top answers recognized by the class.</p>"
+  },
+  {
+    "id": "slide_2_9",
+    "title": "International Case Study · Google DermAssist",
+    "image": "/slides/slide_2_9.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Suggested Notes:</strong> Google DermAssist is a great example of regulatory risk. The system suggests potential skin conditions from photos and symptoms. However, while it obtained CE marking in the EU, it faced regulatory hurdles and caution from the FDA in the US. Furthermore, ethical questions arose regarding performance bias on darker skin tones. A clear example of how regulatory risks and algorithmic bias impact commercial viability.",
+    "content": "<h3>International Case Study: Google DermAssist</h3><p>Dermatology AI tool that suggests conditions from photos and symptoms. CE Class I in the EU; not evaluated by the FDA; not a diagnostic tool.</p><p><b>Bias and Validation Risk:</b> Criticisms regarding low representation of darker skin tones (bias risk), limited clinical validation, and self-diagnosis risks. Due diligence requires asking if it was validated on your specific population.</p>"
+  },
+  {
+    "id": "slide_2_10",
+    "title": "The Short-Term ROI Fallacy",
+    "image": "/slides/slide_2_10.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Suggested Notes:</strong> Here lies one of the most expensive biases in healthcare management: looking only at next month's spreadsheet. A prevention project, like early screening or continuous telemetry, rarely returns the investment in the first quarter. Prevention benefits appear in year 2 or 3, when the curve of avoided events starts to compensate for the initial cost. If you evaluate digital health projects solely on short-term cash flow, you will systematically reject the very projects that protect patients and the institution the most.",
+    "content": "<h3>The Short-Term ROI Fallacy</h3><p>Evaluating AI projects solely by first-year cash flow penalizes innovations aimed at long-term safety gains.</p><p>The greatest benefits of AI in healthcare (avoiding readmissions, preventing sepsis) generate incremental value over horizons longer than 24 months.</p>"
+  },
+  {
+    "id": "slide_2_11",
+    "title": "Invisible Risks · Part 1",
+    "image": "/slides/slide_2_11.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "6 min",
+    "notes": "<strong>Suggested Notes:</strong> The invisible risks with the greatest clinical and financial weight are decision support failures that induce medication errors and severe adverse events. In the standard hospital flow, each major adverse event has a high estimated cost (additional ICU days, repeated tests, new therapies). Avoiding these through AI alerts is a real indirect revenue driver. Additionally, documentation failures trigger insurance claim denials that silently erode revenue.",
+    "content": "<h3>Invisible Risks · Part 1</h3><p><b>Medication Errors and Adverse Events:</b> Direct additional clinical costs (prolonged stay, ICU) and insurance claim denials that damage cash flow.</p><p><b>Insurance Claim Denials:</b> Registration errors generate denials that don't appear in the project spreadsheet but erode the bottom line.</p>"
+  },
+  {
+    "id": "slide_2_12",
+    "title": "Invisible Risks · Part 2",
+    "image": "/slides/slide_2_12.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "6 min",
+    "notes": "<strong>Suggested Notes:</strong> The second layer of invisible risks consists of legal liabilities. A medication error induced by an AI false negative can lead to complex malpractice lawsuits and fines. Professional liability insurance and dedicated legal counsel are real OPEX items that must be included. Add to that reputation costs and operational rework.",
+    "content": "<h3>Invisible Risks · Part 2</h3><p><b>Legal Costs and Liability:</b> Lawsuits from adverse clinical outcomes induced or missed by algorithmic support.</p><p><b>Reputation and Image:</b> Institutional reputation costs are hard to quantify but devastating when they materialize.</p><p><b>Operational Rework:</b> Inefficiencies generated by poorly implemented solutions that consume time and resources outside the budget.</p>"
+  },
+  {
+    "id": "slide_2_13",
+    "title": "Turning Prevention into Value",
+    "image": "/slides/slide_2_13.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Suggested Notes:</strong> How do we monetize prevention? The mental formula to calculate value generated by loss avoidance is: historical annual frequency of the event multiplied by the average financial cost of each event, weighted by the expected efficacy of the AI system. For example: if a hospital has 100 high-cost dispensing errors per year, each costing $5k in waste and retreatment, and the pharmacy AI avoids 80% of them, the savings generated are $400k annually.",
+    "content": "<h3>Turning Prevention into Value</h3><p><b>Loss Avoidance Formula:</b></p><p>$$\\text{Avoided Value} = (\\text{Event Freq.}) \\times (\\text{Cost per Event}) \\times (\\text{AI Efficacy Rate})$$</p><p>Add avoided risks to the direct return of the solution to obtain the comprehensive ROI. Remember: defensible ROI is auditable ROI, with explicit assumptions.</p>"
+  },
+  {
+    "id": "slide_2_14",
+    "title": "Integrated Case Study · Pharmacy Automation",
+    "image": "/slides/slide_2_14.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Suggested Notes:</strong> Pharmacy automation is one of the most direct cases of comprehensive ROI, because each avoided dispensing error has financial and clinical value simultaneously. Robotic dispensers reduce human error, but the actual return depends on two factors: integration with legacy prescription systems, and the trust curve of the pharmacy staff. Technical benefits only turn into ROI when both are resolved.",
+    "content": "<h3>Integrated Case: Pharmacy Automation</h3><p><b>The Case:</b> Robotic dispensing and predictive AI inventory management for high-cost drugs.</p><p><b>Visible benefit:</b> Reduction in waste due to batch expiration and inventory shrinkage.</p><p><b>Invisible risk:</b> Operational resistance from pharmacists to the new electronic verification workflow.</p>"
+  },
+  {
+    "id": "slide_2_15",
+    "title": "Pharmacy Case Study · How Prevention Turns into ROI",
+    "image": "/slides/slide_2_15.png",
+    "block": "Block 2: Invisible ROI",
+    "estimatedTime": "8 min",
+    "notes": "<strong>Suggested Notes:</strong> This slide visually summarizes the pharmacy workflow where prevention turns into ROI. On the left, automation with electronic dispensers guarantees secure storage, control, and auditable dispensing. On the right, computerized traceability reduces rework and expiration losses.",
+    "content": "<h3>Integrated Case: How Prevention turns into ROI</h3><p>Value flowchart in hospital pharmacy:</p><ul><li><b>Electronic Dispenser:</b> Secure storage, correct and auditable dispensing, full traceability.</li><li><b>Computerized Traceability:</b> Identification, registration, integration, and audit reports.</li><li><b>Impact:</b> 47.9% reduction in expiration losses and 70% in emergency purchases.</li></ul>"
+  },
+  {
+    "id": "slide_2_16",
+    "title": "Dynamic · Comprehensive ROI Calculation",
+    "image": "/slides/slide_2_16.png",
+    "block": "Group Work",
+    "estimatedTime": "40 min",
+    "notes": "<strong>Suggested Notes:</strong> Time to work on the committee simulators. Access the portal in your groups. Use the comprehensive ROI simulator by entering the economic assumptions of your committee's scenario, evaluate the NPV in optimistic and stressed adoption scenarios, and submit the financial analysis.",
+    "content": "<h3>Dynamic: Financial Simulation in Committees</h3><p>Practical Group Work: Access the ROI simulator in the portal, fill in the economic assumptions for CAPEX, OPEX, and risks, and submit the committee's viability analysis.</p><ol><li>Receive your committee's scenario</li><li>Calculate conventional ROI</li><li>Add invisible risks</li><li>Present the difference in real ROI</li></ol>"
+  },
+  {
+    "id": "slide_2_17",
+    "title": "Debrief · What Shifted the Result",
+    "image": "/slides/slide_2_17.png",
+    "block": "Case Study",
+    "estimatedTime": "15 min",
+    "notes": "<strong>Suggested Notes:</strong> Congratulations on your financial submissions. Group 4 concluded that the project is unfeasible in the realistic scenario due to high CAPEX and maintenance, while Group 1 justified the resilience of the payback even under low adoption. Let's debate these strategic conclusions.",
+    "content": "<h3>Debrief: What altered the project's NPV?</h3><p>Comparative analysis of payback rates and NPV achieved in the simulators by each team under engagement stress scenarios.</p><p>Compare visible-only ROI with comprehensive ROI: the same solution changes its verdict when the invisible enters the equation.</p>"
+  },
+  {
+    "id": "slide_2_18",
+    "title": "Final Reflection",
+    "image": "/slides/slide_2_18.png",
+    "block": "Closing",
+    "estimatedTime": "8 min",
+    "isInteractive": true,
+    "interactionType": "open_ended",
+    "question": "Which financial or operational variable has become a priority in your feasibility analysis?",
+    "notes": "<strong>Suggested Notes:</strong> Please respond in the panel, in one word: what do you now see that was previously invisible? It doesn't have to be sophisticated. It can be 'adoption', 'infrastructure', 'denial'. What matters is that, from today on, this term will appear in your head every time someone presents an ROI that is too good to be true.",
+    "content": "<h3>Final Reflection</h3><p>Respond in the portal: In one word, what do you now see that was previously invisible?</p><p>Everyone's words will form a live word cloud.</p>"
+  },
+  {
+    "id": "slide_2_19",
+    "title": "Key Takeaways & Bridge to Class 3",
+    "image": "/slides/slide_2_19.png",
+    "block": "Closing",
+    "estimatedTime": "5 min",
+    "notes": "<strong>Suggested Notes:</strong> In summary, end-user clinical engagement is the critical variable of real ROI, and risk pricing must be transparently included in the budget spreadsheet. Prepare for the governance guidelines of Class 3.",
+    "content": "<h3>Key Takeaways from Class 2</h3><ul><li>Observed ROI depends on the adoption rate of the clinical staff.</li><li>Loss Avoidance calculation financially quantifies healthcare safety.</li><li>The stress test defines the breaking point before committing capital.</li></ul><p>Data veto: choose the solution that data approves, not the one marketing sells.</p>"
+  },
+  {
+    "id": "slide_2_20_ref",
+    "title": "Class References & Sources",
+    "image": "/slides/slide_2_20.png",
+    "block": "Closing",
+    "estimatedTime": "2 min",
+    "notes": "<strong>Suggested Notes:</strong> The bibliography for Block 2 of economic-financial modeling under risk is available in the portal. All academic links and national case studies are active for reference and citation in your final reports.",
+    "content": "<h3>References & Sources</h3><ul><li>Google DermAssist · WIRED & Google Blog (2021)</li><li>Telemetry · UTI Sobradinho (2026)</li><li>Dermatology AI · Skin Tone Disparities, arXiv (2021)</li><li>Pharmacy · JBES (2022) & RSD (2021)</li></ul>"
+  }
+]
   },
   {
     "id": "class3",
