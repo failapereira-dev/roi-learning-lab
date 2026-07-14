@@ -933,16 +933,19 @@ function setupEventListeners() {
             justification: document.getElementById("simulationJustification").value,
             metrics: {
                 expected: {
+                    netBenefit: document.getElementById("calc_net_exp").innerText,
                     roi: document.getElementById("calc_roi_exp").innerText,
                     payback: document.getElementById("calc_pb_exp").innerText,
                     vpl: document.getElementById("calc_vpl_exp").innerText
                 },
                 realistic: {
+                    netBenefit: document.getElementById("calc_net_real").innerText,
                     roi: document.getElementById("calc_roi_real").innerText,
                     payback: document.getElementById("calc_pb_real").innerText,
                     vpl: document.getElementById("calc_vpl_real").innerText
                 },
                 pessimistic: {
+                    netBenefit: document.getElementById("calc_net_pess").innerText,
                     roi: document.getElementById("calc_roi_pess").innerText,
                     payback: document.getElementById("calc_pb_pess").innerText,
                     vpl: document.getElementById("calc_vpl_pess").innerText
@@ -2858,8 +2861,12 @@ function runSimulationCalculations() {
         const roi = investment > 0 ? (totalProfit / investment) * 100 : 0;
         const payback = annualNetBenefit > 0 ? (investment / annualNetBenefit) : Infinity;
         
-        results[key] = { roi, payback, npv };
+        results[key] = { roi, payback, npv, annualNetBenefit };
     }
+    
+    updateMetricUI("calc_net_exp", results.expected.annualNetBenefit, "$");
+    updateMetricUI("calc_net_real", results.realistic.annualNetBenefit, "$");
+    updateMetricUI("calc_net_pess", results.pessimistic.annualNetBenefit, "$");
     
     updateMetricUI("calc_roi_exp", results.expected.roi, "%");
     updateMetricUI("calc_roi_real", results.realistic.roi, "%");
@@ -3366,17 +3373,20 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
                     <div class="inspect-roi-card expected">
                         <h6>ROI Esperado</h6>
                         <span>${submission.metrics && submission.metrics.expected ? submission.metrics.expected.roi : '0%'}</span><br>
-                        <small>${submission.metrics && submission.metrics.expected ? submission.metrics.expected.vpl : 'R$ 0'}</small>
+                        <small>VPL: ${submission.metrics && submission.metrics.expected ? submission.metrics.expected.vpl : 'R$ 0'}</small><br>
+                        <small style="font-size:0.75rem;">Ben. Líq: ${submission.metrics && submission.metrics.expected && submission.metrics.expected.netBenefit ? submission.metrics.expected.netBenefit : 'R$ 0'}</small>
                     </div>
                     <div class="inspect-roi-card realistic">
                         <h6>ROI Realista</h6>
                         <span>${submission.metrics && submission.metrics.realistic ? submission.metrics.realistic.roi : '0%'}</span><br>
-                        <small>${submission.metrics && submission.metrics.realistic ? submission.metrics.realistic.vpl : 'R$ 0'}</small>
+                        <small>VPL: ${submission.metrics && submission.metrics.realistic ? submission.metrics.realistic.vpl : 'R$ 0'}</small><br>
+                        <small style="font-size:0.75rem;">Ben. Líq: ${submission.metrics && submission.metrics.realistic && submission.metrics.realistic.netBenefit ? submission.metrics.realistic.netBenefit : 'R$ 0'}</small>
                     </div>
                     <div class="inspect-roi-card pessimistic">
                         <h6>ROI Pessimista</h6>
                         <span>${submission.metrics && submission.metrics.pessimistic ? submission.metrics.pessimistic.roi : '0%'}</span><br>
-                        <small>${submission.metrics && submission.metrics.pessimistic ? submission.metrics.pessimistic.vpl : 'R$ 0'}</small>
+                        <small>VPL: ${submission.metrics && submission.metrics.pessimistic ? submission.metrics.pessimistic.vpl : 'R$ 0'}</small><br>
+                        <small style="font-size:0.75rem;">Ben. Líq: ${submission.metrics && submission.metrics.pessimistic && submission.metrics.pessimistic.netBenefit ? submission.metrics.pessimistic.netBenefit : 'R$ 0'}</small>
                     </div>
                 </div>
 

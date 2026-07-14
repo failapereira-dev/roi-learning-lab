@@ -2738,3 +2738,48 @@ input:checked + .slider:before {
     border: 1px solid var(--border-color);
     white-space: pre-wrap;
 }
+
+/* Concepts & Indicators Guide styling */
+.concepts-guide-card {
+    background: var(--bg-card);
+    border: 1px dashed var(--clinical-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+.concepts-guide-card h5 {
+    font-size: 0.95rem;
+    color: var(--clinical-color);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.concepts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+@media (min-width: 768px) {
+    .concepts-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+.concept-item {
+    background: rgba(2, 132, 199, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.8rem;
+}
+.concept-item h6 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+.concept-item p {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
