@@ -435,24 +435,39 @@
                         <div class="simulator-layout">
                             <div class="simulator-inputs">
                                 <h5>Parâmetros do Projeto</h5>
+                                <div class="preset-buttons">
+                                    <span class="preset-label">Preenchimento Automático por Equipe:</span>
+                                    <div class="preset-grid">
+                                        <button type="button" class="preset-btn" id="preset_btn_1" onclick="loadGroupPreset(1)">Grupo 1</button>
+                                        <button type="button" class="preset-btn" id="preset_btn_2" onclick="loadGroupPreset(2)">Grupo 2</button>
+                                        <button type="button" class="preset-btn" id="preset_btn_3" onclick="loadGroupPreset(3)">Grupo 3</button>
+                                        <button type="button" class="preset-btn" id="preset_btn_4" onclick="loadGroupPreset(4)">Grupo 4</button>
+                                        <button type="button" class="preset-btn" id="preset_btn_5" onclick="loadGroupPreset(5)">Grupo 5</button>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label>Investimento Inicial (R$)</label>
+                                    <span class="help-text">Quanto custa para comprar e instalar a tecnologia (CAPEX).</span>
                                     <input type="number" id="sim_investment" class="form-control" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label>Benefício Anual (R$)</label>
+                                    <span class="help-text">Economia ou novos ganhos anuais estimados se todos usarem.</span>
                                     <input type="number" id="sim_benefit" class="form-control" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label>Custo de Manutenção Anual (R$)</label>
+                                    <span class="help-text">Custo fixo anual de suporte e licenças da tecnologia (OPEX).</span>
                                     <input type="number" id="sim_maintenance" class="form-control" value="0">
                                 </div>
                                 <div class="form-group">
                                     <label>Custo Estimado de Riscos Ocultos (R$)</label>
+                                    <span class="help-text">Prejuízo se o projeto der errado (erros clínicos, falhas técnicas).</span>
                                     <input type="number" id="sim_risk" class="form-control" value="0">
                                 </div>
                                 <div class="form-group">
-                                    <label>Horizonte Temporal (Anos)</label>
+                                    <label>Tempo de Análise (Anos)</label>
+                                    <span class="help-text">Período de avaliação do projeto (padrão: 5 anos).</span>
                                     <input type="number" id="sim_years" class="form-control" min="1" max="10" value="5">
                                 </div>
                             </div>

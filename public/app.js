@@ -2793,6 +2793,40 @@ function setupSimulatorInputs(scenario) {
     }
 }
 
+// Interactive Simulation Preset Loader
+window.loadGroupPreset = function(groupNum) {
+    const presets = {
+        1: { investment: 1500000, benefit: 300000, maintenance: 50000, risk: 350000 },
+        2: { investment: 1800000, benefit: 320000, maintenance: 60000, risk: 400000 },
+        3: { investment: 2200000, benefit: 1500000, maintenance: 180000, risk: 800000 },
+        4: { investment: 800000, benefit: 1200000, maintenance: 150000, risk: 500000 },
+        5: { investment: 5000000, benefit: 1050000, maintenance: 450000, risk: 2000000 }
+    };
+    
+    const data = presets[groupNum];
+    if (!data) return;
+    
+    document.getElementById("sim_investment").value = data.investment;
+    document.getElementById("sim_benefit").value = data.benefit;
+    document.getElementById("sim_maintenance").value = data.maintenance;
+    document.getElementById("sim_risk").value = data.risk;
+    document.getElementById("sim_years").value = 5;
+    
+    // Manage active class visual state
+    for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`preset_btn_${i}`);
+        if (btn) {
+            if (i === groupNum) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        }
+    }
+    
+    runSimulationCalculations();
+};
+
 // Interactive Simulation Calculator
 function runSimulationCalculations() {
     const investment = parseFloat(document.getElementById("sim_investment").value) || 0;
