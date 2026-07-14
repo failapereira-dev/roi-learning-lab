@@ -546,12 +546,7 @@
                         <form id="formActivity2" class="activity-form mt-4">
                             <div class="form-group">
                                 <label><strong>Ponto de Quebra:</strong> Em qual cenário o projeto se torna inviável?</label>
-                                <select id="breakPointScenario" class="form-control" required>
-                                    <option value="">Selecione...</option>
-                                    <option value="no_break">Nenhum (Viável em todos)</option>
-                                    <option value="realistic">Cenário Realista</option>
-                                    <option value="pessimistic">Cenário Pessimista</option>
-                                </select>
+                                <textarea id="breakPointScenario" class="form-control" required rows="2" placeholder="Ex: Torna-se inviável no cenário pessimista porque a queda de adoção e a materialização dos riscos clínicos geram VPL negativo..."></textarea>
                             </div>
                             <div class="form-group">
                                 <label><strong>Justificativa da Simulação:</strong> Justifique as principais diferenças de ROI encontradas entre os cenários:</label>

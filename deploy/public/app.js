@@ -3392,7 +3392,7 @@ function renderSubmissionDetails(submissionsForGroup, classId, groupId) {
 
                 <div class="inspect-item-value">
                     <h6>Ponto de Quebra Mapeado</h6>
-                    <p>${submission.breakPoint === 'realistic' ? 'Cenário Realista' : submission.breakPoint === 'pessimistic' ? 'Cenário Pessimista' : 'Nenhum'}</p>
+                    <p>${submission.breakPoint || 'Não informado'}</p>
                 </div>
 
                 <div class="inspect-item-value">
