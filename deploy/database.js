@@ -15,6 +15,7 @@ const students = [
   { name: "André Luiz Marques Annes", email: "andre.annes@hmv.org.br", group: 1 },
   { name: "Andrea Bonato de Araujo", email: "andrea.araujo@hmv.org.br", group: 1 },
   { name: "Aluno Visitante 1", email: "visitante1@hmv.org.br", group: 1 },
+  { name: "Aluno Visitante 6", email: "visitante6@hmv.org.br", group: 1 },
   
   // Group 2
   { name: "Bibiana Dutra Antunes da Cunha", email: "bibiana.cunha@hmv.org.br", group: 2 },
@@ -649,35 +650,119 @@ const classesContent = [
   },
   {
     "id": "slide_2_5",
-    "title": "O que é um Teste de Estresse Financeiro",
+    "title": "Cinco Formas de Perguntar \"Valeu a Pena?\"",
     "image": "/slides/aula2/slide_5.png",
+    "block": "Bloco 1: Métodos de Avaliação",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> Entrando no nosso primeiro bloco, quando nos perguntamos se uma tecnologia 'valeu a pena', a resposta depende da régua utilizada. Em saúde, retorno vai muito além de dinheiro. Temos cinco metodologias principais: Custo-Utilidade, focada em qualidade de vida (QALY); Custo-Efetividade, focada em desfechos clínicos práticos como internações evitadas; o Custo-Benefício clássico que traduz tudo para a moeda financeira; o Impacto Orçamentário que responde se a conta cabe no caixa no curto prazo; e o Custo-Consequência, muito recomendado para saúde digital por listar abertamente múltiplos desfechos clínicos e financeiros lado a lado.",
+    "content": "<h3>Cinco Formas de Perguntar \"Valeu a Pena?\"</h3><p>Em saúde, \"retorno\" quase nunca é apenas financeiro. Cada método responde a uma pergunta diferente.</p><ul><li><b>Custo-Utilidade:</b> Quanto custa um ano a mais de vida com qualidade (QALY)? Padrão mundial de cobertura.</li><li><b>Custo-Efetividade:</b> Quanto custa um resultado clínico concreto, como evitar uma internação?</li><li><b>Custo-Benefício:</b> Cada real investido devolve quanto? O ROI clássico do mundo financeiro.</li><li><b>Impacto Orçamentário:</b> \"Cabe no orçamento?\" (foco na capacidade de caixa, não no lucro).</li><li><b>Custo-Consequência:</b> Custos ao lado de todos os desfechos. Altamente recomendado para saúde digital (revisão de diretrizes de 2023).</li></ul>"
+  },
+  {
+    "id": "slide_2_6",
+    "title": "Estados Unidos: Quem Paga a Conta Define o Valor",
+    "image": "/slides/aula2/slide_6.png",
+    "block": "Bloco 1: Panorama Global",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> Vamos olhar como o mundo avalia isso na prática. Nos Estados Unidos, sem uma agência nacional regulando preços de incorporação, cada hospital ou operadora faz a própria conta. O foco é estritamente financeiro: receita direta gerada menos custos. Um exemplo recente de 2026 na NYU Langone Health com monitoramento remoto de pressão arterial mostrou um ROI médio de 22%, mas reparem na volatilidade: variou de -11% a +93% dependendo da adesão dos pacientes. Por isso, hoje, mais de 50% dos hospitais americanos exigem cláusulas de ROI garantido em contrato pelos fornecedores de software.",
+    "content": "<h3>Estados Unidos · Quem Paga a Conta Define o Valor</h3><p>Sem um órgão nacional centralizador de incorporação, cada hospital ou operadora realiza a própria análise de viabilidade.</p><ul><li><b>Modelo de Negócio:</b> Receita líquida gerada menos custos do programa.</li><li><b>Caso de Referência (NYU Langone Health, 2026):</b> Monitoramento remoto de pressão arterial com retorno médio de 22,2% (com 55% de adesão do paciente). Cenários extremos variaram de -11% a +93% de ROI.</li><li><b>Desafio Prático:</b> Mais da metade dos sistemas americanos exige ROI garantido em contrato pelo fornecedor, enquanto menos de 30% relatam retorno financeiro significativo no cuidado virtual.</li></ul>"
+  },
+  {
+    "id": "slide_2_7",
+    "title": "Canadá e Reino Unido: Valor Social e Rigor Público",
+    "image": "/slides/aula2/slide_7.png",
+    "block": "Bloco 1: Panorama Global",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> Já no Canadá e Reino Unido, a régua é pública e social. O Canadá adota a perspectiva da sociedade, medindo custos indiretos como tempo de viagem e quilômetros rodados. Em Ontário, o atendimento digital poupou mais de 500 milhões de dólares do bolso dos próprios pacientes e evitou bilhões de quilômetros de deslocamento. No Reino Unido, o NHS é cirúrgico: eles têm um limite fixado de 20 a 30 mil libras por ano de vida com qualidade. Se a IA passar disso, ela não é incorporada, a menos que adote esquemas de reembolso condicional sob teste.",
+    "content": "<h3>Canadá & Reino Unido · Valor Social e Rigor Público</h3><ul><li><b>Canadá (Perspectiva da Sociedade):</b> Considera benefícios intangíveis como tempo poupado pelo paciente, deslocamento evitado e suporte a áreas rurais. Em Ontário (2020-2022), o atendimento virtual economizou de US$ 569 a US$ 733 milhões para os pacientes, evitando 3,2 bilhões de quilômetros de trânsito.</li><li><b>Reino Unido (A Régua Pública do NHS):</b> Utiliza um limiar explícito de custo-utilidade, aceitando pagar entre £20.000 e £30.000 por QALY (ano de vida com qualidade). Desde 2022, adotam o pagamento condicional para tecnologias promissoras enquanto as evidências clínicas do mundo real ainda estão sendo geradas.</li></ul>"
+  },
+  {
+    "id": "slide_2_8",
+    "title": "Alemanha: Permanência Conquistada",
+    "image": "/slides/aula2/slide_8.png",
+    "block": "Bloco 1: Panorama Global",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> O caso da Alemanha é emblemático com o modelo DiGA. Lá, o aplicativo de saúde digital é prescrito pelo médico como se fosse um remédio e reembolsado pelo seguro público. Mas há um detalhe regulatório fundamental: a aprovação inicial é provisória. O desenvolvedor tem exatamente um ano para comprovar melhora assistencial no mundo real. E a reforma de 2026 endureceu as regras: pelo menos 20% do pagamento do governo está condicionado à performance clínica. Mesmo assim, apenas 4% dos médicos prescrevem, porque a IA e o app não estão integrados aos prontuários e ao fluxo de trabalho deles.",
+    "content": "<h3>Alemanha · Reembolso e Permanência Conquistada</h3><p>O modelo DiGA (Digital Health Applications) permite que médicos prescrevam aplicativos de saúde digital financiados por seguros públicos.</p><ul><li><b>Reembolso Fast-Track (desde 2020):</b> O fabricante recebe aprovação provisória e tem até 12 meses para provar o \"efeito positivo no cuidado assistencial\". Se falhar na entrega da evidência clínica, o reembolso é cancelado.</li><li><b>Volume (2026):</b> Cerca de 60 aplicativos listados (como Kalmeda para zumbido e Somnio para insônia).</li><li><b>Reforma 2026:</b> Medição obrigatória de dados no mundo real e no mínimo 20% do preço final atrelado ao desempenho prático do aplicativo.</li><li><b>Gargalo:</b> Apenas cerca de 4% dos médicos prescrevem ativamente. A maior barreira não é a regulação, mas a falta de integração no fluxo de trabalho diário.</li></ul>"
+  },
+  {
+    "id": "slide_2_9",
+    "title": "O Resto do Mundo · Desperdício Evitado e Desigualdades",
+    "image": "/slides/aula2/slide_9.png",
+    "block": "Bloco 1: Panorama Global",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> Olhando para outras regiões, a Europa exibe grande fragmentação regulatória, com avaliações de qualidade variadas. Na América Latina, os frameworks de incorporação de IA em saúde ainda engatinham. No Brasil, a justificativa financeira costuma vir da redução do custo unitário através de escala — como vimos em teleconsultas onde o custo despencou com o volume. Já em países em desenvolvimento da Ásia, como na Índia, a justificativa do ROI foca em desperdício evitado na cadeia de suprimentos e logística, mostrando que em cenários de recursos escassos, mitigar perdas é o maior gerador de valor.",
+    "content": "<h3>O Resto do Mundo · Desperdício Evitado e Desigualdades</h3><ul><li><b>Europa (Visão Geral):</b> Descentralização com metodologias muito desiguais. A nota média de qualidade de diretrizes pelo AGREE II é de 65% entre 12 diretrizes de 10 países. Uma tecnologia pode ser incorporada em um país e rejeitada no vizinho.</li><li><b>América Latina:</b> Escassez de arcabouços formais de decisão. No Brasil, o foco é em escala e acesso: um estudo de teleconsulta mostrou redução do custo unitário de US$ 137 para US$ 28 por atendimento com o ganho de escala. Equidade e barreiras sociais raramente entram nos modelos formais de cálculo.</li><li><b>Ásia-Pacífico (Exemplo da Índia):</b> Na rede nacional de vacinas da Índia, estima-se um retorno social de 2,93 rupias para cada 1 rupia investida, majoritariamente vindo da eliminação de desperdício na cadeia de frio e logística de distribuição.</li></ul>"
+  },
+  {
+    "id": "slide_2_10",
+    "title": "Todas as Regiões Lado a Lado",
+    "image": "/slides/aula2/slide_10.png",
+    "block": "Bloco 1: Análise Comparativa",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> Este quadro resume a grande diferença de mentalidade. Nos EUA, o foco é em efetividade clínica, eficiência econômica e sustentabilidade financeira do negócio. No Canadá, adiciona-se forte peso ao paciente, sociedade, acesso e equidade. Na Alemanha, a prioridade máxima é a comprovação clínica, dando menos importância no primeiro momento à eficiência de custos no nível corporativo. No Brasil e América Latina, a prioridade histórica é a ampliação do acesso e equidade na rede.",
+    "content": "<h3>Todas as Regiões Lado a Lado</h3><p>Comparativo das dimensões que mais pesam em cada sistema de saúde quando decidem se uma tecnologia em saúde digital vale a pena:</p><table class=\"regions-comparison-table\"><thead><tr><th>Região</th><th>Efetividade Clínica</th><th>Eficiência Econômica</th><th>Paciente & Sociedade</th><th>Acesso & Equidade</th><th>Sustentabilidade</th></tr></thead><tbody><tr><td><b>EUA</b></td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐</td><td>⭐</td><td>⭐⭐⭐</td></tr><tr><td><b>Canadá</b></td><td>⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td></tr><tr><td><b>Reino Unido</b></td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td></tr><tr><td><b>Alemanha</b></td><td>⭐⭐⭐</td><td>⭐</td><td>⭐⭐</td><td>⭐</td><td>⭐</td></tr><tr><td><b>América Latina</b></td><td>⭐</td><td>⭐⭐</td><td>⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td><b>Ásia (Renda Baixa)</b></td><td>⭐</td><td>⭐⭐</td><td>⭐</td><td>⭐⭐⭐</td><td>⭐</td></tr></tbody></table><p><small>Legenda: ⭐⭐⭐ Ênfase Principal | ⭐⭐ Ênfase Moderada | ⭐ Ênfase Limitada</small></p>"
+  },
+  {
+    "id": "slide_2_11",
+    "title": "Na Prática: O Que os Livros Dizem vs. O Que Acontece",
+    "image": "/slides/aula2/slide_11.png",
+    "block": "Bloco 1: Realidade de Mercado",
+    "estimatedTime": "3 min",
+    "notes": "<strong>Fala sugerida:</strong> Há um abismo entre o que os livros acadêmicos ensinam e o que o tomador de decisão nos hospitais pergunta no dia a dia. Enquanto o meio acadêmico debate custo-utilidade em QALY, a diretoria de um hospital quer saber: 'qual é o payback?'. No Brasil, o ROI de curto prazo de IA tem sido demonstrado na redução de até 35% de glosas administrativas. E na radiologia, o ROI calculado chegou a quase 800% porque liberou o tempo de laudo dos radiologistas seniores para casos complexos.",
+    "content": "<h3>O Que os Livros Dizem vs. O Que Acontece</h3><p>Enquanto órgãos reguladores e diretrizes exigem estudos de custo-efetividade complexos e de longo prazo, os tomadores de decisão locais operam sob forte pressão pragmática.</p><ul><li><b>A Pergunta Real do Comitê:</b> \"Em quantos meses esse projeto se paga (payback)?\"</li><li><b>Caso do Brasil (2025-2026):</b> O retorno real veio de ganhos de faturamento e auditoria de glosas (redução de até 35% nas glosas em hospitais privados com payback de 12 a 18 meses). IA em laudos de radiologia gerou ROI expressivo de 791% ao computar a economia de horas de trabalho médico especializado.</li><li><b>Alemanha:</b> Embora o modelo regulatório DiGA seja referência acadêmica mundial, a barreira do fluxo de trabalho fez com que apenas 4% dos médicos engajassem com a prescrição ativa de apps.</li></ul>"
+  },
+  {
+    "id": "slide_2_12",
+    "title": "Por Que Avaliar IA É Mais Difícil que um Medicamento?",
+    "image": "/slides/aula2/slide_12.png",
+    "block": "Bloco 1: Desafios da IA",
+    "estimatedTime": "4 min",
+    "notes": "<strong>Fala sugerida:</strong> Avaliar uma IA na saúde é muito mais complexo do que avaliar um novo medicamento. Um remédio tem uma molécula química estável que não muda. A IA se atualiza constantemente. Além disso, o custo inicial de instalação do software e integrações é alto, fazendo com que pilotos pareçam sempre inviáveis — o ROI real só se prova na escala. Por fim, a IA altera o comportamento do profissional de saúde, o que muda o fluxo de processos que estamos tentando medir, tornando a linha de base de comparação móvel.",
+    "content": "<h3>Por Que Avaliar IA É Mais Difícil que um Medicamento?</h3><p>Medicamentos possuem moléculas estáveis e um padrão de cuidado fixo. O software em saúde viola ambas as premissas, criando 5 desafios principais:</p><ol><li><b>A Escala Altera o Retorno:</b> Projetos pilotos são sempre muito caros proporcionalmente. O retorno econômico real só surge com a escala operacional (como a queda de custo de telemedicina no Brasil com o ganho de escala).</li><li><b>Produtos em Evolução Contínua:</b> Algoritmos de IA mudam e atualizam constantemente. Como avaliar o ROI de longo prazo de um sistema que se atualiza e aprende a cada mês?</li><li><b>Comparador em Movimento:</b> O fluxo de trabalho clínico que serve como base de comparação muda à medida que a própria IA é implantada.</li><li><b>Desfechos Além da Sobrevida:</b> IA em saúde gera valor em usabilidade, precisão diagnóstica secundária e diminuição da fadiga médica, dimensões difíceis de precificar financeiramente.</li></ol>"
+  },
+  {
+    "id": "slide_2_13",
+    "title": "Dinâmica · Desafios Regulatórios e Incorporação",
+    "image": "/slides/aula2/slide_13.png",
+    "block": "Bloco 1: Dinâmica",
+    "estimatedTime": "10 min",
+    "isInteractive": true,
+    "interactionType": "open_ended",
+    "question": "Se sua organização adotasse IA amanhã, qual dimensão de valor pesaria mais? Qual seria ignorada?",
+    "notes": "<strong>Fala sugerida:</strong> Vamos abrir agora uma reflexão interativa no portal. Quero que cada grupo discuta internamente e envie a resposta: se sua organização adotasse uma IA amanhã, qual das cinco dimensões de valor pesaria mais na decisão (Efetividade Clínica, Eficiência Econômica, Valor para o Paciente, Acesso/Equidade ou Sustentabilidade)? E qual seria a dimensão mais ignorada? Vocês têm 5 minutos para discutir e responder.",
+    "content": "<h3>Dinâmica · Desafios Regulatórios e Incorporação</h3><p>Discuta com seu grupo:</p><ol><li>Qual das cinco dimensões de valor pesaria mais na decisão da sua organização? Qual seria ignorada?</li><li>O modelo alemão DiGA funcionaria no SUS ou na saúde suplementar brasileira?</li></ol><p>Envie a resposta consolidada do grupo no portal.</p>"
+  },
+  {
+    "id": "slide_2_14",
+    "title": "O que é um Teste de Estresse Financeiro",
+    "image": "/slides/aula2/slide_14.png",
     "block": "Bloco 1: Testes de Estresse",
     "estimatedTime": "8 min",
     "notes": "<strong>Fala sugerida:</strong> Um teste de estresse financeiro consiste em simular a resiliência orçamentária do projeto diante das piores premissas possíveis antes do GO. O cálculo nominal do ROI do fornecedor assume sempre um mundo perfeito. O teste de estresse força três perguntas: E se a adoção clínica cair pela metade? E se a rede precisar de upgrade? E se houver obra?",
     "content": "<h3>O que é um Teste de Estresse Financeiro?</h3><p><b>Definição:</b> Avaliar a resiliência orçamentária do projeto simulando as piores premissas possíveis de custos e adoção assistencial.</p><p>As 3 perguntas-chave do teste de estresse:</p><ol><li>E se a adoção clínica do corpo médico cair para 50%?</li><li>E se a rede precisar de upgrade de infraestrutura?</li><li>E se houver necessidade de obras civis e adequação física?</li></ol>"
   },
   {
-    "id": "slide_2_6",
+    "id": "slide_2_15",
     "title": "Custos Ocultos de Infraestrutura",
-    "image": "/slides/aula2/slide_6.png",
+    "image": "/slides/aula2/slide_15.png",
     "block": "Bloco 1: Testes de Estresse",
     "estimatedTime": "6 min",
     "notes": "<strong>Fala sugerida:</strong> A fundação que sustenta o projeto de IA não aparece na fatura do software. O custo do software raramente é o maior custo do projeto. Abaixo do nível do solo, temos rede e conectividade, integração com o prontuário eletrônico (EHR), obras civis, treinamento e mudança de processos, cibersegurança, suporte e monitoramento contínuo do modelo. Ignorar isso é o que destrói o ROI real.",
     "content": "<h3>Custos Ocultos de Infraestrutura</h3><p>A fundação que sustenta o projeto não aparece na fatura de software.</p><p>Custos abaixo do nível do solo:</p><ul><li>Rede e conectividade</li><li>Integração com o prontuário (EHR)</li><li>Obras civis e adequação física</li><li>Treinamento e mudança de processo</li><li>Cibersegurança e conformidade</li><li>Suporte, manutenção e monitoramento contínuo</li></ul>"
   },
   {
-    "id": "slide_2_7",
+    "id": "slide_2_16",
     "title": "Caso Integrado · Telemetria em Leitos",
-    "image": "/slides/aula2/slide_7.png",
+    "image": "/slides/aula2/slide_16.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "8 min",
-    "notes": "<strong>Fala sugerida:</strong> Analisemos a telemetria em leitos gerais. Adquirir sensores de monitoramento de sinais vitais por IA parece um investimento simples. O custo oculto no caso estudado (R$ 1,5 milhão) envolveu readequar a rede física Wi-Fi do hospital para suportar os dados em tempo real sem quedas (risco técnico de latência), além de criar uma central integrada de enfermagem para receber alertas (risco operacional). Sem essas duas readequações físicas e estruturais, os patches clínicos perdem toda a finalidade diagnóstica e viram puro desperdício de capital.",
+    "notes": "<strong>Fala sugerida:</strong> Analisemos a telemetria em leitos gerais. Adquirir sensores de monitoramento de sinais vitais por IA parece um investimento simples. O custo oculto no caso estudado (R$ 1,5 milhão) envolveu readequar a rede física Wi-Fi do hospital para suportar os dados ininterrompidamente em tempo real (risco técnico de latência), além de criar uma central integrada de enfermagem para receber alertas (risco operacional). Sem essas duas readequações físicas e estruturais, os patches clínicos perdem toda a finalidade diagnóstica e viram puro desperdício de capital.",
     "content": "<h3>Caso Integrado: Telemetria em Leitos</h3><p><b>O Caso:</b> Solução de telemetria promissora e bem avaliada clinicamente. Custo oculto: a infraestrutura de rede e monitoramento central — não apenas os sensores.</p><p><b>Lastro Real (Brasil):</b> A reinauguração da UTI do Hospital Regional de Sobradinho (DF), com monitoramento central, telemetria e leitos adaptados, somou cerca de R$ 1,5 milhão. Telemetria exige investimento estrutural, não apenas compra de equipamentos.</p>"
   },
   {
-    "id": "slide_2_8",
+    "id": "slide_2_17",
     "title": "Coragem Analítica vs. Moda Tecnológica",
-    "image": "/slides/aula2/slide_8.png",
+    "image": "/slides/aula2/slide_17.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "8 min",
     "isInteractive": true,
@@ -687,90 +772,90 @@ const classesContent = [
     "content": "<h3>Coragem Analítica vs. Moda Tecnológica</h3><p>Qual custo oculto você mais subestima nos seus projetos e por quê?</p><p>Responda no mural do portal para debatermos as respostas mais votadas pela turma.</p>"
   },
   {
-    "id": "slide_2_9",
+    "id": "slide_2_18",
     "title": "Caso Real Internacional · Google DermAssist",
-    "image": "/slides/aula2/slide_9.png",
+    "image": "/slides/aula2/slide_18.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "8 min",
     "notes": "<strong>Fala sugerida:</strong> O Google DermAssist é um grande exemplo de risco regulatório no cotidiano. O sistema sugere potenciais condições de pele a partir de fotos feitas pelo paciente e um questionário de sintomas. No entanto, o sistema obteve marcação CE europeia mas enfrentou cautelas e barreiras regulatórias nos EUA. Além disso, surgiram questionamentos éticos sobre o viés de desempenho em tons de pele mais escuros. Um exemplo claro de como riscos regulatórios e de conformidade de algoritmos impactam o go-to-market comercial.",
     "content": "<h3>Caso Real Internacional: Google DermAssist</h3><p>Ferramenta de IA dermatológica que sugere condições a partir de foto e sintomas. Marcação CE Classe I na UE; não avaliada pela FDA; não é diagnóstico.</p><p><b>Risco de Viés e Validação:</b> Críticas pela baixa representação de tons de pele mais escuros (risco de viés), validação clínica limitada e risco de autodiagnóstico. A due diligence exige perguntar se a IA foi validada no seu público antes de assinar.</p>"
   },
   {
-    "id": "slide_2_10",
+    "id": "slide_2_19",
     "title": "O Erro do ROI de Curto Prazo",
-    "image": "/slides/aula2/slide_10.png",
+    "image": "/slides/aula2/slide_19.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "5 min",
-    "notes": "<strong>Fala sugerida:</strong> Aqui mora um dos vieses mais caros da gestão de saúde: olhar só a planilha do mês seguinte. Um projeto de prevenção, como triagem precoce ou telemetria contínua, raramente devolve o investimento no primeiro trimestre. Os benefícios de prevenção aparecem no ano 2 ou 3, quando a curva de eventos evitados começa a compensar o investimento inicial. Se vocês avaliarem um projeto de saúde digital só pelo fluxo de caixa de curto prazo, vão sistematicamente rejeitar exatamente os projetos que mais protegem o paciente e a instituição no longo prazo.",
+    "notes": "<strong>Fala sugerida:</strong> Aqui mora um dos vieses mais caros da gestão de saúde: olhar só a planilha do mês seguinte. Um projeto de prevenção, como triagem precoce ou telemetria contínua, raramente devolve o investimento no primeiro trimestre. Os benefícios de prevenção aparecem no ano 2 ou 3, quando a curva de eventos evitados começa a compensar o investimento inicial. Em saúde digital, avaliações de curto prazo tendem a rejeitar exatamente os projetos que mais protegem a instituição no longo prazo.",
     "content": "<h3>O Erro do ROI de Curto Prazo</h3><p>Avaliar projetos de IA apenas pelo fluxo de caixa do primeiro ano penaliza inovações voltadas a ganho de segurança de longo prazo.</p><p>Os maiores benefícios de IA em saúde (evitar readmissões, prevenir sepse) geram valor incremental contínuo em prazos superiores a 24 meses.</p>"
   },
   {
-    "id": "slide_2_11",
+    "id": "slide_2_20",
     "title": "Riscos Invisíveis · Parte 1",
-    "image": "/slides/aula2/slide_11.png",
+    "image": "/slides/aula2/slide_20.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "6 min",
     "notes": "<strong>Fala sugerida:</strong> Os riscos invisíveis de maior peso clínico e financeiro em IA na saúde são as falhas de suporte à decisão que induzem a erros de medicação e eventos adversos severos. No fluxo hospitalar comum, cada evento adverso grave tem um custo estimado alto (diária em UTI adicional, exames repetidos, novas terapias). Evitar esses eventos por meio de alertas inteligentes da IA é uma receita real indireta de alta tração financeira. Além disso, falhas de registro geram glosas de convênios que corroem silenciosamente a receita.",
     "content": "<h3>Riscos Invisíveis · Parte 1</h3><p><b>Erros de Medicação e Eventos Adversos:</b> Custos clínicos diretos adicionais (hotelaria prolongada, UTI) e glosas no repasse que corroem o fluxo financeiro.</p><p><b>Glosas de Convênios:</b> Falhas de registro geram glosas que não aparecem na planilha do projeto, mas corroem o resultado financeiro.</p>"
   },
   {
-    "id": "slide_2_12",
+    "id": "slide_2_21",
     "title": "Riscos Invisíveis · Parte 2",
-    "image": "/slides/aula2/slide_12.png",
+    "image": "/slides/aula2/slide_21.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "6 min",
     "notes": "<strong>Fala sugerida:</strong> A segunda camada dos riscos invisíveis são as repercussões jurídicas e de responsabilidade civil. Um erro de medicação induzido por um falso negativo da IA pode resultar em processos indenizatórios judiciais complexos e multas. A contratação de seguros de responsabilidade profissional e a assessoria jurídica dedicada para inovações em IA clínica são despesas operacionais (OPEX) reais que devem constar no cálculo de viabilidade. Adicione a isso os custos de reputação e o retrabalho operacional.",
     "content": "<h3>Riscos Invisíveis · Parte 2</h3><p><b>Custos Jurídicos:</b> Processos de indenização por desfechos clínicos adversos induzidos ou não detectados por suporte algorítmico.</p><p><b>Imagem e Reputação:</b> Custos de reputação institucional são difíceis de quantificar, mas devastadores quando materializados.</p><p><b>Retrabalho Operacional:</b> Ineficiências geradas por soluções mal implantadas que consomem tempo e recursos fora do orçamento.</p>"
   },
   {
-    "id": "slide_2_13",
+    "id": "slide_2_22",
     "title": "Transformar Prevenção em Valor",
-    "image": "/slides/aula2/slide_13.png",
+    "image": "/slides/aula2/slide_22.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "8 min",
     "notes": "<strong>Fala sugerida:</strong> Como monetizamos a prevenção? A fórmula mental para calcular o valor gerado indiretamente por prevenção de perdas (Loss Avoidance) é: frequência histórica anual do evento multiplicada pelo custo financeiro médio de cada evento, ponderado pela eficácia esperada do sistema de IA. Exemplo prático do cotidiano: se o hospital tem 100 erros de dispensação de alto custo por ano, e cada erro custa R$ 5 mil em desperdício e retratamento, e a IA da farmácia evita 80% deles, a economia gerada é de R$ 400 mil anuais.",
     "content": "<h3>Transformar Prevenção em Valor</h3><p><b>Fórmula de Prevenção de Perda (Loss Avoidance):</b></p><p>$$\\text{Valor Evitado} = (\\text{Freq. Evento}) \\times (\\text{Custo do Evento}) \\times (\\text{Taxa Eficácia IA})$$</p><p>Adicione os riscos evitados ao retorno direto da solução para obter o ROI abrangente. Lembre-se: ROI defensável é ROI auditável, com premissas explícitas.</p>"
   },
   {
-    "id": "slide_2_14",
+    "id": "slide_2_23",
     "title": "Caso Integrado · Automação de Farmácia",
-    "image": "/slides/aula2/slide_14.png",
+    "image": "/slides/aula2/slide_23.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "8 min",
     "notes": "<strong>Fala sugerida:</strong> Automação de farmácia é um dos casos mais diretos de ROI abrangente, porque cada erro de dispensação evitado tem valor financeiro e clínico simultâneo. Dispensadores robóticos reduzem o erro humano de troca de medicamento e dose, mas o retorno real depende de dois fatores que a proposta comercial raramente detalha: a integração com o sistema de prescrição legado, que se falhar propaga o erro em vez de eliminá-lo, e a curva de confiança da equipe farmacêutica, que pode resistir ao novo fluxo de trabalho. O benefício técnico só vira ROI quando os dois se resolvem.",
     "content": "<h3>Caso Integrado: Automação de Farmácia</h3><p><b>O Caso:</b> Automação reduz erros de dispensação e perdas de medicação. Erros e perdas evitados se convertem diretamente em valor financeiro.</p><p><b>Lastro Real (Brasil):</b> Informatização da logística de farmácia reduziu perdas por validade em 47,9% e compras emergenciais em 70% (JBES, 2022). Em outro hospital, devoluções de medicamentos após dispensação custaram R$ 2,87 milhões (RSD, 2021).</p>"
   },
   {
-    "id": "slide_2_15",
+    "id": "slide_2_24",
     "title": "Caso Integrado · Como a Prevenção Vira ROI",
-    "image": "/slides/aula2/slide_15.png",
+    "image": "/slides/aula2/slide_24.png",
     "block": "Bloco 2: ROI Invisível",
     "estimatedTime": "8 min",
     "notes": "<strong>Fala sugerida:</strong> Este slide resume visualmente o fluxo da farmácia onde a prevenção vira ROI. À esquerda, temos a automação com dispensários eletrônicos que garantem armazenamento seguro, controle e dispensação auditável. À direita, a rastreabilidade informatizada que reduz retrabalho e perdas por validade em 47.9% e compras emergenciais em 70%.",
     "content": "<h3>Caso Integrado: Como a Prevenção vira ROI</h3><p>Fluxograma de valor na farmácia hospitalar:</p><ul><li><b>Dispensário Eletrônico:</b> Armazenamento seguro, dispensação correta e auditável, rastreabilidade completa.</li><li><b>Rastreabilidade Informatizada:</b> Identificação, registro, integração e relatórios de auditoria.</li><li><b>Impacto:</b> Redução de 47,9% em perdas por validade e de 70% em compras emergenciais.</li></ul>"
   },
   {
-    "id": "slide_2_16",
+    "id": "slide_2_25",
     "title": "Dinâmica · Cálculo de ROI Abrangente",
-    "image": "/slides/aula2/slide_16.png",
+    "image": "/slides/aula2/slide_25.png",
     "block": "Trabalho em Grupo",
     "estimatedTime": "40 min",
     "notes": "<strong>Fala sugerida:</strong> Hora de trabalhar nos simuladores dos comitês. Acessem o portal nos seus grupos. Utilizem o simulador de ROI abrangente inserindo as premissas econômicas do cenário do seu comitê, avaliem o VPL em cenários otimistas e sob estresse de adoção e enviem a análise financeira.",
     "content": "<h3>Dinâmica: Simulação Financeira nos Comitês</h3><p>Trabalho Prático em Grupo: Acesse o simulador de ROI no portal, preencha as premissas econômicas de CAPEX, OPEX e riscos, e envie a análise de viabilidade do comitê.</p><ol><li>Receba o cenário do comitê</li><li>Calcule o ROI convencional</li><li>Adicione os riscos invisíveis</li><li>Apresente a diferença do ROI real</li></ol>"
   },
   {
-    "id": "slide_2_17",
+    "id": "slide_2_26",
     "title": "Debrief · O Que Mudou o Resultado",
-    "image": "/slides/aula2/slide_17.png",
+    "image": "/slides/aula2/slide_26.png",
     "block": "Estudo de Caso",
     "estimatedTime": "15 min",
     "notes": "<strong>Fala sugerida:</strong> Parabéns pelas submissões financeiras. O Grupo 4 concluiu pela inviabilidade no cenário realista devido ao alto CAPEX e custo de manutenção, enquanto o Grupo 1 justificou a resiliência do payback mesmo sob baixa adoção. Vamos debater estas conclusões estratégicas.",
     "content": "<h3>Debrief: O que alterou o VPL do projeto?</h3><p>Análise comparativa das taxas de payback e VPL alcançados nos simuladores por cada equipe sob cenários de estresse de engajamento.</p><p>Compare o ROI só visível com o ROI abrangente: a mesma solução muda de veredito quando o invisível entra na conta.</p>"
   },
   {
-    "id": "slide_2_18",
+    "id": "slide_2_27",
     "title": "Reflexão Final",
-    "image": "/slides/aula2/slide_18.png",
+    "image": "/slides/aula2/slide_27.png",
     "block": "Fechamento",
     "estimatedTime": "8 min",
     "isInteractive": true,
@@ -780,18 +865,18 @@ const classesContent = [
     "content": "<h3>Reflexão Final</h3><p>Responda no portal: Em uma palavra, o que você passa a enxergar agora que antes era invisível?</p><p>As palavras de todos formarão uma nuvem de palavras ao vivo.</p>"
   },
   {
-    "id": "slide_2_19",
+    "id": "slide_2_28",
     "title": "Síntese e Ponte para a Aula 3",
-    "image": "/slides/aula2/slide_19.png",
+    "image": "/slides/aula2/slide_28.png",
     "block": "Encerramento",
     "estimatedTime": "5 min",
     "notes": "<strong>Fala sugerida:</strong> Em síntese, o engajamento assistencial do usuário final é a variável crítica do ROI real, e a precificação de riscos deve compor a planilha orçamentária do projeto de forma transparente. Preparem-se para as diretrizes de governança da Aula 3.",
     "content": "<h3>Takeaways da Aula 2</h3><ul><li>ROI observado depende da taxa de adoção do corpo clínico.</li><li>Cálculo de Loss Avoidance quantifica financeiramente a segurança assistencial.</li><li>O teste de estresse define o ponto de quebra antes de empenhar capital.</li></ul><p>O veto dos dados: escolha a solução que os dados aprovam, e não a que o marketing vende.</p>"
   },
   {
-    "id": "slide_2_20_ref",
+    "id": "slide_2_29_ref",
     "title": "Referências e Fontes da Aula",
-    "image": "/slides/aula2/slide_20.png",
+    "image": "/slides/aula2/slide_29.png",
     "block": "Encerramento",
     "estimatedTime": "2 min",
     "notes": "<strong>Fala sugerida:</strong> As referências bibliográficas do Bloco 2 de modelagem econômico-financeira sob risco estão disponíveis no portal. Todos os links acadêmicos e estudos de caso nacionais encontram-se ativos para consulta e citação nos relatórios finais.",
