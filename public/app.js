@@ -2854,7 +2854,7 @@ function updateMetricUI(elementId, val, unit) {
             el.innerText = `${val.toFixed(1)}%`;
             el.style.color = val >= 0 ? "var(--clinical-color)" : "var(--danger)";
         } else if (unit === "$") {
-            el.innerText = `USD ${val.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+            el.innerText = `R$ ${val.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}`;
             el.style.color = val >= 0 ? "var(--clinical-color)" : "var(--danger)";
         } else {
             el.innerText = `${val.toFixed(1)}${unit}`;
