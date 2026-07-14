@@ -727,10 +727,17 @@ const classesContent = [
     "block": "Bloco 1: Dinâmica",
     "estimatedTime": "10 min",
     "isInteractive": true,
-    "interactionType": "open_ended",
-    "question": "Se sua organização adotasse IA amanhã, qual dimensão de valor pesaria mais? Qual seria ignorada?",
-    "notes": "<strong>Fala sugerida:</strong> Vamos abrir agora uma reflexão interativa no portal. Quero que cada grupo discuta internamente e envie a resposta: se sua organização adotasse uma IA amanhã, qual das cinco dimensões de valor pesaria mais na decisão (Efetividade Clínica, Eficiência Econômica, Valor para o Paciente, Acesso/Equidade ou Sustentabilidade)? E qual seria a dimensão mais ignorada? Vocês têm 5 minutos para discutir e responder.",
-    "content": "<h3>Dinâmica · Desafios Regulatórios e Incorporação</h3><p>Discuta com seu grupo:</p><ol><li>Qual das cinco dimensões de valor pesaria mais na decisão da sua organização? Qual seria ignorada?</li><li>O modelo alemão DiGA funcionaria no SUS ou na saúde suplementar brasileira?</li></ol><p>Envie a resposta consolidada do grupo no portal.</p>"
+    "interactionType": "poll_ab",
+    "question": "Se sua organização adotasse IA amanhã, qual das cinco dimensões de valor pesaria mais na decisão?",
+    "options": [
+      "Efetividade Clínica",
+      "Eficiência Econômica / ROI",
+      "Valor para o Paciente & Sociedade",
+      "Acesso e Equidade",
+      "Sustentabilidade"
+    ],
+    "notes": "<strong>Fala sugerida:</strong> Vamos abrir agora uma enquete interativa no portal. Quero que cada um vote: se sua organização adotasse uma IA amanhã, qual das cinco dimensões de valor pesaria mais na decisão (Efetividade Clínica, Eficiência Econômica, Valor para o Paciente, Acesso/Equidade ou Sustentabilidade)? Respondam no portal e acompanharemos os resultados ao vivo.",
+    "content": "<h3>Dinâmica · Desafios Regulatórios e Incorporação</h3><p>Qual das cinco dimensões de valor pesaria mais na decisão da sua organização?</p><p>Vote no portal.</p>"
   },
   {
     "id": "slide_2_14",
