@@ -9,6 +9,8 @@ Avaliação de Riscos e Investimentos com ROI Slides Alunos.pptx
 *.zip
 *.pdf
 *.docx
+!public/Trabalho_Final_Template.docx
+!deploy/public/Trabalho_Final_Template.docx
 
 # Environment variables
 .env
