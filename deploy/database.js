@@ -927,15 +927,15 @@ const classesContent = [
     "references": [
       {
         "citation": "Mayo Clinic · Ensaio EAGLE, detecção por ECG (2021)",
-        "url": "https://newsnetwork.mayoclinic.org/discussion/ai-enabled-ecg-algorithm-identifies-weak-heart-in-routine-clinical-practice/"
+        "url": "https://newsnetwork.mayoclinic.org/pt/2025/01/07/estudo-investigativo-mostra-o-custo-efetividade-da-triagem-para-insuficiencia-cardiaca-aprimorada-por-ia/"
       },
       {
         "citation": "Robô Laura · Gestão de sepse no Brasil (2024)",
-        "url": "https://www.laura-health.com"
+        "url": "https://lauranetworks.com/conheca-o-robo-laura/laura-sepsis/"
       },
       {
         "citation": "Neonpass Einstein · Rastreamento de chamadas (2024)",
-        "url": "https://www.einstein.br"
+        "url": "https://www.scielo.br/j/tce/a/DmyPsbwHHQDDH5xVyNdzJFz/abstract/?lang=en"
       }
     ],
         "slides": [
