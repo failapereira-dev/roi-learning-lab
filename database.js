@@ -938,272 +938,221 @@ const classesContent = [
         "url": "https://www.einstein.br"
       }
     ],
-    "slides": [
+        "slides": [
       {
         "id": "slide_3_1",
         "title": "Capa da Aula",
         "image": "/slides/aula3/slide_1.png",
         "block": "Introdução",
         "estimatedTime": "2 min",
-        "notes": "<strong>Fala sugerida:</strong> Boas-vindas ao nosso terceiro encontro. Hoje consolidaremos a governança institucional de inovação. Vamos aprender a converter nossa modelagem financeira e análise de riscos em um Business Case executivo qualificado para apresentação em diretoria.",
-        "content": "<h3>Governança, Tomada de Decisão e Business Case</h3><p>A segurança do paciente como ativo financeiro mais valioso</p><p>Professora: Dra. Faila Santos</p>"
+        "notes": "<strong>Fala sugerida:</strong> Boas-vindas ao nosso terceiro encontro. Hoje consolidaremos a governança institucional de inovação. Vamos aprender a converter nossa modelagem financeira e análise de riscos em um Business Case executivo qualificado para apresentação em diretoria. Como diz nosso mantra, vamos transitar 'da convicção técnica à prova matemática que convence o conselho'.",
+        "content": "<h3>Governança, Tomada de Decisão e Business Case</h3><p>Mantra: \"Da convicção técnica à prova matemática que convence o conselho.\"</p><p>Objetivo: Capacitar o aluno a traduzir riscos e ROI para a linguagem do C-level, posicionando segurança do paciente como ativo financeiro.</p><p>Professora: Dra. Faila Pereira • MBA em IA na Saúde • Moinhos de Vento</p>"
       },
       {
         "id": "slide_3_2",
-        "title": "Icebreaker · O que Trava a Diretoria",
+        "title": "Icebreaker • O que Trava a Alta Gestão",
         "image": "/slides/aula3/slide_2.png",
         "block": "Abertura",
         "estimatedTime": "8 min",
         "isInteractive": true,
         "interactionType": "wordcloud",
-        "question": "Em uma palavra: qual o principal fator que leva o C-level ou o conselho a rejeitar propostas de saúde digital?",
-        "notes": "<strong>Fala sugerida:</strong> Peço que respondam, em uma palavra: o que mais trava a aprovação de um bom projeto na diretoria de vocês? Não filtrem a resposta. Pode ser 'burocracia', pode ser 'medo', pode ser 'CFO'. Essa nuvem de palavras vai nos dizer muito sobre os obstáculos reais de governança que vocês enfrentam, e vamos usar isso como ponto de partida para a aula de hoje.",
-        "content": "<h3>Icebreaker · O que trava a diretoria</h3><p>Em uma palavra: qual o principal fator que leva o C-level ou o conselho a rejeitar propostas de saúde digital?</p><p>Responda no portal para gerar a nuvem síncrona.</p>"
+        "question": "Em uma palavra, o que mais trava a aprovação de um bom projeto para a alta gestão?",
+        "notes": "<strong>Fala sugerida:</strong> Para iniciar de forma interativa, peço que acessem o portal e respondam em uma palavra: o que mais trava a aprovação de um bom projeto na alta gestão da sua instituição? Vamos ver a nuvem de palavras se formar ao vivo. Isso nos ajudará a discutir os gargalos de governança e comunicação que enfrentamos no dia a dia.",
+        "content": "<h3>Icebreaker · O que Trava a Alta Gestão</h3><p>Em uma palavra, o que mais trava a aprovação de um bom projeto para a alta gestão?</p><p>Responda no portal para gerar a nuvem de palavras em tempo real.</p>"
       },
       {
         "id": "slide_3_3",
-        "title": "Objetivos e Agenda",
+        "title": "Objetivos e Agenda • Aula 3",
         "image": "/slides/aula3/slide_3.png",
         "block": "Introdução",
         "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Hoje é o nosso terceiro e último encontro síncrono, e o objetivo é converter tudo que vocês aprenderam sobre risco e ROI em um Business Case que resista a uma sala de conselho. Vocês vão sair sabendo estruturar esse business case e montar uma matriz de decisão multifatorial para comparar fornecedores de forma isenta. Essa aula prepara diretamente o Projeto Prático em Grupo, que vale 35% da nota — a maior alavanca avaliativa da disciplina. Prestem atenção redobrada.",
-        "content": "<h3>Objetivos e Agenda</h3><p><b>O que você vai saber:</b> Estruturar um Business Case executivo completo e montar uma matriz de decisão ponderada para seleção isenta de fornecedores.</p><p><b>Agenda:</b> Bloco 1 (Falar a língua do conselho) + Bloco 2 (Matriz Ponderada de Decisão) + Workshop do Projeto Final.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Hoje consolidaremos nosso conhecimento. Nossa agenda inclui: Bloco 1 sobre como estruturar uma comunicação executiva sólida e o caso Mayo Clinic; Bloco 2 cobrindo a Matriz de Decisão Multifatorial e o cálculo de pontuação ponderada; e finalmente nosso Workshop para o Projeto Prático em Grupo. Lembro que este trabalho prático equivale a 35% da nota final — é a maior alavanca avaliativa da nossa disciplina, por isso aproveitem o workshop de hoje ao máximo.",
+        "content": "<h3>Objetivos e Agenda • Aula 3</h3><p><b>O que você vai saber:</b> Estruturar um business case completo e uma matriz de decisão multifatorial para apresentar ao conselho.</p><p><b>Agenda:</b> Comunicação executiva + caso Mayo Clinic + matriz de decisão + workshop do projeto final.</p><p><b>Peso avaliativo:</b> Esta aula prepara diretamente o Projeto Prático em Grupo (35% da nota), a maior alavanca avaliativa da disciplina.</p>"
       },
       {
         "id": "slide_3_4",
         "title": "Falar a Língua dos Stakeholders Financeiros",
         "image": "/slides/aula3/slide_4.png",
-        "block": "Bloco 1: Linguagem de Negócios",
+        "block": "Linguagem de Negócios",
         "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> Reparem na ordem dessas três palavras: objetividade, evidência, mitigação de perdas. Não é acaso. Comecem pela perda evitada, nunca pela tecnologia em si — um CFO não se importa com o modelo de IA, se importa com o que deixa de sair do caixa. Depois, tragam evidência: todo número precisa de uma premissa auditável por trás. Só no final, mitigação de perdas como conclusão lógica do argumento. Essa sequência, nessa ordem, é o que separa um pitch de um business case.",
-        "content": "<h3>Falar a Língua dos Stakeholders Financeiros</h3><p><b>Objetividade:</b> Evite jargões técnicos de informática (ex: F1-score, parâmetros). Foque em redução de OPEX, diárias extras de UTI e controle de glosas.</p><p><b>Premissas defensáveis:</b> Todo ganho orçamentário previsto deve possuir lastro em evidências auditáveis de projetos semelhantes.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Para falar a língua dos tomadores de decisão financeira, siga sempre três passos cruciais nesta exata ordem: primeiro, objetividade — inicie pela perda evitada e pelo desfecho clínico mensurável, não pela tecnologia em si; segundo, evidência — apresente números defensáveis e lastreados em premissas claras e auditáveis que o CFO reconheça; terceiro, mitigação de perdas — demonstre como os riscos foram precificados e mapeados. Essa estrutura lógica é o que separa um pitch publicitário de uma decisão técnica protegida.",
+        "content": "<h3>Falar a Língua dos Stakeholders Financeiros</h3><p><b>1. Objetividade:</b> Comece pela perda evitada, não pela tecnologia. Menos adjetivos, mais números com premissa clara.</p><p><b>2. Evidência:</b> Traduzir risco clínico em impacto financeiro auditável. Linguagem que o CFO reconhece.</p><p><b>3. Mitigação de Perdas:</b> Essa é a ordem: objetividade, evidência e mitigação de perdas. Nessa sequência, o argumento convence.</p>"
       },
       {
         "id": "slide_3_5",
         "title": "Do Marketing à Prova Matemática",
-        "image": "/slides/aula3/slide_4.png",
-        "block": "Bloco 1: Linguagem de Negócios",
-        "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> Justificar investimentos complexos exige mover o comitê da atração do marketing tecnológico para a solidez da prova matemática. Dividimos a estrutura lógica em cinco etapas: definir o problema de gargalo, quantificar o impacto orçamentário atual, especificar a tecnologia e prever seus impactos em cadeia (efeito dominó), estimar o custo financeiro de riscos (Risk Cost) e, por fim, rodar a sensibilidade financeira no simulador.",
-        "content": "<h3>Do Marketing à Prova Matemática</h3><p>A estrutura de justificação de investimentos complexos:</p><ol><li><b>Definição de Gargalo:</b> Qual o problema assistencial mensurável?</li><li><b>Impacto Atual:</b> Quanto esse gargalo custa hoje ao hospital?</li><li><b>Solução Proposta:</b> Como a IA atua no redesenho de processos e fluxo?</li><li><b>Precificação de Riscos:</b> Qual a estimativa do Risk Cost das categorias do framework?</li><li><b>Sensibilidade:</b> O ROI continua saudável nos cenários pessimistas?</li></ol>"
-      },
-      {
-        "id": "slide_3_5_pic",
-        "title": "A Estrutura Lógica do Argumento",
         "image": "/slides/aula3/slide_5.png",
-        "block": "Bloco 1: Linguagem de Negócios",
-        "estimatedTime": "4 min",
-        "notes": "<strong>Fala sugerida:</strong> Pensem neste fluxo lógico como o esqueleto do business case. Se vocês pularem a etapa de quantificação do gargalo atual e forem direto para a sensibilidade do ROI, o conselho perderá a confiança na premissa inicial do investimento. O rigor metodológico protege o argumento.",
-        "content": "<h3>A Estrutura Lógica do Argumento</h3><p>Cadeia de sustentabilidade decisória: Gargalo &rarr; Impacto Financeiro &rarr; Rede de Processos &rarr; Mitigação de Risco &rarr; Viabilidade Financeira.</p>"
+        "block": "Linguagem de Negócios",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> Para convencer o conselho, precisamos transitar do discurso atrativo de marketing para a rigidez da prova matemática. Esse fluxo é composto por 5 etapas claras: 1) Qual é o problema assistencial e operacional quantificado; 2) Custo do problema (quanto o hospital perde por não resolvê-lo hoje); 3) A solução tecnológica exata; 4) O ROI abrangente e robusto; e 5) O risco mitigado pelo projeto. Substituam palavras vazias como 'inovador' por dados auditáveis e antecipem a pergunta difícil do CFO antes que ele a faça.",
+        "content": "<h3>Do Marketing à Prova Matemática</h3><p><i>\"Justificar investimento complexo é ir do marketing à prova matemática.\"</i></p><ol><li><b>Problema:</b> Qual é o problema quantificado?</li><li><b>Custo do Problema:</b> Quanto custa não resolver?</li><li><b>Solução:</b> O que a tecnologia faz?</li><li><b>ROI:</b> Qual o retorno abrangente?</li><li><b>Risco Mitigado:</b> O que deixa de acontecer?</li></ol><p>Substitua \"inovador\" e \"líder de mercado\" por números defensáveis. Antecipe a pergunta difícil do CFO antes que ele a faça.</p>"
       },
       {
         "id": "slide_3_6",
-        "title": "Caso Real Internacional · Mayo Clinic AI-ECG (EAGLE)",
+        "title": "Anatomia de um Business Case Vencedor",
         "image": "/slides/aula3/slide_6.png",
-        "block": "Estudo de Caso",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> O ensaio EAGLE da Mayo Clinic é o contraponto perfeito ao case do IBM Watson que vimos na Aula 1. O ROI teórico era de 250%, mas caiu para 41% na prática, e o payback subiu de menos de 1 ano para 2,8 anos, quando descobriram que a revisão médica levava 20 minutos em vez de 5, e que cada site de implantação custava USD 200 mil a mais em integração. A lição não é que o projeto falhou. É que um problema bem definido, com desfecho mensurável e governança desde o início, produz um business case robusto mesmo quando o número final é bem menor que o prometido.",
-        "content": "<h3>Caso Real Internacional: Mayo Clinic AI-ECG (EAGLE)</h3><p>Algoritmo de triagem para detecção precoce de baixa fração de ejeção via ECG em rotina ambulatorial.</p><p>O ensaio demonstrou que a modelagem preditiva gerou desfecho de custo-efetividade e ganho de sobrevida mensuráveis de forma real e auditável no fluxo diário.</p>"
+        "block": "Linguagem de Negócios",
+        "estimatedTime": "6 min",
+        "notes": "<strong>Fala sugerida:</strong> A anatomia de um business case de sucesso baseia-se em uma regra prática: o conselho decide pela primeira página; o resto é anexo técnico para defesa. Essa primeira página deve conter um Sumário Executivo resumindo a decisão em poucas linhas, o Problema Quantificado (custo do gargalo hoje), a Solução Proposta (o que será implementado), a Análise de Risco (aparentes e ocultos), o ROI Abrangente com os cenários base, conservador e otimista, e a Recomendação final de GO ou NO-GO.",
+        "content": "<h3>Anatomia de um Business Case Vencedor</h3><p>Uma página que o conselho leria:</p><ol><li><b>Sumário executivo:</b> a decisão em poucas linhas</li><li><b>Problema quantificado:</b> o custo do problema hoje</li><li><b>Solução proposta:</b> o que será implementado</li><li><b>Análise de risco:</b> riscos aparentes e ocultos</li><li><b>ROI abrangente:</b> com cenários base, conservador e otimista</li><li><b>Recomendação:</b> a tese de investimento</li></ol><p><i>O conselho decide pela primeira página; o resto é defesa.</i></p>"
       },
       {
         "id": "slide_3_7",
         "title": "Qual Argumento Convence Seu CFO?",
         "image": "/slides/aula3/slide_7.png",
-        "block": "Bloco 1: Linguagem de Negócios",
-        "estimatedTime": "6 min",
+        "block": "Linguagem de Negócios",
+        "estimatedTime": "12 min",
         "isInteractive": true,
         "interactionType": "open_ended",
-        "question": "Compartilhe no portal o argumento clínico ou financeiro de maior poder de persuasão para aprovação de investimentos.",
-        "notes": "<strong>Fala sugerida:</strong> Escrevam uma frase só. Não um parágrafo, uma frase: o argumento que mais convenceria o CFO de vocês a aprovar o investimento. A turma vai poder curtir as respostas mais fortes. Esse exercício parece simples, mas é o teste real: se vocês não conseguem resumir o valor do projeto em uma frase, é sinal de que o argumento ainda não está claro nem para vocês mesmos.",
-        "content": "<h3>Qual argumento convence seu CFO?</h3><p>Compartilhe no portal o argumento clínico ou financeiro de maior poder de persuasão para aprovação de investimentos em inovação.</p>"
+        "question": "Escreva o argumento de uma frase que mais convenceria o seu CFO.",
+        "notes": "<strong>Fala sugerida:</strong> Agora é a sua vez de praticar no portal. Escrevam uma única frase que represente o argumento mais persuasivo para o CFO da sua instituição. Lembrem-se de unir um dado financeiro ao risco evitado ou à segurança do paciente. Vocês poderão votar nos argumentos dos colegas, e os mais curtidos virarão referência para o projeto final de cada grupo.",
+        "content": "<h3>Qual Argumento Convence Seu CFO?</h3><p>Escreva o argumento de uma frase que mais convenceria o seu CFO. A turma curte os mais fortes.</p><p>Os argumentos mais curtidos costumam unir número + risco evitado + segurança do paciente. Responda no portal para gerar o mural dinâmico.</p>"
       },
       {
         "id": "slide_3_8",
-        "title": "Lastro Real (Brasil) · IA Clínica em Ação",
+        "title": "Caso Real Internacional • Mayo Clinic (AI-ECG)",
         "image": "/slides/aula3/slide_8.png",
         "block": "Estudo de Caso",
         "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> Dois casos brasileiros, dois desfechos concretos. O Robô Laura reduziu o tempo entre suspeita de sepse e a primeira dose de antibiótico de 13 horas para 2h58, e cada hora a menos nesse intervalo tem correlação direta com sobrevida. O Neonpass, no Einstein, mostrou que só 35,4% das chamadas de pacientes exigiam de fato a enfermagem, devolvendo tempo assistencial que estava sendo consumido por triagem manual. Em nenhum dos dois casos o ganho veio só da tecnologia: veio da tecnologia combinada com redesenho de processo.",
-        "content": "<h3>Lastro Real (Brasil): IA Clínica em Ação</h3><p><b>Robô Laura (Sepse):</b> Redução de 13h para 2h58 no tempo médio para primeira dose de antibiótico após suspeita de sepse em hospitais públicos e filantrópicos.</p><p><b>Neonpass (Einstein):</b> Otimização de tempo de enfermagem evidenciando que 64,6% dos chamados assistenciais nos leitos eram puramente administrativos.</p>"
+        "notes": "<strong>Fala sugerida:</strong> O ensaio clínico EAGLE da Mayo Clinic é nossa grande referência de governança em saúde digital. Eles testaram um algoritmo de IA no ECG para detectar disfunção ventricular esquerda (baixa fração de ejeção) no mundo real, abrangendo 22.641 pacientes. A detecção foi 32% maior no grupo com IA do que no cuidado padrão, e estudos subsequentes comprovaram o excelente custo-efetividade da tecnologia. Isso ilustra o casamento ideal de um problema clínico bem delimitado, desfecho mensurável de valor, perfeita integração no fluxo diário e avaliação econômica formal. Um verdadeiro contraexemplo ao caso IBM Watson que vimos no início.",
+        "content": "<h3>Caso Real Internacional · Mayo Clinic AI-ECG (EAGLE)</h3><p>Algoritmo de IA no ECG para detectar baixa fração de ejeção, testado em ensaio pragmático no mundo real.</p><p><b>Resultados:</b> 22.641 adultos, 45 instituições; detecção de baixa fração de ejeção 32% maior que no cuidado usual. Estudo posterior comprovou custo-efetividade.</p><p><b>Na ótica da disciplina:</b> problema bem definido + desfecho mensurável + integração ao fluxo + avaliação econômica = business case que se sustenta no conselho.</p>"
       },
       {
         "id": "slide_3_9",
-        "title": "Leitura Rápida: Laura & Neonpass",
-        "image": "/slides/aula3/slide_7.png",
+        "title": "Lastro Real (Brasil) • IA Clínica em Ação",
+        "image": "/slides/aula3/slide_9.png",
         "block": "Estudo de Caso",
-        "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Recomendo a leitura dos resumos executivos da Laura e do Neonpass. Vejam como a quantificação de horas assistenciais liberadas e a redução de mortalidade por infecção bacteriana direta sustentaram financeiramente a contratação recorrente destas ferramentas em comitês nacionais.",
-        "content": "<h3>Leitura Rápida: Robô Laura e Neonpass</h3><p>Estudos nacionais de impacto da otimização de fluxos assistenciais de faturamento, triagem e controle infeccioso bacteriano.</p>"
-      },
-      {
-        "id": "slide_3_9_dyn",
-        "title": "Dinâmica: Traduzindo Desfechos Clínicos",
-        "image": "/slides/aula3/slide_7.png",
-        "block": "Estudo de Caso",
-        "estimatedTime": "5 min",
-        "isInteractive": true,
-        "interactionType": "poll",
-        "question": "Na sua defesa de business case, qual indicador possui mais força diante da diretoria financeira?",
-        "options": [
-          "Redução direta do custo de hotelaria (diárias extras em leito geral/UTI)",
-          "Aumento de receita por otimização de giro de leito no centro cirúrgico",
-          "Mitigação de multas e passivos de conformidade regulatória (LGPD/ANVISA)"
-        ],
-        "notes": "<strong>Fala sugerida (Perspectiva CFO):</strong> Votem na enquete síncrona: ao apresentar o business case da equipe de vocês ao CFO, qual dessas três dimensões de valor terá maior poder de persuasão? *Dica de condução:* Destaque que a **Redução direta de custos (como hotelaria/diárias extras de UTI)** (opção 1) é o argumento mais fácil de auditar e aprovar perante o CFO. O aumento de receita (opção 2) exige premissa de demanda (que nem sempre se confirma), e a mitigação de multas (opção 3) é vista como custo evitado passivo.",
-        "content": "<h3>Dinâmica: Traduzindo Desfechos Clínicos</h3><p>Vote na enquete síncrona sobre persuasão executiva frente a restrições orçamentárias.</p>"
+        "estimatedTime": "8 min",
+        "notes": "<strong>Fala sugerida:</strong> No cenário nacional, temos dois grandes exemplos de lastro real. O primeiro é o Robô Laura de combate à sepse, que reduziu o tempo médio entre a suspeita de infecção e a primeira dose de antibiótico de 13 horas para 2h58, demonstrando impacto clínico direto de sobrevida e economia com redução de internações. O segundo é a tecnologia Neonpass Room (Einstein e HOOBOX), que provou por meio de monitoramento que 64,6% dos chamados de leito dos pacientes eram demandas puramente administrativas e hoteleiras, e não assistenciais, permitindo realocar o tempo precioso da enfermagem para o cuidado direto. Ambos mostram que o valor reside no redesenho do processo impulsionado pela IA.",
+        "content": "<h3>Lastro Real (Brasil) · IA Clínica em Ação</h3><p><b>Robô Laura (Sepse):</b> Reduziu o tempo entre suspeita e antibiótico de 13h para 2h58 — impacto clínico e financeiro direto e mensurável.</p><p><b>Neonpass Room (Einstein/HOOBOX):</b> Roteou solicitações de pacientes e mostrou que apenas 35,4% exigiam a enfermagem, devolvendo tempo ao cuidado direto (64,6% dos chamados eram administrativos).</p>"
       },
       {
         "id": "slide_3_10",
         "title": "Além do Preço",
-        "image": "/slides/aula3/slide_8.png",
-        "block": "Bloco 2: Matriz de Decisão",
+        "image": "/slides/aula3/slide_10.png",
+        "block": "Matriz de Decisão",
         "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> A solução mais barata da proposta comercial pode ser a mais cara nos próximos três anos, se ela gerar retrabalho, resistência da equipe ou upgrade de infraestrutura não previsto. Preço é um critério dentro da matriz de decisão, não o critério que decide sozinho. Antes de pontuar qualquer fornecedor, perguntem: qual o custo total de propriedade em três anos, não só o valor da proposta inicial?",
-        "content": "<h3>Além do Preço</h3><p><i>\"A solução tecnológica de menor custo de aquisição (CAPEX) pode ser a de maior custo total de propriedade (TCO) em um horizonte de 3 anos devido a atritos operacionais e custos de integração legada.\"</i></p><p>Matriz de Decisão blinda a escolha contra o viés de preço nominal simples.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Um erro clássico em compras hospitalares é focar exclusivamente no custo inicial de aquisição (CAPEX). Lembrem-se: a solução de menor preço de tabela pode se tornar a mais cara no horizonte de 3 anos devido a falhas de usabilidade, altos custos de customização técnica, suporte ineficiente ou interrupções assistenciais (SLA fraco). Devemos tratar preço como apenas um dos critérios da decisão, integrar segurança assistencial de forma explícita na avaliação e medir o Custo Total de Propriedade (TCO).",
+        "content": "<h3>Além do Preço</h3><p><i>\"A solução mais barata pode ser a mais cara no horizonte de 3 anos.\"</i></p><p><b>Preço é um critério:</b> Não é o critério. Preço baixo com risco alto é armadilha — quebre essa âncora antes de pontuar qualquer solução.</p><p><b>Segurança assistencial:</b> Integrar segurança do paciente como critério explícito na decisão de compra — não como pressuposto implícito.</p><p><b>Viabilidade de longo prazo:</b> Avaliar o custo total de propriedade (TCO) em 3 anos, não apenas o investimento inicial.</p>"
       },
       {
         "id": "slide_3_11",
         "title": "Construindo a Matriz de Decisão Ponderada",
-        "image": "/slides/aula3/slide_9.png",
-        "block": "Bloco 2: Matriz de Decisão",
+        "image": "/slides/aula3/slide_11.png",
+        "block": "Matriz de Decisão",
         "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> O segredo para uma governança de fornecedores isenta reside no estabelecimento prévio e homologado dos pesos de cada critério da Matriz Ponderada antes de pontuar as opções comerciais. Isso anula o viés de escolha e blinda o comitê técnico contra escolhas baseadas em preferências pessoais.",
-        "content": "<h3>Construindo a Matriz de Decisão</h3><p><b>Princípio de Governança:</b> Definir os critérios e seus pesos de relevância corporativa <i>antes</i> de avaliar as opções de mercado.</p><p>Anula viés de escolha subjetiva (\"voto emocional\").</p>"
+        "notes": "<strong>Fala sugerida:</strong> Para garantir uma escolha técnica isenta e blindada contra preferências pessoais ou emocionais do comitê, o truque principal de governança é: defina os critérios e, principalmente, os pesos de relevância corporativa de cada um ANTES de olhar para as propostas e pontuar as alternativas. Isso anula o viés de confirmação. Nesta tabela vemos os 6 critérios sugeridos: Custo Total (15%), ROI Abrangente (25%), Risco Operacional (15%), Segurança Assistencial (25%), Integração ao Fluxo (10%) e Escalabilidade (10%).",
+        "content": "<h3>Construindo a Matriz de Decisão Ponderada</h3><p><b>Matriz de Decisão Multifatorial:</b> Calcule a pontuação ponderada e identifique a solução vencedora.</p><p><b>Critérios de Avaliação (Exemplo):</b> 1. Custo total (15%), 2. ROI abrangente (25%), 3. Risco operacional (15%), 4. Segurança assistencial (25%), 5. Integração ao fluxo (10%), 6. Escalabilidade (10%).</p><p><i>Defina os pesos ANTES de pontuar para evitar viés de confirmação. Esse é o truque de governança que protege a decisão.</i></p>"
       },
       {
         "id": "slide_3_12",
         "title": "Como Calcular a Pontuação Ponderada",
-        "image": "/slides/aula3/slide_10.png",
-        "block": "Bloco 2: Matriz de Decisão",
+        "image": "/slides/aula3/slide_12.png",
+        "block": "Matriz de Decisão",
         "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> A conta é simples, mas precisa ser feita na ordem certa. Primeiro, definam os critérios relevantes: custo total, risco clínico, escalabilidade, o que fizer sentido para o cenário de vocês. Segundo, atribuam o peso de cada critério antes de olhar para as soluções — essa ordem é o que evita viés de confirmação. Terceiro, pontuem cada solução de 1 a 5 em cada critério. Quarto, calculem a pontuação final somando nota vezes peso de cada critério. Quinto, comparem: a maior pontuação ponderada vence, e se o voto do coração de vocês divergir do resultado da matriz, é hora de investigar esse viés emocional antes de decidir.",
-        "content": "<h3>Como calcular a pontuação ponderada</h3><p>Etapas da modelagem:</p><ol><li>Definir critérios (TCO, Risco, Usabilidade, SLA).</li><li>Atribuir peso (soma 100%).</li><li>Pontuar fornecedores (escala 1 a 5).</li><li>Somar nota &times; peso. A maior pontuação ponderada vence o certame técnico.</li></ol>"
+        "notes": "<strong>Fala sugerida:</strong> Vamos ver a matemática por trás da Matriz de Decisão. O cálculo é simples: 1) Definir os critérios e pesos (ex: ROI abrangente = 25% ou 0,25); 2) Pontuar cada fornecedor com uma nota de 1 a 5; 3) Multiplicar a nota pelo peso decimal para achar o resultado ponderado; e 4) Somar todos os resultados ponderados para obter a Pontuação Final. A maior pontuação ponderada vence. Se a pontuação final apontar um vencedor diferente da sua preferência intuitiva inicial, é um sinal claro de viés emocional que precisa ser investigado.",
+        "content": "<h3>Como Calcular a Pontuação Ponderada</h3><p><b>Passo a Passo:</b></p><ol><li><b>Defina os critérios:</b> Liste os fatores relevantes (ex: Custo, Risco Clínico, Usabilidade).</li><li><b>Atribua pesos antes:</b> Defina o peso decimal de cada critério de forma antecipada (soma = 1,00).</li><li><b>Pontue cada solução:</b> Notas de 1 a 5 por critério para cada alternativa.</li><li><b>Calcule a pontuação final:</b> Multiplique a nota pelo peso e some os resultados.</li><li><b>Compare e decida:</b> A maior pontuação ponderada vence o certame técnico.</li></ol>"
       },
       {
         "id": "slide_3_13",
         "title": "Governança da Inovação",
-        "image": "/slides/aula3/slide_11.png",
-        "block": "Bloco 2: Matriz de Decisão",
+        "image": "/slides/aula3/slide_13.png",
+        "block": "Matriz de Decisão",
         "estimatedTime": "6 min",
-        "notes": "<strong>Fala sugerida:</strong> Governança não é burocracia, é proteção — da instituição e de quem decide. Isso significa três coisas na prática: critérios definidos antes da avaliação, nunca depois; rastreabilidade de quem decidiu, com base em quê, e quando; e documentação que aguenta ser recomendável em seis meses depois, quando alguém perguntar por que aquele fornecedor foi escolhido. Um comitê que consegue responder essas três perguntas está protegido. Um que não consegue, está exposto, mesmo que a decisão tenha sido tecnicamente correta.",
-        "content": "<h3>Governança da Inovação</h3><p>Critérios explícitos e rastreáveis na seleção tecnológica:</p><ul><li><b>Transparência:</b> Justificativa matemática da escolha documentada.</li><li><b>Auditabilidade:</b> Rastreabilidade de notas atribuídas por comitê técnico.</li><li><b>Segurança Jurídica:</b> Defesa formal da escolha perante auditorias internas ou acionistas.</li></ul>"
+        "notes": "<strong>Fala sugerida:</strong> Lembrem-se sempre de que governança corporativa não é burocracia desnecessária. Ela é a proteção institucional do hospital e de quem toma as decisões de compra. Ela se baseia em critérios explícitos e definidos previamente, na rastreabilidade estrita da decisão (quem deu as notas, quando e com base em qual evidência) e na segurança jurídica que permite responder a qualquer auditoria ou acionista meses depois com justificativas matemáticas sólidas.",
+        "content": "<h3>Governança da Inovação</h3><p><b>Critérios Rigorosos e Explícitos:</b> A seleção da solução vencedora deve seguir critérios definidos antes da avaliação — não depois.</p><p><b>Rastreabilidade da Decisão:</b> Quem decidiu, com base em quê, quando. Governança é o que permite defender a decisão seis meses depois.</p><p><b>Proteção Institucional:</b> Governança não é burocracia: protege a instituição e também quem decide. É liderança responsável.</p>"
       },
       {
         "id": "slide_3_14",
-        "title": "Escolha a Solução Vencedora",
-        "image": "/slides/aula3/slide_11.png",
-        "block": "Bloco 2: Matriz de Decisão",
-        "estimatedTime": "6 min",
+        "title": "Escolha a Solução Vencedora • Atividade Interativa",
+        "image": "/slides/aula3/slide_14.png",
+        "block": "Atividade Interativa",
+        "estimatedTime": "12 min",
         "isInteractive": true,
         "interactionType": "poll",
-        "question": "Na votação técnica do seu comitê síncrono, qual fornecedor da lousa multicritério obteve a maior pontuação ponderada e será o contratado?",
+        "question": "Com base na matriz de decisão analisada, qual solução obteve a maior pontuação ponderada?",
         "options": [
-          "Fornecedor A (Baixo preço inicial, alto risco regulatório de acurácia)",
-          "Fornecedor B (Preço moderado, alta usabilidade e SLA sólido)",
-          "Fornecedor C (Alto preço inicial, excelente conformidade e mitigação total)"
+          "Solução A (Pontuação Ponderada: 3.50)",
+          "Solução B (Pontuação Ponderada: 3.35)",
+          "Solução C (Pontuação Ponderada: 3.90)"
         ],
-        "notes": "<strong>Fala sugerida (Gabarito: Fornecedor B):</strong> Vote agora: entre as três opções apresentadas, qual seria a vencedora? *Gabarito Técnico:* A resposta correta é o **Fornecedor B** (Preço moderado, alta usabilidade e SLA sólido). Explique que o Fornecedor A é barato mas tem risco regulatório proibitivo (cai no vermelho da matriz), e o Fornecedor C tem mitigação total mas o custo (TCO) inviabiliza o ROI financeiro. O Fornecedor B equilibra perfeitamente risco e retorno.",
-        "content": "<h3>Escolha a solução vencedora</h3><p>Vote na enquete síncrona com base nas notas ponderadas consolidadas pelos comitês.</p>"
-      },
-      {
-        "id": "slide_3_14_a",
-        "title": "Comitê Executivo: Você Aprovaria Esse Investimento?",
-        "image": "/slides/aula3/slide_11.png",
-        "block": "Bloco 2: Matriz de Decisão Multifatorial",
-        "estimatedTime": "15 min",
-        "isInteractive": true,
-        "interactionType": "poll",
-        "question": "Depois de ouvir as defesas dos grupos, qual seria a sua decisão pessoal: GO ou NO-GO?",
-        "options": [
-          "GO (Aprovar o investimento, estruturando mitigação de riscos)",
-          "NO-GO (Rejeitar o investimento devido às incertezas do projeto)"
-        ],
-        "notes": "<strong>Fala sugerida (Discussão de Decisão):</strong> Depois de ouvir as defesas dos grupos, qual seria a sua decisão pessoal: GO ou NO-GO? *Dica de condução:* O cenário foi desenhado para ser um **NO-GO** sob governança estrita (devido à combinação de baixo engajamento médico, falta de histórico do fornecedor e integração legada complexa, que estendem o risco e o payback real). No entanto, um voto de **GO** pode ser aceito se e somente se houver um plano de mitigação robusto e contratualizado que transfira o risco de adoção para o fornecedor (ex. pagamento atrelado ao uso real).",
-        "content": "<h3>Comitê Executivo: Você Aprovaria Esse Investimento?</h3><p><b>Investimento:</b> R$ 5.000.000 | <b>ROI projetado:</b> 32% | <b>Payback:</b> 4 anos</p><p><b>Fatores de risco adicionais:</b> baixo engajamento médico projetado, integração técnica difícil com sistemas legados, fornecedor novo no mercado sem histórico de implantação em hospitais de porte semelhante.</p><p><b>Comando:</b> \"Vocês são o comitê executivo. A decisão não é recalcular o ROI, é decidir: GO ou NO-GO, e defender a decisão em 90 segundos usando o Framework ROI-5.\"</p><p><b>Mecânica:</b> 5 minutos para os grupos aplicarem o Framework ROI-5. Apresentação oral de 90 segundos por grupo justificando a escolha (GO/NO-GO). Enquete de votação final.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Peço que acessem o painel e votem: analisando as notas dadas e os pesos estabelecidos, qual das três soluções obteve a maior pontuação ponderada e deve ser a contratada? *Gabarito Pedagógico:* A resposta correta é a **Solução C**, que obteve a nota ponderada de **3.90**. Destaque para os alunos que a Solução C venceu por ter recebido nota máxima nos critérios de maior peso (ROI abrangente e Segurança assistencial, ambos com 25% de peso), compensando o fato de ter uma nota menor no critério de Custo.",
+        "content": "<h3>Escolha a Solução Vencedora</h3><p>Com base na matriz, vote na solução vencedora entre as 3 opções apresentadas.</p><p>Se o voto divergir da matriz, explore o porquê. A professora confronta o resultado do voto síncrono com a matemática da matriz ao vivo.</p>"
       },
       {
         "id": "slide_3_15",
-        "title": "Rubrica e Critérios de Avaliação",
-        "image": "/slides/aula3/slide_12.png",
-        "block": "Trabalho em Grupo",
+        "title": "Matriz de Decisão Multifatorial • Resultado",
+        "image": "/slides/aula3/slide_15.png",
+        "block": "Matriz de Decisão",
         "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> O Projeto Prático em Grupo vale 35% da nota, a maior fatia da avaliação da disciplina, e a nota mínima de aprovação é 70% na média ponderada geral. O que separa um business case nota máxima de um mediano não é a sofisticação da tecnologia escolhida pelo grupo, é a defensabilidade das premissas e a qualidade da narrativa executiva: números auditáveis, riscos quantificados nas quatro categorias que vimos na Aula 1, e uma recomendação de GO ou NO-GO que resiste a perguntas difíceis do comitê.",
-        "content": "<h3>Projeto Prático Final · Business Case</h3><p><b>Peso na nota final:</b> 35% | Média ponderada mínima para aprovação no módulo: 7.0/10.</p><p>Critérios de avaliação:</p><ol><li>Rigor analítico na simulação do simulador.</li><li>Mapeamento de 4 categorias de risco e plano de mitigação.</li><li>Defensabilidade das premissas orçamentárias (Loss Avoidance/TCO).</li></ol>"
-      },
-      {
-        "id": "slide_3_15_b",
-        "title": "Framework ROI-5: As 5 Perguntas Antes do GO",
-        "image": "/slides/aula3/slide_12.png",
-        "block": "Trabalho em Grupo",
-        "estimatedTime": "8 min",
-        "notes": "<strong>Fala sugerida:</strong> Chegamos ao fechamento da disciplina, e eu quero deixar vocês com uma ferramenta que cabe em um post-it, mas carrega três aulas inteiras de raciocínio. Chamo de Framework ROI-5: cinco perguntas, sempre nessa ordem, antes de aprovar qualquer investimento em inteligência artificial na sua instituição. Primeiro: isso resolve um problema relevante, ou é solução atrás de problema? Segundo: o benefício pode ser monetizado, ou estamos prometendo algo que nunca vai virar número auditável? Terceiro: o risco foi quantificado nas quatro categorias que vimos na Aula 1? Quarto: a organização realmente vai adotar isso, ou vamos comprar uma ferramenta que ninguém usa? Quinto: depois do teste de estresse, o ROI ainda é positivo, ou só é positivo no cenário otimista da proposta comercial? Se as cinco respostas forem sólidas, o caminho é GO. Se qualquer uma delas falhar sem um plano de mitigação real, é NO-GO, e dizer não, aqui, é tão válido quanto dizer sim.",
-        "content": "<h3>Framework ROI-5: As 5 Perguntas Antes do GO</h3><p>Cinco perguntas antes de aprovar qualquer investimento em IA (nesta ordem):</p><ol><li><b>Resolve um problema relevante?</b> (Conecta com Aula 1: risco aparente vs. oculto, matriz de impacto)</li><li><b>O benefício pode ser monetizado?</b> (Conecta com B3: matriz de monetização)</li><li><b>O risco foi quantificado?</b> (Conecta com Aula 1: framework de 4 categorias)</li><li><b>A organização conseguirá adotar?</b> (Conecta com B6: ROI observado = ROI esperado &times; adoção)</li><li><b>O ROI permanece positivo após o teste de estresse?</b> (Conecta com Aula 2: cenário pessimista)</li></ol><p><b>Resultado:</b> GO ou NO-GO.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Aqui temos o resultado completo calculado. A Solução A finalizou com 3,50, a Solução B com 3,35 e a Solução C com 3,90. Embora a Solução A fosse mais barata em custo (nota 3 vs nota 2 de C), a Solução C superou as concorrentes com excelente desempenho técnico e assistencial. Isso prova como os pesos pré-definidos guiam o comitê para o real valor de longo prazo, em vez do menor preço nominal simples.",
+        "content": "<h3>Matriz de Decisão Multifatorial · Resultado</h3><p><b>Solução A:</b> Pontuação final = 3,50</p><p><b>Solução B:</b> Pontuação final = 3,35</p><p><b>Solução C (Vencedora):</b> Pontuação final = 3,90 (Excelente em Segurança assistencial e ROI abrangente).</p><p>O cálculo matemático blinda a comissão de compras contra preferências individuais tardias.</p>"
       },
       {
         "id": "slide_3_16",
-        "title": "Workshop do Projeto Final · Business Case",
-        "image": "/slides/aula3/slide_12.png",
+        "title": "Workshop do Projeto Final • Business Case",
+        "image": "/slides/aula3/slide_16.png",
         "block": "Trabalho em Grupo",
         "estimatedTime": "40 min",
-        "notes": "<strong>Fala sugerida:</strong> A partir de agora é mão na massa. Usem os próximos minutos para avançar o checklist do trabalho final: simulação de fluxo mapeada, teste de estresse aplicado, ROI abrangente calculado com pelo menos dois riscos invisíveis, e a justificativa de essa estrutura para o conselho já esboçada. Definam também os papéis dentro do grupo agora, não na véspera da entrega.",
-        "content": "<h3>Workshop de Elaboração de Business Case</h3><p><b>Comando:</b> Reúnam-se nos comitês para preencher o Trabalho_Final_Template.docx. Vocês devem estruturar o parecer de GO/NO-GO de inovação em saúde, aplicando os conceitos de TCO, Loss Avoidance e o framework de riscos de quatro categorias.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Entramos agora na fase prática. Vocês se reunirão nos comitês para elaborar o Business Case final da disciplina. Vocês devem cumprir 4 etapas cruciais: 1) Mapear a simulação de fluxo com o efeito dominó em pelo menos 3 níveis; 2) Aplicar o teste de estresse financeiro e apontar o ponto de quebra; 3) Calcular o ROI abrangente incluindo no mínimo 2 riscos invisíveis bem precificados; e 4) Redigir a justificativa de 5 partes para a diretoria, com uma recomendação clara de GO, NO-GO ou CONDICIONAL. O template do documento já está disponível para download.",
+        "content": "<h3>Workshop do Projeto Final • Business Case</h3><p>Etapas para estruturação da entrega final (Peso: 35%):</p><ol><li><b>Simulação de Fluxo:</b> Mapear o efeito dominó da inovação em pelo menos 3 níveis.</li><li><b>Teste de Estresse:</b> Aplicar as 3 perguntas adversas e identificar o ponto em que o ROI deixa de fechar.</li><li><b>ROI Abrangente:</b> Incluir ao menos 2 riscos invisíveis com premissas defensáveis.</li><li><b>Justificativa para o Conselho:</b> Estrutura em 5 partes (problema, custo, solução, ROI e mitigação).</li></ol>"
       },
       {
         "id": "slide_3_17",
         "title": "Consultoria em Grupo no Portal",
-        "image": "/slides/aula3/slide_12.png",
+        "image": "/slides/aula3/slide_17.png",
         "block": "Trabalho em Grupo",
-        "estimatedTime": "15 min",
-        "notes": "<strong>Fala sugerida:</strong> Esse é o momento de consultoria ao vivo. Avancem a tese de investimento do grupo de vocês no portal e registrem as dúvidas específicas na aba de consultoria — vou circular entre os grupos para orientar diretamente. Aproveitem esse tempo para testar a robustez do argumento de vocês antes da entrega final: é mais barato encontrar a fragilidade agora do que na frente da banca.",
-        "content": "<h3>Consultoria em grupo com o professor</h3><p>Use este tempo síncrono para enviar suas dúvidas específicas de modelagem financeira e precificação de riscos ao professor na respectiva aba de consultoria do portal.</p>"
+        "estimatedTime": "25 min",
+        "notes": "<strong>Fala sugerida:</strong> Usem esses 25 minutos para trabalhar em equipe diretamente no portal corporativo. Acessem a aba de consultoria, descrevam quais são as principais dúvidas ou o que está travando o desenvolvimento da proposta financeira do seu grupo. Vou passar pelos comitês virtuais para prestar consultoria direta e calibrar as premissas de vocês. Saiam desta sessão com um próximo passo operacional claro para a entrega final.",
+        "content": "<h3>Consultoria em Grupo no Portal</h3><p><b>Checklist de Trabalho:</b></p><ul><li><b>Acesse o portal agora:</b> Registre as dúvidas do grupo na aba de consultoria.</li><li><b>Avance no business case:</b> Utilize o template disponível.</li><li><b>Defina seu próximo passo:</b> Cada comitê registra uma ação concreta (o quê, quem e quando) antes do fechamento.</li></ul>"
       },
       {
         "id": "slide_3_18",
-        "title": "Reflexão Final · Encerramento da Disciplina",
-        "image": "/slides/aula3/slide_13.png",
+        "title": "Reflexão Final • Encerramento da Disciplina",
+        "image": "/slides/aula3/slide_18.png",
         "block": "Fechamento",
         "estimatedTime": "8 min",
         "isInteractive": true,
         "interactionType": "open_ended",
-        "question": "Como guardião da viabilidade de investimentos, qual o compromisso profissional que você assume?",
-        "notes": "<strong>Fala sugerida:</strong> Para registrar a finalização das atividades interativas no portal, completem: 'Como guardião da viabilidade de investimentos, meu compromisso profissional a partir de hoje é...'. Esse registro formal consolida nossa jornada de tomada de decisão analítica.",
-        "content": "<h3>Reflexão Final</h3><p>Responda no portal: Como guardião da viabilidade de investimentos, qual o compromisso profissional que você assume para guiar a governança de inovação em saúde?</p>"
+        "question": "Como guardião da viabilidade de investimentos, qual o compromisso profissional que você assume para guiar a governança de inovação em saúde?",
+        "notes": "<strong>Fala sugerida:</strong> Para marcar nossa conclusão desta jornada letiva, peço que preencham a reflexão final no portal. Qual o compromisso que você assume como profissional e líder de agora em diante para garantir investimentos sustentáveis e seguros em saúde digital? Esse registro consolida o aprendizado de enxergar o oculto, falar a língua do conselho e decidir com coragem técnica baseada em dados.",
+        "content": "<h3>Reflexão Final · Encerramento da Disciplina</h3><p>Responda no portal: Como guardião da viabilidade de investimentos, qual o compromisso profissional que você assume para guiar a governança de inovação em saúde?</p>"
       },
       {
         "id": "slide_3_19",
-        "title": "Síntese da Disciplina e Próximos Passos",
-        "image": "/slides/aula3/slide_14.png",
+        "title": "Síntese da Disciplina • Os 3 Pilares",
+        "image": "/slides/aula3/slide_19.png",
         "block": "Encerramento",
         "estimatedTime": "5 min",
-        "notes": "<strong>Fala sugerida:</strong> Resumindo nossa jornada letiva: aprendemos a evidenciar os riscos downstream ocultos, modelar a degradação orçamentária por taxa de adoção e formular business cases quantitativos de alta aprovação. Ouçam o podcast de consolidação final como suporte pedagógico.",
-        "content": "<h3>Síntese da Disciplina · Os 3 Pilares</h3><ol><li><b>Enxergar o Oculto:</b> Risco oculto pesa mais que o aparente. Gargalo migra, não desaparece. Simular antes de investir é mandatório.</li><li><b>Quantificar o Invisível:</b> A adoção clínica dita a rentabilidade real. Eventos clínicos adversos evitados se revertem em valor financeiro (Loss Avoidance).</li><li><b>Defender com Lastro:</b> A aprovação em comitê exige falar a língua de negócios: Matriz de Decisão Ponderada e relatórios objetivos de duas páginas.</li></ol>"
+        "notes": "<strong>Fala sugerida:</strong> Fazendo um grande fechamento da nossa disciplina, lembrem-se sempre dos três pilares fundamentais que estudamos: 1) Enxergar o Oculto (reconhecer que o gargalo operacional migra e que o risco oculto pesa mais que o aparente); 2) Quantificar o Invisível (o ROI real depende do lastro das premissas e da taxa de adoção assistencial); e 3) Defender com Matemática (levar argumentos estruturados baseados em dados reais para a mesa de conselho). Não deixem de ouvir também o nosso podcast E3 de consolidação.",
+        "content": "<h3>Síntese da Disciplina • Os 3 Pilares</h3><ul><li><b>Enxergar o Oculto:</b> Risco oculto pesa mais que o aparente. Gargalo migra, não desaparece. Simular antes de investir.</li><li><b>Quantificar o Invisível:</b> ROI mora no invisível. Premissa documentada é premissa defensável. Custo oculto define o veredito.</li><li><b>Defender com Matemática:</b> Da convicção técnica à prova matemática. Segurança do paciente e saúde financeira são indissociáveis.</li></ul><p><i>Ouça o podcast E3 • ROI Inteligente na Prática para revisão.</i></p>"
       },
       {
         "id": "slide_3_20",
         "title": "Mantra da Disciplina",
-        "image": "/slides/aula3/slide_15.png",
+        "image": "/slides/aula3/slide_20.png",
         "block": "Encerramento",
         "estimatedTime": "2 min",
-        "notes": "<strong>Fala sugerida:</strong> Encerro com nossa diretriz corporativa central: atuar de forma estratégica e baseada em evidências é ter a responsabilidade de investir em soluções tecnológicas que geram desfechos assistenciais reais e retorno operacional sustentável, rejeitando modismos e pressões comerciais vazias.",
+        "notes": "<strong>Fala sugerida:</strong> Encerro nossa parte expositiva com o grande mantra que deve orientar a vida profissional de vocês como executivos em saúde digital: tomar decisões baseadas em dados reais é ter a coragem técnica e ética de escolher o que funciona comprovadamente na ponta assistencial, e rejeitar modismos ou pressões mercadológicas vazias. A responsabilidade é nossa.",
         "content": "<h3>Mantra da Disciplina</h3><p><i>\"Tomar decisões baseadas em dados é ter a coragem de escolher o que funciona, e não apenas o que é tendência de mercado.\"</i></p>"
       },
       {
-        "id": "slide_3_21_ref",
-        "title": "Referências e Fontes da Aula",
-        "image": "/slides/aula3/slide_16.png",
+        "id": "slide_3_21",
+        "title": "Referências • Aula 3",
+        "image": "/slides/aula3/slide_21.png",
         "block": "Encerramento",
         "estimatedTime": "2 min",
-        "notes": "<strong>Fala sugerida:</strong> As referências de governança e avaliação de tecnologias em saúde discutidas hoje estão organizadas na aba de Referências do portal corporativo para consulta permanente. Bons estudos nas entregas finais.",
-        "content": "<h3>Referências Bibliográficas</h3><p>Mayo Clinic AI-ECG Ensaio EAGLE</p><p>Laura Sepse e Neonpass Einstein · Casos Práticos de Reestruturação de Fluxo</p>"
+        "notes": "<strong>Fala sugerida:</strong> As fontes bibliográficas completas que discutimos hoje (incluindo o ensaio clínico EAGLE da Mayo Clinic e os dados de adoção da IA do Robô Laura e Neonpass Room) estão organizadas no portal corporativo para sua consulta técnica e fundamentação teórica de entregas.",
+        "content": "<h3>Referências • Aula 3</h3><ul><li>Mayo Clinic • Ensaio EAGLE, detecção por ECG (2021 & 2024)</li><li>Robô Laura • Sepse, REBEn/SciELO (2020)</li><li>Neonpass Room • Einstein/HOOBOX, AJN (2025)</li></ul>"
       },
       {
         "id": "slide_3_22",
         "title": "Guardiões da Viabilidade",
-        "image": "/slides/aula3/slide_17.png",
+        "image": "/slides/aula3/slide_22.png",
         "block": "Encerramento",
         "estimatedTime": "2 min",
-        "notes": "<strong>Fala sugerida:</strong> Agradeço a excelente participação de todos os executivos e líderes em saúde neste módulo síncrono. Vocês agora estão capacitados para liderar comitês de alocação de investimentos tecnológicos com embasamento estatístico, clínico e financeiro de excelência. Sucesso nas entregas e até breve!",
-        "content": "<h3>Parabéns aos novos Guardiões da Viabilidade!</h3><p>Você saiu desta disciplina apto a enxergar o oculto, quantificar o invisível e defender decisões de investimento em saúde com rigor matemático.</p>"
+        "notes": "<strong>Fala sugerida:</strong> Parabéns a todos! Vocês concluíram com êxito o nosso módulo síncrono e agora são oficialmente Guardiões da Viabilidade de inovação em saúde digital. Desejo muito sucesso na consolidação e entrega do Business Case final dos comitês de vocês. Nos vemos em breve, muito obrigado e até a próxima!",
+        "content": "<h3>Parabéns aos novos Guardiões da Viabilidade!</h3><p>Você saiu desta disciplina apto a enxergar o oculto, quantificar o invisível e defender com matemática, na linguagem que o conselho entende.</p><p>Nos vemos na entrega do Projeto Prático Final. Até a próxima!</p>"
       }
     ]
   }

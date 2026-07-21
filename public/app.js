@@ -1409,7 +1409,7 @@ function updateWorkspaceView() {
                 activity3Container.style.display = "block";
                 const limitationsPanel = document.getElementById("bc_limitations_panel");
                 if (limitationsPanel) {
-                    const isAtBCSubmission = (appState.activeSlideId === "slide_3_16" || appState.activeSlideId === "slide_3_17" || appState.activeSlideId === "slide_3_18" || appState.activeSlideId === "slide_3_19" || appState.activeSlideId === "slide_3_20" || appState.activeSlideId === "slide_3_22" || appState.activeSlideId === "slide_3_15_b" || appState.activeSlideId === "slide_3_14_a");
+                    const isAtBCSubmission = (appState.activeSlideId === "slide_3_16" || appState.activeSlideId === "slide_3_17" || appState.activeSlideId === "slide_3_18" || appState.activeSlideId === "slide_3_19" || appState.activeSlideId === "slide_3_20" || appState.activeSlideId === "slide_3_21" || appState.activeSlideId === "slide_3_22");
                     limitationsPanel.style.display = isAtBCSubmission ? "block" : "none";
                 }
             }
