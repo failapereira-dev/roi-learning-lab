@@ -1251,8 +1251,13 @@ module.exports = {
   getSubmission: (classId, groupId, studentEmail) => {
     const data = readData();
     const groupSubmissions = (data.submissions[classId] || {})[groupId] || {};
-    if (studentEmail) {
-      return groupSubmissions[studentEmail] || null;
+    // Compartilhar a submissão sob a chave única "group" para toda a equipe
+    if (groupSubmissions["group"]) {
+      return groupSubmissions["group"];
+    }
+    // Fallback para submissões legadas por e-mail se existirem
+    if (studentEmail && groupSubmissions[studentEmail]) {
+      return groupSubmissions[studentEmail];
     }
     const keys = Object.keys(groupSubmissions);
     return keys.length > 0 ? groupSubmissions[keys[0]] : null;
@@ -1265,22 +1270,39 @@ module.exports = {
     if (!data.submissions[classId][groupId]) {
       data.submissions[classId][groupId] = {};
     }
-    const emailKey = studentEmail || "anonymous";
-    data.submissions[classId][groupId][emailKey] = {
-      ...submissionData,
+    
+    // Obter submissão existente para a equipe para evitar sobrescrever dados concorrentes
+    const existing = data.submissions[classId][groupId]["group"] || {};
+    const existingData = existing.submissionData || existing;
+    
+    // Mesclagem Inteligente (Smart Merge) para evitar perda de dados concorrentes:
+    // Se o novo payload tiver algum campo vazio, preserva o valor preenchido anterior.
+    const mergedData = { ...existingData };
+    for (const key in submissionData) {
+      const incomingVal = submissionData[key];
+      if (incomingVal !== undefined && incomingVal !== null && (incomingVal !== "" || !existingData[key])) {
+        mergedData[key] = incomingVal;
+      }
+    }
+    
+    data.submissions[classId][groupId]["group"] = {
+      submissionData: mergedData,
       submittedBy: submittedBy || "Aluno da Equipe",
       submittedAt: new Date().toISOString()
     };
     writeData(data);
-    return data.submissions[classId][groupId][emailKey];
+    return data.submissions[classId][groupId]["group"];
   },
   
   // Comments & Feedback
   getComments: (classId, groupId, studentEmail) => {
     const data = readData();
     const groupComments = (data.comments[classId] || {})[groupId] || {};
-    if (studentEmail) {
-      return groupComments[studentEmail] || [];
+    if (groupComments["group"]) {
+      return groupComments["group"];
+    }
+    if (studentEmail && groupComments[studentEmail]) {
+      return groupComments[studentEmail];
     }
     const keys = Object.keys(groupComments);
     return keys.length > 0 ? groupComments[keys[0]] : [];
@@ -1293,18 +1315,17 @@ module.exports = {
     if (!data.comments[classId][groupId]) {
       data.comments[classId][groupId] = {};
     }
-    const emailKey = studentEmail || "anonymous";
-    if (!data.comments[classId][groupId][emailKey]) {
-      data.comments[classId][groupId][emailKey] = [];
+    if (!data.comments[classId][groupId]["group"]) {
+      data.comments[classId][groupId]["group"] = [];
     }
     const newComment = {
       text: commentText,
       grade: grade || null,
       timestamp: new Date().toISOString()
     };
-    data.comments[classId][groupId][emailKey].push(newComment);
+    data.comments[classId][groupId]["group"].push(newComment);
     writeData(data);
-    return data.comments[classId][groupId][emailKey];
+    return data.comments[classId][groupId]["group"];
   },
   
   // Check-in response management
