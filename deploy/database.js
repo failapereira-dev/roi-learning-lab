@@ -1063,20 +1063,20 @@ const classesContent = [
         "content": "<h3>Governança da Inovação</h3><p><b>Critérios Rigorosos e Explícitos:</b> A seleção da solução vencedora deve seguir critérios definidos antes da avaliação — não depois.</p><p><b>Rastreabilidade da Decisão:</b> Quem decidiu, com base em quê, quando. Governança é o que permite defender a decisão seis meses depois.</p><p><b>Proteção Institucional:</b> Governança não é burocracia: protege a instituição e também quem decide. É liderança responsável.</p>"
       },
       {
-        "id": "slide_3_14",
+"id": "slide_3_14",
         "title": "Escolha a Solução Vencedora • Atividade Interativa",
         "image": "/slides/aula3/slide_14.png",
         "block": "Atividade Interativa",
         "estimatedTime": "12 min",
         "isInteractive": true,
         "interactionType": "poll",
-        "question": "Com base na matriz de decisão analisada, qual solução obteve a maior pontuação ponderada?",
+        "question": "Como tomador de decisão, se você tivesse que defender a escolha do fornecedor perante o conselho hoje, qual seria o seu veredito técnico baseado nos trade-offs?",
         "options": [
-          "Solução A (Pontuação Ponderada: 3.50)",
-          "Solução B (Pontuação Ponderada: 3.35)",
-          "Solução C (Pontuação Ponderada: 3.90)"
+          "Escolher a Solução A: Menor custo inicial e alta escalabilidade, aceitando o risco de segurança assistencial moderado.",
+          "Escolher a Solução B: Equilíbrio de custos e boa segurança assistencial, aceitando que a escalabilidade é zero (futuro gargalo).",
+          "Escolher a Solução C: Maior segurança assistencial e maior ROI abrangente, aceitando pagar o custo inicial (TCO) mais alto."
         ],
-        "notes": "<strong>Fala sugerida:</strong> Peço que acessem o painel e votem: analisando as notas dadas e os pesos estabelecidos, qual das três soluções obteve a maior pontuação ponderada e deve ser a contratada? *Gabarito Pedagógico:* A resposta correta é a **Solução C**, que obteve a nota ponderada de **3.90**. Destaque para os alunos que a Solução C venceu por ter recebido nota máxima nos critérios de maior peso (ROI abrangente e Segurança assistencial, ambos com 25% de peso), compensando o fato de ter uma nota menor no critério de Custo.",
+        "notes": "<strong>Fala sugerida:</strong> Peço que acessem o painel e votem: com base nos pesos e notas apresentados na lousa, qual dessas três soluções você defenderia no conselho como a escolha de governança correta? *Dica de Condução:* Após o encerramento da votação, revele o resultado matemático do próximo slide. Mostre que a **Solução C** é a vencedora com **3.90** de nota ponderada. Discuta com a turma os dois vieses comuns: 1) Quem votou em A caiu no **viés de ancoragem por custo inicial**, aceitando um risco clínico perigoso; 2) Quem votou em B esqueceu de olhar a **escalabilidade (nota zero)**, o que tornaria o software obsoleto em pouco tempo, forçando um novo CAPEX futuro. A matriz serve para blindar a nossa mente contra esses pontos cegos.",
         "content": "<h3>Escolha a Solução Vencedora</h3><p>Com base na matriz, vote na solução vencedora entre as 3 opções apresentadas.</p><p>Se o voto divergir da matriz, explore o porquê. A professora confronta o resultado do voto síncrono com a matemática da matriz ao vivo.</p>"
       },
       {
