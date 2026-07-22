@@ -17,8 +17,8 @@
           "maintenance": 50000,
           "risk": 350000,
           "years": 5,
-          "breakPoint": "Todos os cenários (VPL negativo em todos)",
-          "justification": "O projeto de IA de Triagem apresenta VPL fortemente negativo em todos os cenários devido ao alto investimento inicial (R$ 1.500.000) comparado ao benefício anual. Mesmo no cenário esperado, o tempo de payback ultrapassa o período do projeto (6,82 anos). Portanto, o comitê recomendou rejeitar o investimento por inviabilidade econômica.",
+          "breakPoint": "todos os cenários",
+          "justification": "A gente analisou o projeto e viu que a conta simplesmente não fecha. O valor do investimento inicial é muito pesado pra o que a IA traz de retorno anual, mesmo que a gente consiga a máxima eficiência sem nenhum risco. O payback de mais de 6 anos ultrapassa a própria vida útil do projeto. O VPL fica no vermelho em qualquer simulação.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 220.000,00",
@@ -50,8 +50,8 @@
           "maintenance": 60000,
           "risk": 400000,
           "years": 5,
-          "breakPoint": "Todos os cenários (VPL negativo em todos)",
-          "justification": "A automação da farmácia robótica exige CAPEX excessivamente elevado (R$ 1.800.000). A economia de caixa anual com pessoal (6 FTEs) não cobre a manutenção anual e os riscos operacionais de paralisação total (impacto estimado em R$ 400.000). O VPL é negativo em todos os cenários analisados, tornando o investimento inviável.",
+          "breakPoint": "todos os cenários",
+          "justification": "A automação da farmácia robótica tem um custo de aquisição (CAPEX) muito alto. A economia que a gente teria reduzindo a equipe de farmácia não compensa o custo de manutenção e o perigo de parar a operação inteira se o robô der problema, o que custaria uns R$ 400 mil. A simulação mostra prejuízo e VPL negativo do começo ao fim.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 228.000,00",
@@ -83,8 +83,8 @@
           "maintenance": 180000,
           "risk": 800000,
           "years": 5,
-          "breakPoint": "Cenário Pessimista (VPL torna-se negativo)",
-          "justification": "O projeto é viável nos cenários Esperado (VPL R$ 2,2M) e Realista (VPL R$ 1,0M), com payback rápido (2,6 anos). No entanto, torna-se inviável no cenário pessimista (VPL negativo de R$ -657k) se a adoção cair e o risco de falha Wi-Fi ocorrer. Aprovamos condicionado a salvaguardas e auditoria de cobertura de rede Wi-Fi.",
+          "breakPoint": "pessimista",
+          "justification": "O projeto vale muito a pena no cenário esperado e no realista, dando um retorno financeiro rápido com payback na faixa de 2 anos e meio. Mas se o sinal de Wi-Fi cair muito e as enfermeiras abandonarem o sistema por frustração, o prejuízo operacional vai ser gigante. Precisamos blindar a infraestrutura de rede antes de rodar.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 1.170.000,00",
@@ -116,8 +116,8 @@
           "maintenance": 150000,
           "risk": 500000,
           "years": 5,
-          "breakPoint": "Nenhum (Viável em todos os cenários)",
-          "justification": "A IA em Radiologia apresenta excelente viabilidade econômica com baixo CAPEX e alto retorno. O VPL permanece positivo (R$ 469.913,57) mesmo sob o pior cenário (pessimista) com estresse de adoção de 45% e materialização de 100% dos riscos judiciais de dependência excessiva. Recomendamos aprovação incondicional.",
+          "breakPoint": "nenhum",
+          "justification": "Esse é o projeto mais seguro de todos. Como o investimento inicial é baixo (800 mil) e o retorno com a agilidade nos laudos de emergência é enorme, o projeto se paga em pouco mais de 1 ano. Mesmo se der o pior problema possível com erro médico por confiar demais na IA, o VPL ainda continua positivo em quase 470 mil.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 930.000,00",
@@ -149,8 +149,8 @@
           "maintenance": 450000,
           "risk": 2000000,
           "years": 5,
-          "breakPoint": "Todos os cenários (VPL negativo em todos)",
-          "justification": "O megaprojeto de prontuário eletrônico unificado demanda R$ 5,0M de investimento inicial e possui VPL negativo superior a R$ 4,1M no cenário realista. O risco de paralisação no go-live é de R$ 2,0M, o que compromete gravemente a saúde financeira do hospital filantrópico. Recomendamos rejeitar ou fasear a implantação.",
+          "breakPoint": "todos os cenários",
+          "justification": "Gastar 5 milhões logo de cara em um hospital filantrópico é muito arriscado. A integração dos sistemas é boa, mas o VPL negativo de mais de 4 milhões no cenário realista mostra que a gente vai quebrar o caixa do hospital. O risco de paralisação na virada do sistema pode custar mais 2 milhões, o que inviabiliza a operação.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 495.000,00",
