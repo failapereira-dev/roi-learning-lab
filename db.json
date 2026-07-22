@@ -50,8 +50,8 @@
           "maintenance": 60000,
           "risk": 400000,
           "years": 5,
-          "breakPoint": "Inviável em todas as situações.",
-          "justification": "O projeto apresenta VPL negativo nos cenários Esperado, Realista e Pessimista devido ao elevado CAPEX inicial e custo de manutenção.",
+          "breakPoint": "todos os cenários",
+          "justification": "O robô da farmácia custa caro demais para comprar e manter. A economia de funcionários não paga essa conta e se o sistema parar o prejuízo vai ser alto.",
           "metrics": {
             "expected": {
               "roi": "-36.7%",
@@ -83,8 +83,8 @@
           "maintenance": 180000,
           "risk": 800000,
           "years": 5,
-          "breakPoint": "Apenas no cenário de estresse pessimista.",
-          "justification": "Se a equipe não adotar o sistema por falhas no Wi-Fi, o retorno desaba, gerando prejuízo e inviabilidade no cenário Pessimista.",
+          "breakPoint": "pessimista",
+          "justification": "O projeto dá lucro e se paga rápido. Mas se a internet falhar e os médicos desistirem de usar, vamos ter prejuízo se as coisas piorarem.",
           "metrics": {
             "expected": {
               "roi": "165.9%",
@@ -116,8 +116,8 @@
           "maintenance": 150000,
           "risk": 500000,
           "years": 5,
-          "breakPoint": "Viável em qualquer simulação.",
-          "justification": "A viabilidade econômica é alta nos cenários Esperado e Realista. Mesmo sob estresse no cenário Pessimista com riscos judiciais, o VPL continua positivo.",
+          "breakPoint": "nenhum",
+          "justification": "Como o custo inicial é baixo e a agilidade é alta, o projeto se paga em um ano. Mesmo com problemas na justiça por erros, ainda dá lucro.",
           "metrics": {
             "expected": {
               "roi": "481.3%",
@@ -149,8 +149,8 @@
           "maintenance": 450000,
           "risk": 2000000,
           "years": 5,
-          "breakPoint": "Inviável em todos os cenários analisados.",
-          "justification": "O alto CAPEX compromete o fluxo de caixa. O risco de go-live traz sérios prejuízos inviabilizando a operação nos cenários Realista e Pessimista.",
+          "breakPoint": "todos os cenários",
+          "justification": "Gastar 5 milhões de uma vez só é muito perigoso para o caixa. O risco de o sistema falhar no começo inviabiliza tudo.",
           "metrics": {
             "expected": {
               "roi": "-50.5%",
