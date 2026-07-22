@@ -1287,20 +1287,22 @@ module.exports = {
     
     // Obter submissão existente para a equipe para evitar sobrescrever dados concorrentes
     const existing = data.submissions[classId][groupId]["group"] || {};
-    const existingData = existing.submissionData || existing;
     
     // Mesclagem Inteligente (Smart Merge) para evitar perda de dados concorrentes:
     // Se o novo payload tiver algum campo vazio, preserva o valor preenchido anterior.
-    const mergedData = { ...existingData };
+    const mergedData = { ...existing };
+    delete mergedData.submittedBy;
+    delete mergedData.submittedAt;
+    
     for (const key in submissionData) {
       const incomingVal = submissionData[key];
-      if (incomingVal !== undefined && incomingVal !== null && (incomingVal !== "" || !existingData[key])) {
+      if (incomingVal !== undefined && incomingVal !== null && (incomingVal !== "" || !existing[key])) {
         mergedData[key] = incomingVal;
       }
     }
     
     data.submissions[classId][groupId]["group"] = {
-      submissionData: mergedData,
+      ...mergedData,
       submittedBy: submittedBy || "Aluno da Equipe",
       submittedAt: new Date().toISOString()
     };

@@ -12,14 +12,32 @@
     "aula2": {
       "1": {
         "group": {
-          "submissionData": {
-            "investment": 1500000,
-            "benefit": 300000,
-            "maintenance": 50000,
-            "risk": 350000,
-            "years": 5,
-            "breakPoint": "realistic",
-            "justification": "O projeto de IA de Triagem apresenta VPL fortemente negativo em todos os cenários devido ao alto investimento inicial (R$ 1.500.000) comparado ao benefício anual. Mesmo no cenário esperado, o tempo de payback ultrapassa o período do projeto (6,82 anos). Portanto, o comitê recomendou rejeitar o investimento por inviabilidade econômica."
+          "investment": 1500000,
+          "benefit": 300000,
+          "maintenance": 50000,
+          "risk": 350000,
+          "years": 5,
+          "breakPoint": "Todos os cenários (VPL negativo em todos)",
+          "justification": "O projeto de IA de Triagem apresenta VPL fortemente negativo em todos os cenários devido ao alto investimento inicial (R$ 1.500.000) comparado ao benefício anual. Mesmo no cenário esperado, o tempo de payback ultrapassa o período do projeto (6,82 anos). Portanto, o comitê recomendou rejeitar o investimento por inviabilidade econômica.",
+          "metrics": {
+            "expected": {
+              "netBenefit": "R$ 220.000,00",
+              "roi": "-26,67%",
+              "payback": "6,82 anos",
+              "vpl": "R$ -666.026,91"
+            },
+            "realistic": {
+              "netBenefit": "R$ 149.500,00",
+              "roi": "-50,17%",
+              "payback": "10,03 anos",
+              "vpl": "R$ -933.277,38"
+            },
+            "pessimistic": {
+              "netBenefit": "R$ 46.500,00",
+              "roi": "-84,50%",
+              "payback": "32,26 anos",
+              "vpl": "R$ -1.323.728,42"
+            }
           },
           "submittedBy": "Líder da Equipe 1",
           "submittedAt": "2026-07-14T20:15:00.000Z"
@@ -27,14 +45,32 @@
       },
       "2": {
         "group": {
-          "submissionData": {
-            "investment": 1800000,
-            "benefit": 320000,
-            "maintenance": 60000,
-            "risk": 400000,
-            "years": 5,
-            "breakPoint": "realistic",
-            "justification": "A automação da farmácia robótica exige CAPEX excessivamente elevado (R$ 1.800.000). A economia de caixa anual com pessoal (6 FTEs) não cobre a manutenção anual e os riscos operacionais de paralisação total (impacto estimado em R$ 400.000). O VPL é negativo em todos os cenários analisados, tornando o investimento inviável."
+          "investment": 1800000,
+          "benefit": 320000,
+          "maintenance": 60000,
+          "risk": 400000,
+          "years": 5,
+          "breakPoint": "Todos os cenários (VPL negativo em todos)",
+          "justification": "A automação da farmácia robótica exige CAPEX excessivamente elevado (R$ 1.800.000). A economia de caixa anual com pessoal (6 FTEs) não cobre a manutenção anual e os riscos operacionais de paralisação total (impacto estimado em R$ 400.000). O VPL é negativo em todos os cenários analisados, tornando o investimento inviável.",
+          "metrics": {
+            "expected": {
+              "netBenefit": "R$ 228.000,00",
+              "roi": "-36,67%",
+              "payback": "7,89 anos",
+              "vpl": "R$ -935.700,62"
+            },
+            "realistic": {
+              "netBenefit": "R$ 152.000,00",
+              "roi": "-57,78%",
+              "payback": "11,84 anos",
+              "vpl": "R$ -1.223.800,41"
+            },
+            "pessimistic": {
+              "netBenefit": "R$ 40.000,00",
+              "roi": "-88,89%",
+              "payback": "45,00 anos",
+              "vpl": "R$ -1.648.368,53"
+            }
           },
           "submittedBy": "Líder da Equipe 2",
           "submittedAt": "2026-07-14T20:18:00.000Z"
@@ -42,14 +78,32 @@
       },
       "3": {
         "group": {
-          "submissionData": {
-            "investment": 2200000,
-            "benefit": 1500000,
-            "maintenance": 180000,
-            "risk": 800000,
-            "years": 5,
-            "breakPoint": "pessimistic",
-            "justification": "O projeto é viável nos cenários Esperado (VPL R$ 2,2M) e Realista (VPL R$ 1,0M), com payback rápido (2,6 anos). No entanto, torna-se inviável no cenário pessimista (VPL negativo de R$ -657k) se a adoção cair e o risco de falha Wi-Fi ocorrer. Aprovamos condicionado a salvaguardas e auditoria de cobertura de rede Wi-Fi."
+          "investment": 2200000,
+          "benefit": 1500000,
+          "maintenance": 180000,
+          "risk": 800000,
+          "years": 5,
+          "breakPoint": "Cenário Pessimista (VPL torna-se negativo)",
+          "justification": "O projeto é viável nos cenários Esperado (VPL R$ 2,2M) e Realista (VPL R$ 1,0M), com payback rápido (2,6 anos). No entanto, torna-se inviável no cenário pessimista (VPL negativo de R$ -657k) se a adoção cair e o risco de falha Wi-Fi ocorrer. Aprovamos condicionado a salvaguardas e auditoria de cobertura de rede Wi-Fi.",
+          "metrics": {
+            "expected": {
+              "netBenefit": "R$ 1.170.000,00",
+              "roi": "+165,91%",
+              "payback": "1,88 anos",
+              "vpl": "R$ 2.235.220,52"
+            },
+            "realistic": {
+              "netBenefit": "R$ 846.000,00",
+              "roi": "+92,27%",
+              "payback": "2,60 anos",
+              "vpl": "R$ 1.007.005,61"
+            },
+            "pessimistic": {
+              "netBenefit": "R$ 407.000,00",
+              "roi": "-7,50%",
+              "payback": "5,41 anos",
+              "vpl": "R$ -657.149,78"
+            }
           },
           "submittedBy": "Líder da Equipe 3",
           "submittedAt": "2026-07-14T20:20:00.000Z"
@@ -57,14 +111,32 @@
       },
       "4": {
         "group": {
-          "submissionData": {
-            "investment": 800000,
-            "benefit": 1200000,
-            "maintenance": 150000,
-            "risk": 500000,
-            "years": 5,
-            "breakPoint": "none",
-            "justification": "A IA em Radiologia apresenta excelente viabilidade econômica com baixo CAPEX e alto retorno. O VPL permanece positivo (R$ 469.913,57) mesmo sob o pior cenário (pessimista) com estresse de adoção de 45% e materialização de 100% dos riscos judiciais de dependência excessiva. Recomendamos aprovação incondicional."
+          "investment": 800000,
+          "benefit": 1200000,
+          "maintenance": 150000,
+          "risk": 500000,
+          "years": 5,
+          "breakPoint": "Nenhum (Viável em todos os cenários)",
+          "justification": "A IA em Radiologia apresenta excelente viabilidade econômica com baixo CAPEX e alto retorno. O VPL permanece positivo (R$ 469.913,57) mesmo sob o pior cenário (pessimista) com estresse de adoção de 45% e materialização de 100% dos riscos judiciais de dependência excessiva. Recomendamos aprovação incondicional.",
+          "metrics": {
+            "expected": {
+              "netBenefit": "R$ 930.000,00",
+              "roi": "+481,25%",
+              "payback": "0,86 anos",
+              "vpl": "R$ 2.725.431,70"
+            },
+            "realistic": {
+              "netBenefit": "R$ 675.000,00",
+              "roi": "+321,88%",
+              "payback": "1,19 anos",
+              "vpl": "R$ 1.758.781,07"
+            },
+            "pessimistic": {
+              "netBenefit": "R$ 335.000,00",
+              "roi": "+109,38%",
+              "payback": "2,39 anos",
+              "vpl": "R$ 469.913,57"
+            }
           },
           "submittedBy": "Líder da Equipe 4",
           "submittedAt": "2026-07-14T20:22:00.000Z"
@@ -72,14 +144,32 @@
       },
       "5": {
         "group": {
-          "submissionData": {
-            "investment": 5000000,
-            "benefit": 1050000,
-            "maintenance": 450000,
-            "risk": 2000000,
-            "years": 5,
-            "breakPoint": "realistic",
-            "justification": "O megaprojeto de prontuário eletrônico unificado demanda R$ 5,0M de investimento inicial e possui VPL negativo superior a R$ 4,1M no cenário realista. O risco de paralisação no go-live é de R$ 2,0M, o que compromete gravemente a saúde financeira do hospital filantrópico. Recomendamos rejeitar ou fasear a implantação."
+          "investment": 5000000,
+          "benefit": 1050000,
+          "maintenance": 450000,
+          "risk": 2000000,
+          "years": 5,
+          "breakPoint": "Todos os cenários (VPL negativo em todos)",
+          "justification": "O megaprojeto de prontuário eletrônico unificado demanda R$ 5,0M de investimento inicial e possui VPL negativo superior a R$ 4,1M no cenário realista. O risco de paralisação no go-live é de R$ 2,0M, o que compromete gravemente a saúde financeira do hospital filantrópico. Recomendamos rejeitar ou fasear a implantação.",
+          "metrics": {
+            "expected": {
+              "netBenefit": "R$ 495.000,00",
+              "roi": "-50,50%",
+              "payback": "10,10 anos",
+              "vpl": "R$ -3.123.560,55"
+            },
+            "realistic": {
+              "netBenefit": "R$ 225.000,00",
+              "roi": "-77,50%",
+              "payback": "22,22 anos",
+              "vpl": "R$ -4.147.072,98"
+            },
+            "pessimistic": {
+              "netBenefit": "R$ -197.500,00",
+              "roi": "-119,75%",
+              "payback": "Nunca se paga",
+              "vpl": "R$ -5.748.680,39"
+            }
           },
           "submittedBy": "Líder da Equipe 5",
           "submittedAt": "2026-07-14T20:25:00.000Z"
