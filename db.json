@@ -9,7 +9,83 @@
   },
   "submissions": {
     "aula1": {},
-    "aula2": {},
+    "aula2": {
+      "1": {
+        "group": {
+          "submissionData": {
+            "investment": 1500000,
+            "benefit": 300000,
+            "maintenance": 50000,
+            "risk": 350000,
+            "years": 5,
+            "breakPoint": "realistic",
+            "justification": "O projeto de IA de Triagem apresenta VPL fortemente negativo em todos os cenários devido ao alto investimento inicial (R$ 1.500.000) comparado ao benefício anual. Mesmo no cenário esperado, o tempo de payback ultrapassa o período do projeto (6,82 anos). Portanto, o comitê recomendou rejeitar o investimento por inviabilidade econômica."
+          },
+          "submittedBy": "Líder da Equipe 1",
+          "submittedAt": "2026-07-14T20:15:00.000Z"
+        }
+      },
+      "2": {
+        "group": {
+          "submissionData": {
+            "investment": 1800000,
+            "benefit": 320000,
+            "maintenance": 60000,
+            "risk": 400000,
+            "years": 5,
+            "breakPoint": "realistic",
+            "justification": "A automação da farmácia robótica exige CAPEX excessivamente elevado (R$ 1.800.000). A economia de caixa anual com pessoal (6 FTEs) não cobre a manutenção anual e os riscos operacionais de paralisação total (impacto estimado em R$ 400.000). O VPL é negativo em todos os cenários analisados, tornando o investimento inviável."
+          },
+          "submittedBy": "Líder da Equipe 2",
+          "submittedAt": "2026-07-14T20:18:00.000Z"
+        }
+      },
+      "3": {
+        "group": {
+          "submissionData": {
+            "investment": 2200000,
+            "benefit": 1500000,
+            "maintenance": 180000,
+            "risk": 800000,
+            "years": 5,
+            "breakPoint": "pessimistic",
+            "justification": "O projeto é viável nos cenários Esperado (VPL R$ 2,2M) e Realista (VPL R$ 1,0M), com payback rápido (2,6 anos). No entanto, torna-se inviável no cenário pessimista (VPL negativo de R$ -657k) se a adoção cair e o risco de falha Wi-Fi ocorrer. Aprovamos condicionado a salvaguardas e auditoria de cobertura de rede Wi-Fi."
+          },
+          "submittedBy": "Líder da Equipe 3",
+          "submittedAt": "2026-07-14T20:20:00.000Z"
+        }
+      },
+      "4": {
+        "group": {
+          "submissionData": {
+            "investment": 800000,
+            "benefit": 1200000,
+            "maintenance": 150000,
+            "risk": 500000,
+            "years": 5,
+            "breakPoint": "none",
+            "justification": "A IA em Radiologia apresenta excelente viabilidade econômica com baixo CAPEX e alto retorno. O VPL permanece positivo (R$ 469.913,57) mesmo sob o pior cenário (pessimista) com estresse de adoção de 45% e materialização de 100% dos riscos judiciais de dependência excessiva. Recomendamos aprovação incondicional."
+          },
+          "submittedBy": "Líder da Equipe 4",
+          "submittedAt": "2026-07-14T20:22:00.000Z"
+        }
+      },
+      "5": {
+        "group": {
+          "submissionData": {
+            "investment": 5000000,
+            "benefit": 1050000,
+            "maintenance": 450000,
+            "risk": 2000000,
+            "years": 5,
+            "breakPoint": "realistic",
+            "justification": "O megaprojeto de prontuário eletrônico unificado demanda R$ 5,0M de investimento inicial e possui VPL negativo superior a R$ 4,1M no cenário realista. O risco de paralisação no go-live é de R$ 2,0M, o que compromete gravemente a saúde financeira do hospital filantrópico. Recomendamos rejeitar ou fasear a implantação."
+          },
+          "submittedBy": "Líder da Equipe 5",
+          "submittedAt": "2026-07-14T20:25:00.000Z"
+        }
+      }
+    },
     "aula3": {}
   },
   "comments": {
