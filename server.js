@@ -54,6 +54,19 @@ function broadcastUpdate() {
   });
 }
 
+// Export database backup
+app.get('/api/admin/export-db', (req, res) => {
+  try {
+    const fs = require('fs');
+    const raw = fs.readFileSync(path.join(__dirname, 'db.json'), 'utf-8');
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', 'attachment; filename=db_backup.json');
+    res.send(raw);
+  } catch (e) {
+    res.status(500).json({ error: "Failed to export database", details: e.message });
+  }
+});
+
 // REST APIs
 app.get('/api/classes', (req, res) => {
   res.json(db.classesContent);
