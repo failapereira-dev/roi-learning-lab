@@ -1,7 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
-const DB_FILE = path.join(__dirname, 'db.json');
+const DB_DIR = fs.existsSync('/data') ? '/data' : __dirname;
+const DB_FILE = path.join(DB_DIR, 'db.json');
+
+// Copiar db.json padrão do repositório para o disco persistente se for a primeira inicialização no Render
+if (fs.existsSync('/data') && !fs.existsSync('/data/db.json')) {
+  try {
+    const localDbPath = path.join(__dirname, 'db.json');
+    if (fs.existsSync(localDbPath)) {
+      fs.copyFileSync(localDbPath, '/data/db.json');
+      console.log('Copied default db.json from repository to persistent disk /data/db.json');
+    }
+  } catch (e) {
+    console.error('Failed to copy default db.json to /data/db.json:', e);
+  }
+}
 
 // Pre-populated students list distributed into 5 groups
 const students = [
