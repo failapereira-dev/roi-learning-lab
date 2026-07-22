@@ -5,15 +5,43 @@ const DB_DIR = fs.existsSync('/data') ? '/data' : __dirname;
 const DB_FILE = path.join(DB_DIR, 'db.json');
 
 // Copiar db.json padrão do repositório para o disco persistente se for a primeira inicialização no Render
-if (fs.existsSync('/data') && !fs.existsSync('/data/db.json')) {
-  try {
-    const localDbPath = path.join(__dirname, 'db.json');
-    if (fs.existsSync(localDbPath)) {
-      fs.copyFileSync(localDbPath, '/data/db.json');
-      console.log('Copied default db.json from repository to persistent disk /data/db.json');
+if (fs.existsSync('/data')) {
+  const localDbPath = path.join(__dirname, 'db.json');
+  const persistentDbPath = '/data/db.json';
+  
+  if (!fs.existsSync(persistentDbPath)) {
+    try {
+      if (fs.existsSync(localDbPath)) {
+        fs.copyFileSync(localDbPath, persistentDbPath);
+        console.log('Copied default db.json from repository to persistent disk /data/db.json');
+      }
+    } catch (e) {
+      console.error('Failed to copy default db.json to /data/db.json:', e);
     }
-  } catch (e) {
-    console.error('Failed to copy default db.json to /data/db.json:', e);
+  } else {
+    // Se o banco já existe no disco persistente, garantir que a Aula 2 tem os dados completos e métricas
+    try {
+      if (fs.existsSync(localDbPath)) {
+        const localRaw = fs.readFileSync(localDbPath, 'utf8');
+        const localData = JSON.parse(localRaw);
+        const persRaw = fs.readFileSync(persistentDbPath, 'utf8');
+        const persData = JSON.parse(persRaw);
+        
+        let needsRestore = false;
+        if (!persData.submissions || !persData.submissions.aula2 || !persData.submissions.aula2["1"] || !persData.submissions.aula2["1"].group || !persData.submissions.aula2["1"].group.metrics) {
+          needsRestore = true;
+        }
+        
+        if (needsRestore) {
+          persData.submissions = persData.submissions || {};
+          persData.submissions.aula2 = localData.submissions.aula2;
+          fs.writeFileSync(persistentDbPath, JSON.stringify(persData, null, 2), 'utf8');
+          console.log('Restored Aula 2 submissions with metrics into persistent disk /data/db.json');
+        }
+      }
+    } catch (e) {
+      console.error('Failed to verify/restore Aula 2 submissions in persistent disk:', e);
+    }
   }
 }
 
