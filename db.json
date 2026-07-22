@@ -18,7 +18,7 @@
           "risk": 350000,
           "years": 5,
           "breakPoint": "todos os cenários",
-          "justification": "A gente analisou o projeto e viu que a conta simplesmente não fecha. O valor do investimento inicial é muito pesado pra o que a IA traz de retorno anual, mesmo que a gente consiga a máxima eficiência sem nenhum risco. O payback de mais de 6 anos ultrapassa a própria vida útil do projeto. O VPL fica no vermelho em qualquer simulação.",
+          "justification": "Analisamos o projeto e vimos que a conta simplesmente não fecha. O valor do investimento inicial é muito elevado para o retorno anual gerado pela IA, mesmo que obtivéssemos a máxima eficiência sem sinistros de risco. O payback de mais de 6 anos ultrapassa a própria vida útil da tecnologia. O VPL permanece negativo em todas as simulações executadas.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 220.000,00",
@@ -51,7 +51,7 @@
           "risk": 400000,
           "years": 5,
           "breakPoint": "todos os cenários",
-          "justification": "A automação da farmácia robótica tem um custo de aquisição (CAPEX) muito alto. A economia que a gente teria reduzindo a equipe de farmácia não compensa o custo de manutenção e o perigo de parar a operação inteira se o robô der problema, o que custaria uns R$ 400 mil. A simulação mostra prejuízo e VPL negativo do começo ao fim.",
+          "justification": "A automação da farmácia robótica exige um CAPEX inicial muito alto. A economia que teríamos reduzindo a equipe de farmácia não compensa o custo de manutenção e a vulnerabilidade de paralisar a operação inteira se o robô apresentar alguma falha grave, cujo custo estimamos em R$ 400 mil. A simulação aponta prejuízo e VPL negativo do começo ao fim.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 228.000,00",
@@ -84,7 +84,7 @@
           "risk": 800000,
           "years": 5,
           "breakPoint": "pessimista",
-          "justification": "O projeto vale muito a pena no cenário esperado e no realista, dando um retorno financeiro rápido com payback na faixa de 2 anos e meio. Mas se o sinal de Wi-Fi cair muito e as enfermeiras abandonarem o sistema por frustração, o prejuízo operacional vai ser gigante. Precisamos blindar a infraestrutura de rede antes de rodar.",
+          "justification": "O projeto apresenta viabilidade nos cenários esperado e realista, proporcionando um retorno financeiro rápido com payback na faixa de 2,6 anos. Contudo, se a adoção do sistema cair por falhas na cobertura do Wi-Fi e a equipe médica abandonar o uso, o prejuízo operacional será considerável. Precisamos blindar a infraestrutura de rede antes de iniciar a operação.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 1.170.000,00",
@@ -117,7 +117,7 @@
           "risk": 500000,
           "years": 5,
           "breakPoint": "nenhum",
-          "justification": "Esse é o projeto mais seguro de todos. Como o investimento inicial é baixo (800 mil) e o retorno com a agilidade nos laudos de emergência é enorme, o projeto se paga em pouco mais de 1 ano. Mesmo se der o pior problema possível com erro médico por confiar demais na IA, o VPL ainda continua positivo em quase 470 mil.",
+          "justification": "Como o investimento inicial é baixo (800 mil) e o retorno com a agilidade nos laudos de emergência é expressivo, o projeto se paga em pouco mais de 1 ano. Mesmo que ocorra a materialização do risco de erro médico devido a excesso de confiança na ferramenta de IA, o VPL ainda permanece positivo em quase 470 mil.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 930.000,00",
@@ -150,7 +150,7 @@
           "risk": 2000000,
           "years": 5,
           "breakPoint": "todos os cenários",
-          "justification": "Gastar 5 milhões logo de cara em um hospital filantrópico é muito arriscado. A integração dos sistemas é boa, mas o VPL negativo de mais de 4 milhões no cenário realista mostra que a gente vai quebrar o caixa do hospital. O risco de paralisação na virada do sistema pode custar mais 2 milhões, o que inviabiliza a operação.",
+          "justification": "O aporte de 5 milhões para um hospital filantrópico representa um risco muito alto. Embora a integração de sistemas seja valiosa, o VPL negativo de mais de 4 milhões no cenário realista mostra que comprometeríamos severamente o fluxo de caixa. Somado a isso, o risco de instabilidade no go-live pode custar cerca de 2 milhões, inviabilizando a transição.",
           "metrics": {
             "expected": {
               "netBenefit": "R$ 495.000,00",
