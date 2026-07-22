@@ -27,17 +27,10 @@ if (fs.existsSync('/data')) {
         const persRaw = fs.readFileSync(persistentDbPath, 'utf8');
         const persData = JSON.parse(persRaw);
         
-        let needsRestore = false;
-        if (!persData.submissions || !persData.submissions.aula2 || !persData.submissions.aula2["1"] || !persData.submissions.aula2["1"].group || !persData.submissions.aula2["1"].group.metrics) {
-          needsRestore = true;
-        }
-        
-        if (needsRestore) {
-          persData.submissions = persData.submissions || {};
-          persData.submissions.aula2 = localData.submissions.aula2;
-          fs.writeFileSync(persistentDbPath, JSON.stringify(persData, null, 2), 'utf8');
-          console.log('Restored Aula 2 submissions with metrics into persistent disk /data/db.json');
-        }
+        persData.submissions = persData.submissions || {};
+        persData.submissions.aula2 = localData.submissions.aula2;
+        fs.writeFileSync(persistentDbPath, JSON.stringify(persData, null, 2), 'utf8');
+        console.log('Restored Aula 2 submissions with metrics into persistent disk /data/db.json');
       }
     } catch (e) {
       console.error('Failed to verify/restore Aula 2 submissions in persistent disk:', e);
