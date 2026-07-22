@@ -51,7 +51,7 @@
           "risk": 400000,
           "years": 5,
           "breakPoint": "Inviável em todas as situações.",
-          "justification": "O alto investimento inicial somado à manutenção pesada compromete o payback. O risco operacional de parada da robótica agrava o prejuízo.",
+          "justification": "O projeto apresenta VPL negativo nos cenários Esperado, Realista e Pessimista devido ao elevado CAPEX inicial e custo de manutenção.",
           "metrics": {
             "expected": {
               "roi": "-36.7%",
@@ -84,7 +84,7 @@
           "risk": 800000,
           "years": 5,
           "breakPoint": "Apenas no cenário de estresse pessimista.",
-          "justification": "Se a equipe médica não adotar o sistema por falhas no Wi-Fi, o retorno projetado desaba, gerando prejuízo no cenário pessimista.",
+          "justification": "Se a equipe não adotar o sistema por falhas no Wi-Fi, o retorno desaba, gerando prejuízo e inviabilidade no cenário Pessimista.",
           "metrics": {
             "expected": {
               "roi": "165.9%",
@@ -117,7 +117,7 @@
           "risk": 500000,
           "years": 5,
           "breakPoint": "Viável em qualquer simulação.",
-          "justification": "Custo inicial baixo e alta agilidade operacional blindam o projeto. O VPL continua viável mesmo com a ocorrência dos riscos de litígio.",
+          "justification": "A viabilidade econômica é alta nos cenários Esperado e Realista. Mesmo sob estresse no cenário Pessimista com riscos judiciais, o VPL continua positivo.",
           "metrics": {
             "expected": {
               "roi": "481.3%",
@@ -150,7 +150,7 @@
           "risk": 2000000,
           "years": 5,
           "breakPoint": "Inviável em todos os cenários analisados.",
-          "justification": "CAPEX de 5 milhões é proibitivo para o fluxo de caixa atual. A contingência de R$ 2M no go-live inviabiliza o projeto desde a partida.",
+          "justification": "O alto CAPEX compromete o fluxo de caixa. O risco de go-live traz sérios prejuízos inviabilizando a operação nos cenários Realista e Pessimista.",
           "metrics": {
             "expected": {
               "roi": "-50.5%",
